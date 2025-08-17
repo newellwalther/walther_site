@@ -1,0 +1,102 @@
+/* === Wash & Be Wash'd — shared styles === */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  font-family: "Times New Roman", serif;
+  margin: 0;
+  background: #ffffff;
+  color: #000;
+  line-height: 1.55;
+}
+
+/* Corner menu trigger + dropdown (web 1.0 vibe) */
+.menu {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 9999;
+}
+.menu-trigger {
+  width: 56px;
+  height: auto;
+  display: block;
+  cursor: pointer;
+  border: 1px solid #000;
+  background: #fff;
+  padding: 2px;
+}
+
+/* Dropdown */
+.dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 180px;
+  border: 1px solid #000;
+  background: #fff;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.dropdown li { border-bottom: 1px dotted #aaa; }
+.dropdown li:last-child { border-bottom: 0; }
+.dropdown a {
+  display: block;
+  padding: 10px 12px;
+  color: #000;
+  text-decoration: none;
+}
+.dropdown a:hover { background: #f2f2f2; }
+
+/* Show on hover for desktop; stays open when container hovered */
+.menu:hover .dropdown { display: block; }
+/* Show when JS toggles 'open' for mobile tap */
+.menu.open .dropdown { display: block; }
+
+/* Page scaffold */
+header {
+  text-align: center;
+  padding-top: 90px; /* space for corner menu */
+}
+h1 {
+  margin: 0 0 12px 0;
+  font-size: 28px;
+  font-weight: 600;
+}
+main { padding: 0 16px 80px; }
+
+/* Centerpiece WIP */
+.wip-center {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+}
+.wip-center img {
+  max-width: 320px;
+  height: auto;
+}
+.wip-text {
+  font-size: clamp(36px, 8vw, 72px);
+  font-weight: 700;
+  color: #d10000;
+  letter-spacing: 2px;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid #000;
+  padding: 14px 16px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Mobile tweaks */
+@media (max-width: 600px) {
+  .menu-trigger { width: 48px; }
+  .dropdown { min-width: 160px; }
+}
