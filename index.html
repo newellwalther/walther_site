@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wash & Be Wash'd — Home</title>
+  <title>Walther Worldwide — Home</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <!-- Menu -->
   <div class="menu">
     <img src="menu-trigger.jpg" alt="Menu" class="menu-trigger" aria-label="Open site menu" />
     <ul class="dropdown" role="menu">
@@ -19,39 +21,84 @@
     </ul>
   </div>
 
+  <!-- Header -->
   <header>
-    <h1>Wash & Be Wash'd</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
+    <h1>Walther Worldwide</h1>
+    <p></p>
   </header>
 
+  <!-- Main Globe Section -->
   <main>
-    <div class="wip-center">
-      <img src="wip.png" alt="Work in progress illustration" />
-      <div class="wip-text">WORK IN PROGRESS</div>
+    <div class="globe-container">
+      <img src="images/globe.png" alt="Globe" class="globe">
+      <div id="text" class="marquee-text"></div>
     </div>
   </main>
 
+  <!-- Footer -->
   <footer>
     © 2025 Andrew Newell Walther. All rights reserved.
   </footer>
 
+  <!-- Scripts -->
   <script src="menu.js"></script>
   <script>
-document.querySelectorAll(".dropdown").forEach(dropdown => {
-  let timeout;
+    // Dropdown hover
+    document.querySelectorAll(".dropdown").forEach(dropdown => {
+      let timeout;
+      dropdown.addEventListener("mouseenter", () => {
+        clearTimeout(timeout);
+        dropdown.classList.add("open");
+      });
+      dropdown.addEventListener("mouseleave", () => {
+        timeout = setTimeout(() => {
+          dropdown.classList.remove("open");
+        }, 250);
+      });
+    });
+  </script>
 
-  dropdown.addEventListener("mouseenter", () => {
-    clearTimeout(timeout);
-    dropdown.classList.add("open");
-  });
+  <script>
+    const phrases = [
+      "World Wide Web Walther",
+      "World Wide Walther Web",
+      "World Web Wide Walther",
+      "World Web Walther Wide",
+      "World Walther Wide Web",
+      "World Walther Web Wide",
+      "Wide World Web Walther",
+      "Wide World Walther Web",
+      "Wide Web World Walther",
+      "Wide Web Walther World",
+      "Wide Walther World Web",
+      "Wide Walther Web World",
+      "Web World Wide Walther",
+      "Web World Walther Wide",
+      "Web Wide World Walther",
+      "Web Wide Walther World",
+      "Web Walther World Wide",
+      "Web Walther Wide World",
+      "Walther World Wide Web",
+      "Walther World Web Wide",
+      "Walther Wide World Web",
+      "Walther Wide Web World",
+      "Walther Web World Wide",
+      "Walther Web Wide World"
+    ];
 
-  dropdown.addEventListener("mouseleave", () => {
-    timeout = setTimeout(() => {
-      dropdown.classList.remove("open");
-    }, 250); // delay before closing menu
-  });
-});
-</script>
+    let index = 0;
+    const textElement = document.getElementById("text");
 
+    function showNextPhrase() {
+      textElement.textContent = phrases[index];
+      index = (index + 1) % phrases.length;
+    }
+
+    // Start immediately
+    showNextPhrase();
+
+    // Change phrase after every orbit (10s per revolution)
+    setInterval(showNextPhrase, 10000);
+  </script>
 </body>
 </html>
