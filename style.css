@@ -99,4 +99,28 @@ footer {
 @media (max-width: 600px) {
   .menu-trigger { width: 48px; }
   .dropdown { min-width: 160px; }
+}/* Fix dropdown menu hover issue */
+nav ul li {
+  position: relative; /* Ensures submenus are positioned properly */
+}
+
+nav ul li ul {
+  display: none;
+  position: absolute;
+  top: 100%; /* places dropdown directly below parent */
+  left: 0;
+  background: white; /* so text doesn’t overlap page background */
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  min-width: 150px; /* keeps dropdown wide enough */
+  z-index: 9999; /* ensures dropdown stays on top */
+}
+
+nav ul li:hover > ul {
+  display: block;
+}
+
+nav ul li ul li {
+  display: block; /* stack dropdown items vertically */
 }

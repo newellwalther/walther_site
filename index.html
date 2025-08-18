@@ -32,9 +32,26 @@
   </main>
 
   <footer>
-    © 2025 Walther. All rights reserved.
+    © 2025 Andrew Newell Walther. All rights reserved.
   </footer>
 
   <script src="menu.js"></script>
+  <script>
+document.querySelectorAll(".dropdown").forEach(dropdown => {
+  let timeout;
+
+  dropdown.addEventListener("mouseenter", () => {
+    clearTimeout(timeout);
+    dropdown.classList.add("open");
+  });
+
+  dropdown.addEventListener("mouseleave", () => {
+    timeout = setTimeout(() => {
+      dropdown.classList.remove("open");
+    }, 250); // delay before closing menu
+  });
+});
+</script>
+
 </body>
 </html>
