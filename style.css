@@ -99,31 +99,9 @@ footer {
 @media (max-width: 600px) {
   .menu-trigger { width: 48px; }
   .dropdown { min-width: 160px; }
-}/* Fix dropdown menu hover issue */
-nav ul li {
-  position: relative; /* Ensures submenus are positioned properly */
 }
 
-nav ul li ul {
-  display: none;
-  position: absolute;
-  top: 100%; /* places dropdown directly below parent */
-  left: 0;
-  background: white; /* so text doesn’t overlap page background */
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  min-width: 150px; /* keeps dropdown wide enough */
-  z-index: 9999; /* ensures dropdown stays on top */
-}
-
-nav ul li:hover > ul {
-  display: block;
-}
-
-nav ul li ul li {
-  display: block; /* stack dropdown items vertically */
-}
+/* About page */
 .about-container {
   display: flex;
   flex-wrap: wrap;
@@ -133,71 +111,56 @@ nav ul li ul li {
   max-width: 900px;
   line-height: 1.6;
 }
-
 .about-photo img {
   max-width: 220px;
   border-radius: 4px;
   filter: grayscale(100%);
 }
-
-.about-text {
-  flex: 1;
-  min-width: 300px;
-}
-
-.about-text h1 {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
+.about-text { flex: 1; min-width: 300px; }
+.about-text h1 { font-size: 2rem; margin-bottom: 0.5rem; }
 .about-text h2 {
   font-size: 1.2rem;
   margin-bottom: 1rem;
   font-weight: 400;
   color: #555;
 }
-
 .about-text h3 {
   margin-top: 1.5rem;
   font-size: 1.1rem;
   color: #333;
 }
+.about-text ul { list-style-type: none; padding: 0; }
+.about-text ul li { margin-bottom: 1rem; }
 
-.about-text ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.about-text ul li {
-  margin-bottom: 1rem;
-}
+/* Globe + orbiting marquee text */
 .globe-container {
   position: relative;
-  width: 400px;
-  height: 400px;
+  width: 300px;   /* match globe image */
+  height: 300px;
   margin: 2rem auto;
 }
-
 .globe {
   width: 100%;
   height: auto;
   border-radius: 50%;
+  display: block;
   z-index: 1;
-  position: relative;
 }
-
 .marquee-text {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 20px;
   white-space: nowrap;
+  font-size: 18px;
+  font-weight: bold;
   color: white;
+  text-shadow: 0 0 4px black;
   animation: orbit 10s linear infinite;
 }
 
+/* Orbit animation: rotate around center */
 @keyframes orbit {
-  from { transform: rotate(0deg) translateX(220px) rotate(0deg); }
-  to   { transform: rotate(360deg) translateX(220px) rotate(-360deg); }
+  from { transform: rotate(0deg) translateX(160px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(160px) rotate(-360deg); }
 }
