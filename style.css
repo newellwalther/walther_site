@@ -164,6 +164,7 @@ footer {
   from { transform: rotate(0deg) translateX(160px) rotate(0deg); }
   to   { transform: rotate(360deg) translateX(160px) rotate(-360deg); }
 }
+
 /* Shared base styles */
 .social-buttons {
   display: flex;
@@ -172,7 +173,7 @@ footer {
   justify-content: center;
 }
 
-/* Homepage style */
+/* Homepage style - greyscale buttons */
 .homepage-social .social-btn {
   display: flex;
   align-items: center;
@@ -180,27 +181,32 @@ footer {
   padding: 8px 14px;
   font-size: 14px;
   font-weight: bold;
-  color: #fff;
-  border: 1px solid #2b2b2b;
+  color: #000; /* black text */
+  border: 1px solid #444;
   border-radius: 6px;
-  background: linear-gradient(to bottom, #dfe9f3, #9cbbe8); /* XP blue gradient */
-  box-shadow: inset 1px 1px 2px rgba(255,255,255,0.6),
-              inset -1px -1px 2px rgba(0,0,0,0.2),
-              1px 1px 4px rgba(0,0,0,0.2);
+  background: linear-gradient(to bottom, #f9f9f9, #d0d0d0); /* light grey gradient */
+  box-shadow: inset 1px 1px 2px rgba(255,255,255,0.7),
+              inset -1px -1px 2px rgba(0,0,0,0.15),
+              1px 1px 4px rgba(0,0,0,0.25);
   text-decoration: none;
-  transition: transform 0.1s ease-in-out;
+  transition: transform 0.1s ease-in-out,
+              background 0.2s ease-in-out,
+              color 0.2s ease-in-out;
 }
 
 .homepage-social .social-btn:hover {
   transform: scale(1.05);
+  background: linear-gradient(to bottom, #e0e0e0, #b0b0b0); /* darker grey hover */
+  color: #111;
 }
 
-/* Footer style */
+/* Footer style - greyscale */
 .footer-social .social-btn {
   font-size: 18px;
-  color: #666;
+  color: #555;
   text-decoration: none;
   padding: 6px;
+  transition: color 0.2s ease-in-out;
 }
 
 .footer-social .social-btn:hover {
