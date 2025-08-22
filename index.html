@@ -1,17 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Walther Worldwide — Home</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: #fff;
+      color: #000;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      margin: 1rem 0;
+      font-weight: bold;
+    }
+
+    .globe-container {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      margin: 2rem auto;
+    }
+
+    .globe {
+      width: 100%;
+      height: auto;
+      display: block;
+      position: relative;
+      z-index: 2;
+    }
+
+    .orbit-text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 400px;
+      height: 400px;
+      z-index: 1;
+      animation: spin 12s linear infinite;
+      transform-origin: 50% 50%;
+    }
+
+    .orbit-text text {
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      fill: #000;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .wip-text {
+      margin-top: 1rem;
+      font-size: 1.25rem;
+      font-style: italic;
+    }
+
+    .social-buttons {
+      margin-top: 1.5rem;
+    }
+
+    .social-btn {
+      margin: 0 0.5rem;
+      text-decoration: none;
+      font-weight: bold;
+      color: #000;
+      border: 1px solid #000;
+      padding: 0.4rem 0.8rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-btn:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding: 1rem;
+      border-top: 1px solid #000;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-
   <!-- Menu -->
-  <div class="menu">
-    <img src="menu-trigger.jpg" alt="Menu" class="menu-trigger" aria-label="Open site menu" />
-    <ul class="dropdown" role="menu">
+  <nav class="menu">
+    <img src="20027.png" alt="Menu" class="menu-trigger">
+    <ul class="dropdown">
       <li><a href="index.html">Home</a></li>
       <li><a href="paintings.html">Paintings</a></li>
       <li><a href="exhibitions.html">Exhibitions</a></li>
@@ -19,108 +105,75 @@
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
-  </div>
+  </nav>
 
   <!-- Header -->
   <header>
     <h1>Walther Worldwide</h1>
-    <p></p>
   </header>
 
-  <!-- Main Globe Section -->
+  <!-- Main -->
   <main>
     <div class="globe-container">
-      <img src="images/globe.png" alt="Globe" class="globe">
-      <div id="text" class="marquee-text"></div>
+      <!-- Globe -->
+      <img src="world-icon-hand-drawn-illustration-editable-line-stroke-vector.jpg" alt="Globe" class="globe">
+
+      <!-- Orbiting circular text -->
+      <svg class="orbit-text" viewBox="0 0 400 400">
+        <defs>
+          <path id="circlePath" d="M200,200 m-170,0 a170,170 0 1,1 340,0 a170,170 0 1,1 -340,0"/>
+        </defs>
+        <text dy="5">
+          <textPath href="#circlePath" startOffset="0%" textLength="1060" method="stretch" spacing="auto" id="orbit-text-path">
+            <!-- JS injects text -->
+          </textPath>
+        </text>
+      </svg>
+    </div>
+
+    <div class="wip-text">Work In Progress</div>
+
+    <!-- Social Media -->
+    <div class="social-buttons homepage-social">
+      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank">Instagram</a>
+      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank">Twitter</a>
+      <a class="social-btn" href="https://wa.me/84339441925" target="_blank">WhatsApp</a>
     </div>
   </main>
-<body>
-  <!-- Your header/nav here -->
-
-  <main class="flex flex-col items-center text-center p-6">
-    <!-- Globe with rotating text -->
-    <section id="globe-section" class="mb-6">
-      <!-- your globe code here -->
-    </section>
-
-    <!-- Social Media Buttons (Homepage) -->
-    <<div class="social-buttons homepage-social">
-  <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank">📷 Instagram</a>
-  <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank">🐦 Twitter</a>
-  <a class="social-btn" href="https://wa.me/84339441925" target="_blank">💬 WhatsApp</a>
-</div>
-
-      </a>
-    </section>
-  </main>
-
-  <!-- Homepage does NOT need footer social links -->
-</body>
 
   <!-- Footer -->
   <footer>
-    © 2025 Andrew Newell Walther. All rights reserved.
+    &copy; 2025 Andrew Newell Walther. All rights reserved.
   </footer>
 
   <!-- Scripts -->
-  <script src="menu.js"></script>
   <script>
-    // Dropdown hover
-    document.querySelectorAll(".dropdown").forEach(dropdown => {
-      let timeout;
-      dropdown.addEventListener("mouseenter", () => {
-        clearTimeout(timeout);
-        dropdown.classList.add("open");
-      });
-      dropdown.addEventListener("mouseleave", () => {
-        timeout = setTimeout(() => {
-          dropdown.classList.remove("open");
-        }, 250);
-      });
-    });
-  </script>
+    // All 24 permutations of Walther / Web / World / Wide
+    const words = ["Walther", "Web", "World", "Wide"];
 
-  <script>
-    const phrases = [
-      "World Wide Web Walther",
-      "World Wide Walther Web",
-      "World Web Wide Walther",
-      "World Web Walther Wide",
-      "World Walther Wide Web",
-      "World Walther Web Wide",
-      "Wide World Web Walther",
-      "Wide World Walther Web",
-      "Wide Web World Walther",
-      "Wide Web Walther World",
-      "Wide Walther World Web",
-      "Wide Walther Web World",
-      "Web World Wide Walther",
-      "Web World Walther Wide",
-      "Web Wide World Walther",
-      "Web Wide Walther World",
-      "Web Walther World Wide",
-      "Web Walther Wide World",
-      "Walther World Wide Web",
-      "Walther World Web Wide",
-      "Walther Wide World Web",
-      "Walther Wide Web World",
-      "Walther Web World Wide",
-      "Walther Web Wide World"
-    ];
+    function* permute(arr, prefix = []) {
+      if (!arr.length) yield prefix;
+      for (let i = 0; i < arr.length; i++) {
+        yield* permute([...arr.slice(0, i), ...arr.slice(i + 1)], [...prefix, arr[i]]);
+      }
+    }
+
+    const permutations = [...permute(words)];
+    const phrases = permutations.map(p => p.join(" ") + " ✦ " + p.join(" ") + " ✦ " + p.join(" ") + " ✦");
 
     let index = 0;
-    const textElement = document.getElementById("text");
+    const textPath = document.getElementById("orbit-text-path");
 
     function showNextPhrase() {
-      textElement.textContent = phrases[index];
+      textPath.textContent = phrases[index];
       index = (index + 1) % phrases.length;
     }
 
     // Start immediately
     showNextPhrase();
 
-    // Change phrase after every orbit (10s per revolution)
-    setInterval(showNextPhrase, 10000);
+    // Change after each full 12s rotation
+    setInterval(showNextPhrase, 12000);
   </script>
 </body>
 </html>
