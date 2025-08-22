@@ -1,106 +1,166 @@
-/* General Reset */
-body {
+/* ------------------------------
+   GLOBAL RESET + BASE
+------------------------------ */
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
   background: #fff;
   color: #000;
   text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Menu */
+/* ------------------------------
+   MENU
+------------------------------ */
 .menu {
-  position: relative;
-  display: inline-block;
-  margin: 1rem;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 9999; /* always on top */
 }
 
 .menu-trigger {
   width: 40px;
+  height: 40px;
   cursor: pointer;
 }
 
 .dropdown {
   list-style: none;
-  padding: 0;
-  margin: 0;
   position: absolute;
-  display: none;
+  top: 50px;
+  left: 0;
   background: white;
   border: 1px solid #ccc;
+  display: none;
+  flex-direction: column;
+  min-width: 180px;
+  text-align: left;
+  padding: 10px 0;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+  z-index: 9999;
+}
+
+.menu.open .dropdown {
+  display: flex;
 }
 
 .dropdown li {
-  padding: 8px 12px;
+  padding: 8px 16px;
 }
 
 .dropdown li a {
-  text-decoration: none;
   color: black;
-}
-
-.dropdown.open {
+  text-decoration: none;
   display: block;
 }
 
-/* Header */
-header h1 {
-  margin: 1rem 0;
+.dropdown li a:hover {
+  background: #f0f0f0;
 }
 
-/* Globe Container */
+/* ------------------------------
+   HEADER
+------------------------------ */
+header {
+  padding: 60px 20px 20px;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+/* ------------------------------
+   GLOBE + ROTATING TEXT
+------------------------------ */
 .globe-container {
   position: relative;
   width: 400px;
   height: 400px;
-  margin: 2rem auto;
+  margin: 40px auto;
 }
 
 .globe {
   width: 100%;
   height: auto;
   display: block;
+  margin: 0 auto;
+  z-index: 1;
 }
 
-/* Rotating Text */
 .rotating-text {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
-  transform: rotate(0deg);
   animation: spin 12s linear infinite;
+  z-index: 2;
+  pointer-events: none; /* let clicks pass through */
 }
 
 @keyframes spin {
   from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  to { transform: rotate(360deg); }
 }
 
-/* Social Buttons */
+/* ------------------------------
+   PAGE CONTENT
+------------------------------ */
+main {
+  flex: 1;
+  padding: 20px;
+}
+
+main p, main img {
+  max-width: 800px;
+  margin: 20px auto;
+  display: block;
+  text-align: left;
+}
+
+/* ------------------------------
+   SOCIAL BUTTONS
+------------------------------ */
 .social-buttons {
-  margin: 2rem auto;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
 }
 
 .social-btn {
-  display: inline-block;
-  margin: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  background: #000;
-  color: #fff;
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   text-decoration: none;
-  transition: background 0.3s ease;
+  color: black;
+  font-size: 0.9rem;
+  transition: background 0.3s;
 }
 
 .social-btn:hover {
-  background: #444;
+  background: #f0f0f0;
 }
 
-/* Footer */
+/* ------------------------------
+   FOOTER
+------------------------------ */
 footer {
-  margin-top: 3rem;
-  font-size: 0.85rem;
-  color: #555;
+  background: #f8f8f8;
+  color: #666;
+  font-size: 0.8rem;
+  padding: 15px;
+  text-align: center;
+  border-top: 1px solid #ddd;
 }
