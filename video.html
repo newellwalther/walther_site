@@ -5,6 +5,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Walther Worldwide — Video</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Global Dark Mode */
+    body {
+      background-color: #000;
+      color: #fff;
+    }
+    header, main, footer {
+      background-color: #000;
+      color: #fff;
+    }
+    h1, h2, p, a, button {
+      color: #fff;
+    }
+    button {
+      background-color: #000;
+      color: #fff;
+      border: 1px solid #fff;
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #222;
+    }
+    .social-btn {
+      font-size: 1.5rem;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+    .social-btn:hover {
+      opacity: 0.7;
+    }
+    iframe {
+      border: 1px solid #fff;
+    }
+    footer {
+      border-top: 1px solid #fff;
+    }
+
+    /* Menu overrides — keep visible */
+    .menu {
+      background-color: #fff;
+      color: #000;
+    }
+    .menu-trigger {
+      background-color: #fff;
+      color: #000;
+      border: 1px solid #000;
+    }
+    .dropdown {
+      background-color: #fff;
+      border: 1px solid #000;
+    }
+    .dropdown a {
+      color: #000;
+    }
+    .dropdown a:hover {
+      background-color: #eee;
+    }
+  </style>
 </head>
 <body>
   <div class="menu">
@@ -26,11 +85,51 @@
   </header>
 
   <main>
-    <p>Video content will go here.</p>
+    <section>
+      <h2>Feature-Length Trailer for My Very Long Movie</h2>
+      <div class="video-container">
+        <iframe src="https://player.vimeo.com/video/238863304" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section>
+      <h2>This Sexy Never Ends</h2>
+      <div class="video-container">
+        <iframe width="640" height="360" src="https://www.youtube.com/embed/tM2ChsrfryY" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section>
+      <h2>Screen-o</h2>
+      <div class="video-container">
+        <iframe width="640" height="360" src="https://www.youtube.com/embed/VvgWH3II588" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section>
+      <h2>Pris: Ethyl A</h2>
+      <div class="video-container">
+        <iframe width="640" height="360" src="https://www.youtube.com/embed/M0TJIGnZZB8?start=64" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <div class="youtube-link">
+      <a href="https://www.youtube.com/@newellwalther" target="_blank">
+        <button>YouTube</button>
+      </a>
+    </div>
   </main>
 
-  <footer>
-    © 2025 Andrew Newell Walther. All rights reserved.
+  <footer class="mt-12 py-6 border-t text-center text-gray-500">
+    <div class="flex justify-center space-x-6"></div>
+
+    <div class="social-buttons footer-social">
+      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" aria-label="Instagram">📷</a>
+      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" aria-label="Twitter">🐦</a>
+      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" aria-label="WhatsApp">💬</a>
+    </div>
+
+    <p>© 2025 Walther. All rights reserved.</p>
   </footer>
 
   <script src="menu.js"></script>
