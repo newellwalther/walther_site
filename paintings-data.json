@@ -70,4 +70,142 @@
           "filename": "dog and man large.png",
           "title": "Dog & Man",
           "year": "2022",
-          "medium"
+          "medium": "Oil on canvas"
+        },
+        {
+          "filename": "eggs higher.png",
+          "title": "Eggs",
+          "year": "2022",
+          "medium": "Oil on canvas"
+        },
+        {
+          "filename": "hull.png",
+          "title": "Bow",
+          "year": "2024",
+          "medium": "Oil on canvas"
+        },
+        {
+          "filename": "Immolating-Man-and-Book.png",
+          "title": "Immolating Man and Book",
+          "year": "2019",
+          "medium": "Oil on canvas"
+        },
+        {
+          "filename": "meats high.png",
+          "title": "Meats on Table",
+          "year": "2018",
+          "medium": "Oil on canvas",
+          "dimensions": "60 x 80cm"
+        },
+        {
+          "filename": "iPod-Double-Helix.png",
+          "title": "iPod Decoded",
+          "year": "2018",
+          "medium": "Oil on canvas"
+        },
+        {
+          "filename": "pearl.png",
+          "title": "Pearl",
+          "year": "2018",
+          "medium": "Oil on canvas"
+        },
+        {
+          "filename": "swan4.png",
+          "title": "Swan 4",
+          "year": "2025",
+          "medium": "Oil on canvas"
+        },
+        {
+          "filename": "dragons_1200.png",
+          "title": "Chinese Dragons",
+          "year": "2018",
+          "medium": "Oil on canvas"
+        },
+        {
+          "filename": "weeping.png",
+          "title": "Red Sail",
+          "year": "2020",
+          "medium": "Oil on canvas"
+        },
+        {
+          "filename": "sweeper.png",
+          "title": "Sweeper",
+          "year": "2018",
+          "medium": "Oil on canvas"
+        },
+        {
+          "filename": "music is real.png",
+          "title": "Music is Real",
+          "year": "2025",
+          "medium": "Oil on canvas"
+        }
+      ]
+    },
+    {
+      "title": "Unstretched",
+      "subtitle": "Acrylic on raw canvas",
+      "images": [
+        {
+          "filename": "wrong in itself.png",
+          "title": "Wrong in Itself",
+          "year": "2015",
+          "medium": "Acrylic on raw canvas"
+        },
+        {
+          "filename": "Erased saint.png",
+          "title": "Erased Saint",
+          "year": "2015",
+          "medium": "Acrylic on raw canvas"
+        },
+        {
+          "filename": "God at leisure diptych.png",
+          "title": "God at Leisure",
+          "year": "2013",
+          "medium": "Acrylic on raw canvas"
+        },
+        {
+          "filename": "Not Omitting the Washing of Feet.png",
+          "title": "Not Omitting the Washing of Feet",
+          "year": "2014",
+          "medium": "Acrylic on raw canvas"
+        },
+        {
+          "filename": "beehive:allergies.png",
+          "title": "Beehive/Allergies",
+          "year": "2015",
+          "medium": "Acrylic on raw canvas"
+        },
+        {
+          "filename": "blameless and holy.png",
+          "title": "Blameless and Holy",
+          "year": "2015",
+          "medium": "Acrylic on raw canvas"
+        },
+        {
+          "filename": "manic.png",
+          "title": "Manic",
+          "year": "2015",
+          "medium": "Acrylic on raw canvas"
+        },
+        {
+          "filename": "pieta.png",
+          "title": "Pieta",
+          "year": "2015",
+          "medium": "Acrylic on raw canvas"
+        },
+        {
+          "filename": "wall kisser:gossipers.png",
+          "title": "Wall Kisser/Gossipers",
+          "year": "2015",
+          "medium": "Acrylic on raw canvas"
+        },
+        {
+          "filename": "confused man and mouse with cheese.png",
+          "title": "Confused Man and Mouse with Cheese",
+          "year": "2015",
+          "medium": "Acrylic on raw canvas"
+        }
+      ]
+    }
+  ]
+}
