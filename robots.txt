@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Keep links page private (only accessible via direct link)
+Disallow: /links.html
+
+# Sitemap location
+Sitemap: https://walther.website/sitemap.xml

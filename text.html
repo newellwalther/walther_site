@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Text — Andrew Newell Walther</title>
+  <meta name="description" content="Text works by Andrew Newell Walther">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☯️</text></svg>">
+  
+  <link rel="stylesheet" href="style.css" />
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XGRYTSC23"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6XGRYTSC23');
+  </script>
+  
+  <style>
+    /* Black background, white text */
+    body {
+      background-color: #000;
+      color: #fff;
+    }
+
+    header, main, footer {
+      background-color: #000;
+      color: #fff;
+    }
+
+    h1, h2, p, a {
+      color: #fff;
+    }
+
+    /* Menu visibility on black background */
+    .menu-trigger {
+      background-color: #fff;
+      color: #000;
+      border: 1px solid #fff;
+    }
+
+    .menu-trigger:hover {
+      background-color: #000;
+      color: #fff;
+    }
+
+    .dropdown {
+      background-color: #fff;
+      border: 1px solid #fff;
+    }
+
+    .dropdown a {
+      color: #000;
+    }
+
+    .dropdown a:hover {
+      background-color: #eee;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .video-section {
+      margin-bottom: 4rem;
+    }
+
+    .video-section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 1px solid #666;
+    }
+
+    .video-description {
+      line-height: 1.8;
+      text-align: left;
+      margin: 0 auto;
+      max-width: 700px;
+    }
+
+    .video-description p {
+      margin-bottom: 1rem;
+    }
+
+    /* Two-column layout for bottom videos */
+    .videos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    /* Offset effect */
+    .videos-grid .video-section:first-child {
+      margin-top: 2rem;
+    }
+
+    .newsletter-link {
+      color: #fff;
+    }
+
+    .newsletter-link:hover {
+      color: #ccc;
+    }
+
+    footer {
+      border-top: 1px solid #666;
+    }
+
+    @media (max-width: 768px) {
+      .videos-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .videos-grid .video-section:first-child {
+        margin-top: 0;
+      }
+
+      .video-section h2 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Menu -->
+  <div class="menu">
+    <button class="menu-trigger" aria-label="Open site menu">MENU</button>
+    <ul class="dropdown" role="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="paintings.html">Paintings</a></li>
+      <li><a href="drawings.html">Drawings</a></li>
+      <li><a href="text.html">Text</a></li>
+      <li><a href="exhibitions.html">Exhibitions / CV</a></li>
+      <li><a href="video.html">Video</a></li>
+      <li><a href="https://19933.biz/manhattanartcomic.html" target="_blank">🔗 Manhattan Art Comic</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <header>
+    <h1>Text</h1>
+  </header>
+
+  <main>
+    <!-- FEATURED VIDEO (TOP) -->
+    <section class="video-section">
+      <h2>Andrew Newell Walther's Super-Feature Text Movie</h2>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/EgjbIcrp4og" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="video-description">
+        <p>
+          These are 24-minute clips of 24-hour-long video works which comprise 3 days in total:
+        </p>
+        <p>
+          Each is a 24-hour-long silent digital video rendered as a deterministic slideshow of tens of thousands of images, each containing a single word or short phrase, for seven seconds each. This dataset was obtained over several years of persistent work. Images are derived from legal, administrative, historical, political, and personal documents by isolating text fragments and saving each as an image file whose filename exactly matches the visible text; filenames function as internal metadata and are not exposed during playback in this form but the process of labelling each manually applied throughout its collection.
+        </p>
+        <p>
+          The dataset is closed and does not repeat over the course of the 3-day-long work. Image order is intentionally randomized and fixed, with uniform timing producing three 24-hour runtimes; if looped, identical content appears at identical time offsets. Each day includes approximately 12,343 images.
+        </p>
+        <p>
+          Source documents are not shown intact and identifying context has been removed to eliminate traceability and functional reuse. Any modification to sequence, timing, or content constitutes a different work or version. This version is distributed as identical editions, can be collected as individual days (5ed of each) or as a set of all 3 days (5ed.)
+        </p>
+      </div>
+    </section>
+
+    <!-- BOTTOM TWO VIDEOS (SIDE BY SIDE, OFFSET) -->
+    <div class="videos-grid">
+      <section class="video-section">
+        <h2>Day 3</h2>
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/_vB0uJK5DA8" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </section>
+
+      <section class="video-section">
+        <h2>Day 2</h2>
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/Ul3klpv4RTI" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="social-buttons footer-social">
+      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" aria-label="Instagram">📷</a>
+      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" aria-label="Twitter">🐦</a>
+      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" aria-label="WhatsApp">💬</a>
+    </div>
+    <a href="contact.html#newsletter" class="newsletter-link">Newsletter</a>
+    <p>© 2025 Andrew Newell Walther. All rights reserved.</p>
+  </footer>
+
+  <script src="menu.js"></script>
+</body>
+</html>

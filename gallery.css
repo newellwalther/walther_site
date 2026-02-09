@@ -1,0 +1,422 @@
+/* ==============================
+   GALLERY SYSTEM STYLES
+============================== */
+
+/* Gallery Container */
+#gallery-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Series Section */
+.gallery-series {
+  margin-bottom: 4rem;
+}
+
+.series-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.series-title {
+  font-size: 2rem;
+  font-weight: normal;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.series-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  font-style: italic;
+}
+
+/* Horizontal Scroll Row */
+.series-scroll-row {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 1rem 0;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  
+  /* Hide scrollbar but keep functionality */
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+}
+
+.series-scroll-row::-webkit-scrollbar {
+  height: 6px;
+}
+
+.series-scroll-row::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.series-scroll-row::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+/* Thumbnail Container */
+.gallery-thumb-container {
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.gallery-thumb-container:hover {
+  transform: translateY(-4px);
+}
+
+.gallery-thumb {
+  height: 240px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-thumb:hover {
+  opacity: 0.9;
+}
+
+/* Museum Label Overlay */
+.museum-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  text-align: center;
+}
+
+.gallery-thumb-container:hover .museum-label {
+  opacity: 1;
+}
+
+/* ==============================
+   LIGHTBOX
+============================== */
+
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox-content {
+  position: relative;
+  width: 90%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.lightbox-image-container {
+  position: relative;
+  max-width: 100%;
+  max-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#lightbox-image {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  cursor: zoom-in;
+}
+
+#lightbox-image.zoomed {
+  transform: scale(2);
+  cursor: zoom-out;
+  max-width: none;
+  max-height: none;
+}
+
+/* Lightbox Controls */
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next,
+.lightbox-zoom {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: background 0.2s ease;
+  user-select: none;
+}
+
+.lightbox-close:hover,
+.lightbox-prev:hover,
+.lightbox-next:hover,
+.lightbox-zoom:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.lightbox-close {
+  top: 1rem;
+  right: 1rem;
+  font-size: 3rem;
+  line-height: 1;
+  padding: 0.25rem 0.75rem;
+}
+
+.lightbox-prev {
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 4rem;
+  line-height: 1;
+  padding: 0.5rem 1rem;
+}
+
+.lightbox-next {
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 4rem;
+  line-height: 1;
+  padding: 0.5rem 1rem;
+}
+
+.lightbox-zoom {
+  bottom: 6rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+}
+
+/* Lightbox Caption */
+.lightbox-caption {
+  color: white;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1rem;
+  max-width: 80%;
+}
+
+/* Series Transition Card */
+.lightbox-series-card {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  min-height: 300px;
+}
+
+.lightbox-series-card h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.lightbox-series-card p {
+  font-size: 1.5rem;
+  color: #ccc;
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
+.series-arrow {
+  font-size: 4rem;
+  margin-top: 1rem;
+}
+
+/* ==============================
+   LIST VIEW
+============================== */
+
+#list-view-toggle {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background: #000;
+  color: #fff;
+  border: 1px solid #000;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+#list-view-toggle:hover {
+  background: #fff;
+  color: #000;
+}
+
+.list-view .series-scroll-row {
+  display: block;
+}
+
+.list-view .gallery-thumb-container {
+  margin: 2rem auto;
+  max-width: 800px;
+  text-align: center;
+}
+
+.list-view .gallery-thumb {
+  height: auto;
+  max-width: 100%;
+  margin: 0 auto 1rem;
+}
+
+.list-view .museum-label {
+  position: static;
+  opacity: 1;
+  background: transparent;
+  color: #000;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  animation: fadeInOut 1s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* ==============================
+   MOBILE RESPONSIVE
+============================== */
+
+@media (max-width: 768px) {
+  .series-title {
+    font-size: 1.5rem;
+  }
+
+  .series-subtitle {
+    font-size: 1rem;
+  }
+
+  .gallery-thumb {
+    height: 180px;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    font-size: 3rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .lightbox-close {
+    font-size: 2rem;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .lightbox-zoom {
+    bottom: 5rem;
+    right: 0.5rem;
+  }
+
+  .lightbox-caption {
+    font-size: 0.9rem;
+    /* Show by default on mobile, tap to hide */
+  }
+
+  .lightbox-series-card h2 {
+    font-size: 2rem;
+  }
+
+  .lightbox-series-card p {
+    font-size: 1.2rem;
+  }
+
+  #list-view-toggle {
+    top: 60px;
+    right: 10px;
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  /* Mobile hint for series scroll */
+  .gallery-series {
+    position: relative;
+  }
+
+  .gallery-series::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 40px;
+    height: 100px;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.5));
+    pointer-events: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .lightbox,
+  .menu,
+  #list-view-toggle,
+  .series-scroll-row {
+    display: none !important;
+  }
+
+  .gallery-series {
+    page-break-inside: avoid;
+  }
+
+  .gallery-thumb-container {
+    display: block;
+    margin: 2rem auto;
+    page-break-inside: avoid;
+  }
+
+  .gallery-thumb {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .museum-label {
+    position: static;
+    opacity: 1;
+    background: white;
+    color: black;
+    padding: 0.5rem 0;
+    page-break-before: avoid;
+  }
+
+  .museum-label::after {
+    content: ' — Andrew Newell Walther';
+    font-weight: bold;
+  }
+}

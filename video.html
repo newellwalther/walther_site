@@ -3,8 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Walther Worldwide — Video</title>
+  <title>Video — Andrew Newell Walther</title>
+  <meta name="description" content="Video works by Andrew Newell Walther">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☯️</text></svg>">
+  
   <link rel="stylesheet" href="style.css">
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XGRYTSC23"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6XGRYTSC23');
+  </script>
+  
   <style>
     /* Global Dark Mode */
     body {
@@ -63,6 +78,13 @@
     .dropdown a:hover {
       background-color: #eee;
     }
+
+    .newsletter-link {
+      color: #fff;
+    }
+    .newsletter-link:hover {
+      color: #ccc;
+    }
   </style>
 </head>
 <body>
@@ -71,8 +93,9 @@
     <ul class="dropdown" role="menu">
       <li><a href="index.html">Home</a></li>
       <li><a href="paintings.html">Paintings</a></li>
-      <li><a href="exhibitions.html">Exhibitions</a></li>
       <li><a href="drawings.html">Drawings</a></li>
+      <li><a href="text.html">Text</a></li>
+      <li><a href="exhibitions.html">Exhibitions / CV</a></li>
       <li><a href="video.html">Video</a></li>
       <li><a href="https://19933.biz/manhattanartcomic.html" target="_blank">🔗 Manhattan Art Comic</a></li>
       <li><a href="about.html">About</a></li>
@@ -91,7 +114,6 @@
         <iframe src="https://player.vimeo.com/video/238863304" width="640" height="360" frameborder="0" allowfullscreen></iframe>
       </div>
     </section>
-
 
     <section>
       <h2>Screen-o</h2>
@@ -114,8 +136,6 @@
       </div>
     </section>
 
-
-
     <div class="youtube-link">
       <a href="https://www.youtube.com/@newellwalther" target="_blank">
         <button>YouTube</button>
@@ -124,15 +144,13 @@
   </main>
 
   <footer class="mt-12 py-6 border-t text-center text-gray-500">
-    <div class="flex justify-center space-x-6"></div>
-
     <div class="social-buttons footer-social">
       <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" aria-label="Instagram">📷</a>
       <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" aria-label="Twitter">🐦</a>
       <a class="social-btn" href="https://wa.me/84339441925" target="_blank" aria-label="WhatsApp">💬</a>
     </div>
-
-    <p>© 2025 Walther. All rights reserved.</p>
+    <a href="contact.html#newsletter" class="newsletter-link">Newsletter</a>
+    <p>© 2025 Andrew Newell Walther. All rights reserved.</p>
   </footer>
 
   <script src="menu.js"></script>

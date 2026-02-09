@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Andrew Newell Walther — New Works</title>
+    <link>https://walther.website</link>
+    <description>Updates on new paintings, drawings, and exhibitions by Andrew Newell Walther</description>
+    <language>en-us</language>
+    <atom:link href="https://walther.website/feed.xml" rel="self" type="application/rss+xml"/>
+    
+    <!-- 
+    TO UPDATE THIS FEED:
+    Add new <item> entries below when you add new works or exhibitions.
+    Each item should have: title, link, description, pubDate
+    
+    Example:
+    <item>
+      <title>New Series: Blue Studies</title>
+      <link>https://walther.website/paintings.html</link>
+      <description>A new series of oil paintings exploring color and form</description>
+      <pubDate>Mon, 06 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    -->
+    
+    <item>
+      <title>Website Launch</title>
+      <link>https://walther.website</link>
+      <description>New artist website featuring paintings, drawings, and video works</description>
+      <pubDate>Mon, 06 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    
+  </channel>
+</rss>

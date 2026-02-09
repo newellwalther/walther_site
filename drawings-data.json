@@ -1,0 +1,22 @@
+{
+  "series": [
+    {
+      "title": "Recent Drawings",
+      "subtitle": "Ink on paper, 2025",
+      "images": [
+        {
+          "filename": "drawing-001.jpg",
+          "title": "Sketch Series No. 1",
+          "year": "2025",
+          "medium": "Ink on paper"
+        },
+        {
+          "filename": "drawing-002.jpg",
+          "title": "Study",
+          "year": "2025",
+          "medium": "Graphite on paper"
+        }
+      ]
+    }
+  ]
+}

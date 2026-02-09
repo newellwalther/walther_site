@@ -3,25 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wash & Be Wash'd — Contact</title>
+  <title>Contact — Andrew Newell Walther</title>
+  <meta name="description" content="Contact Andrew Newell Walther">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☯️</text></svg>">
+  
   <link rel="stylesheet" href="style.css" />
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XGRYTSC23"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6XGRYTSC23');
+  </script>
 </head>
 <body>
   <!-- Menu -->
-<div class="menu">
-  <button class="menu-trigger" aria-label="Open site menu">MENU</button>
-  <ul class="dropdown" role="menu">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="paintings.html">Paintings</a></li>
-    <li><a href="exhibitions.html">Exhibitions</a></li>
-    <li><a href="drawings.html">Drawings</a></li>
-    <li><a href="video.html">Video</a></li>
-    <li><a href="https://19933.biz/manhattanartcomic.html" target="_blank">🔗 Manhattan Art Comic</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</div>
-
+  <div class="menu">
+    <button class="menu-trigger" aria-label="Open site menu">MENU</button>
+    <ul class="dropdown" role="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="paintings.html">Paintings</a></li>
+      <li><a href="drawings.html">Drawings</a></li>
+      <li><a href="text.html">Text</a></li>
+      <li><a href="exhibitions.html">Exhibitions / CV</a></li>
+      <li><a href="video.html">Video</a></li>
+      <li><a href="https://19933.biz/manhattanartcomic.html" target="_blank">🔗 Manhattan Art Comic</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
 
   <header>
     <!-- Social buttons at top -->
@@ -32,16 +46,56 @@
     </div>
 
     <h1>Contact</h1>
-    <p>Feel free to reach out through social media, email, or phone.</p>
+    <p>Feel free to reach out through social media or the form below.</p>
     <p><strong>Email:</strong> <a href="mailto:newell.pdx@gmail.com">newell.pdx@gmail.com</a></p>
-    <p><strong>Phone:</strong> <a href="tel:+84339441925">(+84) 339441925</a></p>
   </header>
 
   <main>
-    <div class="wip-center">
-      <img src="wip.png" alt="Work in progress illustration" />
-      <div class="wip-text">WORK IN PROGRESS</div>
-    </div>
+    <!-- Contact Form -->
+    <section class="contact-form">
+      <h2>Send a Message</h2>
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="name">Name *</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        
+        <button type="submit" class="form-submit">Send Message</button>
+        <div id="formMessage" class="form-message"></div>
+      </form>
+    </section>
+
+    <!-- Newsletter Signup -->
+    <section class="contact-form" id="newsletter">
+      <h2>Newsletter</h2>
+      <p style="text-align: center; margin-bottom: 1.5rem;">
+        Subscribe to receive updates about new works and exhibitions.
+      </p>
+      <form id="newsletterForm">
+        <div class="form-group">
+          <label for="newsletter-name">Name *</label>
+          <input type="text" id="newsletter-name" name="name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="newsletter-email">Email *</label>
+          <input type="email" id="newsletter-email" name="email" required>
+        </div>
+        
+        <button type="submit" class="form-submit">Subscribe</button>
+        <div id="newsletterMessage" class="form-message"></div>
+      </form>
+    </section>
   </main>
 
   <footer>
@@ -50,9 +104,72 @@
       <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" aria-label="Twitter">🐦</a>
       <a class="social-btn" href="https://wa.me/84339441925" target="_blank" aria-label="WhatsApp">💬</a>
     </div>
-    © 2025 Walther. All rights reserved.
+    <p>© 2025 Andrew Newell Walther. All rights reserved.</p>
   </footer>
 
   <script src="menu.js"></script>
+  <script>
+    // Contact Form Handler
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        message: document.getElementById('message').value,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Create mailto link as fallback
+      const subject = encodeURIComponent('Contact from ' + formData.name);
+      const body = encodeURIComponent(
+        'Name: ' + formData.name + '\n' +
+        'Email: ' + formData.email + '\n\n' +
+        'Message:\n' + formData.message
+      );
+      
+      window.location.href = 'mailto:newell.pdx@gmail.com?subject=' + subject + '&body=' + body;
+      
+      // Show success message
+      const msg = document.getElementById('formMessage');
+      msg.textContent = 'Opening your email client...';
+      msg.className = 'form-message success';
+      msg.style.display = 'block';
+      
+      // Reset form
+      this.reset();
+    });
+    
+    // Newsletter Form Handler
+    document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = {
+        name: document.getElementById('newsletter-name').value,
+        email: document.getElementById('newsletter-email').value,
+        timestamp: new Date().toISOString()
+      };
+      
+      // For now, use mailto. In future, you can integrate with actual mailing list service
+      const subject = encodeURIComponent('Newsletter Subscription');
+      const body = encodeURIComponent(
+        'New newsletter subscription:\n\n' +
+        'Name: ' + formData.name + '\n' +
+        'Email: ' + formData.email + '\n' +
+        'Date: ' + formData.timestamp
+      );
+      
+      window.location.href = 'mailto:newell.pdx@gmail.com?subject=' + subject + '&body=' + body;
+      
+      // Show success message
+      const msg = document.getElementById('newsletterMessage');
+      msg.textContent = 'Thank you for subscribing! Opening your email client...';
+      msg.className = 'form-message success';
+      msg.style.display = 'block';
+      
+      // Reset form
+      this.reset();
+    });
+  </script>
 </body>
 </html>

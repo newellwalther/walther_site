@@ -1,19 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Walther Worldwide — Video</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drawings — Andrew Newell Walther</title>
+  <meta name="description" content="Drawings by Andrew Newell Walther, multidisciplinary artist from Alaska, based in Ho Chi Minh City">
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="Drawings — Andrew Newell Walther" />
+  <meta property="og:description" content="Drawings by Andrew Newell Walther" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://walther.website/drawings.html" />
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☯️</text></svg>">
+  
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="gallery.css" />
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XGRYTSC23"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6XGRYTSC23');
+  </script>
+  
+  <style>
+    /* Tighter game section styling */
+    .game-section {
+      margin: 4rem auto 2rem;
+      max-width: 900px;
+      padding: 0 1rem;
+    }
+    
+    .game-section h2 {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .game-canvas-container {
+      text-align: center;
+      margin: 1rem 0;
+    }
+    
+    canvas {
+      border: 1px solid black;
+      display: block;
+      margin: 0 auto;
+      background-color: #fff;
+      max-width: 100%;
+      height: auto;
+    }
+    
+    .controls {
+      text-align: center;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+    
+    .controls p {
+      margin: 0.25rem 0;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Menu -->
   <div class="menu">
-    <button class="menu-trigger">MENU</button>
+    <button class="menu-trigger" aria-label="Open site menu">MENU</button>
     <ul class="dropdown" role="menu">
       <li><a href="index.html">Home</a></li>
       <li><a href="paintings.html">Paintings</a></li>
-      <li><a href="exhibitions.html">Exhibitions</a></li>
       <li><a href="drawings.html">Drawings</a></li>
+      <li><a href="text.html">Text</a></li>
+      <li><a href="exhibitions.html">Exhibitions / CV</a></li>
       <li><a href="video.html">Video</a></li>
       <li><a href="https://19933.biz/manhattanartcomic.html" target="_blank">🔗 Manhattan Art Comic</a></li>
       <li><a href="about.html">About</a></li>
@@ -21,244 +86,230 @@
     </ul>
   </div>
 
+  <!-- List View Toggle -->
+  <button id="list-view-toggle">List View</button>
+
   <header>
-    <h1>Drawings coming soon </h1>
+    <h1>Drawings</h1>
+    <p>Please enjoy this growing archive of works.</p>
   </header>
 
+  <!-- GALLERY CONTAINER -->
   <main>
- <!DOCTYPE html>
-<html>
-<head>
-    <title>Black and White Bic Pen Man Game</title>
-    <style>
-        canvas {
-            border: 1px solid black;
-            display: block;
-            margin: 0 auto;
-            background-color: #fff;
-        }
-        .controls {
-            text-align: center;
-            margin-top: 10px;
-            font-family: Arial, sans-serif;
-        }
-    </style>
-</head>
-<body>
-    <canvas id="gameCanvas" width="800" height="400"></canvas>
-    <div class="controls">
-        <p>Controls:</p>
-        <p>Left Arrow: Move left</p>
-        <p>Right Arrow: Move right</p>
-        <p>Spacebar: Jump</p>
+    <div id="gallery-container">
+      <!-- Gallery will be populated by JavaScript -->
     </div>
-    <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
 
-        // Game state
-        let level = 1;
-        let player = {
-            x: 50,
-            y: 300,
-            width: 20,
-            height: 30,
-            speed: 5,
-            velY: 0,
-            jumping: false,
-            gravity: 0.5
-        };
-
-        // Platform configurations for different levels
-        function getPlatformsForLevel(lvl) {
-            if (lvl % 2 === 1) { // Odd levels: with gaps
-                return [
-                    { x: 0, y: 350, width: 200, height: 50 },
-                    { x: 300, y: 350, width: 100, height: 50 },
-                    { x: 450, y: 350, width: 200, height: 50 },
-                    { x: 700, y: 350, width: 100, height: 50 },
-                    { x: 850, y: 350, width: 800, height: 50 }
-                ];
-            } else { // Even levels: without gaps (continuous ground)
-                return [
-                    { x: 0, y: 350, width: 800, height: 50 }
-                ];
-            }
-        }
-
-        let platforms = getPlatformsForLevel(level);
-
-        // Obstacle properties (sliding from right)
-        let obstacles = [
-            { x: 900, y: 310, width: 30, height: 40, speed: 3 },
-            { x: 1100, y: 310, width: 30, height: 40, speed: 3 },
-            { x: 1300, y: 310, width: 30, height: 40, speed: 3 }
-        ];
-
-        // Control variables
-        let keys = {};
-
-        // Event listeners for keyboard
-        document.addEventListener('keydown', (e) => keys[e.key] = true);
-        document.addEventListener('keyup', (e) => keys[e.key] = false);
-
-        function update() {
-            // Player movement
-            if (keys['ArrowLeft'] && player.x > 0) {
-                player.x -= player.speed;
-            }
-            if (keys['ArrowRight'] && player.x < canvas.width - player.width) {
-                player.x += player.speed;
-            }
-
-            // Jumping
-            if (keys[' '] && !player.jumping) {
-                player.velY = -12;
-                player.jumping = true;
-            }
-
-            // Apply gravity
-            player.velY += player.gravity;
-            player.y += player.velY;
-
-            // Collision detection with platforms
-            platforms.forEach(platform => {
-                if (player.x < platform.x + platform.width &&
-                    player.x + player.width > platform.x &&
-                    player.y < platform.y + platform.height &&
-                    player.y + player.height > platform.y) {
-                    if (player.velY > 0) {
-                        player.y = platform.y - player.height;
-                        player.velY = 0;
-                        player.jumping = false;
-                    }
-                }
-            });
-
-            // Prevent falling through the bottom
-            if (player.y > canvas.height) {
-                player.y = 300;
-                player.velY = 0;
-                player.jumping = false;
-            }
-
-            // Update and reset obstacles
-            obstacles.forEach(obstacle => {
-                obstacle.x -= obstacle.speed;
-                if (obstacle.x + obstacle.width < 0) {
-                    obstacle.x = canvas.width + Math.random() * 300;
-                }
-
-                // Collision detection with obstacles
-                if (player.x < obstacle.x + obstacle.width &&
-                    player.x + player.width > obstacle.x &&
-                    player.y < obstacle.y + obstacle.height &&
-                    player.y + player.height > obstacle.y) {
-                    player.x = 50;
-                    player.y = 300;
-                    player.velY = 0;
-                }
-            });
-
-            // New level when reaching the end
-            if (player.x + player.width >= canvas.width) {
-                level++;
-                player.x = 50;
-                player.y = 300;
-                player.velY = 0;
-                platforms = getPlatformsForLevel(level);
-                obstacles.forEach(obstacle => {
-                    obstacle.x = canvas.width + Math.random() * 300;
-                    obstacle.speed += 0.5; // Slight increase in speed for difficulty
-                });
-            }
-        }
-
-        function drawSkyline(lvl) {
-            ctx.strokeStyle = '#000';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(0, 200);
-            if (lvl % 3 === 1) { // Simple flat horizon
-                ctx.lineTo(canvas.width, 200);
-            } else if (lvl % 3 === 2) { // One mountain peak
-                ctx.lineTo(200, 150);
-                ctx.lineTo(400, 200);
-                ctx.lineTo(600, 150);
-                ctx.lineTo(canvas.width, 200);
-            } else { // Multiple peaks
-                ctx.lineTo(100, 180);
-                ctx.lineTo(200, 130);
-                ctx.lineTo(300, 180);
-                ctx.lineTo(400, 150);
-                ctx.lineTo(500, 200);
-                ctx.lineTo(600, 160);
-                ctx.lineTo(700, 200);
-                ctx.lineTo(canvas.width, 180);
-            }
-            ctx.stroke();
-        }
-
-        function draw() {
-            // Clear canvas
-            ctx.fillStyle = '#fff';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Draw skyline
-            drawSkyline(level);
-
-            // Draw platforms
-            ctx.fillStyle = '#000';
-            platforms.forEach(platform => {
-                ctx.fillRect(platform.x, platform.y, platform.width, platform.height);
-            });
-
-            // Draw obstacles with "ART" text
-            obstacles.forEach(obstacle => {
-                ctx.fillStyle = '#000';
-                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-                ctx.fillStyle = '#fff';
-                ctx.font = 'bold 12px Arial';
-                ctx.fillText('ART', obstacle.x + 3, obstacle.y + 25);
-            });
-
-            // Draw Bic Pen Man character
-            ctx.fillStyle = '#000';
-            // Head (cap)
-            ctx.beginPath();
-            ctx.arc(player.x + player.width / 2, player.y + 5, 10, 0, Math.PI * 2);
-            ctx.fill();
-            // Body
-            ctx.fillRect(player.x + 5, player.y + 15, 10, 15);
-            // Arms
-            ctx.fillRect(player.x, player.y + 20, 5, 10);
-            ctx.fillRect(player.x + 15, player.y + 20, 5, 10);
-            // Legs
-            ctx.fillRect(player.x + 5, player.y + 30, 5, 10);
-            ctx.fillRect(player.x + 10, player.y + 30, 5, 10);
-
-            // Draw title
-            ctx.fillStyle = '#000';
-            ctx.font = 'bold 24px Arial';
-            ctx.fillText('Artworld Game', 300, 50);
-        }
-
-        function gameLoop() {
-            update();
-            draw();
-            requestAnimationFrame(gameLoop);
-        }
-
-        gameLoop();
-    </script>
-</body>
-</html>
+    <!-- GAME SECTION -->
+    <section class="game-section">
+      <h2>Artworld Game</h2>
+      <div class="game-canvas-container">
+        <canvas id="gameCanvas" width="800" height="400"></canvas>
+      </div>
+      <div class="controls">
+        <p><strong>Controls:</strong></p>
+        <p>Left Arrow: Move left | Right Arrow: Move right | Spacebar: Jump</p>
+      </div>
+    </section>
   </main>
 
   <footer>
-    © 2025 Andrew Newell Walther. All rights reserved.
+    <div class="social-buttons footer-social">
+      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" aria-label="Instagram">📷</a>
+      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" aria-label="Twitter">🐦</a>
+      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" aria-label="WhatsApp">💬</a>
+    </div>
+    <a href="contact.html#newsletter" class="newsletter-link">Newsletter</a>
+    <p>© 2025 Andrew Newell Walther. All rights reserved.</p>
   </footer>
 
+  <!-- Scripts -->
   <script src="menu.js"></script>
+  <script src="gallery.js"></script>
+  
+  <!-- Gallery Data -->
+  <script>
+    fetch('drawings-data.json')
+      .then(response => response.json())
+      .then(data => {
+        initGallery(data.series);
+      })
+      .catch(error => {
+        console.error('Error loading gallery data:', error);
+        document.getElementById('gallery-container').innerHTML = 
+          '<p style="text-align: center; padding: 2rem;">Gallery loading error. Please refresh the page.</p>';
+      });
+  </script>
+  
+  <!-- Game Script -->
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Game state
+    let level = 1;
+    let player = {
+      x: 50,
+      y: 300,
+      width: 20,
+      height: 30,
+      speed: 5,
+      velY: 0,
+      jumping: false,
+      gravity: 0.5
+    };
+
+    function getPlatformsForLevel(lvl) {
+      if (lvl % 2 === 1) {
+        return [
+          { x: 0, y: 350, width: 200, height: 50 },
+          { x: 300, y: 350, width: 100, height: 50 },
+          { x: 450, y: 350, width: 200, height: 50 },
+          { x: 700, y: 350, width: 100, height: 50 },
+          { x: 850, y: 350, width: 800, height: 50 }
+        ];
+      } else {
+        return [{ x: 0, y: 350, width: 800, height: 50 }];
+      }
+    }
+
+    let platforms = getPlatformsForLevel(level);
+    let obstacles = [
+      { x: 900, y: 310, width: 30, height: 40, speed: 3 },
+      { x: 1100, y: 310, width: 30, height: 40, speed: 3 },
+      { x: 1300, y: 310, width: 30, height: 40, speed: 3 }
+    ];
+
+    let keys = {};
+    document.addEventListener('keydown', (e) => keys[e.key] = true);
+    document.addEventListener('keyup', (e) => keys[e.key] = false);
+
+    function update() {
+      if (keys['ArrowLeft'] && player.x > 0) player.x -= player.speed;
+      if (keys['ArrowRight'] && player.x < canvas.width - player.width) player.x += player.speed;
+      
+      if (keys[' '] && !player.jumping) {
+        player.velY = -12;
+        player.jumping = true;
+      }
+
+      player.velY += player.gravity;
+      player.y += player.velY;
+
+      platforms.forEach(platform => {
+        if (player.x < platform.x + platform.width &&
+            player.x + player.width > platform.x &&
+            player.y < platform.y + platform.height &&
+            player.y + player.height > platform.y) {
+          if (player.velY > 0) {
+            player.y = platform.y - player.height;
+            player.velY = 0;
+            player.jumping = false;
+          }
+        }
+      });
+
+      if (player.y > canvas.height) {
+        player.y = 300;
+        player.velY = 0;
+        player.jumping = false;
+      }
+
+      obstacles.forEach(obstacle => {
+        obstacle.x -= obstacle.speed;
+        if (obstacle.x + obstacle.width < 0) {
+          obstacle.x = canvas.width + Math.random() * 300;
+        }
+
+        if (player.x < obstacle.x + obstacle.width &&
+            player.x + player.width > obstacle.x &&
+            player.y < obstacle.y + obstacle.height &&
+            player.y + player.height > obstacle.y) {
+          player.x = 50;
+          player.y = 300;
+          player.velY = 0;
+        }
+      });
+
+      if (player.x + player.width >= canvas.width) {
+        level++;
+        player.x = 50;
+        player.y = 300;
+        player.velY = 0;
+        platforms = getPlatformsForLevel(level);
+        obstacles.forEach(obstacle => {
+          obstacle.x = canvas.width + Math.random() * 300;
+          obstacle.speed += 0.5;
+        });
+      }
+    }
+
+    function drawSkyline(lvl) {
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(0, 200);
+      if (lvl % 3 === 1) {
+        ctx.lineTo(canvas.width, 200);
+      } else if (lvl % 3 === 2) {
+        ctx.lineTo(200, 150);
+        ctx.lineTo(400, 200);
+        ctx.lineTo(600, 150);
+        ctx.lineTo(canvas.width, 200);
+      } else {
+        ctx.lineTo(100, 180);
+        ctx.lineTo(200, 130);
+        ctx.lineTo(300, 180);
+        ctx.lineTo(400, 150);
+        ctx.lineTo(500, 200);
+        ctx.lineTo(600, 160);
+        ctx.lineTo(700, 200);
+        ctx.lineTo(canvas.width, 180);
+      }
+      ctx.stroke();
+    }
+
+    function draw() {
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      drawSkyline(level);
+      
+      ctx.fillStyle = '#000';
+      platforms.forEach(platform => {
+        ctx.fillRect(platform.x, platform.y, platform.width, platform.height);
+      });
+
+      obstacles.forEach(obstacle => {
+        ctx.fillStyle = '#000';
+        ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 12px Arial';
+        ctx.fillText('ART', obstacle.x + 3, obstacle.y + 25);
+      });
+
+      ctx.fillStyle = '#000';
+      ctx.beginPath();
+      ctx.arc(player.x + player.width / 2, player.y + 5, 10, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillRect(player.x + 5, player.y + 15, 10, 15);
+      ctx.fillRect(player.x, player.y + 20, 5, 10);
+      ctx.fillRect(player.x + 15, player.y + 20, 5, 10);
+      ctx.fillRect(player.x + 5, player.y + 30, 5, 10);
+      ctx.fillRect(player.x + 10, player.y + 30, 5, 10);
+
+      ctx.fillStyle = '#000';
+      ctx.font = 'bold 24px Arial';
+      ctx.fillText('Artworld Game', 280, 50);
+    }
+
+    function gameLoop() {
+      update();
+      draw();
+      requestAnimationFrame(gameLoop);
+    }
+
+    gameLoop();
+  </script>
 </body>
 </html>

@@ -1,0 +1,73 @@
+{
+  "series": [
+    {
+      "title": "100 Paintings",
+      "subtitle": "Oil on canvas",
+      "images": [
+        {
+          "filename": "jackpot.png",
+          "title": "Jackpot",
+          "year": "2023",
+          "medium": "Oil on canvas",
+          "dimensions": "60 x 80cm"
+        },
+        {
+          "filename": "Hand Delivered.png",
+          "title": "Hand Delivered",
+          "year": "2025",
+          "medium": "Oil on canvas",
+          "dimensions": "60 x 80cm"
+        },
+        {
+          "filename": "Swan_1.png",
+          "title": "Swan 1",
+          "year": "2019",
+          "medium": "Oil on canvas"
+        },
+        {
+          "filename": "brain1.png",
+          "title": "Brain 1",
+          "year": "2025",
+          "medium": "Oil on canvas"
+        },
+        {
+          "filename": "brain2.png",
+          "title": "Brain 2",
+          "year": "2025",
+          "medium": "Oil on canvas"
+        },
+        {
+          "filename": "book of love.png",
+          "title": "Book of Love",
+          "year": "2023",
+          "medium": "Oil on canvas"
+        },
+        {
+          "filename": "bird short wing.png",
+          "title": "Chim Cánh Cụt / Bird Wing Truncated",
+          "year": "2024",
+          "medium": "Oil on canvas"
+        },
+        {
+          "filename": "bishops large.png",
+          "title": "Bishops",
+          "year": "2023",
+          "medium": "Oil on canvas"
+        },
+        {
+          "filename": "composing.png",
+          "title": "Composition",
+          "year": "2024",
+          "medium": "Oil on canvas"
+        },
+        {
+          "filename": "demolition large.png",
+          "title": "Demolition",
+          "year": "2025",
+          "medium": "Oil on canvas"
+        },
+        {
+          "filename": "dog and man large.png",
+          "title": "Dog & Man",
+          "year": "2022",
+          "medium"

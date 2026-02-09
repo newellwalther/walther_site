@@ -3,8 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wash & Be Wash'd — Paintings</title>
+  <title>Paintings — Andrew Newell Walther</title>
+  <meta name="description" content="Paintings by Andrew Newell Walther, multidisciplinary artist from Alaska, based in Ho Chi Minh City">
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="Paintings — Andrew Newell Walther" />
+  <meta property="og:description" content="Paintings by Andrew Newell Walther" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://walther.website/paintings.html" />
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☯️</text></svg>">
+  
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="gallery.css" />
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XGRYTSC23"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6XGRYTSC23');
+  </script>
 </head>
 <body>
 
@@ -14,8 +35,9 @@
     <ul class="dropdown" role="menu">
       <li><a href="index.html">Home</a></li>
       <li><a href="paintings.html">Paintings</a></li>
-      <li><a href="exhibitions.html">Exhibitions</a></li>
       <li><a href="drawings.html">Drawings</a></li>
+      <li><a href="text.html">Text</a></li>
+      <li><a href="exhibitions.html">Exhibitions / CV</a></li>
       <li><a href="video.html">Video</a></li>
       <li><a href="https://19933.biz/manhattanartcomic.html" target="_blank">🔗 Manhattan Art Comic</a></li>
       <li><a href="about.html">About</a></li>
@@ -23,27 +45,46 @@
     </ul>
   </div>
 
+  <!-- List View Toggle -->
+  <button id="list-view-toggle">List View</button>
+
   <header>
     <h1>Paintings</h1>
     <p>Please enjoy this growing archive of works.</p>
   </header>
 
-  <!-- IMAGE GALLERY SECTION -->
+  <!-- GALLERY CONTAINER -->
   <main>
+    <div id="gallery-container">
+      <!-- Gallery will be populated by JavaScript -->
+    </div>
+  </main>
 
-    <section class="gallery">
-      <h2>Works</h2>
-      <div class="gallery-grid">
+  <footer>
+    <div class="social-buttons footer-social">
+      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" aria-label="Instagram">📷</a>
+      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" aria-label="Twitter">🐦</a>
+      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" aria-label="WhatsApp">💬</a>
+    </div>
+    <a href="contact.html#newsletter" class="newsletter-link">Newsletter</a>
+    <p>© 2025 Andrew Newell Walther. All rights reserved.</p>
+  </footer>
 
-        <!-- Replace these filenames with your actual R2 filenames -->
-        <img src="https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/100-paintings/IMAGE1.jpg" alt="">
-        <img src="https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/100-paintings/IMAGE2.jpg" alt="">
-        <img src="https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/100-paintings/IMAGE3.jpg" alt="">
-        <img src="https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/100-paintings/IMAGE4.jpg" alt="">
-        <img src="https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/100-paintings/IMAGE5.jpg" alt="">
-        <img src="https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/100-paintings/IMAGE6.jpg" alt="">
-        <img src="https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/100-paintings/IMAGE7.jpg" alt="">
-        <img src="https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/100-paintings/IMAGE8.jpg" alt="">
-        <img src="https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/100-paintings/IMAGE9.jpg" alt="">
-        <img src="https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/100-paintings/IMAGE10.jpg" alt="">
-        <img src="https://pub-c7202c
+  <!-- Scripts -->
+  <script src="menu.js"></script>
+  <script src="gallery.js"></script>
+  <script>
+    // Load gallery data
+    fetch('paintings-data.json')
+      .then(response => response.json())
+      .then(data => {
+        initGallery(data.series);
+      })
+      .catch(error => {
+        console.error('Error loading gallery data:', error);
+        document.getElementById('gallery-container').innerHTML = 
+          '<p style="text-align: center; padding: 2rem;">Gallery loading error. Please refresh the page.</p>';
+      });
+  </script>
+</body>
+</html>

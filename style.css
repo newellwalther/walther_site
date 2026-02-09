@@ -8,7 +8,7 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Georgia, 'Times New Roman', serif;
   line-height: 1.6;
   background: #fff;
   color: #000;
@@ -256,3 +256,97 @@ footer {
     display: block;
   }
 }
+
+/* ------------------------------
+   NEWSLETTER LINK
+------------------------------ */
+.newsletter-link {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.newsletter-link:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+/* ------------------------------
+   CONTACT FORM
+------------------------------ */
+.contact-form {
+  max-width: 600px;
+  margin: 3rem auto;
+  padding: 2rem;
+  text-align: left;
+}
+
+.contact-form h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1rem;
+}
+
+.form-group textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.form-submit {
+  background: #000;
+  color: #fff;
+  border: 1px solid #000;
+  padding: 0.75rem 2rem;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 4px;
+  font-family: Georgia, 'Times New Roman', serif;
+  transition: all 0.3s;
+}
+
+.form-submit:hover {
+  background: #fff;
+  color: #000;
+}
+
+.form-message {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 4px;
+  display: none;
+}
+
+.form-message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.form-message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
