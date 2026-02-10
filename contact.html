@@ -40,17 +40,38 @@
   <header>
     <!-- Social buttons at top -->
     <div class="social-buttons top-social">
-      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" aria-label="Instagram">📷</a>
-      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" aria-label="Twitter">🐦</a>
-      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" aria-label="WhatsApp">💬</a>
+      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" rel="noopener">📷 Instagram</a>
+      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" rel="noopener">🐦 Twitter</a>
+      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" rel="noopener">💬 WhatsApp</a>
     </div>
 
     <h1>Contact</h1>
-    <p>Feel free to reach out through social media or the form below.</p>
-    <p><strong>Email:</strong> <a href="mailto:newell.pdx@gmail.com">newell.pdx@gmail.com</a></p>
+    <p>Feel free to reach out through social media or the forms below.</p>
   </header>
 
   <main>
+    <!-- Newsletter Signup -->
+    <section class="contact-form" id="newsletter">
+      <h2>Newsletter</h2>
+      <p style="text-align: center; margin-bottom: 1.5rem;">
+        Subscribe to receive updates about new works and exhibitions.
+      </p>
+      <form id="newsletterForm">
+        <div class="form-group">
+          <label for="newsletter-name">Name (optional)</label>
+          <input type="text" id="newsletter-name" name="name">
+        </div>
+        
+        <div class="form-group">
+          <label for="newsletter-email">Email *</label>
+          <input type="email" id="newsletter-email" name="email" required>
+        </div>
+        
+        <button type="submit" class="form-submit">Subscribe</button>
+        <div id="newsletterMessage" class="form-message"></div>
+      </form>
+    </section>
+
     <!-- Contact Form -->
     <section class="contact-form">
       <h2>Send a Message</h2>
@@ -74,28 +95,6 @@
         <div id="formMessage" class="form-message"></div>
       </form>
     </section>
-
-    <!-- Newsletter Signup -->
-    <section class="contact-form" id="newsletter">
-      <h2>Newsletter</h2>
-      <p style="text-align: center; margin-bottom: 1.5rem;">
-        Subscribe to receive updates about new works and exhibitions.
-      </p>
-      <form id="newsletterForm">
-        <div class="form-group">
-          <label for="newsletter-name">Name *</label>
-          <input type="text" id="newsletter-name" name="name" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="newsletter-email">Email *</label>
-          <input type="email" id="newsletter-email" name="email" required>
-        </div>
-        
-        <button type="submit" class="form-submit">Subscribe</button>
-        <div id="newsletterMessage" class="form-message"></div>
-      </form>
-    </section>
   </main>
 
   <footer>
@@ -109,6 +108,34 @@
 
   <script src="menu.js"></script>
   <script>
+    // Newsletter Form Handler
+    document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = {
+        name: document.getElementById('newsletter-name').value || 'No name provided',
+        email: document.getElementById('newsletter-email').value,
+        timestamp: new Date().toISOString()
+      };
+      
+      const subject = encodeURIComponent('Newsletter Subscription');
+      const body = encodeURIComponent(
+        'New newsletter subscription:\n\n' +
+        'Name: ' + formData.name + '\n' +
+        'Email: ' + formData.email + '\n' +
+        'Date: ' + formData.timestamp
+      );
+      
+      window.location.href = 'mailto:newell.pdx@gmail.com?subject=' + subject + '&body=' + body;
+      
+      const msg = document.getElementById('newsletterMessage');
+      msg.textContent = 'Thank you for subscribing! Opening your email client...';
+      msg.className = 'form-message success';
+      msg.style.display = 'block';
+      
+      this.reset();
+    });
+    
     // Contact Form Handler
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
@@ -120,7 +147,6 @@
         timestamp: new Date().toISOString()
       };
       
-      // Create mailto link as fallback
       const subject = encodeURIComponent('Contact from ' + formData.name);
       const body = encodeURIComponent(
         'Name: ' + formData.name + '\n' +
@@ -130,44 +156,11 @@
       
       window.location.href = 'mailto:newell.pdx@gmail.com?subject=' + subject + '&body=' + body;
       
-      // Show success message
       const msg = document.getElementById('formMessage');
       msg.textContent = 'Opening your email client...';
       msg.className = 'form-message success';
       msg.style.display = 'block';
       
-      // Reset form
-      this.reset();
-    });
-    
-    // Newsletter Form Handler
-    document.getElementById('newsletterForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const formData = {
-        name: document.getElementById('newsletter-name').value,
-        email: document.getElementById('newsletter-email').value,
-        timestamp: new Date().toISOString()
-      };
-      
-      // For now, use mailto. In future, you can integrate with actual mailing list service
-      const subject = encodeURIComponent('Newsletter Subscription');
-      const body = encodeURIComponent(
-        'New newsletter subscription:\n\n' +
-        'Name: ' + formData.name + '\n' +
-        'Email: ' + formData.email + '\n' +
-        'Date: ' + formData.timestamp
-      );
-      
-      window.location.href = 'mailto:newell.pdx@gmail.com?subject=' + subject + '&body=' + body;
-      
-      // Show success message
-      const msg = document.getElementById('newsletterMessage');
-      msg.textContent = 'Thank you for subscribing! Opening your email client...';
-      msg.className = 'form-message success';
-      msg.style.display = 'block';
-      
-      // Reset form
       this.reset();
     });
   </script>
