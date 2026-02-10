@@ -38,7 +38,16 @@
     }
 
     .links-header {
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    .profile-photo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1.5rem;
+      border: 2px solid #000;
     }
 
     .links-header h1 {
@@ -47,49 +56,6 @@
       letter-spacing: 3px;
       margin-bottom: 1rem;
       font-weight: normal;
-    }
-
-    .links-header .email {
-      font-size: 1rem;
-      color: #666;
-      margin-top: 0.5rem;
-    }
-
-    .links-header .email a {
-      color: #000;
-      text-decoration: none;
-      border-bottom: 1px solid #ccc;
-    }
-
-    .links-header .email a:hover {
-      border-bottom-color: #000;
-    }
-
-    .qr-code {
-      margin: 2rem 0;
-    }
-
-    .qr-code img {
-      max-width: 200px;
-      width: 100%;
-      height: auto;
-      border: 1px solid #ddd;
-      padding: 1rem;
-      background: white;
-    }
-
-    .qr-placeholder {
-      width: 200px;
-      height: 200px;
-      margin: 0 auto;
-      border: 2px dashed #ccc;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #999;
-      font-size: 0.9rem;
-      text-align: center;
-      padding: 1rem;
     }
 
     .links-list {
@@ -120,37 +86,65 @@
     .social-buttons {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
+      gap: 1rem;
       margin: 2rem 0;
+      flex-wrap: wrap;
     }
 
     .social-btn {
-      font-size: 2rem;
+      padding: 0.75rem 1.5rem;
+      border: 2px solid #000;
+      background: #fff;
+      color: #000;
       text-decoration: none;
-      transition: transform 0.2s;
+      font-size: 1rem;
+      transition: all 0.3s;
       display: inline-block;
     }
 
     .social-btn:hover {
-      transform: scale(1.1);
+      background: #000;
+      color: #fff;
     }
 
-    .newsletter-link {
-      display: inline-block;
-      margin-top: 1rem;
-      font-size: 0.95rem;
-      color: #666;
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
+    .email-display {
+      margin: 2rem 0;
+      font-size: 1.1rem;
     }
 
-    .newsletter-link:hover {
+    .email-display a {
       color: #000;
-      border-bottom-color: #000;
+      text-decoration: none;
+      border-bottom: 1px solid #000;
+    }
+
+    .email-display a:hover {
+      opacity: 0.7;
+    }
+
+    .additional-links {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #ccc;
+    }
+
+    .qr-code {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #ccc;
+    }
+
+    .qr-code img {
+      max-width: 250px;
+      width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      padding: 1rem;
+      background: white;
     }
 
     .footer-text {
-      margin-top: 3rem;
+      margin-top: 2rem;
       font-size: 0.85rem;
       color: #999;
     }
@@ -165,6 +159,11 @@
         font-size: 1rem;
         padding: 0.875rem 1.5rem;
       }
+
+      .social-btn {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.2rem;
+      }
     }
   </style>
 </head>
@@ -172,39 +171,49 @@
 
   <div class="links-container">
     <div class="links-header">
+      <!-- Your photo - replace 'portrait_bw.png' with your actual photo filename -->
+      <img src="images/portrait.png" alt="Andrew Newell Walther" class="profile-photo">
       <h1>Andrew Newell Walther</h1>
-      <div class="email">
-        <a href="mailto:newell.pdx@gmail.com">newell.pdx@gmail.com</a>
-      </div>
-    </div>
-
-    <!-- QR Code (you can add your own QR code image here) -->
-    <div class="qr-code">
-      <!-- <img src="qr/links-qr.png" alt="QR Code to this page" /> -->
-      <div class="qr-placeholder">
-        QR code placeholder<br>
-        (Add your QR image to /qr/links-qr.png)
-      </div>
     </div>
 
     <!-- Main Links -->
     <div class="links-list">
       <a href="https://walther.website" class="link-item">walther.website</a>
+      <a href="https://walther.website/paintings.html" class="link-item">Paintings</a>
+      <a href="https://walther.website/drawings.html" class="link-item">Drawings</a>
+      <a href="https://walther.website/text.html" class="link-item">Text</a>
+      <a href="https://19933.biz/manhattanartcomic.html" target="_blank" class="link-item">Manhattan Art Comic</a>
     </div>
 
     <!-- Social Buttons -->
     <div class="social-buttons">
-      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" aria-label="Instagram">📷</a>
-      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" aria-label="Twitter">🐦</a>
-      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" aria-label="WhatsApp">💬</a>
+      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" rel="noopener">📷 Instagram</a>
+      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" rel="noopener">🐦 Twitter</a>
+      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" rel="noopener">💬 WhatsApp</a>
     </div>
 
     <!-- Newsletter -->
-    <a href="https://walther.website/contact.html#newsletter" class="newsletter-link">Newsletter</a>
+    <div class="links-list">
+      <a href="https://walther.website/contact.html#newsletter" class="link-item">Newsletter</a>
+    </div>
 
-    <!-- Manhattan Art Comic Link -->
-    <div class="links-list" style="margin-top: 2rem;">
-      <a href="https://19933.biz/manhattanartcomic.html" target="_blank" class="link-item" style="font-size: 0.95rem;">Manhattan Art Comic</a>
+    <!-- Email -->
+    <div class="email-display">
+      <a href="mailto:newell.pdx@gmail.com">newell.pdx@gmail.com</a>
+    </div>
+
+    <!-- Additional Links -->
+    <div class="additional-links">
+      <div class="links-list">
+        <a href="https://www.instagram.com/a.lat.xca?igsh=aWo5cjJuNmhndThp" target="_blank" class="link-item">Instagram: Studio A-Lát-Xca</a>
+        <a href="https://on.soundcloud.com/otepneUhqUwPe8lm8l" target="_blank" class="link-item">Newell SoundCloud</a>
+      </div>
+    </div>
+
+    <!-- QR Code -->
+    <div class="qr-code">
+      <img src="images/links-qr.png" alt="QR Code to this page" />
+      <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">Scan to save links</p>
     </div>
 
     <div class="footer-text">
