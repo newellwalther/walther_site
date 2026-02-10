@@ -68,7 +68,7 @@
         thumb.style.backgroundColor = '#e0e0e0';
         
         // Build R2 URL
-        const r2BaseUrl = 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/100-paintings/';
+        const r2BaseUrl = 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/';
         thumb.src = r2BaseUrl + img.filename;
         thumb.alt = img.title || 'Artwork';
 
@@ -182,7 +182,7 @@
     seriesCard.style.display = 'none';
 
     // Build R2 URL
-    const r2BaseUrl = 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/100-paintings/';
+    const r2BaseUrl = 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/';
     img.src = r2BaseUrl + image.filename;
     img.alt = image.title || 'Artwork';
     img.classList.remove('zoomed');
@@ -283,7 +283,7 @@
       // Load full-res on first zoom
       const series = allSeries[currentSeriesIndex];
       const image = series.images[currentImageIndex];
-      const r2BaseUrl = 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/100-paintings/';
+      const r2BaseUrl = 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/';
       img.src = r2BaseUrl + image.filename; // In production, you'd have a full-res version
     }
     
@@ -291,7 +291,7 @@
   }
 
   function preloadAdjacentImages() {
-    const r2BaseUrl = 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/100-paintings/';
+    const r2BaseUrl = 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/';
     
     // Preload 2 ahead and 2 behind
     for (let offset = -2; offset <= 2; offset++) {
