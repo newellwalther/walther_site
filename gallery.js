@@ -6,6 +6,12 @@
   let currentImageIndex = 0;
   let allSeries = [];
   let lightboxOpen = false;
+  let isZoomed = false;
+  let isDragging = false;
+  let startX = 0;
+  let startY = 0;
+  let translateX = 0;
+  let translateY = 0;
 
   // Disable right-click on images
   document.addEventListener('contextmenu', function(e) {
@@ -64,10 +70,8 @@
         thumb.dataset.imageIndex = imgIdx;
         thumb.loading = 'lazy';
         
-        // Placeholder while loading
         thumb.style.backgroundColor = '#e0e0e0';
         
-        // Build R2 URL
         const r2BaseUrl = 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/';
         thumb.src = r2BaseUrl + img.filename;
         thumb.alt = img.title || 'Artwork';
@@ -79,12 +83,12 @@
         if (img.title) labelText += img.title;
         if (img.year) labelText += (labelText ? ', ' : '') + img.year;
         if (img.medium) labelText += (labelText ? ', ' : '') + img.medium;
+        if (img.dimensions) labelText += (labelText ? ', ' : '') + img.dimensions;
         label.textContent = labelText;
 
         thumbContainer.appendChild(thumb);
         thumbContainer.appendChild(label);
 
-        // Click to open lightbox
         thumbContainer.addEventListener('click', () => openLightbox(seriesIdx, imgIdx));
 
         scrollRow.appendChild(thumbContainer);
@@ -94,7 +98,6 @@
       container.appendChild(seriesSection);
     });
 
-    // Create lightbox
     createLightbox();
   }
 
@@ -108,42 +111,81 @@
         <button class="lightbox-prev" aria-label="Previous">‹</button>
         <div class="lightbox-image-container">
           <img id="lightbox-image" src="" alt="" />
-          <button class="lightbox-zoom" aria-label="Toggle zoom">🔍</button>
         </div>
         <button class="lightbox-next" aria-label="Next">›</button>
+        <button class="lightbox-zoom" aria-label="Toggle zoom">🔍</button>
+        <button class="lightbox-inquire" aria-label="Inquire">Inquire</button>
         <div class="lightbox-caption"></div>
         <div class="lightbox-series-card"></div>
       </div>
     `;
     document.body.appendChild(lightbox);
 
-    // Event listeners
+    const imageContainer = lightbox.querySelector('.lightbox-image-container');
+    const image = document.getElementById('lightbox-image');
+
     lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
-    lightbox.querySelector('.lightbox-prev').addEventListener('click', showPrevImage);
-    lightbox.querySelector('.lightbox-next').addEventListener('click', showNextImage);
-    lightbox.querySelector('.lightbox-zoom').addEventListener('click', toggleZoom);
+    lightbox.querySelector('.lightbox-prev').addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!isZoomed) showPrevImage();
+    });
+    lightbox.querySelector('.lightbox-next').addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!isZoomed) showNextImage();
+    });
+    lightbox.querySelector('.lightbox-zoom').addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleZoom();
+    });
+    lightbox.querySelector('.lightbox-inquire').addEventListener('click', (e) => {
+      e.stopPropagation();
+      openInquiry();
+    });
     
-    // Click outside to close
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) closeLightbox();
-    });
-
-    // Keyboard navigation
-    document.addEventListener('keydown', handleKeyboard);
-
-    // Mobile swipe for series change
-    let touchStartY = 0;
-    lightbox.addEventListener('touchstart', (e) => {
-      touchStartY = e.touches[0].clientY;
-    });
-    lightbox.addEventListener('touchend', (e) => {
-      const touchEndY = e.changedTouches[0].clientY;
-      const diff = touchStartY - touchEndY;
-      if (Math.abs(diff) > 50) {
-        if (diff > 0) nextSeries();
-        else prevSeries();
+    // Click image to toggle zoom
+    imageContainer.addEventListener('click', (e) => {
+      if (e.target === image && !isDragging) {
+        toggleZoom();
       }
     });
+
+    // Pan when zoomed
+    image.addEventListener('mousedown', startDrag);
+    image.addEventListener('touchstart', startDrag);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('touchmove', drag);
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchend', endDrag);
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox && !isZoomed) closeLightbox();
+    });
+
+    document.addEventListener('keydown', handleKeyboard);
+  }
+
+  function startDrag(e) {
+    if (!isZoomed) return;
+    isDragging = true;
+    const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+    startX = clientX - translateX;
+    startY = clientY - translateY;
+  }
+
+  function drag(e) {
+    if (!isDragging || !isZoomed) return;
+    e.preventDefault();
+    const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+    translateX = clientX - startX;
+    translateY = clientY - startY;
+    const img = document.getElementById('lightbox-image');
+    img.style.transform = `scale(2) translate(${translateX}px, ${translateY}px)`;
+  }
+
+  function endDrag() {
+    isDragging = false;
   }
 
   function openLightbox(seriesIdx, imgIdx) {
@@ -164,10 +206,14 @@
     lightbox.classList.remove('active');
     document.body.style.overflow = '';
     lightboxOpen = false;
+    isZoomed = false;
 
-    // Reset zoom
     const img = document.getElementById('lightbox-image');
     img.classList.remove('zoomed');
+    img.style.transform = '';
+    document.querySelector('.lightbox-image-container').classList.remove('zoomed');
+    translateX = 0;
+    translateY = 0;
   }
 
   function showCurrentImage() {
@@ -177,26 +223,38 @@
     const img = document.getElementById('lightbox-image');
     const caption = document.querySelector('.lightbox-caption');
     const seriesCard = document.querySelector('.lightbox-series-card');
+    const inquireBtn = document.querySelector('.lightbox-inquire');
 
-    // Hide series card
     seriesCard.style.display = 'none';
 
-    // Build R2 URL
     const r2BaseUrl = 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/';
     img.src = r2BaseUrl + image.filename;
     img.alt = image.title || 'Artwork';
     img.classList.remove('zoomed');
+    img.style.transform = '';
+    document.querySelector('.lightbox-image-container').classList.remove('zoomed');
+    isZoomed = false;
+    translateX = 0;
+    translateY = 0;
 
-    // Build caption
+    // Build caption with all available data
     let captionParts = [];
     if (image.title) captionParts.push(image.title);
     if (image.year) captionParts.push(image.year);
     if (image.medium) captionParts.push(image.medium);
+    if (image.dimensions) captionParts.push(image.dimensions);
     if (image.series) captionParts.push(image.series);
     if (image.collection) captionParts.push(image.collection);
     
     caption.textContent = captionParts.join(', ');
     caption.style.display = captionParts.length > 0 ? 'block' : 'none';
+
+    // Handle inquire button availability
+    if (image.available === false) {
+      inquireBtn.classList.add('unavailable');
+    } else {
+      inquireBtn.classList.remove('unavailable');
+    }
   }
 
   function showNextImage() {
@@ -207,7 +265,6 @@
       showCurrentImage();
       preloadAdjacentImages();
     } else {
-      // End of series - show transition card
       if (currentSeriesIndex < allSeries.length - 1) {
         showSeriesTransition('next');
       }
@@ -220,7 +277,6 @@
       showCurrentImage();
       preloadAdjacentImages();
     } else {
-      // Beginning of series - show transition card
       if (currentSeriesIndex > 0) {
         showSeriesTransition('prev');
       }
@@ -246,7 +302,6 @@
       <div class="series-arrow">${arrow}</div>
     `;
 
-    // Auto-advance after a moment
     setTimeout(() => {
       if (lightboxOpen) {
         currentSeriesIndex = nextSeriesIdx;
@@ -258,42 +313,48 @@
     }, 1500);
   }
 
-  function nextSeries() {
-    if (currentSeriesIndex < allSeries.length - 1) {
-      currentSeriesIndex++;
-      currentImageIndex = 0;
-      showCurrentImage();
-      preloadAdjacentImages();
-    }
-  }
-
-  function prevSeries() {
-    if (currentSeriesIndex > 0) {
-      currentSeriesIndex--;
-      currentImageIndex = allSeries[currentSeriesIndex].images.length - 1;
-      showCurrentImage();
-      preloadAdjacentImages();
-    }
-  }
-
   function toggleZoom() {
     const img = document.getElementById('lightbox-image');
+    const container = document.querySelector('.lightbox-image-container');
     
-    if (!img.classList.contains('zoomed')) {
-      // Load full-res on first zoom
-      const series = allSeries[currentSeriesIndex];
-      const image = series.images[currentImageIndex];
-      const r2BaseUrl = 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/';
-      img.src = r2BaseUrl + image.filename; // In production, you'd have a full-res version
+    isZoomed = !isZoomed;
+    
+    if (isZoomed) {
+      img.classList.add('zoomed');
+      container.classList.add('zoomed');
+      container.style.cursor = 'grab';
+    } else {
+      img.classList.remove('zoomed');
+      container.classList.remove('zoomed');
+      img.style.transform = '';
+      container.style.cursor = 'zoom-in';
+      translateX = 0;
+      translateY = 0;
     }
+  }
+
+  function openInquiry() {
+    const series = allSeries[currentSeriesIndex];
+    const image = series.images[currentImageIndex];
     
-    img.classList.toggle('zoomed');
+    if (image.available === false) return;
+    
+    const subject = encodeURIComponent(`Inquiry: ${image.title || 'Artwork'}`);
+    const body = encodeURIComponent(
+      `I am interested in the following work:\n\n` +
+      `Title: ${image.title || 'Untitled'}\n` +
+      `Year: ${image.year || 'N/A'}\n` +
+      `Medium: ${image.medium || 'N/A'}\n` +
+      (image.dimensions ? `Dimensions: ${image.dimensions}\n` : '') +
+      `\n\nMessage:\n\n`
+    );
+    
+    window.open(`mailto:newell.pdx@gmail.com?subject=${subject}&body=${body}`, '_blank');
   }
 
   function preloadAdjacentImages() {
     const r2BaseUrl = 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/';
     
-    // Preload 2 ahead and 2 behind
     for (let offset = -2; offset <= 2; offset++) {
       if (offset === 0) continue;
       
@@ -309,6 +370,7 @@
 
   function handleKeyboard(e) {
     if (!lightboxOpen) return;
+    if (isZoomed) return; // Disable keyboard navigation when zoomed
 
     switch(e.key) {
       case 'Escape':
@@ -321,15 +383,24 @@
         showPrevImage();
         break;
       case 'ArrowDown':
-        nextSeries();
+        if (currentSeriesIndex < allSeries.length - 1) {
+          currentSeriesIndex++;
+          currentImageIndex = 0;
+          showCurrentImage();
+          preloadAdjacentImages();
+        }
         break;
       case 'ArrowUp':
-        prevSeries();
+        if (currentSeriesIndex > 0) {
+          currentSeriesIndex--;
+          currentImageIndex = allSeries[currentSeriesIndex].images.length - 1;
+          showCurrentImage();
+          preloadAdjacentImages();
+        }
         break;
     }
   }
 
-  // List view toggle
   function initListView() {
     const toggle = document.getElementById('list-view-toggle');
     if (!toggle) return;
@@ -341,7 +412,6 @@
     });
   }
 
-  // Expose init function
   window.initGallery = initGallery;
   window.addEventListener('DOMContentLoaded', initListView);
 })();
