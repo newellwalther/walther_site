@@ -6,28 +6,26 @@
   let currentImageIndex = 0;
   let allSeries = [];
   let lightboxOpen = false;
-  let isZoomed = false;
+  let scale = 1;
   let isDragging = false;
   let startX = 0;
   let startY = 0;
   let translateX = 0;
   let translateY = 0;
+  let lastDistance = 0;
 
-  // Disable right-click on images
   document.addEventListener('contextmenu', function(e) {
     if (e.target.tagName === 'IMG') {
       e.preventDefault();
     }
   });
 
-  // Prevent image dragging
   document.addEventListener('dragstart', function(e) {
     if (e.target.tagName === 'IMG') {
       e.preventDefault();
     }
   });
 
-  // Initialize gallery from data
   function initGallery(seriesData) {
     allSeries = seriesData;
     const container = document.getElementById('gallery-container');
@@ -38,7 +36,6 @@
       seriesSection.className = 'gallery-series';
       seriesSection.dataset.seriesIndex = seriesIdx;
 
-      // Series header
       const header = document.createElement('div');
       header.className = 'series-header';
       
@@ -56,7 +53,6 @@
 
       seriesSection.appendChild(header);
 
-      // Horizontal scrolling row
       const scrollRow = document.createElement('div');
       scrollRow.className = 'series-scroll-row';
 
@@ -69,14 +65,12 @@
         thumb.dataset.seriesIndex = seriesIdx;
         thumb.dataset.imageIndex = imgIdx;
         thumb.loading = 'lazy';
-        
         thumb.style.backgroundColor = '#e0e0e0';
         
         const r2BaseUrl = 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/';
         thumb.src = r2BaseUrl + img.filename;
         thumb.alt = img.title || 'Artwork';
 
-        // Museum label overlay on hover
         const label = document.createElement('div');
         label.className = 'museum-label';
         let labelText = '';
@@ -88,9 +82,7 @@
 
         thumbContainer.appendChild(thumb);
         thumbContainer.appendChild(label);
-
         thumbContainer.addEventListener('click', () => openLightbox(seriesIdx, imgIdx));
-
         scrollRow.appendChild(thumbContainer);
       });
 
@@ -127,65 +119,176 @@
     lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
     lightbox.querySelector('.lightbox-prev').addEventListener('click', (e) => {
       e.stopPropagation();
-      if (!isZoomed) showPrevImage();
+      if (scale === 1) showPrevImage();
     });
     lightbox.querySelector('.lightbox-next').addEventListener('click', (e) => {
       e.stopPropagation();
-      if (!isZoomed) showNextImage();
+      if (scale === 1) showNextImage();
     });
     lightbox.querySelector('.lightbox-zoom').addEventListener('click', (e) => {
       e.stopPropagation();
-      toggleZoom();
+      resetZoom();
     });
     lightbox.querySelector('.lightbox-inquire').addEventListener('click', (e) => {
       e.stopPropagation();
       openInquiry();
     });
     
-    // Click image to toggle zoom
-    imageContainer.addEventListener('click', (e) => {
-      if (e.target === image && !isDragging) {
-        toggleZoom();
-      }
-    });
+    // Click to zoom at point
+    imageContainer.addEventListener('click', zoomAtPoint);
 
-    // Pan when zoomed
+    // Mouse drag
     image.addEventListener('mousedown', startDrag);
-    image.addEventListener('touchstart', startDrag);
     document.addEventListener('mousemove', drag);
-    document.addEventListener('touchmove', drag);
     document.addEventListener('mouseup', endDrag);
+
+    // Touch drag
+    image.addEventListener('touchstart', handleTouchStart, { passive: false });
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
     document.addEventListener('touchend', endDrag);
 
     lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox && !isZoomed) closeLightbox();
+      if (e.target === lightbox && scale === 1) closeLightbox();
     });
 
     document.addEventListener('keydown', handleKeyboard);
   }
 
+  function zoomAtPoint(e) {
+    if (e.target.id !== 'lightbox-image') return;
+    if (isDragging) return;
+
+    const img = document.getElementById('lightbox-image');
+    const container = document.querySelector('.lightbox-image-container');
+    const rect = img.getBoundingClientRect();
+    
+    // Calculate click position relative to image
+    const clickX = e.clientX - rect.left;
+    const clickY = e.clientY - rect.top;
+    
+    // Calculate position as percentage
+    const percentX = (clickX / rect.width) - 0.5;
+    const percentY = (clickY / rect.height) - 0.5;
+
+    if (scale === 1) {
+      // Zoom in
+      scale = 2.5;
+      translateX = -percentX * rect.width * scale;
+      translateY = -percentY * rect.height * scale;
+      
+      img.classList.add('zoomed');
+      container.classList.add('zoomed');
+    } else {
+      // Zoom out
+      resetZoom();
+    }
+    
+    updateTransform();
+  }
+
+  function handleTouchStart(e) {
+    if (e.touches.length === 2) {
+      // Pinch zoom
+      e.preventDefault();
+      const touch1 = e.touches[0];
+      const touch2 = e.touches[1];
+      lastDistance = Math.hypot(
+        touch2.clientX - touch1.clientX,
+        touch2.clientY - touch1.clientY
+      );
+    } else if (e.touches.length === 1 && scale > 1) {
+      // Single touch drag when zoomed
+      startDrag(e);
+    }
+  }
+
+  function handleTouchMove(e) {
+    if (e.touches.length === 2) {
+      // Pinch zoom
+      e.preventDefault();
+      const touch1 = e.touches[0];
+      const touch2 = e.touches[1];
+      const distance = Math.hypot(
+        touch2.clientX - touch1.clientX,
+        touch2.clientY - touch1.clientY
+      );
+      
+      if (lastDistance > 0) {
+        const delta = distance / lastDistance;
+        scale = Math.max(1, Math.min(5, scale * delta));
+        
+        const img = document.getElementById('lightbox-image');
+        const container = document.querySelector('.lightbox-image-container');
+        
+        if (scale > 1) {
+          img.classList.add('zoomed');
+          container.classList.add('zoomed');
+        } else {
+          img.classList.remove('zoomed');
+          container.classList.remove('zoomed');
+          translateX = 0;
+          translateY = 0;
+        }
+        
+        updateTransform();
+      }
+      
+      lastDistance = distance;
+    } else if (e.touches.length === 1 && scale > 1) {
+      // Drag when zoomed
+      drag(e);
+    }
+  }
+
   function startDrag(e) {
-    if (!isZoomed) return;
+    if (scale === 1) return;
+    
+    e.preventDefault();
     isDragging = true;
+    
     const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
     const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+    
     startX = clientX - translateX;
     startY = clientY - translateY;
   }
 
   function drag(e) {
-    if (!isDragging || !isZoomed) return;
+    if (!isDragging || scale === 1) return;
+    
     e.preventDefault();
+    
     const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
     const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+    
     translateX = clientX - startX;
     translateY = clientY - startY;
-    const img = document.getElementById('lightbox-image');
-    img.style.transform = `scale(2) translate(${translateX}px, ${translateY}px)`;
+    
+    updateTransform();
   }
 
-  function endDrag() {
+  function endDrag(e) {
+    if (e.touches && e.touches.length > 0) return;
     isDragging = false;
+    lastDistance = 0;
+  }
+
+  function updateTransform() {
+    const img = document.getElementById('lightbox-image');
+    img.style.transform = `scale(${scale}) translate(${translateX / scale}px, ${translateY / scale}px)`;
+  }
+
+  function resetZoom() {
+    scale = 1;
+    translateX = 0;
+    translateY = 0;
+    
+    const img = document.getElementById('lightbox-image');
+    const container = document.querySelector('.lightbox-image-container');
+    
+    img.classList.remove('zoomed');
+    container.classList.remove('zoomed');
+    img.style.transform = '';
   }
 
   function openLightbox(seriesIdx, imgIdx) {
@@ -206,14 +309,7 @@
     lightbox.classList.remove('active');
     document.body.style.overflow = '';
     lightboxOpen = false;
-    isZoomed = false;
-
-    const img = document.getElementById('lightbox-image');
-    img.classList.remove('zoomed');
-    img.style.transform = '';
-    document.querySelector('.lightbox-image-container').classList.remove('zoomed');
-    translateX = 0;
-    translateY = 0;
+    resetZoom();
   }
 
   function showCurrentImage() {
@@ -230,14 +326,9 @@
     const r2BaseUrl = 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/';
     img.src = r2BaseUrl + image.filename;
     img.alt = image.title || 'Artwork';
-    img.classList.remove('zoomed');
-    img.style.transform = '';
-    document.querySelector('.lightbox-image-container').classList.remove('zoomed');
-    isZoomed = false;
-    translateX = 0;
-    translateY = 0;
+    
+    resetZoom();
 
-    // Build caption with all available data
     let captionParts = [];
     if (image.title) captionParts.push(image.title);
     if (image.year) captionParts.push(image.year);
@@ -249,7 +340,6 @@
     caption.textContent = captionParts.join(', ');
     caption.style.display = captionParts.length > 0 ? 'block' : 'none';
 
-    // Handle inquire button availability
     if (image.available === false) {
       inquireBtn.classList.add('unavailable');
     } else {
@@ -313,26 +403,6 @@
     }, 1500);
   }
 
-  function toggleZoom() {
-    const img = document.getElementById('lightbox-image');
-    const container = document.querySelector('.lightbox-image-container');
-    
-    isZoomed = !isZoomed;
-    
-    if (isZoomed) {
-      img.classList.add('zoomed');
-      container.classList.add('zoomed');
-      container.style.cursor = 'grab';
-    } else {
-      img.classList.remove('zoomed');
-      container.classList.remove('zoomed');
-      img.style.transform = '';
-      container.style.cursor = 'zoom-in';
-      translateX = 0;
-      translateY = 0;
-    }
-  }
-
   function openInquiry() {
     const series = allSeries[currentSeriesIndex];
     const image = series.images[currentImageIndex];
@@ -370,7 +440,7 @@
 
   function handleKeyboard(e) {
     if (!lightboxOpen) return;
-    if (isZoomed) return; // Disable keyboard navigation when zoomed
+    if (scale > 1) return;
 
     switch(e.key) {
       case 'Escape':
