@@ -30,7 +30,8 @@
 
     .globe-nav-container {
       position: relative;
-      max-width: 900px;
+      max-width: 1200px;
+      min-height: 500px;
       margin: 60px auto 40px;
       display: flex;
       align-items: center;
@@ -58,15 +59,17 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
+      z-index: 50;
     }
 
-    /* Position from center, not edge */
+    /* Left buttons - inside edge 220px from center */
     .nav-buttons-left {
-      right: 420px; /* 400px globe width / 2 + 20px gap */
+      right: calc(50% + 220px);
     }
 
+    /* Right buttons - inside edge 220px from center */
     .nav-buttons-right {
-      left: 420px; /* 400px globe width / 2 + 20px gap */
+      left: calc(50% + 220px);
     }
 
     .nav-btn {
@@ -75,7 +78,7 @@
       border: 2px solid #000;
       color: #000;
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       transition: all 0.3s;
@@ -89,31 +92,31 @@
       color: #fff;
     }
 
-    /* Curve effect for buttons */
+    /* Curve effect - following globe shape */
     .nav-buttons-left .nav-btn:nth-child(1) {
-      transform: translateY(-60px);
+      transform: translateY(-70px);
     }
     .nav-buttons-left .nav-btn:nth-child(2) {
-      transform: translateY(-20px);
+      transform: translateY(-25px);
     }
     .nav-buttons-left .nav-btn:nth-child(3) {
-      transform: translateY(20px);
+      transform: translateY(25px);
     }
     .nav-buttons-left .nav-btn:nth-child(4) {
-      transform: translateY(60px);
+      transform: translateY(70px);
     }
 
     .nav-buttons-right .nav-btn:nth-child(1) {
-      transform: translateY(-60px);
+      transform: translateY(-70px);
     }
     .nav-buttons-right .nav-btn:nth-child(2) {
-      transform: translateY(-20px);
+      transform: translateY(-25px);
     }
     .nav-buttons-right .nav-btn:nth-child(3) {
-      transform: translateY(20px);
+      transform: translateY(25px);
     }
     .nav-buttons-right .nav-btn:nth-child(4) {
-      transform: translateY(60px);
+      transform: translateY(70px);
     }
 
     .homepage-social {
@@ -131,31 +134,20 @@
       margin-top: 0.5rem;
     }
 
+    /* Hide mobile grid on desktop */
+    .mobile-nav-grid {
+      display: none;
+    }
+
     /* Mobile styles */
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2rem;
-        margin-top: 1rem;
-      }
-
-      .globe-nav-container {
-        flex-direction: column;
-        margin: 30px auto 20px;
-      }
-
-      .globe-wrapper {
-        width: 280px;
-        height: 280px;
-        margin-bottom: 2rem;
-        pointer-events: auto;
-        z-index: 200;
-      }
-
+    @media (max-width: 1100px) {
+      /* Hide desktop buttons on smaller screens */
       .nav-buttons-left,
       .nav-buttons-right {
         display: none;
       }
 
+      /* Show mobile grid */
       .mobile-nav-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -169,7 +161,25 @@
       .mobile-nav-grid .nav-btn {
         padding: 0.6rem 0.8rem;
         font-size: 0.85rem;
-        pointer-events: auto;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+        margin-top: 1rem;
+      }
+
+      .globe-nav-container {
+        flex-direction: column;
+        margin: 30px auto 20px;
+        min-height: auto;
+      }
+
+      .globe-wrapper {
+        width: 260px;
+        height: 260px;
+        margin: 0 auto 2rem;
       }
 
       .homepage-social {
@@ -181,19 +191,13 @@
     /* Mobile landscape */
     @media (max-width: 768px) and (orientation: landscape) {
       .globe-wrapper {
-        width: 250px;
-        height: 250px;
+        width: 220px;
+        height: 220px;
       }
 
       .mobile-nav-grid {
         max-width: 600px;
         gap: 0.6rem;
-      }
-    }
-
-    @media (min-width: 769px) {
-      .mobile-nav-grid {
-        display: none;
       }
     }
   </style>
@@ -223,7 +227,7 @@
   <!-- Main Globe Section with Navigation -->
   <main>
     <div class="globe-nav-container">
-      <!-- Left Navigation Buttons -->
+      <!-- Left Navigation Buttons (Desktop only) -->
       <div class="nav-buttons-left">
         <a href="paintings.html" class="nav-btn">Paintings</a>
         <a href="drawings.html" class="nav-btn">Drawings</a>
@@ -232,7 +236,7 @@
       </div>
 
       <!-- Globe (clickable to links page) -->
-      <a href="links.html" class="globe-wrapper" id="globe-link">
+      <a href="links.html" class="globe-wrapper">
         <div class="globe-container">
           <img src="images/world-icon-hand-drawn-illustration-editable-line-stroke-vector.png" alt="Globe" class="globe" />
 
@@ -254,7 +258,7 @@
         </div>
       </a>
 
-      <!-- Right Navigation Buttons -->
+      <!-- Right Navigation Buttons (Desktop only) -->
       <div class="nav-buttons-right">
         <a href="exhibitions.html" class="nav-btn">Exhibitions / CV</a>
         <a href="about.html" class="nav-btn">About</a>
@@ -281,9 +285,6 @@
       <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" rel="noopener">🐦 Twitter</a>
       <a class="social-btn" href="https://wa.me/84339441925" target="_blank" rel="noopener">💬 WhatsApp</a>
     </div>
-
-    <!-- Landing zone for Easter egg animation -->
-    <div id="animation-landing-zone"></div>
   </main>
 
   <!-- Footer -->
@@ -297,6 +298,5 @@
   <!-- Scripts -->
   <script src="menu.js"></script>
   <script src="script.js"></script>
-  <script src="easter-egg.js"></script>
 </body>
 </html>
