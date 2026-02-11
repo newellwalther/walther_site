@@ -23,11 +23,14 @@
   <style>
     body {
       overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
     }
 
     header {
       margin-top: 0;
       padding-top: 0;
+      width: 100%;
     }
 
     header h1 {
@@ -40,7 +43,6 @@
       display: inline-block;
     }
 
-    /* Individual letter hover effect for title */
     header h1 span {
       display: inline-block;
       transition: transform 0.2s ease;
@@ -54,7 +56,7 @@
     .globe-nav-container {
       position: relative;
       max-width: 1200px;
-      min-height: 450px;
+      height: 450px;
       margin: 0 auto 3rem;
       display: flex;
       align-items: center;
@@ -62,16 +64,19 @@
     }
 
     .globe-wrapper {
-      position: relative;
+      position: absolute;
       width: 400px;
       height: 400px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       cursor: pointer;
       transition: transform 0.3s ease;
       z-index: 100;
     }
 
     .globe-wrapper:hover {
-      transform: scale(1.05);
+      transform: translate(-50%, -50%) scale(1.05);
     }
 
     .nav-buttons-left,
@@ -85,30 +90,28 @@
       z-index: 50;
     }
 
-    /* Left buttons - inside edge 260px from center */
     .nav-buttons-left {
       right: calc(50% + 260px);
     }
 
-    /* Right buttons - inside edge 260px from center */
     .nav-buttons-right {
       left: calc(50% + 260px);
     }
 
     .nav-btn {
-      padding: 0.6rem 1.2rem;
+      padding: 0.7rem 1.4rem;
       background: #fff;
       border: 2px solid #000;
       color: #000;
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       transition: all 0.3s ease;
       display: block;
       text-align: center;
       white-space: nowrap;
-      width: 180px;
+      width: 200px;
     }
 
     .nav-btn:hover {
@@ -117,7 +120,6 @@
       transform: scale(1.05);
     }
 
-    /* Curve effect */
     .nav-buttons-left .nav-btn:nth-child(1) {
       transform: translateY(-70px);
     }
@@ -176,6 +178,7 @@
     footer {
       margin-top: 0;
       padding-bottom: 2rem;
+      width: 100%;
     }
 
     .visitor-counter {
@@ -184,12 +187,10 @@
       margin-top: 0.5rem;
     }
 
-    /* Hide mobile grid on desktop */
     .mobile-nav-grid {
       display: none;
     }
 
-    /* Mobile styles */
     @media (max-width: 1100px) {
       .nav-buttons-left,
       .nav-buttons-right {
@@ -219,26 +220,36 @@
 
     @media (max-width: 768px) {
       header h1 {
-        font-size: 2rem;
-        margin-top: 1rem;
+        font-size: 1.8rem;
+        margin-top: 3.5rem;
         margin-bottom: 1rem;
+        word-spacing: 100vw;
+        line-height: 1.2;
       }
 
       .globe-nav-container {
         flex-direction: column;
-        margin: 0 auto 0;
-        min-height: auto;
+        height: auto;
+        margin: 0 auto;
+        position: relative;
       }
 
       .globe-wrapper {
-        width: 200px;
-        height: 200px;
-        margin: 0 auto 15rem;
+        position: relative;
+        width: 180px;
+        height: 180px;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin: 0 auto 25rem;
       }
 
-      /* Scale down SVG text proportionally */
+      .globe-wrapper:hover {
+        transform: scale(1.05);
+      }
+
       .rotating-text {
-        transform: scale(0.8);
+        transform: scale(0.9);
         transform-origin: center;
       }
 
@@ -253,10 +264,17 @@
     }
 
     @media (max-width: 768px) and (orientation: landscape) {
+      header h1 {
+        font-size: 1.5rem;
+        margin-top: 3.5rem;
+        word-spacing: normal;
+        line-height: 1;
+      }
+
       .globe-wrapper {
-        width: 180px;
-        height: 180px;
-        margin-bottom: 10rem;
+        width: 160px;
+        height: 160px;
+        margin-bottom: 15rem;
       }
 
       .mobile-nav-grid {
@@ -304,7 +322,6 @@
         <div class="globe-container">
           <img src="images/world-icon-hand-drawn-illustration-editable-line-stroke-vector.png" alt="Globe" class="globe" />
 
-          <!-- Rotating circular text -->
           <svg class="rotating-text" viewBox="0 0 500 500">
             <defs>
               <path id="circlePath"
@@ -346,8 +363,8 @@
     <!-- Social Media Buttons -->
     <div class="social-buttons homepage-social">
       <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" rel="noopener">📷 Instagram</a>
-      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" rel="noopener">🐦 Twitter</a>
-      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" rel="noopener">💬 WhatsApp</a>
+      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" rel="noopener">𓅂 Twitter</a>
+      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" rel="noopener">🕻 WhatsApp</a>
     </div>
   </main>
 
@@ -359,11 +376,9 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script src="menu.js"></script>
   <script src="script.js"></script>
   <script>
-    // Wrap each letter in span for hover effect
     const title = document.getElementById('main-title');
     const text = title.textContent;
     title.innerHTML = text.split('').map(char => 
