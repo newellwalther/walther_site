@@ -19,6 +19,169 @@
     gtag('js', new Date());
     gtag('config', 'G-6XGRYTSC23');
   </script>
+  
+  <style>
+    header h1 {
+      font-size: 3rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    .globe-nav-container {
+      position: relative;
+      max-width: 900px;
+      margin: 40px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .globe-wrapper {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .globe-wrapper:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-buttons-left,
+    .nav-buttons-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .nav-buttons-left {
+      left: -180px;
+    }
+
+    .nav-buttons-right {
+      right: -180px;
+    }
+
+    .nav-btn {
+      padding: 0.75rem 1.5rem;
+      background: #fff;
+      border: 2px solid #000;
+      color: #000;
+      text-decoration: none;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+      display: block;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .nav-btn:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    /* Curve effect for buttons */
+    .nav-buttons-left .nav-btn:nth-child(1) {
+      transform: translateY(-60px);
+    }
+    .nav-buttons-left .nav-btn:nth-child(2) {
+      transform: translateY(-20px);
+    }
+    .nav-buttons-left .nav-btn:nth-child(3) {
+      transform: translateY(20px);
+    }
+    .nav-buttons-left .nav-btn:nth-child(4) {
+      transform: translateY(60px);
+    }
+
+    .nav-buttons-right .nav-btn:nth-child(1) {
+      transform: translateY(-60px);
+    }
+    .nav-buttons-right .nav-btn:nth-child(2) {
+      transform: translateY(-20px);
+    }
+    .nav-buttons-right .nav-btn:nth-child(3) {
+      transform: translateY(20px);
+    }
+    .nav-buttons-right .nav-btn:nth-child(4) {
+      transform: translateY(60px);
+    }
+
+    .homepage-social {
+      margin-top: 3rem;
+    }
+
+    footer {
+      margin-top: 2rem;
+    }
+
+    .visitor-counter {
+      font-size: 0.8rem;
+      color: #999;
+      margin-top: 0.5rem;
+    }
+
+    /* Mobile styles */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      .globe-nav-container {
+        flex-direction: column;
+      }
+
+      .globe-wrapper {
+        width: 300px;
+        height: 300px;
+        margin-bottom: 2rem;
+      }
+
+      .nav-buttons-left,
+      .nav-buttons-right {
+        position: static;
+        transform: none;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .nav-buttons-left .nav-btn,
+      .nav-buttons-right .nav-btn {
+        transform: none !important;
+      }
+
+      .mobile-nav-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto 2rem;
+      }
+
+      .mobile-nav-grid .nav-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .nav-buttons-left,
+      .nav-buttons-right {
+        display: none;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .mobile-nav-grid {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Menu -->
@@ -42,40 +205,75 @@
     <h1>Walther Worldwide</h1>
   </header>
 
-  <!-- Main Globe Section -->
+  <!-- Main Globe Section with Navigation -->
   <main>
-    <div class="globe-container">
-      <!-- Globe -->
-      <img src="images/world-icon-hand-drawn-illustration-editable-line-stroke-vector.png" alt="Globe" class="globe" />
+    <div class="globe-nav-container">
+      <!-- Left Navigation Buttons -->
+      <div class="nav-buttons-left">
+        <a href="paintings.html" class="nav-btn">Paintings</a>
+        <a href="drawings.html" class="nav-btn">Drawings</a>
+        <a href="text.html" class="nav-btn">Text</a>
+        <a href="video.html" class="nav-btn">Video</a>
+      </div>
 
-      <!-- Rotating circular text -->
-      <svg class="rotating-text" viewBox="0 0 500 500">
-        <defs>
-          <path id="circlePath"
-            d="M 250, 250
-               m -200, 0
-               a 200,200 0 1,1 400,0
-               a 200,200 0 1,1 -400,0" />
-        </defs>
-        <text font-size="18" fill="black">
-          <textPath href="#circlePath" startOffset="0%">
-            • World Wide Web Walther • World Wide Walther Web • World Web Wide Walther • World Web Walther Wide • World Walther Wide Web • World Walther Web Wide • Wide World Web Walther • Wide World Walther Web • Wide Web World Walther • Wide Web Walther World • Wide Walther World Web • Wide Walther Web World • Web World Wide Walther • Web World Walther Wide • Web Wide World Walther • Web Wide Walther World • Web Walther World Wide • Web Walther Wide World • Walther World Wide Web • Walther World Web Wide • Walther Wide World Web • Walther Wide Web World • Walther Web World Wide • Walther Web Wide World
-          </textPath>
-        </text>
-      </svg>
+      <!-- Globe (clickable to links page) -->
+      <a href="links.html" class="globe-wrapper">
+        <div class="globe-container">
+          <img src="images/world-icon-hand-drawn-illustration-editable-line-stroke-vector.png" alt="Globe" class="globe" />
+
+          <!-- Rotating circular text -->
+          <svg class="rotating-text" viewBox="0 0 500 500">
+            <defs>
+              <path id="circlePath"
+                d="M 250, 250
+                   m -200, 0
+                   a 200,200 0 1,1 400,0
+                   a 200,200 0 1,1 -400,0" />
+            </defs>
+            <text font-size="18" fill="black">
+              <textPath href="#circlePath" startOffset="0%">
+                • World Wide Web Walther • World Wide Walther Web • World Web Wide Walther • World Web Walther Wide • World Walther Wide Web • World Walther Web Wide • Wide World Web Walther • Wide World Walther Web • Wide Web World Walther • Wide Web Walther World • Wide Walther World Web • Wide Walther Web World • Web World Wide Walther • Web World Walther Wide • Web Wide World Walther • Web Wide Walther World • Web Walther World Wide • Web Walther Wide World • Walther World Wide Web • Walther World Web Wide • Walther Wide World Web • Walther Wide Web World • Walther Web World Wide • Walther Web Wide World
+              </textPath>
+            </text>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Right Navigation Buttons -->
+      <div class="nav-buttons-right">
+        <a href="exhibitions.html" class="nav-btn">Exhibitions / CV</a>
+        <a href="about.html" class="nav-btn">About</a>
+        <a href="contact.html" class="nav-btn">Contact</a>
+        <a href="https://19933.biz/manhattanartcomic.html" target="_blank" class="nav-btn">Manhattan Art Comic</a>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Grid (below globe on mobile) -->
+    <div class="mobile-nav-grid">
+      <a href="paintings.html" class="nav-btn">Paintings</a>
+      <a href="exhibitions.html" class="nav-btn">Exhibitions / CV</a>
+      <a href="drawings.html" class="nav-btn">Drawings</a>
+      <a href="about.html" class="nav-btn">About</a>
+      <a href="text.html" class="nav-btn">Text</a>
+      <a href="contact.html" class="nav-btn">Contact</a>
+      <a href="video.html" class="nav-btn">Video</a>
+      <a href="https://19933.biz/manhattanartcomic.html" target="_blank" class="nav-btn">Manhattan Art Comic</a>
+    </div>
+
+    <!-- Social Media Buttons -->
+    <div class="social-buttons homepage-social">
+      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" rel="noopener">📷 Instagram</a>
+      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" rel="noopener">🐦 Twitter</a>
+      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" rel="noopener">💬 WhatsApp</a>
     </div>
   </main>
-
-  <!-- Social Media Buttons -->
-  <div class="social-buttons homepage-social">
-    <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" rel="noopener">📷 Instagram</a>
-    <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" rel="noopener">🐦 Twitter</a>
-    <a class="social-btn" href="https://wa.me/84339441925" target="_blank" rel="noopener">💬 WhatsApp</a>
-  </div>
 
   <!-- Footer -->
   <footer>
     © 2025 Andrew Newell Walther. All rights reserved.
+    <div class="visitor-counter">
+      <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fwalther.website&count_bg=%23000000&title_bg=%23000000&icon=&icon_color=%23FFFFFF&title=visits&edge_flat=true" alt="Visitor count" style="margin-top: 0.5rem;">
+    </div>
   </footer>
 
   <!-- Scripts -->
