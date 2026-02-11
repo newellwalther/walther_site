@@ -21,9 +21,7 @@
   </script>
   
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       overflow-x: hidden;
@@ -38,14 +36,16 @@
       text-align: center;
     }
 
+    /* Desktop title - normal single line with double space */
     header h1 {
       font-size: 3.2rem;
       text-transform: uppercase;
       letter-spacing: 3px;
       margin-top: 1rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.5rem;
       cursor: pointer;
       display: inline-block;
+      white-space: nowrap;
     }
 
     header h1 span {
@@ -66,7 +66,7 @@
       width: 100%;
       max-width: 1400px;
       height: 460px;
-      margin: 0 auto 3rem;
+      margin: 0.5rem auto 3rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -99,14 +99,8 @@
       z-index: 50;
     }
 
-    /* Inside edge at 280px from center, buttons grow outward */
-    .nav-buttons-left {
-      right: calc(50% + 280px);
-    }
-
-    .nav-buttons-right {
-      left: calc(50% + 280px);
-    }
+    .nav-buttons-left { right: calc(50% + 280px); }
+    .nav-buttons-right { left: calc(50% + 280px); }
 
     .nav-btn {
       padding: 0.75rem 1.5rem;
@@ -157,14 +151,16 @@
     .social-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1.2rem;
+      gap: 0.4rem;
+      padding: 0.4rem 1rem;
       border: 1px solid #000;
       text-decoration: none;
       color: #000;
       font-size: 0.9rem;
       transition: all 0.3s;
       background: #fff;
+      vertical-align: middle;
+      line-height: 1;
     }
 
     .social-btn:hover {
@@ -177,45 +173,45 @@
     }
 
     .social-icon {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       object-fit: contain;
       display: inline-block;
       vertical-align: middle;
+      flex-shrink: 0;
     }
 
     /* Footer */
     footer {
       margin-top: 0;
-      padding: 1rem;
+      padding: 0.75rem 1rem;
       width: 100%;
+      font-size: 0.85rem;
     }
 
     .visitor-counter {
-      font-size: 0.75rem;
-      color: #999;
-      margin-top: 0.25rem;
+      display: inline-block;
+      margin-left: 1rem;
+      vertical-align: middle;
       line-height: 1;
     }
 
     .visitor-counter img {
-      height: 16px;
+      height: 14px;
       width: auto;
+      vertical-align: middle;
     }
 
-    /* Hide mobile grid on desktop */
-    .mobile-nav-grid {
-      display: none;
-    }
+    /* Hide mobile elements on desktop */
+    .mobile-nav-grid { display: none; }
+    .animation-space { display: none; }
 
     /* ==============================
-       TABLET / MEDIUM SCREENS
+       TABLET
     ============================== */
     @media (max-width: 1100px) {
       .nav-buttons-left,
-      .nav-buttons-right {
-        display: none;
-      }
+      .nav-buttons-right { display: none; }
 
       .mobile-nav-grid {
         display: grid;
@@ -234,30 +230,21 @@
         white-space: normal;
         text-align: center;
       }
-
-      .mobile-nav-grid .nav-btn:hover {
-        transform: none;
-      }
     }
 
     /* ==============================
-       MOBILE VERTICAL
+       MOBILE PORTRAIT
     ============================== */
     @media (max-width: 768px) and (orientation: portrait) {
+      /* Two-line title using <br> in HTML - no word-break tricks */
       header h1 {
         font-size: 1.8rem;
         margin-top: 3.5rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.3rem;
+        white-space: normal;
+        line-height: 1.3;
         display: block;
         text-align: center;
-        width: 100%;
-        word-break: break-word;
-        white-space: normal;
-        /* Force two lines */
-        max-width: 8ch;
-        margin-left: auto;
-        margin-right: auto;
-        line-height: 1.3;
       }
 
       .globe-nav-container {
@@ -265,47 +252,30 @@
         margin: 0;
         display: block;
         width: 100%;
+        max-width: 100%;
       }
 
       .globe-wrapper {
         position: relative;
-        width: 160px;
-        height: 160px;
+        width: 192px; /* was 160px, now +20% */
+        height: 192px;
         top: auto;
         left: auto;
         transform: none !important;
         display: block;
-        margin: 0.5rem auto 0;
+        margin: 0.3rem auto 0;
       }
 
       .globe-wrapper:hover {
         transform: scale(1.05) !important;
       }
 
-      .globe-wrapper .globe-container {
-        width: 160px;
-        height: 160px;
-      }
-
-      .globe-wrapper img.globe {
-        width: 100%;
-        height: 100%;
-      }
-
-      /* Scale rotating text to match globe */
-      .globe-wrapper .rotating-text {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-      }
-
-      /* Big empty space for animation landing zone */
+      /* Animation landing zone */
       .animation-space {
         display: block;
-        height: 35vh;
+        height: 38vh;
         width: 100%;
+        min-height: 200px;
       }
 
       .mobile-nav-grid {
@@ -325,6 +295,11 @@
         white-space: normal;
         text-align: center;
       }
+
+      .homepage-social {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+      }
     }
 
     /* ==============================
@@ -333,14 +308,11 @@
     @media (max-width: 900px) and (orientation: landscape) {
       header h1 {
         font-size: 1.4rem;
-        margin-top: 3.5rem;
-        margin-bottom: 0.5rem;
-        /* Two lines in landscape too */
-        display: block;
-        max-width: 8ch;
-        margin-left: auto;
-        margin-right: auto;
+        margin-top: 3.2rem;
+        margin-bottom: 0.3rem;
+        white-space: normal;
         line-height: 1.3;
+        display: block;
         text-align: center;
       }
 
@@ -353,38 +325,36 @@
 
       .globe-wrapper {
         position: relative;
-        width: 120px;
-        height: 120px;
+        width: 110px;
+        height: 110px;
         top: auto;
         left: auto;
         transform: none !important;
         display: block;
-        margin: 0.5rem auto 0;
+        margin: 0.3rem auto 0.5rem;
       }
 
       .globe-wrapper:hover {
         transform: scale(1.05) !important;
       }
 
-      .globe-wrapper .globe-container {
-        width: 120px;
-        height: 120px;
-      }
-
-      /* NO animation space in landscape */
-      .animation-space {
-        display: none;
-      }
+      /* No animation space in landscape */
+      .animation-space { display: none; }
 
       .mobile-nav-grid {
         max-width: 500px;
         gap: 0.5rem;
-        margin: 1rem auto;
+        margin: 0.5rem auto 1rem;
       }
 
       .mobile-nav-grid .nav-btn {
         font-size: 0.8rem;
         padding: 0.5rem;
+      }
+
+      .homepage-social {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
       }
     }
   </style>
@@ -406,9 +376,9 @@
     </ul>
   </div>
 
-  <!-- Header -->
+  <!-- Header: desktop = one line with double space, mobile = two lines via <br> -->
   <header>
-    <h1 id="main-title">WALTHER WORLDWIDE</h1>
+    <h1 id="main-title">WALTHER&nbsp;&nbsp;WORLDWIDE</h1>
   </header>
 
   <main>
@@ -451,7 +421,7 @@
       </div>
     </div>
 
-    <!-- Empty space for animation on mobile portrait -->
+    <!-- Animation landing zone - mobile portrait only -->
     <div class="animation-space"></div>
 
     <!-- Mobile Navigation Grid -->
@@ -483,26 +453,33 @@
   <!-- Footer -->
   <footer>
     © 2025 Andrew Newell Walther. All rights reserved.
-    <div class="visitor-counter">
-      <div id="sfcjsx5sysr3cptq5s7hcjj7bq7mxpe3b5w"></div>
+    <span class="visitor-counter">
+      <div id="sfcjsx5sysr3cptq5s7hcjj7bq7mxpe3b5w" style="display:inline;"></div>
       <script type="text/javascript" src="https://counter1.optistats.ovh/private/counter.js?c=jsx5sysr3cptq5s7hcjj7bq7mxpe3b5w&down=async" async></script>
       <noscript>
         <a href="https://www.freecounterstat.com" title="free hit counter">
-          <img src="https://counter1.optistats.ovh/private/freecounterstat.php?c=jsx5sysr3cptq5s7hcjj7bq7mxpe3b5w" border="0" title="free hit counter" alt="free hit counter">
+          <img src="https://counter1.optistats.ovh/private/freecounterstat.php?c=jsx5sysr3cptq5s7hcjj7bq7mxpe3b5w" border="0" title="visits" alt="visits" style="height:14px;">
         </a>
       </noscript>
-    </div>
+    </span>
   </footer>
 
   <script src="menu.js"></script>
   <script src="script.js"></script>
   <script>
-    // Wrap letters for Easter egg
+    // Wrap letters for Easter egg - handle &nbsp; space correctly
     const title = document.getElementById('main-title');
-    const text = title.textContent;
-    title.innerHTML = text.split('').map(char =>
-      char === ' ' ? '<span class="title-space"> </span>' : `<span class="title-letter">${char}</span>`
-    ).join('');
+    const html = title.innerHTML;
+    // Split on the double-space entity, wrap each word's letters
+    const words = ['WALTHER', 'WORLDWIDE'];
+    let result = '';
+    words.forEach((word, wi) => {
+      word.split('').forEach(char => {
+        result += `<span class="title-letter" data-char="${char}">${char}</span>`;
+      });
+      if (wi === 0) result += '<span class="title-space">&nbsp;&nbsp;</span>';
+    });
+    title.innerHTML = result;
   </script>
 </body>
 </html>
