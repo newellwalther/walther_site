@@ -21,18 +21,41 @@
   </script>
   
   <style>
+    body {
+      overflow-x: hidden;
+    }
+
+    header {
+      margin-top: 0;
+      padding-top: 0;
+    }
+
     header h1 {
       font-size: 3.2rem;
       text-transform: uppercase;
       letter-spacing: 3px;
-      margin-top: 2rem;
+      margin-top: 1rem;
+      margin-bottom: 1.5rem;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    /* Individual letter hover effect for title */
+    header h1 span {
+      display: inline-block;
+      transition: transform 0.2s ease;
+      cursor: pointer;
+    }
+
+    header h1 span:hover {
+      transform: scale(1.15);
     }
 
     .globe-nav-container {
       position: relative;
       max-width: 1200px;
-      min-height: 500px;
-      margin: 60px auto 40px;
+      min-height: 450px;
+      margin: 0 auto 3rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -62,14 +85,14 @@
       z-index: 50;
     }
 
-    /* Left buttons - inside edge 240px from center */
+    /* Left buttons - inside edge 260px from center */
     .nav-buttons-left {
-      right: calc(50% + 240px);
+      right: calc(50% + 260px);
     }
 
-    /* Right buttons - inside edge 240px from center */
+    /* Right buttons - inside edge 260px from center */
     .nav-buttons-right {
-      left: calc(50% + 240px);
+      left: calc(50% + 260px);
     }
 
     .nav-btn {
@@ -81,52 +104,78 @@
       font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 1px;
-      transition: all 0.3s;
+      transition: all 0.3s ease;
       display: block;
       text-align: center;
       white-space: nowrap;
-      min-width: 160px;
+      width: 180px;
     }
 
     .nav-btn:hover {
       background: #000;
       color: #fff;
+      transform: scale(1.05);
     }
 
-    /* Curve effect - following globe shape */
+    /* Curve effect */
     .nav-buttons-left .nav-btn:nth-child(1) {
       transform: translateY(-70px);
+    }
+    .nav-buttons-left .nav-btn:nth-child(1):hover {
+      transform: translateY(-70px) scale(1.05);
     }
     .nav-buttons-left .nav-btn:nth-child(2) {
       transform: translateY(-25px);
     }
+    .nav-buttons-left .nav-btn:nth-child(2):hover {
+      transform: translateY(-25px) scale(1.05);
+    }
     .nav-buttons-left .nav-btn:nth-child(3) {
       transform: translateY(25px);
     }
+    .nav-buttons-left .nav-btn:nth-child(3):hover {
+      transform: translateY(25px) scale(1.05);
+    }
     .nav-buttons-left .nav-btn:nth-child(4) {
       transform: translateY(70px);
+    }
+    .nav-buttons-left .nav-btn:nth-child(4):hover {
+      transform: translateY(70px) scale(1.05);
     }
 
     .nav-buttons-right .nav-btn:nth-child(1) {
       transform: translateY(-70px);
     }
+    .nav-buttons-right .nav-btn:nth-child(1):hover {
+      transform: translateY(-70px) scale(1.05);
+    }
     .nav-buttons-right .nav-btn:nth-child(2) {
       transform: translateY(-25px);
+    }
+    .nav-buttons-right .nav-btn:nth-child(2):hover {
+      transform: translateY(-25px) scale(1.05);
     }
     .nav-buttons-right .nav-btn:nth-child(3) {
       transform: translateY(25px);
     }
+    .nav-buttons-right .nav-btn:nth-child(3):hover {
+      transform: translateY(25px) scale(1.05);
+    }
     .nav-buttons-right .nav-btn:nth-child(4) {
       transform: translateY(70px);
     }
+    .nav-buttons-right .nav-btn:nth-child(4):hover {
+      transform: translateY(70px) scale(1.05);
+    }
 
     .homepage-social {
-      margin-top: 4rem;
-      margin-bottom: 3rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
     }
 
     footer {
-      margin-top: 1rem;
+      margin-top: 0;
+      padding-bottom: 2rem;
     }
 
     .visitor-counter {
@@ -142,13 +191,11 @@
 
     /* Mobile styles */
     @media (max-width: 1100px) {
-      /* Hide desktop buttons on smaller screens */
       .nav-buttons-left,
       .nav-buttons-right {
         display: none;
       }
 
-      /* Show mobile grid */
       .mobile-nav-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -162,7 +209,11 @@
       .mobile-nav-grid .nav-btn {
         padding: 0.6rem 0.8rem;
         font-size: 0.85rem;
-        min-width: auto;
+        width: auto;
+      }
+
+      .mobile-nav-grid .nav-btn:hover {
+        transform: scale(1);
       }
     }
 
@@ -170,22 +221,29 @@
       header h1 {
         font-size: 2rem;
         margin-top: 1rem;
+        margin-bottom: 1rem;
       }
 
       .globe-nav-container {
         flex-direction: column;
-        margin: 30px auto 0;
+        margin: 0 auto 0;
         min-height: auto;
       }
 
       .globe-wrapper {
-        width: 260px;
-        height: 260px;
-        margin: 0 auto 2.5rem;
+        width: 200px;
+        height: 200px;
+        margin: 0 auto 15rem;
+      }
+
+      /* Scale down SVG text proportionally */
+      .rotating-text {
+        transform: scale(0.8);
+        transform-origin: center;
       }
 
       .mobile-nav-grid {
-        margin-bottom: 2.5rem;
+        margin-bottom: 2rem;
       }
 
       .homepage-social {
@@ -194,22 +252,16 @@
       }
     }
 
-    /* Mobile landscape */
     @media (max-width: 768px) and (orientation: landscape) {
       .globe-wrapper {
-        width: 220px;
-        height: 220px;
-        margin-bottom: 2rem;
+        width: 180px;
+        height: 180px;
+        margin-bottom: 10rem;
       }
 
       .mobile-nav-grid {
         max-width: 600px;
         gap: 0.6rem;
-        margin-bottom: 2rem;
-      }
-
-      .homepage-social {
-        margin-top: 1.5rem;
       }
     }
   </style>
@@ -279,7 +331,7 @@
       </div>
     </div>
 
-    <!-- Mobile Navigation Grid (below globe on mobile) -->
+    <!-- Mobile Navigation Grid -->
     <div class="mobile-nav-grid">
       <a href="paintings.html" class="nav-btn">Paintings</a>
       <a href="exhibitions.html" class="nav-btn">Exhibitions / CV</a>
@@ -310,5 +362,13 @@
   <!-- Scripts -->
   <script src="menu.js"></script>
   <script src="script.js"></script>
+  <script>
+    // Wrap each letter in span for hover effect
+    const title = document.getElementById('main-title');
+    const text = title.textContent;
+    title.innerHTML = text.split('').map(char => 
+      char === ' ' ? ' ' : `<span>${char}</span>`
+    ).join('');
+  </script>
 </body>
 </html>
