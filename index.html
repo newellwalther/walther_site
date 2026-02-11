@@ -22,15 +22,16 @@
   
   <style>
     header h1 {
-      font-size: 3rem;
+      font-size: 3.2rem;
       text-transform: uppercase;
       letter-spacing: 3px;
+      margin-top: 2rem;
     }
 
     .globe-nav-container {
       position: relative;
       max-width: 900px;
-      margin: 40px auto;
+      margin: 60px auto 40px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -42,6 +43,7 @@
       height: 400px;
       cursor: pointer;
       transition: transform 0.3s ease;
+      z-index: 100;
     }
 
     .globe-wrapper:hover {
@@ -52,27 +54,28 @@
     .nav-buttons-right {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1.2rem;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
     }
 
+    /* Position from center, not edge */
     .nav-buttons-left {
-      left: -180px;
+      right: 420px; /* 400px globe width / 2 + 20px gap */
     }
 
     .nav-buttons-right {
-      right: -180px;
+      left: 420px; /* 400px globe width / 2 + 20px gap */
     }
 
     .nav-btn {
-      padding: 0.75rem 1.5rem;
+      padding: 0.6rem 1.2rem;
       background: #fff;
       border: 2px solid #000;
       color: #000;
       text-decoration: none;
-      font-size: 1rem;
+      font-size: 0.95rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       transition: all 0.3s;
@@ -114,11 +117,12 @@
     }
 
     .homepage-social {
-      margin-top: 3rem;
+      margin-top: 4rem;
+      margin-bottom: 3rem;
     }
 
     footer {
-      margin-top: 2rem;
+      margin-top: 1rem;
     }
 
     .visitor-counter {
@@ -131,48 +135,59 @@
     @media (max-width: 768px) {
       header h1 {
         font-size: 2rem;
+        margin-top: 1rem;
       }
 
       .globe-nav-container {
         flex-direction: column;
+        margin: 30px auto 20px;
       }
 
       .globe-wrapper {
-        width: 300px;
-        height: 300px;
+        width: 280px;
+        height: 280px;
         margin-bottom: 2rem;
-      }
-
-      .nav-buttons-left,
-      .nav-buttons-right {
-        position: static;
-        transform: none;
-        width: 100%;
-        max-width: 300px;
-      }
-
-      .nav-buttons-left .nav-btn,
-      .nav-buttons-right .nav-btn {
-        transform: none !important;
-      }
-
-      .mobile-nav-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-        width: 100%;
-        max-width: 400px;
-        margin: 0 auto 2rem;
-      }
-
-      .mobile-nav-grid .nav-btn {
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
+        pointer-events: auto;
+        z-index: 200;
       }
 
       .nav-buttons-left,
       .nav-buttons-right {
         display: none;
+      }
+
+      .mobile-nav-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto 2rem;
+        padding: 0 1rem;
+      }
+
+      .mobile-nav-grid .nav-btn {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.85rem;
+        pointer-events: auto;
+      }
+
+      .homepage-social {
+        margin-top: 3rem;
+        margin-bottom: 2rem;
+      }
+    }
+
+    /* Mobile landscape */
+    @media (max-width: 768px) and (orientation: landscape) {
+      .globe-wrapper {
+        width: 250px;
+        height: 250px;
+      }
+
+      .mobile-nav-grid {
+        max-width: 600px;
+        gap: 0.6rem;
       }
     }
 
@@ -202,7 +217,7 @@
 
   <!-- Header -->
   <header>
-    <h1>Walther Worldwide</h1>
+    <h1 id="main-title">WALTHER WORLDWIDE</h1>
   </header>
 
   <!-- Main Globe Section with Navigation -->
@@ -217,7 +232,7 @@
       </div>
 
       <!-- Globe (clickable to links page) -->
-      <a href="links.html" class="globe-wrapper">
+      <a href="links.html" class="globe-wrapper" id="globe-link">
         <div class="globe-container">
           <img src="images/world-icon-hand-drawn-illustration-editable-line-stroke-vector.png" alt="Globe" class="globe" />
 
@@ -266,6 +281,9 @@
       <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" rel="noopener">🐦 Twitter</a>
       <a class="social-btn" href="https://wa.me/84339441925" target="_blank" rel="noopener">💬 WhatsApp</a>
     </div>
+
+    <!-- Landing zone for Easter egg animation -->
+    <div id="animation-landing-zone"></div>
   </main>
 
   <!-- Footer -->
@@ -279,5 +297,6 @@
   <!-- Scripts -->
   <script src="menu.js"></script>
   <script src="script.js"></script>
+  <script src="easter-egg.js"></script>
 </body>
 </html>
