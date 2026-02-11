@@ -62,14 +62,14 @@
       z-index: 50;
     }
 
-    /* Left buttons - inside edge 220px from center */
+    /* Left buttons - inside edge 240px from center */
     .nav-buttons-left {
-      right: calc(50% + 220px);
+      right: calc(50% + 240px);
     }
 
-    /* Right buttons - inside edge 220px from center */
+    /* Right buttons - inside edge 240px from center */
     .nav-buttons-right {
-      left: calc(50% + 220px);
+      left: calc(50% + 240px);
     }
 
     .nav-btn {
@@ -85,6 +85,7 @@
       display: block;
       text-align: center;
       white-space: nowrap;
+      min-width: 160px;
     }
 
     .nav-btn:hover {
@@ -161,6 +162,7 @@
       .mobile-nav-grid .nav-btn {
         padding: 0.6rem 0.8rem;
         font-size: 0.85rem;
+        min-width: auto;
       }
     }
 
@@ -172,18 +174,22 @@
 
       .globe-nav-container {
         flex-direction: column;
-        margin: 30px auto 20px;
+        margin: 30px auto 0;
         min-height: auto;
       }
 
       .globe-wrapper {
         width: 260px;
         height: 260px;
-        margin: 0 auto 2rem;
+        margin: 0 auto 2.5rem;
+      }
+
+      .mobile-nav-grid {
+        margin-bottom: 2.5rem;
       }
 
       .homepage-social {
-        margin-top: 3rem;
+        margin-top: 2rem;
         margin-bottom: 2rem;
       }
     }
@@ -193,11 +199,17 @@
       .globe-wrapper {
         width: 220px;
         height: 220px;
+        margin-bottom: 2rem;
       }
 
       .mobile-nav-grid {
         max-width: 600px;
         gap: 0.6rem;
+        margin-bottom: 2rem;
+      }
+
+      .homepage-social {
+        margin-top: 1.5rem;
       }
     }
   </style>
