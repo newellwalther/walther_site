@@ -4,21 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Paintings — Andrew Newell Walther</title>
-  <meta name="description" content="Paintings by Andrew Newell Walther, multidisciplinary artist from Alaska, based in Ho Chi Minh City">
-  
-  <!-- Open Graph / Social Media -->
-  <meta property="og:title" content="Paintings — Andrew Newell Walther" />
-  <meta property="og:description" content="Paintings by Andrew Newell Walther" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://walther.website/paintings.html" />
-  
-  <!-- Favicon -->
+  <meta name="description" content="Paintings by Andrew Newell Walther">
+
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☯️</text></svg>">
-  
+
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="gallery.css" />
-  
-  <!-- Google Analytics -->
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XGRYTSC23"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -26,10 +18,76 @@
     gtag('js', new Date());
     gtag('config', 'G-6XGRYTSC23');
   </script>
+
+  <style>
+    .page-header {
+      text-align: left;
+      padding: 1.5rem 1rem 0.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .page-header .artist-name {
+      font-size: 1rem;
+      font-family: Georgia, serif;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin: 0 0 0.2rem;
+      color: #333;
+    }
+
+    .page-header h1 {
+      font-size: 2.2rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin: 0 0 0.5rem;
+      font-weight: normal;
+    }
+
+    .list-toggle-wrap {
+      text-align: left;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1rem 1rem;
+    }
+
+    #list-view-toggle {
+      position: static;
+      display: inline-block;
+      background: #000;
+      color: #fff;
+      border: 1px solid #000;
+      padding: 6px 14px;
+      cursor: pointer;
+      font-size: 13px;
+      text-transform: uppercase;
+      border-radius: 0;
+      font-family: Georgia, serif;
+    }
+
+    #list-view-toggle:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    @media (max-width: 768px) {
+      .page-header {
+        padding: 1rem 0.75rem 0.3rem;
+      }
+      .page-header .artist-name {
+        font-size: 0.85rem;
+      }
+      .page-header h1 {
+        font-size: 1.6rem;
+      }
+      .list-toggle-wrap {
+        padding: 0 0.75rem 0.75rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Menu -->
   <div class="menu">
     <button class="menu-trigger" aria-label="Open site menu">MENU</button>
     <ul class="dropdown" role="menu">
@@ -45,45 +103,36 @@
     </ul>
   </div>
 
-  <!-- List View Toggle -->
-  <button id="list-view-toggle">List View</button>
+  <div class="page-header">
+    <p class="artist-name">Andrew Newell Walther</p>
+    <h1>Paintings</h1>
+  </div>
 
-  <header>
-    <h1>P A I N T I N G S</h1>
-    <p>Andrew Newell Walther.</p>
-  </header>
+  <div class="list-toggle-wrap">
+    <button id="list-view-toggle">List View</button>
+  </div>
 
-  <!-- GALLERY CONTAINER -->
-  <main>
-    <div id="gallery-container">
-      <!-- Gallery will be populated by JavaScript -->
-    </div>
-  </main>
+  <div id="gallery-container"></div>
 
   <footer>
     <div class="social-buttons footer-social">
-      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" aria-label="Instagram">📷</a>
-      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" aria-label="Twitter">🐦</a>
-      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" aria-label="WhatsApp">💬</a>
+      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank">📷</a>
+      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank">𓅂</a>
+      <a class="social-btn" href="https://wa.me/84339441925" target="_blank">🕻</a>
     </div>
     <a href="contact.html#newsletter" class="newsletter-link">Newsletter</a>
     <p>© 2025 Andrew Newell Walther. All rights reserved.</p>
   </footer>
 
-  <!-- Scripts -->
   <script src="menu.js"></script>
   <script src="gallery.js"></script>
   <script>
-    // Load gallery data
     fetch('paintings-data.json')
-      .then(response => response.json())
-      .then(data => {
-        initGallery(data.series);
-      })
-      .catch(error => {
-        console.error('Error loading gallery data:', error);
-        document.getElementById('gallery-container').innerHTML = 
-          '<p style="text-align: center; padding: 2rem;">Gallery loading error. Please refresh the page.</p>';
+      .then(r => r.json())
+      .then(data => initGallery(data.series))
+      .catch(e => {
+        document.getElementById('gallery-container').innerHTML =
+          '<p style="padding:2rem;text-align:center;">Gallery loading error. Please refresh the page.</p>';
       });
   </script>
 </body>

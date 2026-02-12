@@ -2,66 +2,92 @@
    GALLERY SYSTEM STYLES
 ============================== */
 
-/* Gallery Container */
 #gallery-container {
   max-width: 100%;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 0.5rem 1rem 2rem;
 }
 
-/* Series Section */
 .gallery-series {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .series-header {
   text-align: left;
-  margin-bottom: 1.5rem;
-  padding-left: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 0.5rem;
 }
 
 .series-title {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: normal;
-  margin-bottom: 0.3rem;
+  margin: 0 0 0.2rem;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .series-subtitle {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #666;
   font-style: italic;
+  margin: 0 0 0.4rem;
 }
+
+/* Description with expand/collapse */
+.series-desc-wrap {
+  max-width: 700px;
+}
+
+.series-desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #333;
+  margin: 0 0 0.3rem;
+  /* Desktop: show 2 lines then truncate */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.series-desc.expanded {
+  display: block;
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.desc-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.82rem;
+  color: #666;
+  cursor: pointer;
+  text-decoration: underline;
+  font-family: Georgia, serif;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.desc-toggle:hover { color: #000; }
 
 /* Horizontal Scroll Row */
 .series-scroll-row {
   display: flex;
-  gap: 1rem;
+  gap: 0.8rem;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 1rem 0;
+  padding: 0.5rem 0 0.8rem;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  
   scrollbar-width: thin;
   scrollbar-color: #ccc transparent;
 }
 
-.series-scroll-row::-webkit-scrollbar {
-  height: 6px;
-}
+.series-scroll-row::-webkit-scrollbar { height: 4px; }
+.series-scroll-row::-webkit-scrollbar-track { background: transparent; }
+.series-scroll-row::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
 
-.series-scroll-row::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.series-scroll-row::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 3px;
-}
-
-/* Thumbnail Container */
 .gallery-thumb-container {
   position: relative;
   flex-shrink: 0;
@@ -69,41 +95,32 @@
   transition: transform 0.2s ease;
 }
 
-.gallery-thumb-container:hover {
-  transform: translateY(-4px);
-}
+.gallery-thumb-container:hover { transform: translateY(-3px); }
 
 .gallery-thumb {
-  height: 300px;
+  height: 280px;
   width: auto;
   display: block;
   object-fit: contain;
   transition: opacity 0.3s ease;
 }
 
-.gallery-thumb:hover {
-  opacity: 0.9;
-}
+.gallery-thumb:hover { opacity: 0.9; }
 
-/* Museum Label Overlay */
 .museum-label {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.85);
+  bottom: 0; left: 0; right: 0;
+  background: rgba(0,0,0,0.85);
   color: white;
-  padding: 0.5rem;
-  font-size: 0.85rem;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.8rem;
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
   text-align: center;
 }
 
-.gallery-thumb-container:hover .museum-label {
-  opacity: 1;
-}
+.gallery-thumb-container:hover .museum-label { opacity: 1; }
 
 /* ==============================
    LIGHTBOX
@@ -112,140 +129,120 @@
 .lightbox {
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.95);
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.95);
   z-index: 10000;
   align-items: center;
   justify-content: center;
 }
 
-.lightbox.active {
-  display: flex;
-}
+.lightbox.active { display: flex; }
 
 .lightbox-content {
   position: relative;
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  padding: 1rem;
+  padding: 3rem 1rem 1rem;
 }
 
+/* Image fills available space above controls */
 .lightbox-image-container {
-  position: relative;
-  max-width: calc(100% - 200px);
-  max-height: calc(100vh - 200px);
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  width: 100%;
+  max-width: 900px;
   cursor: zoom-in;
+  position: relative;
 }
 
-.lightbox-image-container.zoomed {
-  cursor: grab;
-  max-width: 90vw;
-  max-height: 70vh;
-}
-
-.lightbox-image-container.zoomed:active {
-  cursor: grabbing;
-}
+.lightbox-image-container.zoomed { cursor: grab; }
+.lightbox-image-container.zoomed:active { cursor: grabbing; }
 
 #lightbox-image {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  transition: none;
   user-select: none;
   -webkit-user-drag: none;
   touch-action: none;
+  transition: none;
 }
 
 #lightbox-image.zoomed {
   max-width: none;
   max-height: none;
-  width: auto;
-  height: auto;
-  cursor: grab;
 }
 
-#lightbox-image.zoomed:active {
-  cursor: grabbing;
-}
-
-/* Lightbox Controls */
-.lightbox-close,
-.lightbox-prev,
-.lightbox-next,
-.lightbox-zoom,
-.lightbox-inquire {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-  transition: background 0.2s ease;
-  user-select: none;
-  z-index: 10001;
-}
-
-.lightbox-close:hover,
-.lightbox-prev:hover,
-.lightbox-next:hover,
-.lightbox-zoom:hover,
-.lightbox-inquire:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
+/* Close button */
 .lightbox-close {
-  top: 1rem;
+  position: absolute;
+  top: 0.75rem;
   right: 1rem;
-  font-size: 2.5rem;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  font-size: 2rem;
   line-height: 1;
-  padding: 0.25rem 0.75rem;
+  padding: 0.2rem 0.7rem;
+  cursor: pointer;
+  z-index: 10001;
+  transition: background 0.2s;
 }
 
-.lightbox-prev,
-.lightbox-next {
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 3rem;
+.lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+/* Caption */
+.lightbox-caption {
+  color: white;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 0.5rem 1rem 0.25rem;
+  max-width: 700px;
+}
+
+/* Controls row - ALL BUTTONS AT BOTTOM */
+.lightbox-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem 0.75rem;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 700px;
+}
+
+.lightbox-controls button {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.5rem 1.2rem;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.lightbox-controls button:hover { background: rgba(255,255,255,0.25); }
+
+.lightbox-prev, .lightbox-next {
+  font-size: 1.8rem !important;
+  padding: 0.3rem 1rem !important;
   line-height: 1;
-  padding: 0.5rem 1rem;
-}
-
-.lightbox-prev {
-  left: 1rem;
-}
-
-.lightbox-next {
-  right: 1rem;
-}
-
-/* Zoom and Inquire positioned below navigation */
-.lightbox-zoom {
-  bottom: 8rem;
-  left: 1rem;
-  font-size: 1.2rem;
-  padding: 0.5rem 1rem;
 }
 
 .lightbox-inquire {
-  bottom: 8rem;
-  right: 1rem;
-  font-size: 1rem;
-  padding: 0.5rem 1.5rem;
   text-transform: uppercase;
   letter-spacing: 1px;
+  font-size: 0.85rem !important;
 }
 
 .lightbox-inquire.unavailable {
@@ -254,17 +251,23 @@
   pointer-events: none;
 }
 
-/* Lightbox Caption */
-.lightbox-caption {
+/* Zoom slider - desktop only */
+.zoom-slider-wrap {
+  display: none; /* shown via JS when zoomed on desktop */
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.zoom-slider {
+  width: 80px;
+  accent-color: white;
+  cursor: pointer;
+}
+
+.zoom-label {
   color: white;
-  text-align: center;
-  margin-top: 1rem;
-  font-size: 1rem;
-  max-width: 80%;
-  position: absolute;
-  bottom: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
+  font-size: 0.75rem;
+  min-width: 35px;
 }
 
 /* Series Transition Card */
@@ -276,58 +279,34 @@
   color: white;
   text-align: center;
   padding: 2rem;
-  min-height: 300px;
+  min-height: 200px;
 }
 
 .lightbox-series-card h2 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 3px;
 }
 
 .lightbox-series-card p {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #ccc;
   font-style: italic;
-  margin-bottom: 2rem;
 }
 
-.series-arrow {
-  font-size: 4rem;
-  margin-top: 1rem;
-}
+.series-arrow { font-size: 3rem; margin-top: 0.5rem; }
 
 /* ==============================
    LIST VIEW
 ============================== */
-
-#list-view-toggle {
-  position: fixed;
-  top: 80px;
-  right: 20px;
-  background: #000;
-  color: #fff;
-  border: 1px solid #000;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-size: 14px;
-  text-transform: uppercase;
-  border-radius: 4px;
-  z-index: 1000;
-}
-
-#list-view-toggle:hover {
-  background: #fff;
-  color: #000;
-}
 
 .list-view .series-scroll-row {
   display: block;
 }
 
 .list-view .gallery-thumb-container {
-  margin: 2rem auto;
+  margin: 1.5rem auto;
   max-width: 800px;
   text-align: center;
 }
@@ -335,7 +314,7 @@
 .list-view .gallery-thumb {
   height: auto;
   max-width: 100%;
-  margin: 0 auto 1rem;
+  margin: 0 auto 0.75rem;
 }
 
 .list-view .museum-label {
@@ -343,9 +322,8 @@
   opacity: 1;
   background: transparent;
   color: #000;
-  padding: 0.5rem 0;
-  font-size: 1rem;
-  animation: fadeInOut 1s ease-in-out;
+  padding: 0.4rem 0;
+  font-size: 0.95rem;
 }
 
 .list-view .museum-label::before {
@@ -353,169 +331,81 @@
   font-weight: bold;
 }
 
-@keyframes fadeInOut {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
-}
-
 /* ==============================
-   MOBILE RESPONSIVE
+   MOBILE
 ============================== */
 
 @media (max-width: 768px) {
-  .series-title {
-    font-size: 1.2rem;
-  }
 
-  .series-subtitle {
-    font-size: 0.9rem;
-  }
-
-  .gallery-thumb {
-    height: 220px;
-  }
-
-  .lightbox-image-container {
-    max-width: 100%;
-    max-height: calc(100vh - 250px);
-  }
-
-  .lightbox-image-container.zoomed {
-    max-height: calc(100vh - 200px);
-  }
-
-  /* Mobile vertical - buttons below image */
-  .lightbox-prev,
-  .lightbox-next {
-    bottom: 11rem;
-    top: auto;
-    transform: none;
-    font-size: 2rem;
-    padding: 0.5rem 1rem;
-  }
-
-  .lightbox-prev {
-    left: 2rem;
-  }
-
-  .lightbox-next {
-    right: 2rem;
-  }
-
-  .lightbox-zoom {
-    bottom: 11rem;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1rem;
-  }
-
-  .lightbox-inquire {
-    bottom: 6rem;
-    left: 50%;
-    transform: translateX(-50%);
-    right: auto;
-    font-size: 0.9rem;
-  }
-
-  .lightbox-close {
-    font-size: 2rem;
-    top: 0.5rem;
-    right: 0.5rem;
-  }
-
-  .lightbox-caption {
-    font-size: 0.9rem;
-    bottom: 0.5rem;
-  }
-
-  .lightbox-series-card h2 {
-    font-size: 2rem;
-  }
-
-  .lightbox-series-card p {
-    font-size: 1.2rem;
-  }
-
-  #list-view-toggle {
-    top: 60px;
-    right: 10px;
-    font-size: 12px;
-    padding: 6px 12px;
-  }
-}
-
-/* Mobile landscape */
-@media (max-width: 768px) and (orientation: landscape) {
-  .lightbox-image-container {
-    max-width: calc(100% - 150px);
-    max-height: 70vh;
-  }
-
-  .lightbox-prev,
-  .lightbox-next {
-    bottom: auto;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 2.5rem;
-  }
-
-  .lightbox-prev {
-    left: 1rem;
-  }
-
-  .lightbox-next {
-    right: 1rem;
-  }
-
-  .lightbox-zoom {
-    bottom: 2rem;
-    left: 1rem;
-    transform: none;
-  }
-
-  .lightbox-inquire {
-    bottom: 2rem;
-    right: 1rem;
-    transform: none;
-    left: auto;
-  }
-}
-
-/* Print Styles */
-@media print {
-  .lightbox,
-  .menu,
-  #list-view-toggle,
-  .series-scroll-row {
-    display: none !important;
+  #gallery-container {
+    padding: 0.25rem 0.5rem 1.5rem;
   }
 
   .gallery-series {
-    page-break-inside: avoid;
+    margin-bottom: 1rem;
   }
 
-  .gallery-thumb-container {
-    display: block;
-    margin: 2rem auto;
-    page-break-inside: avoid;
+  .series-header {
+    padding-left: 0.25rem;
+    margin-bottom: 0.5rem;
   }
 
-  .gallery-thumb {
+  .series-title { font-size: 1rem; }
+  .series-subtitle { font-size: 0.85rem; }
+
+  /* On mobile: hide description by default, show toggle */
+  .series-desc {
+    -webkit-line-clamp: 1;
+    font-size: 0.82rem;
+  }
+
+  .gallery-thumb { height: 200px; }
+
+  /* Lightbox image takes most of screen */
+  .lightbox-content {
+    padding: 2.5rem 0.5rem 0.5rem;
+  }
+
+  .lightbox-caption {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.5rem 0.1rem;
+  }
+
+  /* Controls at bottom, tight */
+  .lightbox-controls {
+    gap: 0.3rem;
+    padding: 0.3rem 0.5rem 0.5rem;
     max-width: 100%;
-    height: auto;
   }
 
-  .museum-label {
-    position: static;
-    opacity: 1;
-    background: white;
-    color: black;
-    padding: 0.5rem 0;
-    page-break-before: avoid;
+  .lightbox-controls button {
+    font-size: 0.95rem;
+    padding: 0.5rem 0.75rem;
   }
 
-  .museum-label::after {
-    content: ' — Andrew Newell Walther';
-    font-weight: bold;
+  .lightbox-prev, .lightbox-next {
+    font-size: 1.5rem !important;
+    padding: 0.3rem 0.75rem !important;
   }
+
+  .lightbox-inquire {
+    font-size: 0.75rem !important;
+    padding: 0.5rem 0.6rem !important;
+  }
+
+  /* No slider on mobile */
+  .zoom-slider-wrap { display: none !important; }
+
+  .lightbox-close {
+    top: 0.4rem;
+    right: 0.5rem;
+    font-size: 1.6rem;
+  }
+}
+
+/* Print */
+@media print {
+  .lightbox, #list-view-toggle { display: none !important; }
+  .gallery-thumb { max-width: 100%; height: auto; }
+  .museum-label { position: static; opacity: 1; background: white; color: black; }
 }

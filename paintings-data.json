@@ -1,210 +1,49 @@
 {
   "series": [
     {
-      "title": "100 Paintings",
+      "title": "The 100",
       "subtitle": "Oil on canvas",
+      "description": "These works were all made in Vietnam, between 2018–2026. The aspiration is to present 100 pieces in a single exhibition. Shown here is a selection of the works in that project.",
       "images": [
-        {
-          "filename": "jackpot.png",
-          "title": "Jackpot",
-          "year": "2023",
-          "medium": "Oil on canvas",
-          "dimensions": "60 x 80cm"
-        },
-        {
-          "filename": "hand-delivered.png",
-          "title": "Hand Delivered",
-          "year": "2025",
-          "medium": "Oil on canvas",
-          "dimensions": "60 x 80cm"
-        },
-        {
-          "filename": "swan-1.png",
-          "title": "Swan 1",
-          "year": "2019",
-          "medium": "Oil on canvas"
-        },
-        {
-          "filename": "brain1.png",
-          "title": "Brain 1",
-          "year": "2025",
-          "medium": "Oil on canvas"
-        },
-        {
-          "filename": "brain2.png",
-          "title": "Brain 2",
-          "year": "2025",
-          "medium": "Oil on canvas"
-        },
-        {
-          "filename": "book-of-love.png",
-          "title": "Book of Love",
-          "year": "2023",
-          "medium": "Oil on canvas"
-        },
-        {
-          "filename": "bird-short-wing.png",
-          "title": "Chim Cánh Cụt / Bird Wing Truncated",
-          "year": "2024",
-          "medium": "Oil on canvas"
-        },
-        {
-          "filename": "bishops-large.png",
-          "title": "Bishops",
-          "year": "2023",
-          "medium": "Oil on canvas"
-        },
-        {
-          "filename": "composing.png",
-          "title": "Composition",
-          "year": "2024",
-          "medium": "Oil on canvas"
-        },
-        {
-          "filename": "demolition-large.png",
-          "title": "Demolition",
-          "year": "2025",
-          "medium": "Oil on canvas"
-        },
-        {
-          "filename": "dog-and-man-large.png",
-          "title": "Dog & Man",
-          "year": "2022",
-          "medium": "Oil on canvas"
-        },
-        {
-          "filename": "eggs-higher.png",
-          "title": "Eggs",
-          "year": "2022",
-          "medium": "Oil on canvas"
-        },
-        {
-          "filename": "hull.png",
-          "title": "Bow",
-          "year": "2024",
-          "medium": "Oil on canvas"
-        },
-        {
-          "filename": "immolating-man-and-book.png",
-          "title": "Immolating Man and Book",
-          "year": "2019",
-          "medium": "Oil on canvas"
-        },
-        {
-          "filename": "meats-high.png",
-          "title": "Meats on Table",
-          "year": "2018",
-          "medium": "Oil on canvas",
-          "dimensions": "60 x 80cm"
-        },
-        {
-          "filename": "ipod-double-helix.png",
-          "title": "iPod Decoded",
-          "year": "2018",
-          "medium": "Oil on canvas"
-        },
-        {
-          "filename": "pearl.png",
-          "title": "Pearl",
-          "year": "2018",
-          "medium": "Oil on canvas"
-        },
-        {
-          "filename": "swan4.png",
-          "title": "Swan 4",
-          "year": "2025",
-          "medium": "Oil on canvas"
-        },
-        {
-          "filename": "dragons-1200.png",
-          "title": "Chinese Dragons",
-          "year": "2018",
-          "medium": "Oil on canvas"
-        },
-        {
-          "filename": "weeping.png",
-          "title": "Red Sail",
-          "year": "2020",
-          "medium": "Oil on canvas"
-        },
-        {
-          "filename": "sweeper.png",
-          "title": "Sweeper",
-          "year": "2018",
-          "medium": "Oil on canvas"
-        },
-        {
-          "filename": "music-is-real.png",
-          "title": "Music is Real",
-          "year": "2025",
-          "medium": "Oil on canvas"
-        }
+        { "filename": "jackpot.png", "title": "Jackpot", "year": "2023", "medium": "Oil on canvas", "dimensions": "60 x 80cm" },
+        { "filename": "hand-delivered.png", "title": "Hand Delivered", "year": "2025", "medium": "Oil on canvas", "dimensions": "60 x 80cm" },
+        { "filename": "swan-1.png", "title": "Swan 1", "year": "2019", "medium": "Oil on canvas" },
+        { "filename": "brain1.png", "title": "Brain 1", "year": "2025", "medium": "Oil on canvas" },
+        { "filename": "brain2.png", "title": "Brain 2", "year": "2025", "medium": "Oil on canvas" },
+        { "filename": "book-of-love.png", "title": "Book of Love", "year": "2023", "medium": "Oil on canvas" },
+        { "filename": "bird-short-wing.png", "title": "Chim Cánh Cụt / Bird Wing Truncated", "year": "2024", "medium": "Oil on canvas" },
+        { "filename": "bishops-large.png", "title": "Bishops", "year": "2023", "medium": "Oil on canvas" },
+        { "filename": "composing.png", "title": "Composition", "year": "2024", "medium": "Oil on canvas" },
+        { "filename": "demolition-large.png", "title": "Demolition", "year": "2025", "medium": "Oil on canvas" },
+        { "filename": "dog-and-man-large.png", "title": "Dog & Man", "year": "2022", "medium": "Oil on canvas" },
+        { "filename": "eggs-higher.png", "title": "Eggs", "year": "2022", "medium": "Oil on canvas" },
+        { "filename": "hull.png", "title": "Bow", "year": "2024", "medium": "Oil on canvas" },
+        { "filename": "immolating-man-and-book.png", "title": "Immolating Man and Book", "year": "2019", "medium": "Oil on canvas" },
+        { "filename": "meats-high.png", "title": "Meats on Table", "year": "2018", "medium": "Oil on canvas", "dimensions": "60 x 80cm" },
+        { "filename": "ipod-double-helix.png", "title": "iPod Decoded", "year": "2018", "medium": "Oil on canvas" },
+        { "filename": "pearl.png", "title": "Pearl", "year": "2018", "medium": "Oil on canvas" },
+        { "filename": "swan4.png", "title": "Swan 4", "year": "2025", "medium": "Oil on canvas" },
+        { "filename": "dragons-1200.png", "title": "Chinese Dragons", "year": "2018", "medium": "Oil on canvas" },
+        { "filename": "weeping.png", "title": "Red Sail", "year": "2020", "medium": "Oil on canvas" },
+        { "filename": "sweeper.png", "title": "Sweeper", "year": "2018", "medium": "Oil on canvas" },
+        { "filename": "music-is-real.png", "title": "Music is Real", "year": "2025", "medium": "Oil on canvas" }
       ]
     },
     {
       "title": "Unstretched",
       "subtitle": "Acrylic on raw canvas",
+      "description": "These early works were last featured in Thy Dross to Consume, & Thy Gold to Refine at On Purpose gallery.",
       "images": [
-        {
-          "filename": "wrong-in-itself.png",
-          "title": "Wrong in Itself",
-          "year": "2015",
-          "medium": "Acrylic on raw canvas"
-        },
-        {
-          "filename": "erased-saint.png",
-          "title": "Erased Saint",
-          "year": "2015",
-          "medium": "Acrylic on raw canvas"
-        },
-        {
-          "filename": "god-at-leisure-diptych.png",
-          "title": "God at Leisure",
-          "year": "2013",
-          "medium": "Acrylic on raw canvas"
-        },
-        {
-          "filename": "not-omitting-the-washing-of-feet.png",
-          "title": "Not Omitting the Washing of Feet",
-          "year": "2014",
-          "medium": "Acrylic on raw canvas"
-        },
-        {
-          "filename": "beehive-allergies.png",
-          "title": "Beehive/Allergies",
-          "year": "2015",
-          "medium": "Acrylic on raw canvas"
-        },
-        {
-          "filename": "blameless-and-holy.png",
-          "title": "Blameless and Holy",
-          "year": "2015",
-          "medium": "Acrylic on raw canvas"
-        },
-        {
-          "filename": "manic.png",
-          "title": "Manic",
-          "year": "2015",
-          "medium": "Acrylic on raw canvas"
-        },
-        {
-          "filename": "pieta.png",
-          "title": "Pieta",
-          "year": "2015",
-          "medium": "Acrylic on raw canvas"
-        },
-        {
-          "filename": "wall-kisser-gossipers.png",
-          "title": "Wall Kisser/Gossipers",
-          "year": "2015",
-          "medium": "Acrylic on raw canvas"
-        },
-        {
-          "filename": "confused-man-and-mouse-with-cheese.png",
-          "title": "Confused Man and Mouse with Cheese",
-          "year": "2015",
-          "medium": "Acrylic on raw canvas"
-        }
+        { "filename": "wrong-in-itself.png", "title": "Wrong in Itself", "year": "2015", "medium": "Acrylic on raw canvas" },
+        { "filename": "erased-saint.png", "title": "Erased Saint", "year": "2015", "medium": "Acrylic on raw canvas" },
+        { "filename": "god-at-leisure-diptych.png", "title": "God at Leisure", "year": "2013", "medium": "Acrylic on raw canvas" },
+        { "filename": "not-omitting-the-washing-of-feet.png", "title": "Not Omitting the Washing of Feet", "year": "2014", "medium": "Acrylic on raw canvas" },
+        { "filename": "beehive-allergies.png", "title": "Beehive/Allergies", "year": "2015", "medium": "Acrylic on raw canvas" },
+        { "filename": "blameless-and-holy.png", "title": "Blameless and Holy", "year": "2015", "medium": "Acrylic on raw canvas" },
+        { "filename": "manic.png", "title": "Manic", "year": "2015", "medium": "Acrylic on raw canvas" },
+        { "filename": "pieta.png", "title": "Pieta", "year": "2015", "medium": "Acrylic on raw canvas" },
+        { "filename": "wall-kisser-gossipers.png", "title": "Wall Kisser/Gossipers", "year": "2015", "medium": "Acrylic on raw canvas" },
+        { "filename": "confused-man-and-mouse-with-cheese.png", "title": "Confused Man and Mouse with Cheese", "year": "2015", "medium": "Acrylic on raw canvas" }
       ]
     }
   ]
