@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact — Andrew Newell Walther</title>
   <meta name="description" content="Contact Andrew Newell Walther">
-  
+
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☯️</text></svg>">
-  
+
   <link rel="stylesheet" href="style.css" />
-  
+
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XGRYTSC23"></script>
   <script>
@@ -19,8 +19,164 @@
     gtag('js', new Date());
     gtag('config', 'G-6XGRYTSC23');
   </script>
+
+  <style>
+    /* Force unicode symbols to text rendering (no emoji color) */
+    .sym {
+      font-family: "Segoe UI Symbol", "Apple Symbols", "Arial Unicode MS", sans-serif;
+      font-style: normal;
+      font-variant-emoji: text;
+      -webkit-font-variant-emoji: text;
+      color: inherit;
+    }
+
+    .contact-wrap {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 1.5rem 1.5rem 3rem;
+    }
+
+    /* Social buttons row — below header */
+    .contact-socials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin: 1rem 0 2rem;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 1rem;
+      border: 1px solid #000;
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .social-btn:hover { background: #000; color: #fff; }
+
+    /* Form sections */
+    .contact-section {
+      margin-bottom: 3rem;
+    }
+
+    .contact-section h2 {
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1.5rem;
+      font-weight: normal;
+      border-bottom: 1px solid #000;
+      padding-bottom: 0.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.4rem;
+    }
+
+    /* Pencil icon inside input */
+    .input-wrap {
+      position: relative;
+    }
+
+    .input-wrap .pencil-icon {
+      position: absolute;
+      right: 0.6rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      pointer-events: none;
+      color: #aaa;
+      font-family: "Segoe UI Symbol", "Apple Symbols", "Arial Unicode MS", sans-serif;
+      font-variant-emoji: text;
+      -webkit-font-variant-emoji: text;
+      transition: opacity 0.2s;
+    }
+
+    .input-wrap.textarea-wrap .pencil-icon {
+      top: 0.7rem;
+      transform: none;
+    }
+
+    /* Hide pencil when input has content or is focused */
+    .input-wrap input:focus ~ .pencil-icon,
+    .input-wrap input:not(:placeholder-shown) ~ .pencil-icon,
+    .input-wrap textarea:focus ~ .pencil-icon,
+    .input-wrap textarea:not(:placeholder-shown) ~ .pencil-icon {
+      opacity: 0;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.6rem 2rem 0.6rem 0.75rem;
+      border: 1px solid #000;
+      font-family: inherit;
+      font-size: 0.95rem;
+      background: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #000;
+      border-width: 2px;
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+      padding: 0.6rem 2rem 0.6rem 0.75rem;
+    }
+
+    .form-submit {
+      display: inline-block;
+      padding: 0.7rem 2rem;
+      background: #000;
+      color: #fff;
+      border: 2px solid #000;
+      font-family: inherit;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      margin-top: 0.5rem;
+    }
+    .form-submit:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .form-message {
+      display: none;
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      padding: 0.5rem;
+    }
+    .form-message.success { border: 1px solid #000; }
+
+    footer {
+      margin-top: 2rem;
+    }
+  </style>
 </head>
 <body>
+
   <!-- Menu -->
   <div class="menu">
     <button class="menu-trigger" aria-label="Open site menu">MENU</button>
@@ -38,129 +194,142 @@
   </div>
 
   <header>
-    <!-- Social buttons at top -->
-    <div class="social-buttons top-social">
-      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" rel="noopener">📷 Instagram</a>
-      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" rel="noopener">🐦 Twitter</a>
-      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" rel="noopener">💬 WhatsApp</a>
-    </div>
-
-    <h1>Contact</h1>
-    <p>Feel free to reach out through social media or the forms below.</p>
+    <h1>CONTACT A.N.WALTHER</h1>
   </header>
 
   <main>
-    <!-- Newsletter Signup -->
-    <section class="contact-form" id="newsletter">
-      <h2>Newsletter</h2>
-      <p style="text-align: center; margin-bottom: 1.5rem;">
-        Subscribe to receive updates about new works and exhibitions.
-      </p>
-      <form id="newsletterForm">
-        <div class="form-group">
-          <label for="newsletter-name">Name (optional)</label>
-          <input type="text" id="newsletter-name" name="name">
-        </div>
-        
-        <div class="form-group">
-          <label for="newsletter-email">Email *</label>
-          <input type="email" id="newsletter-email" name="email" required>
-        </div>
-        
-        <button type="submit" class="form-submit">Subscribe</button>
-        <div id="newsletterMessage" class="form-message"></div>
-      </form>
-    </section>
+    <div class="contact-wrap">
 
-    <!-- Contact Form -->
-    <section class="contact-form">
-      <h2>Send a Message</h2>
-      <form id="contactForm">
-        <div class="form-group">
-          <label for="name">Name *</label>
-          <input type="text" id="name" name="name" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="email">Email *</label>
-          <input type="email" id="email" name="email" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="message">Message *</label>
-          <textarea id="message" name="message" required></textarea>
-        </div>
-        
-        <button type="submit" class="form-submit">Send Message</button>
-        <div id="formMessage" class="form-message"></div>
-      </form>
-    </section>
+      <!-- Social buttons below header -->
+      <div class="contact-socials">
+        <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" rel="noopener">
+          <span class="sym" style="font-variant-emoji:text;">&#x1F4F7;</span> Instagram
+        </a>
+        <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" rel="noopener">
+          <span class="sym">&#x13170;</span> Twitter
+        </a>
+        <a class="social-btn" href="https://wa.me/84339441925" target="_blank" rel="noopener">
+          <span class="sym" style="font-variant-emoji:text;">&#x1F581;</span> WhatsApp
+        </a>
+      </div>
+
+      <!-- Newsletter -->
+      <section class="contact-section" id="newsletter">
+        <h2>NEWSLETTER <span class="sym" style="font-variant-emoji:text;">&#x1F5DE;</span></h2>
+        <form id="newsletterForm">
+
+          <div class="form-group">
+            <label for="newsletter-name">Name <span style="font-weight:normal; text-transform:none;">(optional)</span></label>
+            <div class="input-wrap">
+              <input type="text" id="newsletter-name" name="name" placeholder=" ">
+              <span class="pencil-icon">&#x2710;</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="newsletter-email">Email *</label>
+            <div class="input-wrap">
+              <input type="email" id="newsletter-email" name="email" required placeholder=" ">
+              <span class="pencil-icon">&#x2710;</span>
+            </div>
+          </div>
+
+          <button type="submit" class="form-submit">Subscribe</button>
+          <div id="newsletterMessage" class="form-message"></div>
+        </form>
+      </section>
+
+      <!-- Send a Message -->
+      <section class="contact-section">
+        <h2>SEND A MESSAGE <span class="sym" style="font-variant-emoji:text;">&#x270D;</span></h2>
+        <form id="contactForm">
+
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <div class="input-wrap">
+              <input type="text" id="name" name="name" required placeholder=" ">
+              <span class="pencil-icon">&#x2710;</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <div class="input-wrap">
+              <input type="email" id="email" name="email" required placeholder=" ">
+              <span class="pencil-icon">&#x2710;</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <div class="input-wrap textarea-wrap">
+              <textarea id="message" name="message" required placeholder=" "></textarea>
+              <span class="pencil-icon">&#x2710;</span>
+            </div>
+          </div>
+
+          <button type="submit" class="form-submit">Send</button>
+          <div id="formMessage" class="form-message"></div>
+        </form>
+      </section>
+
+    </div>
   </main>
 
   <footer>
     <div class="social-buttons footer-social">
-      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" aria-label="Instagram">📷</a>
-      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" aria-label="Twitter">🐦</a>
-      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" aria-label="WhatsApp">💬</a>
+      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" aria-label="Instagram">
+        <span class="sym" style="font-variant-emoji:text;">&#x1F4F7;</span>
+      </a>
+      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" aria-label="Twitter">
+        <span class="sym">&#x13170;</span>
+      </a>
+      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" aria-label="WhatsApp">
+        <span class="sym" style="font-variant-emoji:text;">&#x1F581;</span>
+      </a>
     </div>
+    <a href="contact.html#newsletter" class="newsletter-link">Newsletter</a>
     <p>© 2025 Andrew Newell Walther. All rights reserved.</p>
   </footer>
 
   <script src="menu.js"></script>
   <script>
-    // Newsletter Form Handler
+    // Newsletter Form
     document.getElementById('newsletterForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      
-      const formData = {
-        name: document.getElementById('newsletter-name').value || 'No name provided',
-        email: document.getElementById('newsletter-email').value,
-        timestamp: new Date().toISOString()
-      };
-      
+      const name = document.getElementById('newsletter-name').value || 'No name provided';
+      const email = document.getElementById('newsletter-email').value;
       const subject = encodeURIComponent('Newsletter Subscription');
       const body = encodeURIComponent(
-        'New newsletter subscription:\n\n' +
-        'Name: ' + formData.name + '\n' +
-        'Email: ' + formData.email + '\n' +
-        'Date: ' + formData.timestamp
+        'New newsletter subscription:\n\nName: ' + name +
+        '\nEmail: ' + email +
+        '\nDate: ' + new Date().toISOString()
       );
-      
       window.location.href = 'mailto:newell.pdx@gmail.com?subject=' + subject + '&body=' + body;
-      
       const msg = document.getElementById('newsletterMessage');
-      msg.textContent = 'Thank you for subscribing! Opening your email client...';
+      msg.textContent = 'Thank you! Opening your email client...';
       msg.className = 'form-message success';
       msg.style.display = 'block';
-      
       this.reset();
     });
-    
-    // Contact Form Handler
+
+    // Contact Form
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      
-      const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        message: document.getElementById('message').value,
-        timestamp: new Date().toISOString()
-      };
-      
-      const subject = encodeURIComponent('Contact from ' + formData.name);
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+      const subject = encodeURIComponent('Message from ' + name);
       const body = encodeURIComponent(
-        'Name: ' + formData.name + '\n' +
-        'Email: ' + formData.email + '\n\n' +
-        'Message:\n' + formData.message
+        'Name: ' + name +
+        '\nEmail: ' + email +
+        '\n\nMessage:\n' + message
       );
-      
       window.location.href = 'mailto:newell.pdx@gmail.com?subject=' + subject + '&body=' + body;
-      
       const msg = document.getElementById('formMessage');
       msg.textContent = 'Opening your email client...';
       msg.className = 'form-message success';
       msg.style.display = 'block';
-      
       this.reset();
     });
   </script>
