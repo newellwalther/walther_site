@@ -130,13 +130,13 @@
       // Mobile: stack on button tops
       const navGrid = document.querySelector('.mobile-nav-grid');
       if (navGrid) {
-        landingZoneY = navGrid.getBoundingClientRect().top + window.scrollY - 20;
+        landingZoneY = navGrid.getBoundingClientRect().top + window.scrollY - 50;
       } else {
-        landingZoneY = window.innerHeight * 0.7;
+        landingZoneY = window.innerHeight * 0.6;
       }
       
-      const charWidth = 18;
-      const spaceWidth = 8;
+      const charWidth = 22;
+      const spaceWidth = 10;
       
       if (words.length === 1) {
         // Single line
@@ -172,7 +172,7 @@
         
         // Line 2
         for (const char of line2) {
-          destinations[destIdx++] = { x: x2, y: landingZoneY + 30 };
+          destinations[destIdx++] = { x: x2, y: landingZoneY + 35 };
           x2 += charWidth;
         }
       }
@@ -185,8 +185,8 @@
         landingZoneY = window.innerHeight - 150;
       }
       
-      const charWidth = 24;
-      const spaceWidth = 12;
+      const charWidth = 32;
+      const spaceWidth = 20;
       
       // Calculate total width
       let totalWidth = 0;
@@ -357,14 +357,25 @@
   }
 
   function animateMobileLetter(floater, startX, startY, endX, endY, totalDistanceX, totalDistanceY, finalTilt, firstArcDuration, secondArcDuration, isOffscreen) {
-    // Mobile: bounce PAST destination (if not offscreen), then back
-    const overshoot = isOffscreen ? 0 : totalDistanceX * 0.33;
-    const firstBounceX = endX + overshoot;
-    const firstBounceY = endY;
+    // Mobile: ALL letters bounce first (even offscreen ones), then fly away if offscreen
+    
+    // For offscreen: bounce at landing zone first, THEN continue to offscreen position
+    let actualEndX = endX;
+    let actualEndY = endY;
+    
+    if (isOffscreen) {
+      // First land at visible landing zone, then fly offscreen
+      actualEndX = window.innerWidth / 2 + (Math.random() - 0.5) * 200;
+      actualEndY = landingZoneY;
+    }
+    
+    const overshoot = totalDistanceX * 0.33;
+    const firstBounceX = actualEndX + (isOffscreen ? 0 : overshoot);
+    const firstBounceY = actualEndY;
     const firstBounceHeight = Math.abs(totalDistanceY) * 0.33;
 
-    const secondBounceX = endX;
-    const secondBounceY = endY;
+    const secondBounceX = actualEndX;
+    const secondBounceY = actualEndY;
     const secondBounceHeight = Math.abs(totalDistanceY) * 0.11;
 
     let startTime = null;
@@ -389,7 +400,7 @@
 
         requestAnimationFrame(animate);
       } else if (elapsed < firstArcDuration + secondArcDuration) {
-        if (!playedBoing1 && !isOffscreen) {
+        if (!playedBoing1) {
           soundBoing1();
           playedBoing1 = true;
         }
@@ -407,20 +418,27 @@
 
         requestAnimationFrame(animate);
       } else {
-        if (!playedBoing2 && !isOffscreen) {
+        if (!playedBoing2) {
           soundBoing2();
           playedBoing2 = true;
         }
         
         setTimeout(() => {
-          if (!isOffscreen) soundBonk();
-          floater.style.left = endX + 'px';
-          floater.style.top = endY + 'px';
+          soundBonk();
+          floater.style.left = actualEndX + 'px';
+          floater.style.top = actualEndY + 'px';
           floater.style.transform = `rotate(${360 + finalTilt}deg)`;
           floater.classList.add('landed');
           
+          // If offscreen, now fly away after landing
           if (isOffscreen) {
-            setTimeout(() => floater.remove(), 500);
+            setTimeout(() => {
+              floater.style.transition = 'all 0.8s ease-out';
+              floater.style.left = endX + 'px';
+              floater.style.top = endY + 'px';
+              floater.style.opacity = '0';
+              setTimeout(() => floater.remove(), 800);
+            }, 300);
           }
         }, 100);
       }
@@ -502,10 +520,36 @@
       title.style.cursor = 'pointer';
       title.addEventListener('click', triggerAnimation, { once: true });
     } else {
-      // Desktop: click anywhere on title to trigger all letters
-      title.style.cursor = 'pointer';
-      title.addEventListener('click', triggerAnimation, { once: true });
+      // Desktop: individual letter clicking - set up on page load
+      setupDesktopLetterClicks();
     }
+  }
+
+  function setupDesktopLetterClicks() {
+    initAudio();
+    const anagramData = mapLettersToAnagram(selectRandomAnagram());
+    const destinations = calculateDestinations(anagramData);
+    const letters = document.querySelectorAll('.title-letter');
+    
+    letters.forEach((letter, idx) => {
+      letter.style.cursor = 'pointer';
+      letter.addEventListener('click', () => {
+        if (letter.dataset.triggered) return;
+        letter.dataset.triggered = 'true';
+        soundPop();
+        const dest = destinations[idx];
+        if (dest) animateLetter(letter, idx, dest, 0);
+      }, { once: true });
+    });
+
+    // Check if all letters have been triggered
+    let checkInterval = setInterval(() => {
+      const allTriggered = Array.from(letters).every(l => l.dataset.triggered);
+      if (allTriggered) {
+        clearInterval(checkInterval);
+        setTimeout(() => pulseAndLock(), 2000);
+      }
+    }, 100);
   }
 
   // Wait for DOM and letter wrapping
