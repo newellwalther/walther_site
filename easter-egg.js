@@ -1,4 +1,4 @@
-// Easter Egg Animation System
+// Easter Egg Animation System - FIXED VERSION
 // Letters fall, bounce, rotate, and form anagrams
 
 (function() {
@@ -26,13 +26,12 @@
   ];
 
   const isMobile = () => window.innerWidth <= 1000;
-  const isMobileLandscape = () => window.innerWidth <= 1000 && window.matchMedia('(orientation: landscape)').matches;
 
   let hasTriggered = false;
   let audioContext = null;
   let landingZoneY = 0;
 
-  // Letter mapping: W(0) A(1) L(2) T(3) H(4) E(5) R(6) [space] W(7) O(8) R(9) L(10) D(11) W(12) I(13) D(14) E(15)
+  // Letter mapping: W(0) A(1) L(2) T(3) H(4) E(5) R(6) [space at 7] W(8) O(9) R(10) L(11) D(12) W(13) I(14) D(15) E(16)
   const SOURCE_LETTERS = ['W','A','L','T','H','E','R','W','O','R','L','D','W','I','D','E'];
 
   // ==============================
@@ -41,22 +40,28 @@
   
   function initAudio() {
     if (!audioContext) {
-      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      try {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      } catch(e) {
+        console.log('Audio not supported');
+      }
     }
   }
 
   function playTone(frequency, duration, type = 'sine') {
     if (!audioContext) return;
-    const osc = audioContext.createOscillator();
-    const gain = audioContext.createGain();
-    osc.connect(gain);
-    gain.connect(audioContext.destination);
-    osc.frequency.value = frequency;
-    osc.type = type;
-    gain.gain.setValueAtTime(0.15, audioContext.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
-    osc.start(audioContext.currentTime);
-    osc.stop(audioContext.currentTime + duration);
+    try {
+      const osc = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      osc.connect(gain);
+      gain.connect(audioContext.destination);
+      osc.frequency.value = frequency;
+      osc.type = type;
+      gain.gain.setValueAtTime(0.15, audioContext.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+      osc.start(audioContext.currentTime);
+      osc.stop(audioContext.currentTime + duration);
+    } catch(e) {}
   }
 
   function soundPop() { playTone(800, 0.08, 'square'); }
@@ -75,23 +80,37 @@
   function mapLettersToAnagram(anagram) {
     const words = anagram.split(' ').filter(w => w.length > 0);
     const neededLetters = anagram.replace(/ /g, '').split('');
-    const sourceAvailable = [...SOURCE_LETTERS];
     const mapping = {}; // sourceIndex -> destIndex or 'offscreen-left' or 'offscreen-right'
     
+    // Build inventory of available letters
+    const inventory = {};
+    SOURCE_LETTERS.forEach(letter => {
+      inventory[letter] = (inventory[letter] || 0) + 1;
+    });
+
+    // Map needed letters to source indices
+    const usedSourceIndices = new Set();
     let destIndex = 0;
+    
     for (const letter of neededLetters) {
-      const srcIdx = sourceAvailable.indexOf(letter);
-      if (srcIdx !== -1) {
-        const actualSrcIdx = SOURCE_LETTERS.indexOf(letter, 
-          Object.keys(mapping).filter(k => SOURCE_LETTERS[k] === letter).length);
-        mapping[actualSrcIdx] = destIndex++;
-        sourceAvailable[srcIdx] = null; // mark as used
+      // Find first unused source index with this letter
+      let foundIdx = -1;
+      for (let i = 0; i < SOURCE_LETTERS.length; i++) {
+        if (SOURCE_LETTERS[i] === letter && !usedSourceIndices.has(i)) {
+          foundIdx = i;
+          break;
+        }
+      }
+      
+      if (foundIdx !== -1) {
+        mapping[foundIdx] = destIndex++;
+        usedSourceIndices.add(foundIdx);
       }
     }
 
     // Unused letters go offscreen
     SOURCE_LETTERS.forEach((letter, idx) => {
-      if (!(idx in mapping)) {
+      if (!usedSourceIndices.has(idx)) {
         mapping[idx] = Math.random() < 0.5 ? 'offscreen-left' : 'offscreen-right';
       }
     });
@@ -109,70 +128,95 @@
     
     if (isMobile()) {
       // Mobile: stack on button tops
-      landingZoneY = document.querySelector('.mobile-nav-grid').getBoundingClientRect().top + window.scrollY;
+      const navGrid = document.querySelector('.mobile-nav-grid');
+      if (navGrid) {
+        landingZoneY = navGrid.getBoundingClientRect().top + window.scrollY - 20;
+      } else {
+        landingZoneY = window.innerHeight * 0.7;
+      }
       
-      const containerWidth = Math.min(360, window.innerWidth - 32);
-      const charWidth = 20; // approximate
-      const totalWidth = totalChars * charWidth;
-      const startX = (window.innerWidth - totalWidth) / 2;
-
+      const charWidth = 18;
+      const spaceWidth = 8;
+      
       if (words.length === 1) {
         // Single line
-        let x = startX;
+        const totalWidth = words[0].length * charWidth;
+        let x = (window.innerWidth - totalWidth) / 2;
         for (let i = 0; i < totalChars; i++) {
           destinations[i] = { x, y: landingZoneY };
           x += charWidth;
         }
       } else {
-        // Two lines: first word(s) on top, last word on bottom
+        // Two lines
         const line1 = words.slice(0, -1).join(' ');
         const line2 = words[words.length - 1];
-        const line1Width = line1.replace(/ /g, '').length * charWidth;
-        const line2Width = line2.length * charWidth;
+        
+        const line1Chars = line1.replace(/ /g, '').split('');
+        const line2Chars = line2.split('');
+        
+        const line1Width = line1Chars.length * charWidth + (words.slice(0, -1).length - 1) * spaceWidth;
+        const line2Width = line2Chars.length * charWidth;
         
         let x1 = (window.innerWidth - line1Width) / 2;
         let x2 = (window.innerWidth - line2Width) / 2;
         let destIdx = 0;
         
         // Line 1
-        for (const char of line1.replace(/ /g, '')) {
-          destinations[destIdx++] = { x: x1, y: landingZoneY };
-          x1 += charWidth;
+        for (let w = 0; w < words.length - 1; w++) {
+          for (const char of words[w]) {
+            destinations[destIdx++] = { x: x1, y: landingZoneY };
+            x1 += charWidth;
+          }
+          x1 += spaceWidth; // space between words
         }
+        
         // Line 2
         for (const char of line2) {
-          destinations[destIdx++] = { x: x2, y: landingZoneY + 35 };
+          destinations[destIdx++] = { x: x2, y: landingZoneY + 30 };
           x2 += charWidth;
         }
       }
     } else {
-      // Desktop: land on footer bar
+      // Desktop: land above footer
       const footer = document.querySelector('footer');
-      landingZoneY = footer.getBoundingClientRect().top + window.scrollY - 60;
+      if (footer) {
+        landingZoneY = footer.getBoundingClientRect().top + window.scrollY - 70;
+      } else {
+        landingZoneY = window.innerHeight - 150;
+      }
       
-      const finalWidth = anagram.replace(/ /g, '').length * 28;
-      const startX = (window.innerWidth - finalWidth * 1.2) / 2;
+      const charWidth = 24;
+      const spaceWidth = 12;
       
-      let x = startX;
+      // Calculate total width
+      let totalWidth = 0;
+      words.forEach((word, idx) => {
+        totalWidth += word.length * charWidth;
+        if (idx < words.length - 1) totalWidth += spaceWidth;
+      });
+      
+      let x = (window.innerWidth - totalWidth * 1.2) / 2;
       let destIdx = 0;
-      for (const word of words) {
-        for (const char of word) {
+      
+      for (let w = 0; w < words.length; w++) {
+        for (const char of words[w]) {
           destinations[destIdx++] = { x, y: landingZoneY };
-          x += 28;
+          x += charWidth;
         }
-        x += 15; // space between words
+        if (w < words.length - 1) x += spaceWidth;
       }
     }
 
     // Map source indices to destinations
     const letterDestinations = {};
     for (const [srcIdx, dest] of Object.entries(mapping)) {
+      const srcIdxNum = parseInt(srcIdx);
       if (dest === 'offscreen-left') {
-        letterDestinations[srcIdx] = { x: -200, y: landingZoneY };
+        letterDestinations[srcIdxNum] = { x: -200, y: landingZoneY, offscreen: true };
       } else if (dest === 'offscreen-right') {
-        letterDestinations[srcIdx] = { x: window.innerWidth + 200, y: landingZoneY };
+        letterDestinations[srcIdxNum] = { x: window.innerWidth + 200, y: landingZoneY, offscreen: true };
       } else {
-        letterDestinations[srcIdx] = destinations[dest];
+        letterDestinations[srcIdxNum] = destinations[dest];
       }
     }
 
@@ -184,50 +228,59 @@
   // ==============================
   
   function animateLetter(element, index, destination, stagger = 0) {
-    const startRect = element.getBoundingClientRect();
-    const startX = startRect.left + startRect.width / 2;
-    const startY = startRect.top + startRect.height / 2;
-    
-    const endX = destination.x;
-    const endY = destination.y;
-    const totalDistanceX = endX - startX;
-    const totalDistanceY = endY - startY;
-
-    // Physics params
-    const finalTilt = (Math.random() - 0.5) * 30; // -15 to +15 degrees
-    const firstArcDuration = 600;
-    const secondArcDuration = 400;
-    const mobile = isMobile();
-
-    // Create floating letter
-    const floater = document.createElement('div');
-    floater.textContent = element.textContent;
-    floater.style.cssText = `
-      position: fixed;
-      left: ${startX}px;
-      top: ${startY}px;
-      font-size: ${startRect.height}px;
-      font-family: inherit;
-      font-weight: inherit;
-      z-index: 99999;
-      pointer-events: none;
-      transform-origin: center center;
-    `;
-    document.body.appendChild(floater);
-
-    // Hide original
-    element.style.opacity = '0';
-
     setTimeout(() => {
+      const startRect = element.getBoundingClientRect();
+      const startX = startRect.left + startRect.width / 2;
+      const startY = startRect.top + startRect.height / 2;
+      
+      const endX = destination.x;
+      const endY = destination.y;
+      const totalDistanceX = endX - startX;
+      const totalDistanceY = endY - startY;
+
+      // Create floating letter at NORMAL size (not hover-enlarged)
+      const floater = document.createElement('div');
+      floater.textContent = element.textContent;
+      floater.style.cssText = `
+        position: fixed;
+        left: ${startX}px;
+        top: ${startY}px;
+        font-size: 3.2rem;
+        font-family: inherit;
+        font-weight: inherit;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        z-index: 99999;
+        pointer-events: none;
+        transform-origin: center center;
+      `;
+      
+      // Mobile uses smaller font
+      if (isMobile()) {
+        floater.style.fontSize = '1.75rem';
+      }
+      
+      document.body.appendChild(floater);
+
+      // Hide original
+      element.style.opacity = '0';
+
+      // Physics params
+      const finalTilt = (Math.random() - 0.5) * 30; // -15 to +15 degrees
+      const firstArcDuration = 700;
+      const secondArcDuration = 450;
+      const mobile = isMobile();
+      const isOffscreen = destination.offscreen || false;
+
       if (mobile) {
-        animateMobileLetter(floater, startX, startY, endX, endY, totalDistanceX, totalDistanceY, finalTilt, firstArcDuration, secondArcDuration);
+        animateMobileLetter(floater, startX, startY, endX, endY, totalDistanceX, totalDistanceY, finalTilt, firstArcDuration, secondArcDuration, isOffscreen);
       } else {
-        animateDesktopLetter(floater, startX, startY, endX, endY, totalDistanceX, totalDistanceY, finalTilt, firstArcDuration, secondArcDuration);
+        animateDesktopLetter(floater, startX, startY, endX, endY, totalDistanceX, totalDistanceY, finalTilt, firstArcDuration, secondArcDuration, isOffscreen);
       }
     }, stagger);
   }
 
-  function animateDesktopLetter(floater, startX, startY, endX, endY, totalDistanceX, totalDistanceY, finalTilt, firstArcDuration, secondArcDuration) {
+  function animateDesktopLetter(floater, startX, startY, endX, endY, totalDistanceX, totalDistanceY, finalTilt, firstArcDuration, secondArcDuration, isOffscreen) {
     const firstBounceX = startX + totalDistanceX * 0.67;
     const firstBounceY = endY;
     const firstBounceHeight = Math.abs(totalDistanceY) * 0.33;
@@ -237,6 +290,8 @@
     const secondBounceHeight = Math.abs(totalDistanceY) * 0.11;
 
     let startTime = null;
+    let playedBoing1 = false;
+    let playedBoing2 = false;
 
     function animate(timestamp) {
       if (!startTime) startTime = timestamp;
@@ -257,9 +312,10 @@
 
         requestAnimationFrame(animate);
       } else if (elapsed < firstArcDuration + secondArcDuration) {
-        // First bounce sound
-        if (elapsed < firstArcDuration + 50 && elapsed >= firstArcDuration) {
+        // First bounce sound (only once)
+        if (!playedBoing1 && !isOffscreen) {
           soundBoing1();
+          playedBoing1 = true;
         }
 
         // Second arc
@@ -276,16 +332,23 @@
 
         requestAnimationFrame(animate);
       } else {
-        // Second bounce sound
-        soundBoing2();
+        // Second bounce sound and final landing
+        if (!playedBoing2 && !isOffscreen) {
+          soundBoing2();
+          playedBoing2 = true;
+        }
         
-        // Final landing
         setTimeout(() => {
-          soundBonk();
+          if (!isOffscreen) soundBonk();
           floater.style.left = endX + 'px';
           floater.style.top = endY + 'px';
           floater.style.transform = `rotate(${360 + finalTilt}deg)`;
           floater.classList.add('landed');
+          
+          // Remove offscreen letters
+          if (isOffscreen) {
+            setTimeout(() => floater.remove(), 500);
+          }
         }, 100);
       }
     }
@@ -293,9 +356,9 @@
     requestAnimationFrame(animate);
   }
 
-  function animateMobileLetter(floater, startX, startY, endX, endY, totalDistanceX, totalDistanceY, finalTilt, firstArcDuration, secondArcDuration) {
-    // Mobile: bounce PAST destination, then back
-    const overshoot = totalDistanceX * 0.33;
+  function animateMobileLetter(floater, startX, startY, endX, endY, totalDistanceX, totalDistanceY, finalTilt, firstArcDuration, secondArcDuration, isOffscreen) {
+    // Mobile: bounce PAST destination (if not offscreen), then back
+    const overshoot = isOffscreen ? 0 : totalDistanceX * 0.33;
     const firstBounceX = endX + overshoot;
     const firstBounceY = endY;
     const firstBounceHeight = Math.abs(totalDistanceY) * 0.33;
@@ -305,6 +368,8 @@
     const secondBounceHeight = Math.abs(totalDistanceY) * 0.11;
 
     let startTime = null;
+    let playedBoing1 = false;
+    let playedBoing2 = false;
 
     function animate(timestamp) {
       if (!startTime) startTime = timestamp;
@@ -324,8 +389,9 @@
 
         requestAnimationFrame(animate);
       } else if (elapsed < firstArcDuration + secondArcDuration) {
-        if (elapsed < firstArcDuration + 50 && elapsed >= firstArcDuration) {
+        if (!playedBoing1 && !isOffscreen) {
           soundBoing1();
+          playedBoing1 = true;
         }
 
         const t = (elapsed - firstArcDuration) / secondArcDuration;
@@ -341,13 +407,21 @@
 
         requestAnimationFrame(animate);
       } else {
-        soundBoing2();
+        if (!playedBoing2 && !isOffscreen) {
+          soundBoing2();
+          playedBoing2 = true;
+        }
+        
         setTimeout(() => {
-          soundBonk();
+          if (!isOffscreen) soundBonk();
           floater.style.left = endX + 'px';
           floater.style.top = endY + 'px';
           floater.style.transform = `rotate(${360 + finalTilt}deg)`;
           floater.classList.add('landed');
+          
+          if (isOffscreen) {
+            setTimeout(() => floater.remove(), 500);
+          }
         }, 100);
       }
     }
@@ -374,41 +448,37 @@
     const letters = document.querySelectorAll('.title-letter');
     const mobile = isMobile();
 
+    soundPop();
+
     if (mobile) {
-      // Mobile: all letters triggered at once with random stagger
-      soundPop();
+      // Mobile: all letters triggered at once with gradual stagger (0-5 seconds)
       letters.forEach((letter, idx) => {
-        const stagger = Math.random() * 3000;
+        const stagger = Math.random() * 5000;
         const dest = destinations[idx];
         if (dest) animateLetter(letter, idx, dest, stagger);
       });
+      
+      setTimeout(() => pulseAndLock(), 8500);
     } else {
-      // Desktop: letters fall individually on click
+      // Desktop: all letters fall with small random stagger
       letters.forEach((letter, idx) => {
-        letter.style.cursor = 'pointer';
-        letter.addEventListener('click', () => {
-          if (letter.dataset.triggered) return;
-          letter.dataset.triggered = 'true';
-          soundPop();
-          const dest = destinations[idx];
-          if (dest) animateLetter(letter, idx, dest, 0);
-        }, { once: true });
+        const stagger = Math.random() * 300;
+        const dest = destinations[idx];
+        if (dest) animateLetter(letter, idx, dest, stagger);
       });
+      
+      setTimeout(() => pulseAndLock(), 2500);
     }
-
-    // After animation, pulse and lock
-    setTimeout(() => {
-      pulseAndLock();
-    }, mobile ? 6000 : 10000);
   }
 
   function pulseAndLock() {
     const floaters = document.querySelectorAll('.landed');
     floaters.forEach(f => {
       f.style.transition = 'transform 0.3s ease';
-      f.style.transform = f.style.transform + ' scale(1.15)';
+      const currentRotation = f.style.transform;
+      f.style.transform = currentRotation + ' scale(1.15)';
       setTimeout(() => {
-        f.style.transform = f.style.transform.replace('scale(1.15)', 'scale(1)');
+        f.style.transform = currentRotation + ' scale(1)';
       }, 300);
     });
 
@@ -428,12 +498,13 @@
     if (!title) return;
 
     if (isMobile()) {
-      // Mobile: tap title to trigger
+      // Mobile: tap anywhere on title to trigger
       title.style.cursor = 'pointer';
       title.addEventListener('click', triggerAnimation, { once: true });
     } else {
-      // Desktop: letters are already clickable from setup
-      triggerAnimation(); // Set up click handlers
+      // Desktop: click anywhere on title to trigger all letters
+      title.style.cursor = 'pointer';
+      title.addEventListener('click', triggerAnimation, { once: true });
     }
   }
 
