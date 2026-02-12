@@ -130,13 +130,13 @@
       // Mobile: stack on button tops
       const navGrid = document.querySelector('.mobile-nav-grid');
       if (navGrid) {
-        landingZoneY = navGrid.getBoundingClientRect().top + window.scrollY - 50;
+        landingZoneY = navGrid.getBoundingClientRect().top + window.scrollY - 80;
       } else {
-        landingZoneY = window.innerHeight * 0.6;
+        landingZoneY = window.innerHeight * 0.55;
       }
       
-      const charWidth = 22;
-      const spaceWidth = 10;
+      const charWidth = 24;
+      const spaceWidth = 12;
       
       if (words.length === 1) {
         // Single line
@@ -147,32 +147,32 @@
           x += charWidth;
         }
       } else {
-        // Two lines
-        const line1 = words.slice(0, -1).join(' ');
-        const line2 = words[words.length - 1];
+        // Two lines - split into first word(s) and last word
+        const lastWord = words[words.length - 1];
+        const firstWords = words.slice(0, -1);
         
-        const line1Chars = line1.replace(/ /g, '').split('');
-        const line2Chars = line2.split('');
-        
-        const line1Width = line1Chars.length * charWidth + (words.slice(0, -1).length - 1) * spaceWidth;
-        const line2Width = line2Chars.length * charWidth;
+        // Calculate line widths properly
+        const line1Width = firstWords.reduce((sum, w) => sum + w.length * charWidth, 0) + (firstWords.length - 1) * spaceWidth;
+        const line2Width = lastWord.length * charWidth;
         
         let x1 = (window.innerWidth - line1Width) / 2;
         let x2 = (window.innerWidth - line2Width) / 2;
         let destIdx = 0;
         
-        // Line 1
-        for (let w = 0; w < words.length - 1; w++) {
-          for (const char of words[w]) {
+        // Line 1 - first word(s)
+        firstWords.forEach((word, wordIdx) => {
+          for (const char of word) {
             destinations[destIdx++] = { x: x1, y: landingZoneY };
             x1 += charWidth;
           }
-          x1 += spaceWidth; // space between words
-        }
+          if (wordIdx < firstWords.length - 1) {
+            x1 += spaceWidth; // space between words on same line
+          }
+        });
         
-        // Line 2
-        for (const char of line2) {
-          destinations[destIdx++] = { x: x2, y: landingZoneY + 35 };
+        // Line 2 - last word
+        for (const char of lastWord) {
+          destinations[destIdx++] = { x: x2, y: landingZoneY + 38 };
           x2 += charWidth;
         }
       }
@@ -185,8 +185,8 @@
         landingZoneY = window.innerHeight - 150;
       }
       
-      const charWidth = 32;
-      const spaceWidth = 20;
+      const charWidth = 38;
+      const spaceWidth = 24;
       
       // Calculate total width
       let totalWidth = 0;
@@ -281,30 +281,34 @@
   }
 
   function animateDesktopLetter(floater, startX, startY, endX, endY, totalDistanceX, totalDistanceY, finalTilt, firstArcDuration, secondArcDuration, isOffscreen) {
-    const firstBounceX = startX + totalDistanceX * 0.67;
-    const firstBounceY = endY;
-    const firstBounceHeight = Math.abs(totalDistanceY) * 0.33;
+    // Physics: Fall straight down for offscreen, or toward destination for onscreen
+    const fallTargetX = isOffscreen ? startX : (startX + totalDistanceX * 0.67);
+    const fallTargetY = endY;
+    
+    // Bounce heights - first bounce much higher
+    const firstBounceHeight = Math.abs(totalDistanceY) * 0.5;
+    const secondBounceHeight = Math.abs(totalDistanceY) * 0.15;
 
+    const firstBounceX = fallTargetX;
     const secondBounceX = endX;
-    const secondBounceY = endY;
-    const secondBounceHeight = Math.abs(totalDistanceY) * 0.11;
 
     let startTime = null;
     let playedBoing1 = false;
     let playedBoing2 = false;
+    let playedBonk = false;
 
     function animate(timestamp) {
       if (!startTime) startTime = timestamp;
       const elapsed = timestamp - startTime;
 
       if (elapsed < firstArcDuration) {
-        // First arc
+        // First arc - freefall with gentle rotation (max 45°)
         const t = elapsed / firstArcDuration;
         const easeT = easeInOutQuad(t);
         const currentX = startX + (firstBounceX - startX) * easeT;
         const parabola = 4 * firstBounceHeight * t * (1 - t);
-        const currentY = startY + (firstBounceY - startY) * easeT - parabola;
-        const rotation = 240 * easeT;
+        const currentY = startY + (fallTargetY - startY) * easeT - parabola;
+        const rotation = 45 * easeT; // Only 45° during freefall
 
         floater.style.left = currentX + 'px';
         floater.style.top = currentY + 'px';
@@ -312,19 +316,19 @@
 
         requestAnimationFrame(animate);
       } else if (elapsed < firstArcDuration + secondArcDuration) {
-        // First bounce sound (only once)
-        if (!playedBoing1 && !isOffscreen) {
+        // First bounce sound
+        if (!playedBoing1) {
           soundBoing1();
           playedBoing1 = true;
         }
 
-        // Second arc
+        // Second arc - continue rotation to 240°
         const t = (elapsed - firstArcDuration) / secondArcDuration;
         const easeT = easeInOutQuad(t);
         const currentX = firstBounceX + (secondBounceX - firstBounceX) * easeT;
         const parabola = 4 * secondBounceHeight * t * (1 - t);
-        const currentY = firstBounceY + (secondBounceY - firstBounceY) * easeT - parabola;
-        const rotation = 240 + 120 * easeT;
+        const currentY = fallTargetY - parabola;
+        const rotation = 45 + 195 * easeT; // 45° to 240°
 
         floater.style.left = currentX + 'px';
         floater.style.top = currentY + 'px';
@@ -332,14 +336,35 @@
 
         requestAnimationFrame(animate);
       } else {
-        // Second bounce sound and final landing
-        if (!playedBoing2 && !isOffscreen) {
+        // Second bounce sound
+        if (!playedBoing2) {
           soundBoing2();
           playedBoing2 = true;
         }
         
-        setTimeout(() => {
-          if (!isOffscreen) soundBonk();
+        // Final landing with third small bounce
+        const finalDuration = 300;
+        const finalElapsed = elapsed - firstArcDuration - secondArcDuration;
+        
+        if (finalElapsed < finalDuration) {
+          const t = finalElapsed / finalDuration;
+          const easeT = easeInOutQuad(t);
+          const currentX = secondBounceX + (endX - secondBounceX) * easeT;
+          const tinyBounce = 4 * (secondBounceHeight * 0.4) * t * (1 - t);
+          const currentY = fallTargetY - tinyBounce;
+          const rotation = 240 + 120 * easeT; // 240° to 360°
+          
+          floater.style.left = currentX + 'px';
+          floater.style.top = currentY + 'px';
+          floater.style.transform = `rotate(${rotation}deg)`;
+          
+          requestAnimationFrame(animate);
+        } else {
+          // Final bonk and settle
+          if (!playedBonk) {
+            soundBonk();
+            playedBonk = true;
+          }
           floater.style.left = endX + 'px';
           floater.style.top = endY + 'px';
           floater.style.transform = `rotate(${360 + finalTilt}deg)`;
@@ -347,9 +372,14 @@
           
           // Remove offscreen letters
           if (isOffscreen) {
-            setTimeout(() => floater.remove(), 500);
+            setTimeout(() => {
+              floater.style.transition = 'all 0.6s ease-out';
+              floater.style.opacity = '0';
+              floater.style.left = (endX < window.innerWidth / 2 ? -200 : window.innerWidth + 200) + 'px';
+              setTimeout(() => floater.remove(), 600);
+            }, 200);
           }
-        }, 100);
+        }
       }
     }
 
@@ -357,42 +387,42 @@
   }
 
   function animateMobileLetter(floater, startX, startY, endX, endY, totalDistanceX, totalDistanceY, finalTilt, firstArcDuration, secondArcDuration, isOffscreen) {
-    // Mobile: ALL letters bounce first (even offscreen ones), then fly away if offscreen
+    // Mobile: ALL letters fall straight down to landing zone first
+    // Offscreen letters: fall to center of landing zone, bounce, then fly away
     
-    // For offscreen: bounce at landing zone first, THEN continue to offscreen position
-    let actualEndX = endX;
-    let actualEndY = endY;
+    let fallX = startX;
+    let fallY = landingZoneY;
     
     if (isOffscreen) {
-      // First land at visible landing zone, then fly offscreen
-      actualEndX = window.innerWidth / 2 + (Math.random() - 0.5) * 200;
-      actualEndY = landingZoneY;
+      // Fall straight down to landing zone center
+      fallX = startX;
+      fallY = landingZoneY;
+    } else {
+      // Normal: overshoot destination
+      fallX = endX + totalDistanceX * 0.33;
+      fallY = landingZoneY;
     }
     
-    const overshoot = totalDistanceX * 0.33;
-    const firstBounceX = actualEndX + (isOffscreen ? 0 : overshoot);
-    const firstBounceY = actualEndY;
-    const firstBounceHeight = Math.abs(totalDistanceY) * 0.33;
-
-    const secondBounceX = actualEndX;
-    const secondBounceY = actualEndY;
-    const secondBounceHeight = Math.abs(totalDistanceY) * 0.11;
+    const firstBounceHeight = Math.abs(totalDistanceY - landingZoneY + startY) * 0.5;
+    const secondBounceHeight = Math.abs(totalDistanceY - landingZoneY + startY) * 0.15;
 
     let startTime = null;
     let playedBoing1 = false;
     let playedBoing2 = false;
+    let playedBonk = false;
 
     function animate(timestamp) {
       if (!startTime) startTime = timestamp;
       const elapsed = timestamp - startTime;
 
       if (elapsed < firstArcDuration) {
+        // Freefall - rotate gently (max 45°)
         const t = elapsed / firstArcDuration;
         const easeT = easeInOutQuad(t);
-        const currentX = startX + (firstBounceX - startX) * easeT;
+        const currentX = startX + (fallX - startX) * easeT;
         const parabola = 4 * firstBounceHeight * t * (1 - t);
-        const currentY = startY + (firstBounceY - startY) * easeT - parabola;
-        const rotation = 240 * easeT;
+        const currentY = startY + (fallY - startY) * easeT - parabola;
+        const rotation = 45 * easeT;
 
         floater.style.left = currentX + 'px';
         floater.style.top = currentY + 'px';
@@ -400,6 +430,7 @@
 
         requestAnimationFrame(animate);
       } else if (elapsed < firstArcDuration + secondArcDuration) {
+        // First bounce
         if (!playedBoing1) {
           soundBoing1();
           playedBoing1 = true;
@@ -407,10 +438,13 @@
 
         const t = (elapsed - firstArcDuration) / secondArcDuration;
         const easeT = easeInOutQuad(t);
-        const currentX = firstBounceX + (secondBounceX - firstBounceX) * easeT;
+        
+        // Bounce toward final position (or stay in place if offscreen)
+        const bounceTargetX = isOffscreen ? fallX : endX;
+        const currentX = fallX + (bounceTargetX - fallX) * easeT;
         const parabola = 4 * secondBounceHeight * t * (1 - t);
-        const currentY = firstBounceY + (secondBounceY - firstBounceY) * easeT - parabola;
-        const rotation = 240 + 120 * easeT;
+        const currentY = fallY - parabola;
+        const rotation = 45 + 195 * easeT; // 45° to 240°
 
         floater.style.left = currentX + 'px';
         floater.style.top = currentY + 'px';
@@ -418,29 +452,54 @@
 
         requestAnimationFrame(animate);
       } else {
+        // Second bounce / final landing
         if (!playedBoing2) {
           soundBoing2();
           playedBoing2 = true;
         }
         
-        setTimeout(() => {
-          soundBonk();
-          floater.style.left = actualEndX + 'px';
-          floater.style.top = actualEndY + 'px';
+        const finalDuration = 300;
+        const finalElapsed = elapsed - firstArcDuration - secondArcDuration;
+        const bounceTargetX = isOffscreen ? fallX : endX;
+        
+        if (finalElapsed < finalDuration) {
+          const t = finalElapsed / finalDuration;
+          const easeT = easeInOutQuad(t);
+          const currentX = bounceTargetX + (endX - bounceTargetX) * easeT;
+          const tinyBounce = 4 * (secondBounceHeight * 0.4) * t * (1 - t);
+          const currentY = fallY - tinyBounce;
+          const rotation = 240 + 120 * easeT;
+          
+          floater.style.left = currentX + 'px';
+          floater.style.top = currentY + 'px';
+          floater.style.transform = `rotate(${rotation}deg)`;
+          
+          requestAnimationFrame(animate);
+        } else {
+          // Final settle
+          if (!playedBonk) {
+            soundBonk();
+            playedBonk = true;
+          }
+          
+          floater.style.left = endX + 'px';
+          floater.style.top = endY + 'px';
           floater.style.transform = `rotate(${360 + finalTilt}deg)`;
           floater.classList.add('landed');
           
-          // If offscreen, now fly away after landing
+          // If offscreen, bounce away diagonally after landing
           if (isOffscreen) {
             setTimeout(() => {
-              floater.style.transition = 'all 0.8s ease-out';
-              floater.style.left = endX + 'px';
-              floater.style.top = endY + 'px';
+              const offscreenX = endX < 0 ? -300 : window.innerWidth + 300;
+              const offscreenY = endY - 100; // bounce up and away
+              floater.style.transition = 'all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+              floater.style.left = offscreenX + 'px';
+              floater.style.top = offscreenY + 'px';
               floater.style.opacity = '0';
-              setTimeout(() => floater.remove(), 800);
-            }, 300);
+              setTimeout(() => floater.remove(), 700);
+            }, 200);
           }
-        }, 100);
+        }
       }
     }
 
