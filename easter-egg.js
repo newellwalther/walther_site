@@ -195,7 +195,7 @@
         if (idx < words.length - 1) totalWidth += spaceWidth;
       });
       
-      let x = (window.innerWidth - totalWidth * 1.2) / 2;
+      let x = (window.innerWidth - totalWidth) / 2;
       let destIdx = 0;
       
       for (let w = 0; w < words.length; w++) {
