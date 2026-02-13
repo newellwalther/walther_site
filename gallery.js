@@ -15,7 +15,7 @@
   let touchStartX = 0;
   let touchStartY = 0;
   const isMobile = () => window.innerWidth <= 768;
-  const MOBILE_ZOOM = 2.0;
+  const MOBILE_ZOOM = 1.5;
 
   document.addEventListener('contextmenu', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
   document.addEventListener('dragstart', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
@@ -125,6 +125,9 @@
       <div class="lightbox-content">
         <button class="lightbox-close" aria-label="Close">&times;</button>
         <div class="lightbox-image-container">
+          <div class="lightbox-loader" style="display:none;position:absolute;z-index:9999;">
+            <div style="font-size:3rem;color:white;animation:spin 1.5s linear infinite;">☢</div>
+          </div>
           <img id="lightbox-image" src="" alt="" draggable="false" />
         </div>
         <div class="lightbox-caption"></div>
@@ -132,8 +135,8 @@
           <button class="lightbox-prev" aria-label="Previous">&#8249;</button>
           <button class="lightbox-zoom" aria-label="Toggle zoom">&#x1F50D;</button>
           <div class="zoom-slider-wrap">
-            <input type="range" class="zoom-slider" min="100" max="400" value="200" step="10">
-            <span class="zoom-label">200%</span>
+            <input type="range" class="zoom-slider" min="100" max="200" value="150" step="10">
+            <span class="zoom-label">150%</span>
           </div>
           <button class="lightbox-inquire" aria-label="Inquire">Inquire</button>
           <button class="lightbox-next" aria-label="Next">&#8250;</button>
@@ -325,8 +328,8 @@
     if (sliderWrap) sliderWrap.style.display = 'none';
     const slider = document.querySelector('.zoom-slider');
     const label = document.querySelector('.zoom-label');
-    if (slider) { slider.value = 200; }
-    if (label) label.textContent = '200%';
+    if (slider) { slider.value = 150; }
+    if (label) label.textContent = '150%';
   }
 
   function toggleZoom() {
@@ -375,14 +378,29 @@
     const caption = document.querySelector('.lightbox-caption');
     const seriesCard = document.querySelector('.lightbox-series-card');
     const inquireBtn = document.querySelector('.lightbox-inquire');
+    const loader = document.querySelector('.lightbox-loader');
 
     seriesCard.style.display = 'none';
-    img.style.display = 'block';
+    loader.style.display = 'flex';
+    img.style.opacity = '0';
 
     const r2 = 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/';
-    img.src = r2 + image.filename;
-    img.alt = image.title || 'Artwork';
-    resetZoom();
+    const newSrc = r2 + image.filename;
+
+    // Show loader while image loads
+    const tempImg = new Image();
+    tempImg.onload = () => {
+      img.src = newSrc;
+      img.alt = image.title || 'Artwork';
+      img.style.opacity = '1';
+      loader.style.display = 'none';
+      resetZoom();
+    };
+    tempImg.onerror = () => {
+      loader.style.display = 'none';
+      img.style.opacity = '1';
+    };
+    tempImg.src = newSrc;
 
     let parts = [];
     if (image.title) parts.push(image.title);

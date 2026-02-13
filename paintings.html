@@ -45,7 +45,7 @@
     }
 
     .list-toggle-wrap {
-      text-align: left;
+      text-align: right;
       max-width: 900px;
       margin: 0 auto;
       padding: 0 1rem 1rem;
@@ -63,25 +63,42 @@
       text-transform: uppercase;
       border-radius: 0;
       font-family: Georgia, serif;
+      transition: transform 0.2s ease;
     }
 
     #list-view-toggle:hover {
       background: #fff;
       color: #000;
+      transform: scale(1.08);
     }
 
     @media (max-width: 768px) {
       .page-header {
         padding: 1rem 0.75rem 0.3rem;
+        text-align: center;
       }
       .page-header .artist-name {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
+        order: 2;
       }
       .page-header h1 {
         font-size: 1.6rem;
+        order: 1;
+        margin-bottom: 0.3rem;
+      }
+      .page-header {
+        display: flex;
+        flex-direction: column;
       }
       .list-toggle-wrap {
         padding: 0 0.75rem 0.75rem;
+        text-align: right;
+      }
+    }
+
+    @media (max-width: 768px) and (orientation: landscape) {
+      .page-header {
+        text-align: center;
       }
     }
   </style>
@@ -104,8 +121,8 @@
   </div>
 
   <div class="page-header">
-    <p class="artist-name">Andrew Newell Walther</p>
     <h1>Paintings</h1>
+    <p class="artist-name">Andrew Newell Walther</p>
   </div>
 
   <div class="list-toggle-wrap">
@@ -116,9 +133,15 @@
 
   <footer>
     <div class="social-buttons footer-social">
-      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank">📷</a>
-      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank">𓅂</a>
-      <a class="social-btn" href="https://wa.me/84339441925" target="_blank">🕻</a>
+      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" rel="noopener">
+        <img src="images/picture-frame.png" alt="Instagram" class="social-icon">
+      </a>
+      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" rel="noopener">
+        𓅂
+      </a>
+      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" rel="noopener">
+        <img src="images/clamshell-mobile-phone.png" alt="WhatsApp" class="social-icon">
+      </a>
     </div>
     <a href="contact.html#newsletter" class="newsletter-link">Newsletter</a>
     <p>© 2025 Andrew Newell Walther. All rights reserved.</p>

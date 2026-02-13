@@ -28,13 +28,95 @@
   </script>
   
   <style>
+    .page-header {
+      text-align: left;
+      padding: 1.5rem 1rem 0.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .page-header .artist-name {
+      font-size: 1rem;
+      font-family: Georgia, serif;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin: 0 0 0.2rem;
+      color: #333;
+    }
+
+    .page-header h1 {
+      font-size: 2.2rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin: 0 0 0.5rem;
+      font-weight: normal;
+    }
+
+    .list-toggle-wrap {
+      text-align: right;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1rem 1rem;
+    }
+
+    #list-view-toggle {
+      position: static;
+      display: inline-block;
+      background: #000;
+      color: #fff;
+      border: 1px solid #000;
+      padding: 6px 14px;
+      cursor: pointer;
+      font-size: 13px;
+      text-transform: uppercase;
+      border-radius: 0;
+      font-family: Georgia, serif;
+      transition: transform 0.2s ease;
+    }
+
+    #list-view-toggle:hover {
+      background: #fff;
+      color: #000;
+      transform: scale(1.08);
+    }
+
+    @media (max-width: 768px) {
+      .page-header {
+        padding: 1rem 0.75rem 0.3rem;
+        text-align: center;
+      }
+      .page-header .artist-name {
+        font-size: 0.75rem;
+        order: 2;
+      }
+      .page-header h1 {
+        font-size: 1.6rem;
+        order: 1;
+        margin-bottom: 0.3rem;
+      }
+      .page-header {
+        display: flex;
+        flex-direction: column;
+      }
+      .list-toggle-wrap {
+        padding: 0 0.75rem 0.75rem;
+        text-align: right;
+      }
+    }
+
+    @media (max-width: 768px) and (orientation: landscape) {
+      .page-header {
+        text-align: center;
+      }
+    }
+
     /* Tighter game section styling */
     .game-section {
       margin: 4rem auto 2rem;
       max-width: 900px;
       padding: 0 1rem;
     }
-    
+
     .game-section h2 {
       text-align: center;
       font-size: 1.5rem;
@@ -42,12 +124,12 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
-    
+
     .game-canvas-container {
       text-align: center;
       margin: 1rem 0;
     }
-    
+
     canvas {
       border: 1px solid black;
       display: block;
@@ -56,13 +138,13 @@
       max-width: 100%;
       height: auto;
     }
-    
+
     .controls {
       text-align: center;
       margin: 1rem 0;
       font-size: 0.9rem;
     }
-    
+
     .controls p {
       margin: 0.25rem 0;
     }
@@ -86,13 +168,14 @@
     </ul>
   </div>
 
-  <!-- List View Toggle -->
-  <button id="list-view-toggle">List View</button>
-
-  <header>
+  <div class="page-header">
     <h1>Drawings</h1>
-    <p>Please enjoy this growing archive of works.</p>
-  </header>
+    <p class="artist-name">Andrew Newell Walther</p>
+  </div>
+
+  <div class="list-toggle-wrap">
+    <button id="list-view-toggle">List View</button>
+  </div>
 
   <!-- GALLERY CONTAINER -->
   <main>
@@ -115,9 +198,15 @@
 
   <footer>
     <div class="social-buttons footer-social">
-      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" aria-label="Instagram">📷</a>
-      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" aria-label="Twitter">🐦</a>
-      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" aria-label="WhatsApp">💬</a>
+      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" rel="noopener">
+        <img src="images/picture-frame.png" alt="Instagram" class="social-icon">
+      </a>
+      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" rel="noopener">
+        𓅂
+      </a>
+      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" rel="noopener">
+        <img src="images/clamshell-mobile-phone.png" alt="WhatsApp" class="social-icon">
+      </a>
     </div>
     <a href="contact.html#newsletter" class="newsletter-link">Newsletter</a>
     <p>© 2025 Andrew Newell Walther. All rights reserved.</p>
