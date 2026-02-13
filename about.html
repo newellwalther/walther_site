@@ -7,7 +7,7 @@
   <meta name="description" content="About Andrew Newell Walther">
   
   <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☯️</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧀</text></svg>">
   
   <link rel="stylesheet" href="style.css" />
   
@@ -37,13 +37,49 @@
     }
 
     .about-text a {
-      color: #000;
-      text-decoration: underline;
-      font-weight: bold;
+      color: #666;
+      text-decoration: none;
+      font-weight: normal;
+      transition: transform 0.2s ease;
+      display: inline-block;
     }
 
     .about-text a:hover {
-      opacity: 0.7;
+      transform: scale(1.15);
+    }
+
+    @media (max-width: 768px) {
+      .about-text a {
+        color: #666;
+      }
+      .about-text a:hover {
+        transform: none;
+      }
+    }
+
+    .about-photo {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .about-photo img {
+      max-width: 300px;
+      width: 100%;
+      height: auto;
+      border: 2px solid #000;
+    }
+
+    .bio-symbols {
+      text-align: center;
+      font-size: 2rem;
+      margin: 2rem 0;
+      font-family: "Segoe UI Symbol", "Apple Symbols", "Arial Unicode MS", sans-serif;
+      font-variant-emoji: text;
+      -webkit-font-variant-emoji: text;
+    }
+
+    #about-title:hover {
+      transform: scale(1.08);
     }
 
     .cv-section {
@@ -107,18 +143,21 @@
   </div>
 
   <header class="page-header">
-    <h1>About</h1>
+    <h1 id="about-title" style="cursor: pointer; transition: transform 0.2s ease;">ABOUT A.N.WALTHER</h1>
   </header>
 
   <main>
     <section class="about-container">
+      <div class="about-photo">
+        <img src="images/portrait-bw.png" alt="Andrew Newell Walther">
+      </div>
       <div class="about-text">
         <p>
           Andrew Newell Walther (b.1993) is an American artist from the great state of Alaska. He is multidisciplinary, with a primary focus on painting. His work is very good and you would be a fool not to at least consider collecting it. His prices are as low now as they ever will be, so inquire right away.
         </p>
 
         <p>
-          The son of Mormons and the oldest of seven children, Walther grew up in Alaska and there allowed its indescribable beauty to seep into his spirit. There he was, going to church with his family, singing in choir and flying around in little airplanes until his teenage years, when he first went to a boarding school of Scientologists and then became the greatest hitchhiker of his generation, living homeless and wandering around America for many years. He would go on to inspire many others to hitchhike and seek from the road whatever it might provide them. Some of those people have unfortunately died.
+          The son of Mormons and the oldest of seven children, Walther <a href="childhood.html" target="_blank">grew up</a> in Alaska and there allowed its indescribable beauty to seep into his spirit. There he was, going to church with his family, singing in choir and flying around in little <a href="air.html" target="_blank">airplanes</a> until his teenage years, when he first went to a boarding school of Scientologists and then became the greatest <a href="hitchhiking.html" target="_blank">hitchhiker</a> of his generation, living homeless and wandering around America for many years. He would go on to inspire many others to hitchhike and seek from the road whatever it might provide them. Some of those people have unfortunately died.
         </p>
 
         <p>
@@ -126,12 +165,16 @@
         </p>
 
         <p>
-          Later, because of his cat who also has since died, he would move to Ho Chi Minh City in Vietnam, where he now resides, working from a <a href="https://www.instagram.com/a.lat.xca/" target="_blank" rel="noopener">modified slum-house</a> studio built on stilts at the banks of the Saigon River. It was there, under the glorious tropical sunset, invasive water hyacinth clustering with floating plastics all around him, that he wrote this bio.
+          Later, because of his <a href="willow.html" target="_blank">cat</a> who also has since died, he would move to Ho Chi Minh City in <a href="vietnam.html" target="_blank">Vietnam</a>, where he now resides, working from a <a href="https://www.instagram.com/a.lat.xca/" target="_blank" rel="noopener">modified slum-house</a> studio built on stilts at the banks of the Saigon River. It was there, under the glorious tropical sunset, invasive water hyacinth clustering with floating plastics all around him, that he wrote this bio.
         </p>
 
         <p>
           He is an affiliate of the now-defunct <a href="https://www.discogs.com/label/718824-Psalmus-Diuersae" target="_blank" rel="noopener">Psalmus Diuersae</a>, and makes the <a href="https://manhattanartreview.com/manhattanartcomic.html" target="_blank" rel="noopener">Manhattan Art Comic</a> for the Manhattan Art Review.
         </p>
+
+        <div class="bio-symbols">
+          🐓 ♐
+        </div>
       </div>
 
       <div class="cv-section">
@@ -164,14 +207,30 @@
 
   <footer>
     <div class="social-buttons footer-social">
-      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" aria-label="Instagram">📷</a>
-      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" aria-label="Twitter">🐦</a>
-      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" aria-label="WhatsApp">💬</a>
+      <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" aria-label="Instagram"><img src="images/picture-frame.png" alt="Instagram" class="social-icon"></a>
+      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" aria-label="Twitter">𓅂</a>
+      <a class="social-btn" href="https://wa.me/84339441925" target="_blank" aria-label="WhatsApp"><img src="images/clamshell-mobile-phone.png" alt="WhatsApp" class="social-icon"></a>
     </div>
-    <a href="contact.html#newsletter" class="newsletter-link">Newsletter</a>
+    <a href="contact.html#newsletter" class="newsletter-link"><span class="sym">🗞️</span> Newsletter <span class="sym">🗞️</span></a>
     <p>© 2025 Andrew Newell Walther. All rights reserved.</p>
   </footer>
 
   <script src="menu.js"></script>
+  <script>
+    // Easter egg: Click title to rotate letters 180°
+    const aboutTitle = document.getElementById('about-title');
+    let rotated = false;
+
+    if (aboutTitle) {
+      aboutTitle.addEventListener('click', function() {
+        rotated = !rotated;
+        const letters = this.textContent.split('');
+        this.innerHTML = letters.map(letter => {
+          if (letter === ' ') return '&nbsp;';
+          return `<span style="display:inline-block;transition:transform 0.5s;transform:rotate(${rotated ? 180 : 0}deg);">${letter}</span>`;
+        }).join('');
+      });
+    }
+  </script>
 </body>
 </html>

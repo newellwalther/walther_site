@@ -13,7 +13,7 @@
   <meta property="og:url" content="https://walther.website/drawings.html" />
   
   <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☯️</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧀</text></svg>">
   
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="gallery.css" />
@@ -29,7 +29,7 @@
   
   <style>
     .page-header {
-      text-align: left;
+      text-align: center;
       padding: 1.5rem 1rem 0.5rem;
       max-width: 900px;
       margin: 0 auto;
@@ -83,7 +83,6 @@
     @media (max-width: 768px) {
       .page-header {
         padding: 1rem 0.75rem 0.3rem;
-        text-align: center;
       }
       .page-header .artist-name {
         font-size: 0.75rem;
@@ -101,12 +100,6 @@
       .list-toggle-wrap {
         padding: 0 0.75rem 0.75rem;
         text-align: right;
-      }
-    }
-
-    @media (max-width: 768px) and (orientation: landscape) {
-      .page-header {
-        text-align: center;
       }
     }
 
@@ -148,6 +141,43 @@
     .controls p {
       margin: 0.25rem 0;
     }
+
+    .suggestion-form {
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      padding: 0 1rem;
+      text-align: center;
+    }
+    .suggestion-form h2 {
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1.5rem;
+    }
+    .suggestion-form textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 0.75rem;
+      border: 2px solid #000;
+      font-family: inherit;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+    .suggestion-form button {
+      padding: 0.7rem 2rem;
+      background: #000;
+      color: #fff;
+      border: 2px solid #000;
+      cursor: pointer;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+    }
+    .suggestion-form button:hover {
+      background: #fff;
+      color: #000;
+    }
   </style>
 </head>
 <body>
@@ -179,6 +209,15 @@
 
   <!-- GALLERY CONTAINER -->
   <main>
+    <section class="suggestion-form">
+      <h2>SUGGEST TO ME WHAT TO DRAW</h2>
+      <form id="suggestionForm">
+        <textarea id="suggestion" name="suggestion" placeholder="Your drawing suggestion..." required></textarea>
+        <button type="submit">Submit Suggestion</button>
+      </form>
+      <div id="suggestionMessage" style="display:none; margin-top:1rem; font-size:0.9rem;"></div>
+    </section>
+
     <div id="gallery-container">
       <!-- Gallery will be populated by JavaScript -->
     </div>
@@ -208,14 +247,14 @@
         <img src="images/clamshell-mobile-phone.png" alt="WhatsApp" class="social-icon">
       </a>
     </div>
-    <a href="contact.html#newsletter" class="newsletter-link">Newsletter</a>
+    <a href="contact.html#newsletter" class="newsletter-link"><span class="sym">🗞️</span> Newsletter <span class="sym">🗞️</span></a>
     <p>© 2025 Andrew Newell Walther. All rights reserved.</p>
   </footer>
 
   <!-- Scripts -->
   <script src="menu.js"></script>
   <script src="gallery.js"></script>
-  
+
   <!-- Gallery Data -->
   <script>
     fetch('drawings-data.json')
@@ -225,9 +264,27 @@
       })
       .catch(error => {
         console.error('Error loading gallery data:', error);
-        document.getElementById('gallery-container').innerHTML = 
+        document.getElementById('gallery-container').innerHTML =
           '<p style="text-align: center; padding: 2rem;">Gallery loading error. Please refresh the page.</p>';
       });
+  </script>
+
+  <!-- Suggestion Form Handler -->
+  <script>
+    document.getElementById('suggestionForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const suggestion = document.getElementById('suggestion').value;
+      const subject = encodeURIComponent('Drawing Suggestion');
+      const body = encodeURIComponent(
+        'Drawing Suggestion:\n\n' + suggestion +
+        '\n\nDate: ' + new Date().toISOString()
+      );
+      window.location.href = 'mailto:newell.pdx@gmail.com?subject=' + subject + '&body=' + body;
+      const msg = document.getElementById('suggestionMessage');
+      msg.textContent = 'Thank you! Opening your email client...';
+      msg.style.display = 'block';
+      this.reset();
+    });
   </script>
   
   <!-- Game Script -->

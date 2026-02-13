@@ -7,7 +7,7 @@
   <meta name="description" content="Contact Andrew Newell Walther">
 
   <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☯️</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧀</text></svg>">
 
   <link rel="stylesheet" href="style.css" />
 
@@ -49,7 +49,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      padding: 0.35rem 1rem;
+      padding: 0.5rem 1.2rem;
       border: 1px solid #000;
       background: #fff;
       color: #000;
@@ -94,7 +94,7 @@
 
     .input-wrap .pencil-icon {
       position: absolute;
-      right: 0.6rem;
+      left: 0.6rem;
       top: 50%;
       transform: translateY(-50%);
       font-size: 1rem;
@@ -122,7 +122,7 @@
     .form-group input,
     .form-group textarea {
       width: 100%;
-      padding: 0.6rem 2rem 0.6rem 0.75rem;
+      padding: 0.6rem 0.75rem 0.6rem 2rem;
       border: 1px solid #000;
       font-family: inherit;
       font-size: 0.95rem;
@@ -140,7 +140,7 @@
     .form-group textarea {
       min-height: 120px;
       resize: vertical;
-      padding: 0.6rem 2rem 0.6rem 0.75rem;
+      padding: 0.6rem 0.75rem 0.6rem 2rem;
     }
 
     .form-submit {
@@ -194,7 +194,7 @@
   </div>
 
   <header>
-    <h1>CONTACT A.N.WALTHER</h1>
+    <h1 id="contact-title" style="cursor: pointer; transition: transform 0.2s ease;">CONTACT A.N.WALTHER</h1>
   </header>
 
   <main>
@@ -215,7 +215,7 @@
 
       <!-- Newsletter -->
       <section class="contact-section" id="newsletter">
-        <h2>NEWSLETTER <span class="sym" style="font-variant-emoji:text;">&#x1F5DE;</span></h2>
+        <h2><span class="sym" style="font-variant-emoji:text;">&#x1F5DE;</span> NEWSLETTER <span class="sym" style="font-variant-emoji:text;">&#x1F5DE;</span></h2>
         <form id="newsletterForm">
 
           <div class="form-group">
@@ -241,7 +241,7 @@
 
       <!-- Send a Message -->
       <section class="contact-section">
-        <h2>SEND A MESSAGE <span class="sym" style="font-variant-emoji:text;">&#x270D;</span></h2>
+        <h2><span class="sym" style="font-variant-emoji:text;">&#x270D;</span> SEND A MESSAGE <span class="sym" style="font-variant-emoji:text;">&#x270D;</span></h2>
         <form id="contactForm">
 
           <div class="form-group">
@@ -279,16 +279,16 @@
   <footer>
     <div class="social-buttons footer-social">
       <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" aria-label="Instagram">
-        <span class="sym" style="font-variant-emoji:text;">&#x1F4F7;</span>
+        <img src="images/picture-frame.png" alt="Instagram" class="social-icon">
       </a>
       <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" aria-label="Twitter">
-        <span class="sym">&#x13170;</span>
+        𓅂
       </a>
       <a class="social-btn" href="https://wa.me/84339441925" target="_blank" aria-label="WhatsApp">
-        <span class="sym" style="font-variant-emoji:text;">&#x1F581;</span>
+        <img src="images/clamshell-mobile-phone.png" alt="WhatsApp" class="social-icon">
       </a>
     </div>
-    <a href="contact.html#newsletter" class="newsletter-link">Newsletter</a>
+    <a href="contact.html#newsletter" class="newsletter-link"><span class="sym">🗞️</span> Newsletter <span class="sym">🗞️</span></a>
     <p>© 2025 Andrew Newell Walther. All rights reserved.</p>
   </footer>
 
@@ -332,6 +332,21 @@
       msg.style.display = 'block';
       this.reset();
     });
+
+    // Easter egg: Click title to rotate letters 180°
+    const contactTitle = document.getElementById('contact-title');
+    let rotated = false;
+
+    if (contactTitle) {
+      contactTitle.addEventListener('click', function() {
+        rotated = !rotated;
+        const letters = this.textContent.split('');
+        this.innerHTML = letters.map(letter => {
+          if (letter === ' ') return '&nbsp;';
+          return `<span style="display:inline-block;transition:transform 0.5s;transform:rotate(${rotated ? 180 : 0}deg);">${letter}</span>`;
+        }).join('');
+      });
+    }
   </script>
 </body>
 </html>

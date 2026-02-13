@@ -37,11 +37,13 @@ body {
   font-size: 14px;
   text-transform: uppercase;
   border-radius: 4px;
+  transition: transform 0.2s ease, background 0.2s, color 0.2s;
 }
 
 .menu-trigger:hover {
   background: #fff;
   color: #000;
+  transform: scale(1.08);
 }
 
 .dropdown {
@@ -121,7 +123,7 @@ header h1 {
 
 @keyframes spin {
   from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  to { transform: rotate(-360deg); }
 }
 
 /* ------------------------------
@@ -156,11 +158,20 @@ main p, main img {
   text-decoration: none;
   color: black;
   font-size: 0.9rem;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.2s ease;
 }
 
 .social-btn:hover {
   background: #f0f0f0;
+  transform: scale(1.1);
+}
+
+.social-icon {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 /* ------------------------------
@@ -261,17 +272,30 @@ footer {
    NEWSLETTER LINK
 ------------------------------ */
 .newsletter-link {
-  display: block;
+  display: inline-block;
   margin-top: 1rem;
-  font-size: 0.85rem;
-  color: #666;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.88rem;
+  color: #000;
+  background: #fff;
+  border: 2px solid #000;
   text-decoration: none;
-  transition: color 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background 0.2s, color 0.2s, transform 0.2s ease;
 }
 
 .newsletter-link:hover {
-  color: #000;
-  text-decoration: underline;
+  background: #000;
+  color: #fff;
+  transform: scale(1.08);
+}
+
+.sym {
+  font-family: "Segoe UI Symbol", "Apple Symbols", "Arial Unicode MS", sans-serif;
+  font-variant-emoji: text;
+  -webkit-font-variant-emoji: text;
+  font-style: normal;
 }
 
 /* ------------------------------

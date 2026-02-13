@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex, nofollow">
 
   <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☯️</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧀</text></svg>">
 
   <link rel="stylesheet" href="style.css" />
 
@@ -45,12 +45,11 @@
       text-align: center;
     }
 
-    /* Portrait - no circle */
+    /* Portrait - uncropped */
     .profile-photo {
-      width: 160px;
-      height: 200px;
-      object-fit: cover;
-      object-position: center top;
+      max-width: 200px;
+      width: 100%;
+      height: auto;
       margin-bottom: 1.2rem;
       display: block;
       margin-left: auto;
@@ -117,16 +116,29 @@
       color: #000;
       text-decoration: none;
       font-size: 0.9rem;
-      transition: all 0.2s;
+      transition: all 0.2s, transform 0.2s ease;
     }
 
     .social-btn:hover {
       background: #000;
       color: #fff;
+      transform: scale(1.1);
     }
 
     .social-btn:hover .sym {
       color: #fff;
+    }
+
+    .social-btn:hover .social-icon {
+      filter: invert(1);
+    }
+
+    .social-icon {
+      width: 15px;
+      height: 15px;
+      object-fit: contain;
+      display: inline-block;
+      vertical-align: middle;
     }
 
     /* Divider */
@@ -245,7 +257,7 @@
     <!-- Main Links -->
     <div class="links-list">
       <a href="https://walther.website" class="link-item">
-        <span class="sym">&#x26D3;</span> walther.website
+        walther.website
       </a>
       <a href="https://walther.website/paintings.html" class="link-item">Paintings</a>
       <a href="https://walther.website/drawings.html" class="link-item">Drawings</a>
@@ -258,13 +270,13 @@
     <!-- Social Buttons -->
     <div class="social-row">
       <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" rel="noopener">
-        <span class="sym" style="font-variant-emoji:text;">&#x1F4F7;</span> Instagram
+        <img src="images/picture-frame.png" alt="Instagram" class="social-icon"> Instagram
       </a>
       <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" rel="noopener">
-        <span class="sym">&#x13170;</span> Twitter
+        𓅂 Twitter
       </a>
       <a class="social-btn" href="https://wa.me/84339441925" target="_blank" rel="noopener">
-        <span class="sym" style="font-variant-emoji:text;">&#x1F581;</span> WhatsApp
+        <img src="images/clamshell-mobile-phone.png" alt="WhatsApp" class="social-icon"> WhatsApp
       </a>
     </div>
 
@@ -288,7 +300,7 @@
     <!-- Newsletter inline -->
     <hr class="divider">
     <div class="newsletter-inline">
-      <h3>Newsletter &#x1F5DE;</h3>
+      <h3><span class="sym">🗞️</span> Newsletter <span class="sym">🗞️</span></h3>
       <form id="linksNewsletterForm">
         <div class="newsletter-form-row">
           <input type="email" id="links-email" placeholder="your@email.com" required>

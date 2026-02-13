@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Walther Worldwide — Andrew Newell Walther</title>
   <meta name="description" content="Andrew Newell Walther, multidisciplinary artist from Alaska, based in Ho Chi Minh City">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☯️</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧀</text></svg>">
   <link rel="stylesheet" href="style.css" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XGRYTSC23"></script>
   <script>
@@ -70,7 +70,23 @@
       text-decoration: none;
     }
     .globe-wrapper:hover {
-      transform: translate(-50%, -50%) scale(1.05);
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    /* Chains icon overlay - hidden by default, shown on hover */
+    .chains-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4rem;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      z-index: 15;
+    }
+    .globe-wrapper:hover .chains-icon {
+      opacity: 0.7;
     }
     .nav-col-left {
       position: absolute;
@@ -93,21 +109,21 @@
       align-items: flex-start;
     }
     .nav-col-left .nav-btn:nth-child(1) { transform: translateY(-60px); }
-    .nav-col-left .nav-btn:nth-child(1):hover { transform: translateY(-60px) scale(1.05); }
+    .nav-col-left .nav-btn:nth-child(1):hover { transform: translateY(-60px) scale(1.12); }
     .nav-col-left .nav-btn:nth-child(2) { transform: translateY(-20px); }
-    .nav-col-left .nav-btn:nth-child(2):hover { transform: translateY(-20px) scale(1.05); }
+    .nav-col-left .nav-btn:nth-child(2):hover { transform: translateY(-20px) scale(1.12); }
     .nav-col-left .nav-btn:nth-child(3) { transform: translateY(20px); }
-    .nav-col-left .nav-btn:nth-child(3):hover { transform: translateY(20px) scale(1.05); }
+    .nav-col-left .nav-btn:nth-child(3):hover { transform: translateY(20px) scale(1.12); }
     .nav-col-left .nav-btn:nth-child(4) { transform: translateY(60px); }
-    .nav-col-left .nav-btn:nth-child(4):hover { transform: translateY(60px) scale(1.05); }
+    .nav-col-left .nav-btn:nth-child(4):hover { transform: translateY(60px) scale(1.12); }
     .nav-col-right .nav-btn:nth-child(1) { transform: translateY(-60px); }
-    .nav-col-right .nav-btn:nth-child(1):hover { transform: translateY(-60px) scale(1.05); }
+    .nav-col-right .nav-btn:nth-child(1):hover { transform: translateY(-60px) scale(1.12); }
     .nav-col-right .nav-btn:nth-child(2) { transform: translateY(-20px); }
-    .nav-col-right .nav-btn:nth-child(2):hover { transform: translateY(-20px) scale(1.05); }
+    .nav-col-right .nav-btn:nth-child(2):hover { transform: translateY(-20px) scale(1.12); }
     .nav-col-right .nav-btn:nth-child(3) { transform: translateY(20px); }
-    .nav-col-right .nav-btn:nth-child(3):hover { transform: translateY(20px) scale(1.05); }
+    .nav-col-right .nav-btn:nth-child(3):hover { transform: translateY(20px) scale(1.12); }
     .nav-col-right .nav-btn:nth-child(4) { transform: translateY(60px); }
-    .nav-col-right .nav-btn:nth-child(4):hover { transform: translateY(60px) scale(1.05); }
+    .nav-col-right .nav-btn:nth-child(4):hover { transform: translateY(60px) scale(1.12); }
 
     .nav-btn {
       display: block;
@@ -127,7 +143,7 @@
     .nav-btn:hover {
       background: #000;
       color: #fff;
-      transform: scale(1.05);
+      transform: scale(1.12);
     }
 
     /* ===================== SOCIAL BUTTONS ===================== */
@@ -143,10 +159,14 @@
       text-decoration: none;
       font-size: 0.88rem;
       line-height: 1.4;
-      transition: background 0.2s, color 0.2s;
+      transition: background 0.2s, color 0.2s, transform 0.2s ease;
       margin: 0.2rem;
     }
-    .social-btn:hover { background: #000; color: #fff; }
+    .social-btn:hover {
+      background: #000;
+      color: #fff;
+      transform: scale(1.1);
+    }
     .social-btn:hover .social-icon { filter: invert(1); }
     .social-icon { width: 15px; height: 15px; object-fit: contain; flex-shrink: 0; }
 
@@ -304,6 +324,7 @@
             <textPath href="#circlePath" startOffset="0%">• World Wide Web Walther • World Wide Walther Web • World Web Wide Walther • World Web Walther Wide • World Walther Wide Web • World Walther Web Wide • Wide World Web Walther • Wide World Walther Web • Wide Web World Walther • Wide Web Walther World • Wide Walther World Web • Wide Walther Web World • Web World Wide Walther • Web World Walther Wide • Web Wide World Walther • Web Wide Walther World • Web Walther World Wide • Web Walther Wide World • Walther World Wide Web • Walther World Web Wide • Walther Wide World Web • Walther Wide Web World • Walther Web World Wide • Walther Web Wide World</textPath>
           </text>
         </svg>
+        <div class="chains-icon">⛓️</div>
       </div>
     </a>
 
@@ -329,6 +350,7 @@
             <textPath href="#circlePathMobile" startOffset="0%">• World Wide Web Walther • World Wide Walther Web • World Web Wide Walther • World Web Walther Wide • World Walther Wide Web • World Walther Web Wide • Wide World Web Walther • Wide World Walther Web • Wide Web World Walther • Wide Web Walther World • Wide Walther World Web • Wide Walther Web World • Web World Wide Walther • Web World Walther Wide • Web Wide World Walther • Web Wide Walther World • Web Walther World Wide • Web Walther Wide World • Walther World Wide Web • Walther World Web Wide • Walther Wide World Web • Walther Wide Web World • Walther Web World Wide • Walther Web Wide World</textPath>
           </text>
         </svg>
+        <div class="chains-icon">⛓️</div>
       </div>
     </a>
 
@@ -362,16 +384,21 @@
   <div class="easter-egg-floor"></div>
 
   <footer>
-    © 2025 Andrew Newell Walther. All rights reserved.
-    <span class="visitor-counter">
-      <div id="sfcjsx5sysr3cptq5s7hcjj7bq7mxpe3b5w" style="display:inline;"></div>
-      <script type="text/javascript" src="https://counter1.optistats.ovh/private/counter.js?c=jsx5sysr3cptq5s7hcjj7bq7mxpe3b5w&down=async" async></script>
-      <noscript>
-        <a href="https://www.freecounterstat.com" title="visits">
-          <img src="https://counter1.optistats.ovh/private/freecounterstat.php?c=jsx5sysr3cptq5s7hcjj7bq7mxpe3b5w" border="0" alt="visits" style="height:13px;">
-        </a>
-      </noscript>
-    </span>
+    <a href="contact.html#newsletter" class="newsletter-link" style="display: block; margin-bottom: 1rem;">
+      <span class="sym">🗞️</span> Newsletter <span class="sym">🗞️</span>
+    </a>
+    <p>
+      © 2025 Andrew Newell Walther. All rights reserved.
+      <span class="visitor-counter">
+        <div id="sfcjsx5sysr3cptq5s7hcjj7bq7mxpe3b5w" style="display:inline;"></div>
+        <script type="text/javascript" src="https://counter1.optistats.ovh/private/counter.js?c=jsx5sysr3cptq5s7hcjj7bq7mxpe3b5w&down=async" async></script>
+        <noscript>
+          <a href="https://www.freecounterstat.com" title="visits">
+            <img src="https://counter1.optistats.ovh/private/freecounterstat.php?c=jsx5sysr3cptq5s7hcjj7bq7mxpe3b5w" border="0" alt="visits" style="height:13px;">
+          </a>
+        </noscript>
+      </span>
+    </p>
   </footer>
 
   <script src="menu.js"></script>
