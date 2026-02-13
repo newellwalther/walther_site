@@ -57,7 +57,7 @@
       gain.connect(audioContext.destination);
       osc.frequency.value = frequency;
       osc.type = type;
-      gain.gain.setValueAtTime(0.15, audioContext.currentTime);
+      gain.gain.setValueAtTime(0.09, audioContext.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
       osc.start(audioContext.currentTime);
       osc.stop(audioContext.currentTime + duration);
@@ -127,12 +127,12 @@
     const destinations = {};
     
     if (isMobile()) {
-      // Mobile: stack on button tops
+      // Mobile: stack on button tops - landing zone brought higher
       const navGrid = document.querySelector('.mobile-nav-grid');
       if (navGrid) {
-        landingZoneY = navGrid.getBoundingClientRect().top + window.scrollY - 80;
+        landingZoneY = navGrid.getBoundingClientRect().top + window.scrollY - 120; // Increased from -80 to bring landing zone higher
       } else {
-        landingZoneY = window.innerHeight * 0.55;
+        landingZoneY = window.innerHeight * 0.45; // Reduced from 0.55 to move up
       }
       
       const charWidth = 24;
@@ -186,7 +186,7 @@
       }
       
       const charWidth = 38;
-      const spaceWidth = 24;
+      const spaceWidth = 32; // Increased from 24 for more letter spacing
       
       // Calculate total width
       let totalWidth = 0;
@@ -284,13 +284,17 @@
     // Physics: Fall straight down for offscreen, or toward destination for onscreen
     const fallTargetX = isOffscreen ? startX : (startX + totalDistanceX * 0.67);
     const fallTargetY = endY;
-    
-    // Bounce heights - first bounce much higher
-    const firstBounceHeight = Math.abs(totalDistanceY) * 0.5;
-    const secondBounceHeight = Math.abs(totalDistanceY) * 0.15;
+
+    // Bounce heights - increased by 20%
+    const firstBounceHeight = Math.abs(totalDistanceY) * 0.6; // Increased from 0.5 (20% increase)
+    const secondBounceHeight = Math.abs(totalDistanceY) * 0.18; // Increased from 0.15 (20% increase)
+    const thirdBounceHeight = Math.abs(totalDistanceY) * 0.08; // Third bounce for offscreen letters
 
     const firstBounceX = fallTargetX;
-    const secondBounceX = endX;
+    const secondBounceX = isOffscreen ? fallTargetX : endX;
+    const thirdBounceX = endX;
+
+    const thirdArcDuration = 300;
 
     let startTime = null;
     let playedBoing1 = false;
@@ -322,13 +326,33 @@
           playedBoing1 = true;
         }
 
-        // Second arc - continue rotation to 240°
+        // Second arc - continue rotation to 180°
         const t = (elapsed - firstArcDuration) / secondArcDuration;
         const easeT = easeInOutQuad(t);
         const currentX = firstBounceX + (secondBounceX - firstBounceX) * easeT;
         const parabola = 4 * secondBounceHeight * t * (1 - t);
         const currentY = fallTargetY - parabola;
-        const rotation = 45 + 195 * easeT; // 45° to 240°
+        const rotation = 45 + 135 * easeT; // 45° to 180°
+
+        floater.style.left = currentX + 'px';
+        floater.style.top = currentY + 'px';
+        floater.style.transform = `rotate(${rotation}deg)`;
+
+        requestAnimationFrame(animate);
+      } else if (elapsed < firstArcDuration + secondArcDuration + thirdArcDuration) {
+        // Second bounce sound
+        if (!playedBoing2) {
+          soundBoing2();
+          playedBoing2 = true;
+        }
+
+        // Third bounce - for all letters, offscreen letters bounce toward exit
+        const t = (elapsed - firstArcDuration - secondArcDuration) / thirdArcDuration;
+        const easeT = easeInOutQuad(t);
+        const currentX = secondBounceX + (thirdBounceX - secondBounceX) * easeT;
+        const parabola = 4 * thirdBounceHeight * t * (1 - t);
+        const currentY = fallTargetY - parabola;
+        const rotation = 180 + 120 * easeT; // 180° to 300°
 
         floater.style.left = currentX + 'px';
         floater.style.top = currentY + 'px';
@@ -336,28 +360,22 @@
 
         requestAnimationFrame(animate);
       } else {
-        // Second bounce sound
-        if (!playedBoing2) {
-          soundBoing2();
-          playedBoing2 = true;
-        }
-        
-        // Final landing with third small bounce
-        const finalDuration = 300;
-        const finalElapsed = elapsed - firstArcDuration - secondArcDuration;
-        
+        // Final landing
+        const finalDuration = 200;
+        const finalElapsed = elapsed - firstArcDuration - secondArcDuration - thirdArcDuration;
+
         if (finalElapsed < finalDuration) {
           const t = finalElapsed / finalDuration;
           const easeT = easeInOutQuad(t);
-          const currentX = secondBounceX + (endX - secondBounceX) * easeT;
-          const tinyBounce = 4 * (secondBounceHeight * 0.4) * t * (1 - t);
+          const currentX = thirdBounceX + (endX - thirdBounceX) * easeT;
+          const tinyBounce = 4 * (thirdBounceHeight * 0.3) * t * (1 - t);
           const currentY = fallTargetY - tinyBounce;
-          const rotation = 240 + 120 * easeT; // 240° to 360°
-          
+          const rotation = 300 + 60 * easeT; // 300° to 360°
+
           floater.style.left = currentX + 'px';
           floater.style.top = currentY + 'px';
           floater.style.transform = `rotate(${rotation}deg)`;
-          
+
           requestAnimationFrame(animate);
         } else {
           // Final bonk and settle
@@ -369,8 +387,8 @@
           floater.style.top = endY + 'px';
           floater.style.transform = `rotate(${360 + finalTilt}deg)`;
           floater.classList.add('landed');
-          
-          // Remove offscreen letters
+
+          // Remove offscreen letters - third bounce then fly away
           if (isOffscreen) {
             setTimeout(() => {
               floater.style.transition = 'all 0.6s ease-out';
@@ -387,24 +405,34 @@
   }
 
   function animateMobileLetter(floater, startX, startY, endX, endY, totalDistanceX, totalDistanceY, finalTilt, firstArcDuration, secondArcDuration, isOffscreen) {
-    // Mobile: ALL letters fall straight down to landing zone first
-    // Offscreen letters: fall to center of landing zone, bounce, then fly away
-    
+    // Mobile: ALL letters fall and bounce TWICE before landing
+    // Prevent horizontal sliding offscreen, keep within safe zone
+
+    const safeMargin = 50; // Keep letters away from screen edges
+    const buttonZoneTop = landingZoneY; // Don't cross into button area
+
     let fallX = startX;
     let fallY = landingZoneY;
-    
+
+    // Clamp positions to prevent sliding offscreen
+    const clampX = (x) => Math.max(safeMargin, Math.min(window.innerWidth - safeMargin, x));
+
     if (isOffscreen) {
-      // Fall straight down to landing zone center
-      fallX = startX;
+      // Fall straight down, no horizontal movement
+      fallX = clampX(startX);
       fallY = landingZoneY;
     } else {
-      // Normal: overshoot destination
-      fallX = endX + totalDistanceX * 0.33;
+      // Normal: slight overshoot destination but stay onscreen
+      fallX = clampX(endX + totalDistanceX * 0.2); // Reduced overshoot
       fallY = landingZoneY;
     }
-    
-    const firstBounceHeight = Math.abs(totalDistanceY - landingZoneY + startY) * 0.5;
-    const secondBounceHeight = Math.abs(totalDistanceY - landingZoneY + startY) * 0.15;
+
+    // Increased bounce heights by 20%
+    const firstBounceHeight = Math.abs(totalDistanceY - landingZoneY + startY) * 0.6; // Increased from 0.5
+    const secondBounceHeight = Math.abs(totalDistanceY - landingZoneY + startY) * 0.18; // Increased from 0.15
+    const thirdBounceHeight = Math.abs(totalDistanceY - landingZoneY + startY) * 0.08; // Third bounce
+
+    const thirdArcDuration = 300;
 
     let startTime = null;
     let playedBoing1 = false;
@@ -419,9 +447,9 @@
         // Freefall - rotate gently (max 45°)
         const t = elapsed / firstArcDuration;
         const easeT = easeInOutQuad(t);
-        const currentX = startX + (fallX - startX) * easeT;
+        const currentX = clampX(startX + (fallX - startX) * easeT);
         const parabola = 4 * firstBounceHeight * t * (1 - t);
-        const currentY = startY + (fallY - startY) * easeT - parabola;
+        const currentY = Math.min(startY + (fallY - startY) * easeT - parabola, buttonZoneTop);
         const rotation = 45 * easeT;
 
         floater.style.left = currentX + 'px';
@@ -438,13 +466,33 @@
 
         const t = (elapsed - firstArcDuration) / secondArcDuration;
         const easeT = easeInOutQuad(t);
-        
-        // Bounce toward final position (or stay in place if offscreen)
-        const bounceTargetX = isOffscreen ? fallX : endX;
-        const currentX = fallX + (bounceTargetX - fallX) * easeT;
+
+        // Bounce toward final position
+        const bounceTargetX = isOffscreen ? fallX : clampX(endX);
+        const currentX = clampX(fallX + (bounceTargetX - fallX) * easeT);
         const parabola = 4 * secondBounceHeight * t * (1 - t);
-        const currentY = fallY - parabola;
-        const rotation = 45 + 195 * easeT; // 45° to 240°
+        const currentY = Math.min(fallY - parabola, buttonZoneTop);
+        const rotation = 45 + 135 * easeT; // 45° to 180°
+
+        floater.style.left = currentX + 'px';
+        floater.style.top = currentY + 'px';
+        floater.style.transform = `rotate(${rotation}deg)`;
+
+        requestAnimationFrame(animate);
+      } else if (elapsed < firstArcDuration + secondArcDuration + thirdArcDuration) {
+        // Second bounce
+        if (!playedBoing2) {
+          soundBoing2();
+          playedBoing2 = true;
+        }
+
+        const t = (elapsed - firstArcDuration - secondArcDuration) / thirdArcDuration;
+        const easeT = easeInOutQuad(t);
+        const bounceTargetX = isOffscreen ? fallX : clampX(endX);
+        const currentX = clampX(bounceTargetX + (clampX(endX) - bounceTargetX) * easeT);
+        const parabola = 4 * thirdBounceHeight * t * (1 - t);
+        const currentY = Math.min(fallY - parabola, buttonZoneTop);
+        const rotation = 180 + 120 * easeT; // 180° to 300°
 
         floater.style.left = currentX + 'px';
         floater.style.top = currentY + 'px';
@@ -452,28 +500,22 @@
 
         requestAnimationFrame(animate);
       } else {
-        // Second bounce / final landing
-        if (!playedBoing2) {
-          soundBoing2();
-          playedBoing2 = true;
-        }
-        
-        const finalDuration = 300;
-        const finalElapsed = elapsed - firstArcDuration - secondArcDuration;
-        const bounceTargetX = isOffscreen ? fallX : endX;
-        
+        // Final landing
+        const finalDuration = 200;
+        const finalElapsed = elapsed - firstArcDuration - secondArcDuration - thirdArcDuration;
+
         if (finalElapsed < finalDuration) {
           const t = finalElapsed / finalDuration;
           const easeT = easeInOutQuad(t);
-          const currentX = bounceTargetX + (endX - bounceTargetX) * easeT;
-          const tinyBounce = 4 * (secondBounceHeight * 0.4) * t * (1 - t);
-          const currentY = fallY - tinyBounce;
-          const rotation = 240 + 120 * easeT;
-          
+          const currentX = clampX(endX);
+          const tinyBounce = 4 * (thirdBounceHeight * 0.3) * t * (1 - t);
+          const currentY = Math.min(fallY - tinyBounce, buttonZoneTop);
+          const rotation = 300 + 60 * easeT; // 300° to 360°
+
           floater.style.left = currentX + 'px';
           floater.style.top = currentY + 'px';
           floater.style.transform = `rotate(${rotation}deg)`;
-          
+
           requestAnimationFrame(animate);
         } else {
           // Final settle
@@ -481,17 +523,20 @@
             soundBonk();
             playedBonk = true;
           }
-          
-          floater.style.left = endX + 'px';
-          floater.style.top = endY + 'px';
+
+          const finalX = clampX(endX);
+          const finalY = Math.min(endY, buttonZoneTop);
+
+          floater.style.left = finalX + 'px';
+          floater.style.top = finalY + 'px';
           floater.style.transform = `rotate(${360 + finalTilt}deg)`;
           floater.classList.add('landed');
-          
-          // If offscreen, bounce away diagonally after landing
+
+          // If offscreen, bounce away after landing
           if (isOffscreen) {
             setTimeout(() => {
-              const offscreenX = endX < 0 ? -300 : window.innerWidth + 300;
-              const offscreenY = endY - 100; // bounce up and away
+              const offscreenX = endX < window.innerWidth / 2 ? -300 : window.innerWidth + 300;
+              const offscreenY = Math.max(finalY - 150, 0); // bounce up and away
               floater.style.transition = 'all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
               floater.style.left = offscreenX + 'px';
               floater.style.top = offscreenY + 'px';
