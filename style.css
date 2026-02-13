@@ -108,6 +108,7 @@ header h1 {
   display: block;
   margin: 0 auto;
   z-index: 1;
+  animation: spin 12s linear infinite;
 }
 
 .rotating-text {
