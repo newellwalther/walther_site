@@ -61,6 +61,40 @@
       background-color: #eee;
     }
 
+    /* Random Text Artwork Header */
+    #text-artwork-header {
+      width: 100%;
+      background-color: #000;
+      padding: 2rem 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      min-height: 60px;
+    }
+
+    #text-artwork-header img {
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+      display: block;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      pointer-events: none;
+      -webkit-user-drag: none;
+      -khtml-user-drag: none;
+      -moz-user-drag: none;
+      -o-user-drag: none;
+    }
+
+    @media (max-width: 768px) {
+      #text-artwork-header {
+        padding: 1rem 0;
+        min-height: 40px;
+      }
+    }
+
     main {
       max-width: 900px;
       margin: 0 auto;
@@ -166,6 +200,9 @@
     </ul>
   </div>
 
+  <!-- Random Text Artwork Header -->
+  <div id="text-artwork-header"></div>
+
   <header>
     <h1>Text</h1>
   </header>
@@ -214,7 +251,7 @@
   <footer>
     <div class="social-buttons footer-social">
       <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" aria-label="Instagram"><img src="images/picture-frame.png" alt="Instagram" class="social-icon"></a>
-      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" aria-label="Twitter">𓅂</a>
+      <a class="social-btn" href="https://twitter.com/newellwalther" target="_blank" aria-label="Twitter">𝄂</a>
       <a class="social-btn" href="https://wa.me/84339441925" target="_blank" aria-label="WhatsApp"><img src="images/clamshell-mobile-phone.png" alt="WhatsApp" class="social-icon"></a>
     </div>
     <a href="contact.html#newsletter" class="newsletter-link"><span class="sym">🗞️</span> Newsletter <span class="sym">🗞️</span></a>
@@ -222,5 +259,50 @@
   </footer>
 
   <script src="menu.js"></script>
+  
+  <script>
+    // Load random text artwork image
+    (function() {
+      fetch('images/text-images/manifest.json')
+        .then(response => response.json())
+        .then(data => {
+          // Select random image
+          const randomIndex = Math.floor(Math.random() * data.images.length);
+          const randomImage = data.images[randomIndex];
+          
+          // Create and insert image
+          const img = document.createElement('img');
+          img.src = `images/text-images/${randomImage}`;
+          img.alt = 'Text artwork by Andrew Newell Walther';
+          
+          // Disable right-click on image
+          img.oncontextmenu = function(e) {
+            e.preventDefault();
+            return false;
+          };
+          
+          document.getElementById('text-artwork-header').appendChild(img);
+        })
+        .catch(error => {
+          console.error('Error loading text artwork:', error);
+        });
+      
+      // Disable common save shortcuts
+      document.addEventListener('keydown', function(e) {
+        // Ctrl+S / Cmd+S
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+          e.preventDefault();
+        }
+      });
+      
+      // Additional right-click protection for all images
+      document.addEventListener('contextmenu', function(e) {
+        if (e.target.tagName === 'IMG' && e.target.closest('#text-artwork-header')) {
+          e.preventDefault();
+          return false;
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
