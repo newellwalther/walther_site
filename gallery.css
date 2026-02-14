@@ -263,6 +263,7 @@
   opacity: 0.3;
   cursor: not-allowed;
   pointer-events: none;
+  text-decoration: line-through;
 }
 
 /* Zoom slider - desktop only */

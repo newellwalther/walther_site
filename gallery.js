@@ -416,7 +416,9 @@
     caption.textContent = parts.join(', ');
     caption.style.display = parts.length ? 'block' : 'none';
 
-    inquireBtn.classList.toggle('unavailable', image.available === false);
+    // Disable inquire for Unstretched series or unavailable images
+    const isUnstretched = series.title && series.title.toLowerCase().includes('unstretched');
+    inquireBtn.classList.toggle('unavailable', image.available === false || isUnstretched);
   }
 
   function showNextImage() {

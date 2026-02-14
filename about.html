@@ -217,7 +217,7 @@
 
   <script src="menu.js"></script>
   <script>
-    // Easter egg: Click title to rotate letters 180°
+    // Easter egg: Click title to rotate letters 180° with staggered animation
     const aboutTitle = document.getElementById('about-title');
     let rotated = false;
 
@@ -225,9 +225,10 @@
       aboutTitle.addEventListener('click', function() {
         rotated = !rotated;
         const letters = this.textContent.split('');
-        this.innerHTML = letters.map(letter => {
+        this.innerHTML = letters.map((letter, index) => {
           if (letter === ' ') return '&nbsp;';
-          return `<span style="display:inline-block;transition:transform 0.5s;transform:rotate(${rotated ? 180 : 0}deg);">${letter}</span>`;
+          const delay = index * 0.03; // 30ms stagger per letter
+          return `<span style="display:inline-block;transition:transform 0.6s ease ${delay}s;transform:rotate(${rotated ? 180 : 0}deg);">${letter}</span>`;
         }).join('');
       });
     }
