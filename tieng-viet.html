@@ -15,9 +15,222 @@
     gtag('config', 'G-6XGRYTSC23');
   </script>
   <style>
-    main { max-width: 800px; margin: 0 auto; padding: 2rem; text-align: center; }
-    h1 { font-size: 2.5rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 2rem; }
-    .description { font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem; }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 1rem;
+    }
+
+    .instructions {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      color: #666;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .control-btn {
+      background: #000;
+      color: #fff;
+      border: 1px solid #000;
+      padding: 0.6rem 1.5rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      font-family: Georgia, serif;
+      transition: all 0.3s;
+      letter-spacing: 1px;
+    }
+
+    .control-btn:hover {
+      background: #fff;
+      color: #000;
+      transform: scale(1.08);
+    }
+
+    .flashcard-container {
+      perspective: 1000px;
+      margin: 3rem auto;
+      max-width: 600px;
+    }
+
+    .flashcard {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease, box-shadow 0.3s ease;
+    }
+
+    .flashcard:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .flashcard.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard.flipped:hover {
+      transform: rotateY(180deg) scale(1.05);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      padding: 2rem;
+      border: 2px solid #000;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .card-front {
+      background: #fff;
+    }
+
+    .card-back {
+      background: #f8f8f8;
+      transform: rotateY(180deg);
+    }
+
+    .card-text {
+      word-wrap: break-word;
+      max-width: 100%;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 2rem 0 3rem;
+    }
+
+    .nav-btn {
+      background: #000;
+      color: #fff;
+      border: 1px solid #000;
+      padding: 0.75rem 2rem;
+      cursor: pointer;
+      font-size: 1rem;
+      font-family: Georgia, serif;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .nav-btn:hover {
+      background: #fff;
+      color: #000;
+      transform: scale(1.08);
+    }
+
+    .add-card-section {
+      max-width: 600px;
+      margin: 4rem auto 3rem;
+      padding: 2rem;
+      border-top: 2px solid #ddd;
+    }
+
+    .add-card-section h2 {
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #000;
+      font-family: Georgia, serif;
+      font-size: 1rem;
+    }
+
+    .submit-btn {
+      background: #000;
+      color: #fff;
+      border: 2px solid #000;
+      padding: 0.75rem 2rem;
+      cursor: pointer;
+      font-size: 1rem;
+      font-family: Georgia, serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+      width: 100%;
+    }
+
+    .submit-btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .card-counter {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .message {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 4px;
+      display: none;
+    }
+
+    .message.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    @media (max-width: 768px) {
+      .flashcard {
+        height: 250px;
+      }
+
+      .card-face {
+        font-size: 1.5rem;
+        padding: 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -35,14 +248,53 @@
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </div>
+
   <main>
     <h1>Tiếng Việt</h1>
-    <div class="description">
-      <p>Interactive Vietnamese flashcards.</p>
-      <p>A tool for learning Vietnamese vocabulary.</p>
-      <p>Coming soon...</p>
+
+    <div class="instructions" id="instructions">
+      Click the card to flip between English and Vietnamese. Add your own words below!
+    </div>
+
+    <div class="controls">
+      <button class="control-btn" id="toggleLang">Switch to VIET → ENG</button>
+    </div>
+
+    <div class="flashcard-container">
+      <div class="flashcard" id="flashcard">
+        <div class="card-face card-front">
+          <div class="card-text" id="frontText"></div>
+        </div>
+        <div class="card-face card-back">
+          <div class="card-text" id="backText"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-counter" id="counter"></div>
+
+    <div class="navigation">
+      <button class="nav-btn" id="prevBtn">← Previous</button>
+      <button class="nav-btn" id="nextBtn">Next →</button>
+    </div>
+
+    <div class="add-card-section">
+      <h2 id="formTitle">Add New Flashcard</h2>
+      <form id="addCardForm">
+        <div class="form-group">
+          <label for="englishInput" id="engLabel">English</label>
+          <input type="text" id="englishInput" required placeholder="Enter English word/phrase">
+        </div>
+        <div class="form-group">
+          <label for="vietnameseInput" id="vietLabel">Vietnamese (Tiếng Việt)</label>
+          <input type="text" id="vietnameseInput" required placeholder="Nhập từ/cụm từ tiếng Việt">
+        </div>
+        <button type="submit" class="submit-btn">Add Card</button>
+      </form>
+      <div class="message success" id="successMessage">Card added successfully!</div>
     </div>
   </main>
+
   <footer>
     <div class="social-buttons footer-social">
       <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" rel="noopener">
@@ -56,6 +308,182 @@
     <a href="contact.html#newsletter" class="newsletter-link"><span class="sym">🗞️</span> Newsletter <span class="sym">🗞️</span></a>
     <p>© 2025 Andrew Newell Walther. All rights reserved.</p>
   </footer>
+
   <script src="menu.js"></script>
+  <script>
+    // Initial vocabulary
+    const initialCards = [
+      { english: "Ashtray", vietnamese: "gạt tàn thuốc" },
+      { english: "What time do you close?", vietnamese: "Mấy giờ bạn đóng cửa?" },
+      { english: "Perfection", vietnamese: "sự hoàn hảo" },
+      { english: "Civil servant", vietnamese: "công chức" },
+      { english: "Industry", vietnamese: "ngành công nghiệp" },
+      { english: "Shipping container", vietnamese: "container vận chuyển" },
+      { english: "Oil barrel", vietnamese: "thùng dầu" },
+      { english: "Werewolf", vietnamese: "ma sói" },
+      { english: "Vampire", vietnamese: "ma cà rồng" },
+      { english: "Good experience", vietnamese: "trải nghiệm tốt" },
+      { english: "Consciousness", vietnamese: "ý thức" },
+      { english: "Occult", vietnamese: "huyền bí" },
+      { english: "Occultist", vietnamese: "người theo huyền học" },
+      { english: "Sculpture", vietnamese: "tác phẩm điêu khắc" },
+      { english: "Sculptor", vietnamese: "nhà điêu khắc" },
+      { english: "Cigarette butt", vietnamese: "đầu lọc thuốc lá" },
+      { english: "Banana peel", vietnamese: "vỏ chuối" },
+      { english: "Exploration", vietnamese: "sự khám phá" },
+      { english: "Aviation", vietnamese: "hàng không" },
+      { english: "General aviation", vietnamese: "hàng không dân dụng" },
+      { english: "Lawsuit", vietnamese: "vụ kiện" },
+      { english: "Justice", vietnamese: "công lý" },
+      { english: "Equality", vietnamese: "bình đẳng" },
+      { english: "Harmony", vietnamese: "sự hài hòa" },
+      { english: "Melody", vietnamese: "giai điệu" },
+      { english: "Exclude", vietnamese: "loại trừ" },
+      { english: "Handle", vietnamese: "xử lý" },
+      { english: "Erase", vietnamese: "xóa" },
+      { english: "Paint brush", vietnamese: "cọ vẽ" },
+      { english: "Canvas", vietnamese: "vải toan" },
+      { english: "Oil paint", vietnamese: "sơn dầu" },
+      { english: "Meditation", vietnamese: "thiền định" },
+      { english: "Flash cards", vietnamese: "thẻ ghi nhớ" }
+    ];
+
+    // Load cards from localStorage or use initial cards
+    let allCards = [];
+    const savedCards = localStorage.getItem('vietnameseFlashcards');
+    if (savedCards) {
+      allCards = JSON.parse(savedCards);
+    } else {
+      allCards = [...initialCards];
+      localStorage.setItem('vietnameseFlashcards', JSON.stringify(allCards));
+    }
+
+    // Shuffle cards
+    function shuffleArray(array) {
+      const shuffled = [...array];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    }
+
+    let shuffledCards = shuffleArray(allCards);
+    let currentIndex = 0;
+    let isFlipped = false;
+    let isEngFirst = true; // true = ENG→VIET, false = VIET→ENG
+
+    const flashcard = document.getElementById('flashcard');
+    const frontText = document.getElementById('frontText');
+    const backText = document.getElementById('backText');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const toggleLangBtn = document.getElementById('toggleLang');
+    const counter = document.getElementById('counter');
+    const instructions = document.getElementById('instructions');
+    const formTitle = document.getElementById('formTitle');
+    const engLabel = document.getElementById('engLabel');
+    const vietLabel = document.getElementById('vietLabel');
+
+    // Display current card
+    function displayCard() {
+      const card = shuffledCards[currentIndex];
+      if (isEngFirst) {
+        frontText.textContent = card.english;
+        backText.textContent = card.vietnamese;
+      } else {
+        frontText.textContent = card.vietnamese;
+        backText.textContent = card.english;
+      }
+      counter.textContent = `Card ${currentIndex + 1} of ${shuffledCards.length}`;
+      isFlipped = false;
+      flashcard.classList.remove('flipped');
+    }
+
+    // Flip card
+    flashcard.addEventListener('click', () => {
+      isFlipped = !isFlipped;
+      flashcard.classList.toggle('flipped');
+    });
+
+    // Navigation
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + shuffledCards.length) % shuffledCards.length;
+      displayCard();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % shuffledCards.length;
+      displayCard();
+    });
+
+    // Toggle language direction
+    toggleLangBtn.addEventListener('click', () => {
+      isEngFirst = !isEngFirst;
+      if (isEngFirst) {
+        toggleLangBtn.textContent = 'Switch to VIET → ENG';
+        instructions.textContent = 'Click the card to flip between English and Vietnamese. Add your own words below!';
+        formTitle.textContent = 'Add New Flashcard';
+        engLabel.textContent = 'English';
+        vietLabel.textContent = 'Vietnamese (Tiếng Việt)';
+      } else {
+        toggleLangBtn.textContent = 'Chuyển sang ENG → VIET';
+        instructions.textContent = 'Nhấp vào thẻ để lật giữa tiếng Việt và tiếng Anh. Thêm từ của bạn bên dưới!';
+        formTitle.textContent = 'Thêm Thẻ Mới';
+        engLabel.textContent = 'Tiếng Anh';
+        vietLabel.textContent = 'Tiếng Việt';
+      }
+      displayCard();
+    });
+
+    // Add new card
+    const form = document.getElementById('addCardForm');
+    const successMessage = document.getElementById('successMessage');
+    const englishInput = document.getElementById('englishInput');
+    const vietnameseInput = document.getElementById('vietnameseInput');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const newCard = {
+        english: englishInput.value.trim(),
+        vietnamese: vietnameseInput.value.trim()
+      };
+
+      // Add to cards array
+      allCards.push(newCard);
+      shuffledCards.push(newCard);
+
+      // Save to localStorage
+      localStorage.setItem('vietnameseFlashcards', JSON.stringify(allCards));
+
+      // Show success message
+      successMessage.style.display = 'block';
+      setTimeout(() => {
+        successMessage.style.display = 'none';
+      }, 3000);
+
+      // Reset form
+      form.reset();
+
+      // Update counter
+      counter.textContent = `Card ${currentIndex + 1} of ${shuffledCards.length}`;
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        prevBtn.click();
+      } else if (e.key === 'ArrowRight') {
+        nextBtn.click();
+      } else if (e.key === ' ') {
+        e.preventDefault();
+        flashcard.click();
+      }
+    });
+
+    // Initialize
+    displayCard();
+  </script>
 </body>
 </html>
