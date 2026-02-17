@@ -73,20 +73,27 @@
       transform: translate(-50%, -50%) scale(1.1);
     }
 
-    /* Chains icon overlay - hidden by default, shown on hover */
-    .chains-icon {
+    /* LINKS label overlay - hidden by default, shown on hover */
+    .links-label {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 4rem;
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-family: Georgia, serif;
+      color: #000;
       opacity: 0;
       transition: opacity 0.4s ease;
       pointer-events: none;
       z-index: 15;
+      white-space: nowrap;
     }
-    .globe-wrapper:hover .chains-icon {
-      opacity: 0.7;
+    .globe-wrapper:hover .links-label,
+    .mobile-globe-link:hover .links-label {
+      opacity: 0.85;
     }
     .nav-col-left {
       position: absolute;
@@ -184,7 +191,8 @@
     .mobile-layout { display: none; }
 
     @media (max-width: 1000px) {
-      /* Hide desktop, show mobile */
+      /* Hide desktop title and desktop layout, show mobile */
+      .desktop-title-header { display: none; }
       .desktop-layout { display: none; }
       .mobile-layout {
         display: flex;
@@ -213,7 +221,7 @@
         display: block;
         width: 238px;
         height: 238px;
-        margin: 0.1rem auto 0;
+        margin: 0.5rem auto 0;
         flex-shrink: 0;
         text-decoration: none;
         cursor: pointer;
@@ -230,11 +238,36 @@
         width: 100%; height: 100%;
       }
 
-      /* Animation space - portrait only */
+      /* Mobile title below globe */
+      .mobile-title-block {
+        text-align: center;
+        width: 100%;
+        padding: 0.4rem 1rem 0;
+      }
+
+      .mobile-title-block #mobile-main-title {
+        font-size: 1.75rem;
+        letter-spacing: 3px;
+        line-height: 1.45;
+        white-space: normal;
+        word-spacing: 100vw;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        text-transform: uppercase;
+      }
+
+      .mobile-title-block #mobile-main-title .title-letter {
+        display: inline-block;
+        transition: transform 0.15s ease;
+        cursor: pointer;
+      }
+
+      /* Animation space - reduced since letters use fixed positioning */
       .animation-space {
         width: 100%;
-        height: 35vh;
-        min-height: 180px;
+        height: 22vh;
+        min-height: 110px;
         flex-shrink: 0;
       }
 
@@ -299,8 +332,8 @@
     </ul>
   </div>
 
-  <!-- Title shown on both desktop and mobile -->
-  <header style="text-align:center; width:100%;">
+  <!-- Title: desktop only (mobile title lives inside mobile-layout) -->
+  <header class="desktop-title-header" style="text-align:center; width:100%;">
     <h1 id="main-title">WALTHER&nbsp;&nbsp;WORLDWIDE</h1>
   </header>
 
@@ -324,7 +357,7 @@
             <textPath href="#circlePath" startOffset="0%">• World Wide Web Walther • World Wide Walther Web • World Web Wide Walther • World Web Walther Wide • World Walther Wide Web • World Walther Web Wide • Wide World Web Walther • Wide World Walther Web • Wide Web World Walther • Wide Web Walther World • Wide Walther World Web • Wide Walther Web World • Web World Wide Walther • Web World Walther Wide • Web Wide World Walther • Web Wide Walther World • Web Walther World Wide • Web Walther Wide World • Walther World Wide Web • Walther World Web Wide • Walther Wide World Web • Walther Wide Web World • Walther Web World Wide • Walther Web Wide World</textPath>
           </text>
         </svg>
-        <div class="chains-icon">⛓️</div>
+        <div class="links-label">LINKS</div>
       </div>
     </a>
 
@@ -350,9 +383,14 @@
             <textPath href="#circlePathMobile" startOffset="0%">• World Wide Web Walther • World Wide Walther Web • World Web Wide Walther • World Web Walther Wide • World Walther Wide Web • World Walther Web Wide • Wide World Web Walther • Wide World Walther Web • Wide Web World Walther • Wide Web Walther World • Wide Walther World Web • Wide Walther Web World • Web World Wide Walther • Web World Walther Wide • Web Wide World Walther • Web Wide Walther World • Web Walther World Wide • Web Walther Wide World • Walther World Wide Web • Walther World Web Wide • Walther Wide World Web • Walther Wide Web World • Walther Web World Wide • Walther Web Wide World</textPath>
           </text>
         </svg>
-        <div class="chains-icon">⛓️</div>
+        <div class="links-label">LINKS</div>
       </div>
     </a>
+
+    <!-- Title below globe on mobile -->
+    <div class="mobile-title-block">
+      <h1 id="mobile-main-title">WALTHER&nbsp;&nbsp;WORLDWIDE</h1>
+    </div>
 
     <div class="animation-space"></div>
 
@@ -407,17 +445,21 @@
   <script src="script.js"></script>
   <script src="easter-egg.js"></script>
   <script>
-    // Wrap letters for Easter egg
-    const title = document.getElementById('main-title');
-    const words = ['WALTHER', 'WORLDWIDE'];
-    let letterHTML = '';
-    words.forEach((word, wi) => {
-      word.split('').forEach(ch => {
-        letterHTML += `<span class="title-letter" data-char="${ch}">${ch}</span>`;
+    // Wrap letters for Easter egg — both desktop and mobile title elements
+    function wrapTitleLetters(titleEl) {
+      if (!titleEl) return;
+      const words = ['WALTHER', 'WORLDWIDE'];
+      let letterHTML = '';
+      words.forEach((word, wi) => {
+        word.split('').forEach(ch => {
+          letterHTML += `<span class="title-letter" data-char="${ch}">${ch}</span>`;
+        });
+        if (wi === 0) letterHTML += '<span class="title-space">&nbsp;&nbsp;</span>';
       });
-      if (wi === 0) letterHTML += '<span class="title-space">&nbsp;&nbsp;</span>';
-    });
-    title.innerHTML = letterHTML;
+      titleEl.innerHTML = letterHTML;
+    }
+    wrapTitleLetters(document.getElementById('main-title'));
+    wrapTitleLetters(document.getElementById('mobile-main-title'));
   </script>
 </body>
 </html>
