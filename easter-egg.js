@@ -121,7 +121,8 @@
     if (isMobile()) {
       const navGrid = document.querySelector('.mobile-nav-grid');
       if (navGrid) {
-        buttonZoneY = navGrid.getBoundingClientRect().top + window.scrollY;
+        // Viewport-relative coords (correct for position:fixed during animation)
+        buttonZoneY = navGrid.getBoundingClientRect().top;
         landingZoneY = buttonZoneY - 95; // room for 2 lines above buttons
       } else {
         buttonZoneY = window.innerHeight * 0.78;
@@ -477,6 +478,7 @@
           floater.style.top  = finalLandY + 'px';
           floater.style.transform = `rotate(${360 + finalTilt}deg)`;
           floater.classList.add('landed');
+          convertFloaterToAbsolute(floater); // lock to page coords so it scrolls with buttons
 
           if (isOffscreen) {
             // Bounce off screen with physical arc — no horizontal sliding
@@ -515,6 +517,15 @@
 
   function easeInOutQuad(t) {
     return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  }
+
+  // Convert a position:fixed floater to position:absolute so it scrolls with the page
+  function convertFloaterToAbsolute(floater) {
+    const fixedLeft = parseFloat(floater.style.left);
+    const fixedTop  = parseFloat(floater.style.top);
+    floater.style.position = 'absolute';
+    floater.style.left = (fixedLeft + (window.scrollX || 0)) + 'px';
+    floater.style.top  = (fixedTop  + (window.scrollY || 0)) + 'px';
   }
 
   // ==============================
