@@ -191,8 +191,7 @@
     .mobile-layout { display: none; }
 
     @media (max-width: 1000px) {
-      /* Hide desktop title and desktop layout, show mobile */
-      .desktop-title-header { display: none; }
+      /* Hide desktop layout, show mobile */
       .desktop-layout { display: none; }
       .mobile-layout {
         display: flex;
@@ -209,7 +208,7 @@
         word-spacing: 100vw;
         font-size: 1.75rem;
         letter-spacing: 3px;
-        line-height: 1.0;
+        line-height: 1.45;
         text-align: center;
         margin-top: 2.2rem;
         margin-bottom: 0.1rem;
@@ -238,36 +237,11 @@
         width: 100%; height: 100%;
       }
 
-      /* Mobile title below globe */
-      .mobile-title-block {
-        text-align: center;
-        width: 100%;
-        padding: 0.4rem 1rem 0;
-      }
-
-      .mobile-title-block #mobile-main-title {
-        font-size: 1.75rem;
-        letter-spacing: 3px;
-        line-height: 1.45;
-        white-space: normal;
-        word-spacing: 100vw;
-        text-align: center;
-        margin: 0;
-        padding: 0;
-        text-transform: uppercase;
-      }
-
-      .mobile-title-block #mobile-main-title .title-letter {
-        display: inline-block;
-        transition: transform 0.15s ease;
-        cursor: pointer;
-      }
-
-      /* Animation space - reduced since letters use fixed positioning */
+      /* Animation space - tall enough for 2 lines of landing text */
       .animation-space {
         width: 100%;
-        height: 22vh;
-        min-height: 110px;
+        height: 18vh;
+        min-height: 105px;
         flex-shrink: 0;
       }
 
@@ -332,8 +306,8 @@
     </ul>
   </div>
 
-  <!-- Title: desktop only (mobile title lives inside mobile-layout) -->
-  <header class="desktop-title-header" style="text-align:center; width:100%;">
+  <!-- Title shown on both desktop and mobile -->
+  <header style="text-align:center; width:100%;">
     <h1 id="main-title">WALTHER&nbsp;&nbsp;WORLDWIDE</h1>
   </header>
 
@@ -386,11 +360,6 @@
         <div class="links-label">LINKS</div>
       </div>
     </a>
-
-    <!-- Title below globe on mobile -->
-    <div class="mobile-title-block">
-      <h1 id="mobile-main-title">WALTHER&nbsp;&nbsp;WORLDWIDE</h1>
-    </div>
 
     <div class="animation-space"></div>
 
@@ -445,21 +414,17 @@
   <script src="script.js"></script>
   <script src="easter-egg.js"></script>
   <script>
-    // Wrap letters for Easter egg — both desktop and mobile title elements
-    function wrapTitleLetters(titleEl) {
-      if (!titleEl) return;
-      const words = ['WALTHER', 'WORLDWIDE'];
-      let letterHTML = '';
-      words.forEach((word, wi) => {
-        word.split('').forEach(ch => {
-          letterHTML += `<span class="title-letter" data-char="${ch}">${ch}</span>`;
-        });
-        if (wi === 0) letterHTML += '<span class="title-space">&nbsp;&nbsp;</span>';
+    // Wrap letters for Easter egg
+    const title = document.getElementById('main-title');
+    const words = ['WALTHER', 'WORLDWIDE'];
+    let letterHTML = '';
+    words.forEach((word, wi) => {
+      word.split('').forEach(ch => {
+        letterHTML += `<span class="title-letter" data-char="${ch}">${ch}</span>`;
       });
-      titleEl.innerHTML = letterHTML;
-    }
-    wrapTitleLetters(document.getElementById('main-title'));
-    wrapTitleLetters(document.getElementById('mobile-main-title'));
+      if (wi === 0) letterHTML += '<span class="title-space">&nbsp;&nbsp;</span>';
+    });
+    title.innerHTML = letterHTML;
   </script>
 </body>
 </html>

@@ -27,14 +27,14 @@
 
   const isMobile = () => window.innerWidth <= 1000;
 
-  // Returns the correct title element based on screen size
   function getTitle() {
-    return document.getElementById(isMobile() ? 'mobile-main-title' : 'main-title');
+    return document.getElementById('main-title');
   }
 
   let hasTriggered = false;
   let audioContext = null;
   let landingZoneY = 0;
+  let buttonZoneY = 0; // actual top of buttons — letters must not cross this
 
   const SOURCE_LETTERS = ['W','A','L','T','H','E','R','W','O','R','L','D','W','I','D','E'];
 
@@ -121,13 +121,16 @@
     if (isMobile()) {
       const navGrid = document.querySelector('.mobile-nav-grid');
       if (navGrid) {
-        landingZoneY = navGrid.getBoundingClientRect().top + window.scrollY - 20;
+        buttonZoneY = navGrid.getBoundingClientRect().top + window.scrollY;
+        landingZoneY = buttonZoneY - 95; // room for 2 lines above buttons
       } else {
-        landingZoneY = window.innerHeight * 0.65;
+        buttonZoneY = window.innerHeight * 0.78;
+        landingZoneY = window.innerHeight * 0.62;
       }
 
       const charWidth = 24;
       const spaceWidth = 12;
+      const lineGap = 44; // gap between line 1 and line 2
 
       if (words.length === 1) {
         const totalWidth = words[0].length * charWidth;
@@ -155,7 +158,7 @@
         });
 
         for (const char of lastWord) {
-          destinations[destIdx++] = { x: x2, y: landingZoneY + 38 };
+          destinations[destIdx++] = { x: x2, y: landingZoneY + lineGap };
           x2 += charWidth;
         }
       }
@@ -372,7 +375,7 @@
 
   function animateMobileLetter(floater, startX, startY, endX, endY, totalDistanceX, totalDistanceY, finalTilt, firstArcDuration, secondArcDuration, thirdArcDuration, isOffscreen) {
     const safeMargin = 50;
-    const buttonZoneTop = landingZoneY;
+    const buttonZoneTop = buttonZoneY || (landingZoneY + 100); // actual button top, not landing zone
     const clampX = (x) => Math.max(safeMargin, Math.min(window.innerWidth - safeMargin, x));
 
     // Where the letter falls to first
