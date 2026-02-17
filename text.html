@@ -167,7 +167,21 @@
     }
 
     footer {
-      border-top: 1px solid #666;
+      background: #f8f8f8 !important;
+      color: #666 !important;
+      border-top: 1px solid #ddd;
+    }
+
+    footer p, footer a {
+      color: #666 !important;
+    }
+
+    .newsletter-link {
+      color: #000 !important;
+    }
+
+    .newsletter-link:hover {
+      color: #333 !important;
     }
 
     @media (max-width: 768px) {
@@ -195,7 +209,7 @@
       <li><a href="index.html">Home</a></li>
       <li><a href="paintings.html">Paintings</a></li>
       <li><a href="drawings.html">Drawings</a></li>
-      <li><a href="text.html">Text</a></li>
+      <li><a href="text.html">Text-Based Work</a></li>
       <li><a href="exhibitions.html">Exhibitions / CV</a></li>
       <li><a href="video.html">Video</a></li>
       <li><a href="https://19933.biz/manhattanartcomic.html" target="_blank">🔗 Manhattan Art Comic</a></li>
@@ -205,11 +219,16 @@
   </div>
 
   <header>
-    <h1>Text</h1>
+    <h1>Text-Based Work</h1>
+    <p style="font-size: 0.95rem; letter-spacing: 2px; text-transform: uppercase; margin: 0.3rem 0 0; color: #ccc;">Andrew Newell Walther</p>
   </header>
 
   <!-- Random Text Artwork Header -->
   <div id="text-artwork-header"></div>
+
+  <div style="max-width: 700px; margin: 0 auto 2rem; padding: 0 1.5rem; text-align: left; font-size: 1rem; line-height: 1.8; color: #ccc;">
+    Works made from a personally developed dataset of tens of thousands of images of words and phrases in text. Each image is labelled by literal content in file name.
+  </div>
 
   <main>
     <!-- FEATURED VIDEO (TOP) -->
@@ -251,6 +270,11 @@
       </section>
     </div>
   </main>
+
+  <div style="max-width: 900px; margin: 4rem auto 2rem; padding: 0 1rem;">
+    <img src="images/collage-text-1.jpg" alt="Text collage work by Andrew Newell Walther" style="width: 100%; height: auto; display: block; margin-bottom: 1.5rem; user-select: none; -webkit-user-drag: none; pointer-events: none;" oncontextmenu="return false;">
+    <img src="images/collage-text-2.jpg" alt="Text collage work by Andrew Newell Walther" style="width: 100%; height: auto; display: block; user-select: none; -webkit-user-drag: none; pointer-events: none;" oncontextmenu="return false;">
+  </div>
 
   <footer>
     <div class="social-buttons footer-social">
