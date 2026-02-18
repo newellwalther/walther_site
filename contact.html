@@ -300,11 +300,8 @@
       const name = document.getElementById('newsletter-name').value.trim();
       const email = document.getElementById('newsletter-email').value.trim();
 
-      fetch('https://script.google.com/macros/s/AKfycbxOW7UbzYoJh888mfOREAfyPgH2zxU4Uo93clAHD0Cmqt9CIzzIzG0G1Go_wEy2g_ep/exec', {
-        method: 'POST',
-        mode: 'no-cors',
-        body: JSON.stringify({ type: 'newsletter', name, email })
-      }).catch(() => {});
+      const params = new URLSearchParams({ type: 'newsletter', name, email });
+      fetch('https://script.google.com/macros/s/AKfycbxOW7UbzYoJh888mfOREAfyPgH2zxU4Uo93clAHD0Cmqt9CIzzIzG0G1Go_wEy2g_ep/exec?' + params.toString(), { mode: 'no-cors' }).catch(() => {});
 
       const msg = document.getElementById('newsletterMessage');
       msg.textContent = 'Subscribed!';

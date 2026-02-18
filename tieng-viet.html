@@ -484,11 +484,8 @@
       counter.textContent = `Card ${currentIndex + 1} of ${shuffledCards.length}`;
 
       // Send to Google Sheet (fire and forget)
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: JSON.stringify({ type: 'flashcard', english, vietnamese })
-      }).catch(() => {});
+      const params = new URLSearchParams({ type: 'flashcard', english, vietnamese });
+      fetch(SCRIPT_URL + '?' + params.toString(), { mode: 'no-cors' }).catch(() => {});
 
       successMessage.style.display = 'block';
       setTimeout(() => { successMessage.style.display = 'none'; }, 3000);

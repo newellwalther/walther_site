@@ -278,11 +278,8 @@
       const suggestion = document.getElementById('suggestion').value.trim();
       if (!suggestion) return;
 
-      fetch('https://script.google.com/macros/s/AKfycbxOW7UbzYoJh888mfOREAfyPgH2zxU4Uo93clAHD0Cmqt9CIzzIzG0G1Go_wEy2g_ep/exec', {
-        method: 'POST',
-        mode: 'no-cors',
-        body: JSON.stringify({ type: 'suggestion', suggestion })
-      }).catch(() => {});
+      const params = new URLSearchParams({ type: 'suggestion', suggestion });
+      fetch('https://script.google.com/macros/s/AKfycbxOW7UbzYoJh888mfOREAfyPgH2zxU4Uo93clAHD0Cmqt9CIzzIzG0G1Go_wEy2g_ep/exec?' + params.toString(), { mode: 'no-cors' }).catch(() => {});
 
       const msg = document.getElementById('suggestionMessage');
       msg.textContent = 'Thank you for the suggestion!';

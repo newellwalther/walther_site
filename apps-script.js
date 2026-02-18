@@ -2,67 +2,44 @@
 // walther.website — Google Apps Script backend
 // ─────────────────────────────────────────────────────────────────────────────
 //
-// SETUP (one-time, ~10 minutes):
+// SETUP (one-time):
 //
-// 1. Create a Google Sheet at sheets.google.com → name it "walther.website"
-//    Add three tabs named exactly:
+// 1. Create a Google Sheet named "walther.website" with three tabs:
 //      "Flashcards"  → Row 1 headers: english | vietnamese | timestamp
 //      "Suggestions" → Row 1 headers: suggestion | timestamp
 //      "Newsletter"  → Row 1 headers: name | email | timestamp
+//    Share the sheet → "Anyone with the link can view"
 //
-// 2. In the Flashcards tab, paste the 33 starter cards starting at row 2.
-//    (Copy them from the initialCards array in tieng-viet.html)
+// 2. Paste this file into script.google.com → Deploy → New deployment
+//      Type: Web app | Execute as: Me | Who has access: Anyone
 //
-// 3. Share the sheet → "Anyone with the link can view"
-//    (needed so the flashcard page can fetch cards publicly)
-//
-// 4. Copy your Sheet ID from the URL:
-//    https://docs.google.com/spreadsheets/d/  ←THIS PART→  /edit
-//    Paste it below as SHEET_ID.
-//
-// 5. Go to script.google.com → New project → paste this entire file.
-//
-// 6. Click Deploy → New deployment
-//      Type:            Web app
-//      Execute as:      Me
-//      Who has access:  Anyone
-//    Authorize when prompted. Copy the deployment URL.
-//
-// 7. In tieng-viet.html, drawings.html, and contact.html replace
-//    YOUR_APPS_SCRIPT_URL with the deployment URL you just copied.
-//    In tieng-viet.html also replace YOUR_SHEET_ID with your Sheet ID.
-//
-// 8. git push — done.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const SHEET_ID = '1QWOIimopt2EqbJ86N_Iu5PU--m5TwqUhG6ELUZ-kmkA';
 
-function doPost(e) {
+function doGet(e) {
   try {
-    const data = JSON.parse(e.postData.contents);
+    const p = e.parameter;
     const ss = SpreadsheetApp.openById(SHEET_ID);
     const timestamp = new Date().toISOString();
 
-    if (data.type === 'flashcard') {
-      const sheet = ss.getSheetByName('Flashcards');
-      sheet.appendRow([
-        String(data.english  || '').substring(0, 250),
-        String(data.vietnamese || '').substring(0, 250),
+    if (p.type === 'flashcard') {
+      ss.getSheetByName('Flashcards').appendRow([
+        String(p.english    || '').substring(0, 250),
+        String(p.vietnamese || '').substring(0, 250),
         timestamp
       ]);
 
-    } else if (data.type === 'suggestion') {
-      const sheet = ss.getSheetByName('Suggestions');
-      sheet.appendRow([
-        String(data.suggestion || '').substring(0, 500),
+    } else if (p.type === 'suggestion') {
+      ss.getSheetByName('Suggestions').appendRow([
+        String(p.suggestion || '').substring(0, 500),
         timestamp
       ]);
 
-    } else if (data.type === 'newsletter') {
-      const sheet = ss.getSheetByName('Newsletter');
-      sheet.appendRow([
-        String(data.name  || '').substring(0, 200),
-        String(data.email || '').substring(0, 200),
+    } else if (p.type === 'newsletter') {
+      ss.getSheetByName('Newsletter').appendRow([
+        String(p.name  || '').substring(0, 200),
+        String(p.email || '').substring(0, 200),
         timestamp
       ]);
     }
