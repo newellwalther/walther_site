@@ -297,17 +297,17 @@
     // Newsletter Form
     document.getElementById('newsletterForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const name = document.getElementById('newsletter-name').value || 'No name provided';
-      const email = document.getElementById('newsletter-email').value;
-      const subject = encodeURIComponent('Newsletter Subscription');
-      const body = encodeURIComponent(
-        'New newsletter subscription:\n\nName: ' + name +
-        '\nEmail: ' + email +
-        '\nDate: ' + new Date().toISOString()
-      );
-      window.location.href = 'mailto:newell.pdx@gmail.com?subject=' + subject + '&body=' + body;
+      const name = document.getElementById('newsletter-name').value.trim();
+      const email = document.getElementById('newsletter-email').value.trim();
+
+      fetch('https://script.google.com/macros/s/AKfycbzJumI1XIVRQYPIp4_qE97Q7UVH61H2FE-fcf4-W88Nd0nlqic5NtMZr9kT1Ml6V4m3/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify({ type: 'newsletter', name, email })
+      }).catch(() => {});
+
       const msg = document.getElementById('newsletterMessage');
-      msg.textContent = 'Thank you! Opening your email client...';
+      msg.textContent = 'Subscribed!';
       msg.className = 'form-message success';
       msg.style.display = 'block';
       this.reset();

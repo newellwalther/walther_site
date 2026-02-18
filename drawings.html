@@ -275,15 +275,17 @@
   <script>
     document.getElementById('suggestionForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const suggestion = document.getElementById('suggestion').value;
-      const subject = encodeURIComponent('Drawing Suggestion');
-      const body = encodeURIComponent(
-        'Drawing Suggestion:\n\n' + suggestion +
-        '\n\nDate: ' + new Date().toISOString()
-      );
-      window.location.href = 'mailto:newell.pdx@gmail.com?subject=' + subject + '&body=' + body;
+      const suggestion = document.getElementById('suggestion').value.trim();
+      if (!suggestion) return;
+
+      fetch('https://script.google.com/macros/s/AKfycbzJumI1XIVRQYPIp4_qE97Q7UVH61H2FE-fcf4-W88Nd0nlqic5NtMZr9kT1Ml6V4m3/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify({ type: 'suggestion', suggestion })
+      }).catch(() => {});
+
       const msg = document.getElementById('suggestionMessage');
-      msg.textContent = 'Thank you! Opening your email client...';
+      msg.textContent = 'Thank you for the suggestion!';
       msg.style.display = 'block';
       this.reset();
     });

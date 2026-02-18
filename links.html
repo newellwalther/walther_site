@@ -297,17 +297,13 @@
       </a>
     </div>
 
-    <!-- Newsletter inline -->
+    <!-- Newsletter -->
     <hr class="divider">
     <div class="newsletter-inline">
       <h3><span class="sym">🗞️</span> Newsletter <span class="sym">🗞️</span></h3>
-      <form id="linksNewsletterForm">
-        <div class="newsletter-form-row">
-          <input type="email" id="links-email" placeholder="your@email.com" required>
-          <button type="submit">Subscribe</button>
-        </div>
-        <div class="newsletter-msg" id="linksNewsletterMsg"></div>
-      </form>
+      <a href="contact.html#newsletter" class="newsletter-form-row" style="text-decoration:none; display:inline-block;">
+        <button type="button">Subscribe</button>
+      </a>
     </div>
 
     <!-- QR Code -->
@@ -319,23 +315,6 @@
     <p class="footer-copy">© 2025 Andrew Newell Walther</p>
   </div>
 
-  <script>
-    document.getElementById('linksNewsletterForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const email = document.getElementById('links-email').value;
-      const subject = encodeURIComponent('Newsletter Subscription');
-      const body = encodeURIComponent(
-        'New newsletter subscription:\n\nEmail: ' + email +
-        '\nDate: ' + new Date().toISOString() +
-        '\nSource: links page'
-      );
-      window.location.href = 'mailto:newell.pdx@gmail.com?subject=' + subject + '&body=' + body;
-      const msg = document.getElementById('linksNewsletterMsg');
-      msg.textContent = 'Opening email client...';
-      msg.style.display = 'block';
-      this.reset();
-    });
-  </script>
 
 </body>
 </html>

@@ -283,11 +283,11 @@
       <form id="addCardForm">
         <div class="form-group">
           <label for="englishInput" id="engLabel">English</label>
-          <input type="text" id="englishInput" required placeholder="Enter English word/phrase">
+          <input type="text" id="englishInput" required maxlength="250" placeholder="Enter English word/phrase">
         </div>
         <div class="form-group">
           <label for="vietnameseInput" id="vietLabel">Vietnamese (Tiếng Việt)</label>
-          <input type="text" id="vietnameseInput" required placeholder="Nhập từ/cụm từ tiếng Việt">
+          <input type="text" id="vietnameseInput" required maxlength="250" placeholder="Nhập từ/cụm từ tiếng Việt">
         </div>
         <button type="submit" class="submit-btn">Add Card</button>
       </form>
@@ -311,7 +311,10 @@
 
   <script src="menu.js"></script>
   <script>
-    // Initial vocabulary
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzJumI1XIVRQYPIp4_qE97Q7UVH61H2FE-fcf4-W88Nd0nlqic5NtMZr9kT1Ml6V4m3/exec';
+    const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1cvoQWgtJy7R8u4BBVFY1GBfP1UH_dFnjS5wEihCMh1hjFln5RiNuToW4/gviz/tq?tqx=out:csv&sheet=Flashcards';
+
+    // Fallback cards used if Google Sheet is unreachable
     const initialCards = [
       { english: "Ashtray", vietnamese: "gạt tàn thuốc" },
       { english: "What time do you close?", vietnamese: "Mấy giờ bạn đóng cửa?" },
@@ -348,30 +351,31 @@
       { english: "Flash cards", vietnamese: "thẻ ghi nhớ" }
     ];
 
-    // Load cards from localStorage or use initial cards
-    let allCards = [];
-    const savedCards = localStorage.getItem('vietnameseFlashcards');
-    if (savedCards) {
-      allCards = JSON.parse(savedCards);
-    } else {
-      allCards = [...initialCards];
-      localStorage.setItem('vietnameseFlashcards', JSON.stringify(allCards));
-    }
-
-    // Shuffle cards
-    function shuffleArray(array) {
-      const shuffled = [...array];
-      for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    // Parse a single CSV row, handling quoted fields
+    function parseCSVRow(row) {
+      const result = [];
+      let current = '';
+      let inQuotes = false;
+      for (let i = 0; i < row.length; i++) {
+        const ch = row[i];
+        if (ch === '"') {
+          inQuotes = !inQuotes;
+        } else if (ch === ',' && !inQuotes) {
+          result.push(current);
+          current = '';
+        } else {
+          current += ch;
+        }
       }
-      return shuffled;
+      result.push(current);
+      return result;
     }
 
-    let shuffledCards = shuffleArray(allCards);
+    let allCards = [];
+    let shuffledCards = [];
     let currentIndex = 0;
     let isFlipped = false;
-    let isEngFirst = true; // true = ENG→VIET, false = VIET→ENG
+    let isEngFirst = true;
 
     const flashcard = document.getElementById('flashcard');
     const frontText = document.getElementById('frontText');
@@ -384,9 +388,22 @@
     const formTitle = document.getElementById('formTitle');
     const engLabel = document.getElementById('engLabel');
     const vietLabel = document.getElementById('vietLabel');
+    const form = document.getElementById('addCardForm');
+    const successMessage = document.getElementById('successMessage');
+    const englishInput = document.getElementById('englishInput');
+    const vietnameseInput = document.getElementById('vietnameseInput');
 
-    // Display current card
+    function shuffleArray(array) {
+      const shuffled = [...array];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    }
+
     function displayCard() {
+      if (shuffledCards.length === 0) return;
       const card = shuffledCards[currentIndex];
       if (isEngFirst) {
         frontText.textContent = card.english;
@@ -400,13 +417,32 @@
       flashcard.classList.remove('flipped');
     }
 
-    // Flip card
+    async function loadCards() {
+      counter.textContent = 'Loading cards...';
+      try {
+        const response = await fetch(SHEET_CSV_URL);
+        const text = await response.text();
+        const rows = text.trim().split('\n');
+        const cards = rows.slice(1)
+          .map(row => {
+            const cols = parseCSVRow(row);
+            return { english: cols[0] || '', vietnamese: cols[1] || '' };
+          })
+          .filter(card => card.english && card.vietnamese);
+        allCards = cards.length > 0 ? cards : [...initialCards];
+      } catch (err) {
+        allCards = [...initialCards];
+      }
+      shuffledCards = shuffleArray(allCards);
+      currentIndex = 0;
+      displayCard();
+    }
+
     flashcard.addEventListener('click', () => {
       isFlipped = !isFlipped;
       flashcard.classList.toggle('flipped');
     });
 
-    // Navigation
     prevBtn.addEventListener('click', () => {
       currentIndex = (currentIndex - 1 + shuffledCards.length) % shuffledCards.length;
       displayCard();
@@ -417,7 +453,6 @@
       displayCard();
     });
 
-    // Toggle language direction
     toggleLangBtn.addEventListener('click', () => {
       isEngFirst = !isEngFirst;
       if (isEngFirst) {
@@ -436,54 +471,37 @@
       displayCard();
     });
 
-    // Add new card
-    const form = document.getElementById('addCardForm');
-    const successMessage = document.getElementById('successMessage');
-    const englishInput = document.getElementById('englishInput');
-    const vietnameseInput = document.getElementById('vietnameseInput');
-
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+      const english = englishInput.value.trim().substring(0, 250);
+      const vietnamese = vietnameseInput.value.trim().substring(0, 250);
+      if (!english || !vietnamese) return;
 
-      const newCard = {
-        english: englishInput.value.trim(),
-        vietnamese: vietnameseInput.value.trim()
-      };
-
-      // Add to cards array
+      // Add to local display immediately so submitter sees their card
+      const newCard = { english, vietnamese };
       allCards.push(newCard);
       shuffledCards.push(newCard);
-
-      // Save to localStorage
-      localStorage.setItem('vietnameseFlashcards', JSON.stringify(allCards));
-
-      // Show success message
-      successMessage.style.display = 'block';
-      setTimeout(() => {
-        successMessage.style.display = 'none';
-      }, 3000);
-
-      // Reset form
-      form.reset();
-
-      // Update counter
       counter.textContent = `Card ${currentIndex + 1} of ${shuffledCards.length}`;
+
+      // Send to Google Sheet (fire and forget)
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify({ type: 'flashcard', english, vietnamese })
+      }).catch(() => {});
+
+      successMessage.style.display = 'block';
+      setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
+      form.reset();
     });
 
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') {
-        prevBtn.click();
-      } else if (e.key === 'ArrowRight') {
-        nextBtn.click();
-      } else if (e.key === ' ') {
-        e.preventDefault();
-        flashcard.click();
-      }
+      if (e.key === 'ArrowLeft') prevBtn.click();
+      else if (e.key === 'ArrowRight') nextBtn.click();
+      else if (e.key === ' ') { e.preventDefault(); flashcard.click(); }
     });
 
-    // Initialize
-    displayCard();
+    loadCards();
   </script>
 </body>
 </html>
