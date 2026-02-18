@@ -325,7 +325,7 @@
         '\nEmail: ' + email +
         '\n\nMessage:\n' + message
       );
-      window.location.href = 'mailto:newell.pdx@gmail.com?subject=' + subject + '&body=' + body;
+      window.open('mailto:newell.pdx@gmail.com?subject=' + subject + '&body=' + body, '_blank');
       const msg = document.getElementById('formMessage');
       msg.textContent = 'Opening your email client...';
       msg.className = 'form-message success';
