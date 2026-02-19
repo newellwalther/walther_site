@@ -440,14 +440,10 @@
             type = 'totem';
             h  = 58 + Math.random() * 58;   // 58–116 px
             hw = 22;
-          } else if (roll < 0.91) {
+          } else {
             type = 'igloo';
             h  = 36 + Math.random() * 22;   // radius 36–58
             hw = Math.round(h * 1.1);
-          } else {
-            type = 'seal';
-            h  = 24 + Math.random() * 14;   // 24–38 px (low / sneaky)
-            hw = Math.round(h * 1.6);
           }
           trees.push({ x: W + 30, h: h, type: type, hw: hw });
         }
@@ -789,20 +785,21 @@
       // Wing sections stacked up the pole
       var sects = h > 95 ? 3 : 2;
       for (var i = 0; i < sects; i++) {
-        var wy = GROUND_Y - h * (0.28 + i * 0.27);
-        var ww = 15 + (sects - i) * 7;
-        var wh = Math.max(9, Math.round(h * 0.10));
-        ctx.fillRect(cx - ww / 2 - pw / 2, wy - wh / 2, ww, wh);
-        // Pointed tips
+        var wy  = GROUND_Y - h * (0.28 + i * 0.27);
+        var ww  = 15 + (sects - i) * 7;  // each wing's half-span beyond post
+        var wh  = Math.max(9, Math.round(h * 0.10));
+        var span = ww + pw;               // full width: left-wing + post + right-wing
+        ctx.fillRect(cx - span / 2, wy - wh / 2, span, wh);
+        // Pointed tips — symmetric on both sides
         ctx.beginPath();
-        ctx.moveTo(cx - ww / 2 - pw / 2,     wy - wh / 2);
-        ctx.lineTo(cx - ww / 2 - pw / 2 - 7, wy);
-        ctx.lineTo(cx - ww / 2 - pw / 2,     wy + wh / 2);
+        ctx.moveTo(cx - span / 2,     wy - wh / 2);
+        ctx.lineTo(cx - span / 2 - 7, wy);
+        ctx.lineTo(cx - span / 2,     wy + wh / 2);
         ctx.closePath(); ctx.fill();
         ctx.beginPath();
-        ctx.moveTo(cx + ww / 2 + pw / 2,     wy - wh / 2);
-        ctx.lineTo(cx + ww / 2 + pw / 2 + 7, wy);
-        ctx.lineTo(cx + ww / 2 + pw / 2,     wy + wh / 2);
+        ctx.moveTo(cx + span / 2,     wy - wh / 2);
+        ctx.lineTo(cx + span / 2 + 7, wy);
+        ctx.lineTo(cx + span / 2,     wy + wh / 2);
         ctx.closePath(); ctx.fill();
       }
     }
@@ -912,27 +909,38 @@
     // DRAWING — clouds (grey + black outline, round bubbles)
     // ─────────────────────────────────────────
     function drawCloud(c) {
+      var r     = c.bumpR;
       var left  = c.x - c.w / 2;
       var right = c.x + c.w / 2;
-      // Fewer, larger bumps → rounder/bubblier silhouette
-      var n    = Math.max(2, Math.round(c.w / (c.bumpR * 2.4)));
-      var r    = c.w / (2 * n);
-      var midY = c.bottom - r;
+      var bottomY = c.bottom - r;
+      var n = Math.max(2, Math.round(c.w / (r * 1.5)));
 
-      ctx.beginPath();
-      ctx.moveTo(left, 0);
-      ctx.lineTo(right, 0);
-      ctx.lineTo(right, midY);
-      for (var i = n - 1; i >= 0; i--) {
-        var bx = left + (2 * i + 1) * r;
-        ctx.arc(bx, midY, r, 0, Math.PI);
-      }
-      ctx.closePath();
       ctx.fillStyle = '#e2e2e2';
-      ctx.fill();
-      ctx.strokeStyle = '#000';
+
+      // Body fill (inset from sides — circles will round the edges)
+      if (c.w > 2 * r) {
+        ctx.fillRect(left + r, 0, c.w - 2 * r, bottomY + r);
+      }
+      // Left edge: overlapping circles form a rounded left side
+      for (var y = 0; y <= bottomY; y += r) {
+        ctx.beginPath(); ctx.arc(left + r, y, r, 0, Math.PI * 2); ctx.fill();
+      }
+      // Right edge: overlapping circles form a rounded right side
+      for (var y = 0; y <= bottomY; y += r) {
+        ctx.beginPath(); ctx.arc(right - r, y, r, 0, Math.PI * 2); ctx.fill();
+      }
+      // Bottom bumps
+      for (var i = 0; i < n; i++) {
+        var bx = (n > 1) ? left + r + (i / (n - 1)) * (c.w - 2 * r) : c.x;
+        ctx.beginPath(); ctx.arc(bx, bottomY, r, 0, Math.PI * 2); ctx.fill();
+      }
+      // Outline bottom bumps only
+      ctx.strokeStyle = '#888';
       ctx.lineWidth = 1.5;
-      ctx.stroke();
+      for (var i = 0; i < n; i++) {
+        var bx = (n > 1) ? left + r + (i / (n - 1)) * (c.w - 2 * r) : c.x;
+        ctx.beginPath(); ctx.arc(bx, bottomY, r, 0, Math.PI * 2); ctx.stroke();
+      }
       ctx.lineWidth = 1;
     }
 
