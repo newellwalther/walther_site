@@ -285,7 +285,7 @@
         speed:        Math.min(2.4 + t * 0.024, 6.2),
         treeMaxH:     Math.min(52 + t * 1.45, 192),
         treeMinGap:   Math.max(210 - t * 0.75, 108),
-        cloudBottomMin: Math.max(130 - t * 0.44, 68), // lowest a cloud bottom can reach
+        cloudBottomMin: Math.min(62 + t * 0.9, 250),  // clouds start near top, descend over time
         treeChance:   Math.min(0.0055 + t * 0.00007, 0.016),
         cloudChance:  Math.min(0.0022 + t * 0.000035, 0.006)
       };
@@ -383,8 +383,8 @@
 
       // Background scroll — mountain speed locked to runway liftoff speed
       bgOffset     -= bgSpeed * dt;
-      // Ground hills scroll
-      groundOffset -= diff.speed * dt * 8;
+      // Ground hills scroll at tree speed
+      groundOffset -= diff.speed * dt;
 
       // Animal milestone spawning
       var bearMilestone  = Math.floor(elapsed / 30);
@@ -643,23 +643,29 @@
     }
 
     // ─────────────────────────────────────────
-    // DRAWING — clouds (solid fill + bumpy bottom row)
+    // DRAWING — clouds (single scalloped path, no rectangle artifacts)
     // ─────────────────────────────────────────
     function drawCloud(c) {
       ctx.fillStyle = '#000';
-      var r = c.bumpR;
-      // Solid block from canvas top to circle centres — seamlessly joined
-      if (c.bottom - r > 0) {
-        ctx.fillRect(c.x - c.w / 2, 0, c.w, c.bottom - r);
+      var left  = c.x - c.w / 2;
+      var right = c.x + c.w / 2;
+      // Fit whole number of bumps exactly into cloud width
+      var n    = Math.max(3, Math.round(c.w / (c.bumpR * 2)));
+      var r    = c.w / (2 * n);   // exact radius so bumps tile with no gaps
+      var midY = c.bottom - r;    // y of bump centres
+
+      // One continuous path: flat top at y=0, straight sides, scalloped bottom
+      ctx.beginPath();
+      ctx.moveTo(left, 0);
+      ctx.lineTo(right, 0);
+      ctx.lineTo(right, midY);
+      // Scalloped bottom — arcs from right to left, each hanging downward
+      for (var i = n - 1; i >= 0; i--) {
+        var bx = left + (2 * i + 1) * r;
+        ctx.arc(bx, midY, r, 0, Math.PI); // clockwise = bottom half = bump down
       }
-      // Bumpy bottom row — centres at c.bottom-r, tips reach c.bottom
-      var n = Math.max(3, Math.round(c.w / (r * 1.35)));
-      for (var i = 0; i <= n; i++) {
-        var bx = c.x - c.w / 2 + (i / n) * c.w;
-        ctx.beginPath();
-        ctx.arc(bx, c.bottom - r, r, 0, Math.PI * 2);
-        ctx.fill();
-      }
+      ctx.closePath(); // back to (left, 0) via left edge
+      ctx.fill();
     }
 
     // ─────────────────────────────────────────
@@ -828,15 +834,19 @@
     }
 
     // ─────────────────────────────────────────
-    // DRAWING — timer + high score proximity
+    // DRAWING — timer + high score proximity (top-right)
     // ─────────────────────────────────────────
     function drawTimer() {
+      // White backing so text is legible over any scenery
+      ctx.fillStyle = 'rgba(255,255,255,0.88)';
+      ctx.fillRect(W - 122, 3, 120, 53);
+
       ctx.textAlign = 'right';
 
       // Current time
       ctx.font = 'bold 18px Georgia, serif';
       ctx.fillStyle = '#000';
-      ctx.fillText(formatTime(elapsed), W - 10, H - 20);
+      ctx.fillText(formatTime(elapsed), W - 8, 27);
 
       // High score comparison line
       if (globalBest && globalBest.score > 0) {
@@ -844,12 +854,11 @@
         ctx.font = '11px Georgia, serif';
         if (gap > 0) {
           ctx.fillStyle = '#000';
-          ctx.fillText(formatTime(gap) + ' to record', W - 10, H - 8);
+          ctx.fillText(formatTime(gap) + ' to record', W - 8, 46);
         } else {
-          // Blinking when they've beaten the record mid-flight
           if (Math.floor(Date.now() / 480) % 2 === 0) {
             ctx.fillStyle = '#000';
-            ctx.fillText('NEW RECORD', W - 10, H - 8);
+            ctx.fillText('NEW RECORD', W - 8, 46);
           }
         }
       }
