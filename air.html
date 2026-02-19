@@ -125,6 +125,7 @@
 
     @media (max-width: 600px) {
       #scoreBar { font-size: 14px; letter-spacing: 1px; padding: 7px 0 8px; }
+      #gameWrap { margin-top: 3.5rem; }
     }
   </style>
 </head>
@@ -282,12 +283,12 @@
     function getDiff() {
       var t = elapsed;
       return {
-        speed:        Math.min(2.4 + t * 0.024, 6.2),
-        treeMaxH:     Math.min(52 + t * 1.45, 192),
-        treeMinGap:   Math.max(210 - t * 0.75, 108),
-        cloudBottomMin: Math.min(62 + t * 0.9, 250),  // clouds start near top, descend over time
-        treeChance:   Math.min(0.0055 + t * 0.00007, 0.016),
-        cloudChance:  Math.min(0.0022 + t * 0.000035, 0.006)
+        speed:          Math.min(2.0 + t * 0.0085, 4.8),
+        treeMaxH:       Math.min(36 + t * 0.55,  165),
+        treeMinGap:     Math.max(310 - t * 0.50,  135),
+        cloudBottomMin: Math.min(52 + t * 0.60,  235),
+        treeChance:     Math.min(0.0022 + t * 0.000028, 0.009),
+        cloudChance:    Math.min(0.0009 + t * 0.000014, 0.004)
       };
     }
 
@@ -331,10 +332,9 @@
       var diff = getDiff();
       elapsed += dt / 60;
 
-      // Apply lift if button pressed
-      if (inputThisFrame) {
+      // Apply lift if button pressed — blocked during hypoxia auto-descend
+      if (inputThisFrame && !autoDescending) {
         plane.velY = LIFT;
-        inputThisFrame = false;
       }
 
       // Gravity (add extra if auto-descending)
@@ -401,12 +401,33 @@
     }
 
     function spawnObjects(diff) {
-      // Obstacle trees
       if (Math.random() < diff.treeChance) {
         var lastT = trees[trees.length - 1];
         if (!lastT || (W - lastT.x) >= diff.treeMinGap) {
-          var h = 32 + Math.random() * (diff.treeMaxH - 32);
-          trees.push({ x: W + 30, h: h });
+          var roll = Math.random();
+          var type, h, hw;
+          if (roll < 0.44) {
+            type = 'tree';
+            h  = 32 + Math.random() * Math.max(1, diff.treeMaxH - 32);
+            hw = 20;
+          } else if (roll < 0.62) {
+            type = 'cabin';
+            h  = 46 + Math.random() * 42;   // 46–88 px
+            hw = 30;
+          } else if (roll < 0.78) {
+            type = 'totem';
+            h  = 58 + Math.random() * 58;   // 58–116 px
+            hw = 22;
+          } else if (roll < 0.91) {
+            type = 'igloo';
+            h  = 36 + Math.random() * 22;   // radius 36–58
+            hw = Math.round(h * 1.1);
+          } else {
+            type = 'seal';
+            h  = 24 + Math.random() * 14;   // 24–38 px (low / sneaky)
+            hw = Math.round(h * 1.6);
+          }
+          trees.push({ x: W + 30, h: h, type: type, hw: hw });
         }
       }
       // Small decorative trees (no collision, denser fill)
@@ -417,8 +438,8 @@
       if (Math.random() < diff.cloudChance) {
         var lastC = clouds[clouds.length - 1];
         if (!lastC || (W - lastC.x) >= 175) {
-          var cw     = 72 + Math.random() * 95;
-          var bumpR  = 16 + Math.random() * 18;
+          var cw     = 80 + Math.random() * 100;
+          var bumpR  = 24 + Math.random() * 22;   // bigger = rounder/bubblier
           var bottom = diff.cloudBottomMin + Math.random() * 90;
           clouds.push({ x: W + cw / 2 + 10, w: cw, bottom: bottom, bumpR: bumpR });
         }
@@ -435,13 +456,13 @@
       var pw = 44;
       var ph = 10;
 
-      // Trees
+      // Ground obstacles
       var i, t, c;
       for (i = 0; i < trees.length; i++) {
         t = trees[i];
-        var tLeft = t.x - 20;
-        var tRight = t.x + 20;
-        var tTop  = GROUND_Y - t.h;
+        var tLeft  = t.x - (t.hw || 20);
+        var tRight = t.x + (t.hw || 20);
+        var tTop   = GROUND_Y - t.h;
         if (px < tRight && px + pw > tLeft && py + ph > tTop) return true;
       }
 
@@ -643,29 +664,154 @@
     }
 
     // ─────────────────────────────────────────
-    // DRAWING — clouds (single scalloped path, no rectangle artifacts)
+    // DRAWING — log cabin
+    // ─────────────────────────────────────────
+    function drawCabin(cx, h) {
+      ctx.fillStyle = '#000';
+      var bw = Math.round(h * 0.82);
+      var bh = Math.round(h * 0.58);
+      var rh = h - bh;
+      // Body
+      ctx.fillRect(cx - bw / 2, GROUND_Y - bh, bw, bh);
+      // Roof with slight eave overhang
+      ctx.beginPath();
+      ctx.moveTo(cx - bw / 2 - 5, GROUND_Y - bh);
+      ctx.lineTo(cx,               GROUND_Y - bh - rh);
+      ctx.lineTo(cx + bw / 2 + 5, GROUND_Y - bh);
+      ctx.closePath();
+      ctx.fill();
+      // Chimney
+      var chW = Math.max(6, Math.round(bw * 0.11));
+      var chH = Math.round(rh * 0.62);
+      ctx.fillRect(cx + Math.round(bw * 0.15), GROUND_Y - bh - Math.round(rh * 0.48) - chH, chW, chH);
+    }
+
+    // ─────────────────────────────────────────
+    // DRAWING — totem pole
+    // ─────────────────────────────────────────
+    function drawTotem(cx, h) {
+      ctx.fillStyle = '#000';
+      var pw = 13;
+      // Main post
+      ctx.fillRect(cx - pw / 2, GROUND_Y - h, pw, h);
+      // Top face / head
+      ctx.beginPath();
+      ctx.arc(cx, GROUND_Y - h + pw / 2, pw / 2 + 3, 0, Math.PI * 2);
+      ctx.fill();
+      // Beak
+      ctx.beginPath();
+      ctx.moveTo(cx + pw / 2 + 3, GROUND_Y - h + pw / 2 - 2);
+      ctx.lineTo(cx + pw / 2 + 11, GROUND_Y - h + pw / 2);
+      ctx.lineTo(cx + pw / 2 + 3,  GROUND_Y - h + pw / 2 + 2);
+      ctx.closePath();
+      ctx.fill();
+      // Wing sections stacked up the pole
+      var sects = h > 95 ? 3 : 2;
+      for (var i = 0; i < sects; i++) {
+        var wy = GROUND_Y - h * (0.28 + i * 0.27);
+        var ww = 15 + (sects - i) * 7;
+        var wh = Math.max(9, Math.round(h * 0.10));
+        ctx.fillRect(cx - ww / 2 - pw / 2, wy - wh / 2, ww, wh);
+        // Pointed tips
+        ctx.beginPath();
+        ctx.moveTo(cx - ww / 2 - pw / 2,     wy - wh / 2);
+        ctx.lineTo(cx - ww / 2 - pw / 2 - 7, wy);
+        ctx.lineTo(cx - ww / 2 - pw / 2,     wy + wh / 2);
+        ctx.closePath(); ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(cx + ww / 2 + pw / 2,     wy - wh / 2);
+        ctx.lineTo(cx + ww / 2 + pw / 2 + 7, wy);
+        ctx.lineTo(cx + ww / 2 + pw / 2,     wy + wh / 2);
+        ctx.closePath(); ctx.fill();
+      }
+    }
+
+    // ─────────────────────────────────────────
+    // DRAWING — igloo
+    // ─────────────────────────────────────────
+    function drawIgloo(cx, h) {
+      ctx.fillStyle = '#000';
+      // Main dome — h is the dome radius
+      ctx.beginPath();
+      ctx.arc(cx, GROUND_Y, h, Math.PI, 0);
+      ctx.closePath();
+      ctx.fill();
+      // Entrance arch (small dome on right side)
+      var er = Math.round(h * 0.21);
+      ctx.beginPath();
+      ctx.arc(cx + h * 0.55, GROUND_Y, er, Math.PI, 0);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // ─────────────────────────────────────────
+    // DRAWING — seal
+    // ─────────────────────────────────────────
+    function drawSeal(cx, h) {
+      ctx.fillStyle = '#000';
+      var bW = h * 1.7;
+      var bH = h * 0.32;
+      // Body
+      ctx.beginPath();
+      ctx.ellipse(cx, GROUND_Y - bH, bW, bH, 0.08, 0, Math.PI * 2);
+      ctx.fill();
+      // Head (right end, raised)
+      var hr = h * 0.32;
+      ctx.beginPath();
+      ctx.arc(cx + bW * 0.72, GROUND_Y - bH * 2.2, hr, 0, Math.PI * 2);
+      ctx.fill();
+      // Snout
+      ctx.beginPath();
+      ctx.ellipse(cx + bW * 0.72 + hr, GROUND_Y - bH * 2.0, hr * 0.38, hr * 0.28, 0.25, 0, Math.PI * 2);
+      ctx.fill();
+      // Front flipper
+      ctx.beginPath();
+      ctx.ellipse(cx + bW * 0.28, GROUND_Y - bH * 0.5, h * 0.22, h * 0.10, 0.5, 0, Math.PI * 2);
+      ctx.fill();
+      // Tail flippers
+      ctx.beginPath();
+      ctx.ellipse(cx - bW * 0.85, GROUND_Y - bH * 1.5, h * 0.20, h * 0.09, -0.4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(cx - bW * 0.85, GROUND_Y - bH * 0.5, h * 0.18, h * 0.09,  0.3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Route obstacle draw by type
+    function drawObstacle(t) {
+      if      (t.type === 'cabin') drawCabin(t.x, t.h);
+      else if (t.type === 'totem') drawTotem(t.x, t.h);
+      else if (t.type === 'igloo') drawIgloo(t.x, t.h);
+      else if (t.type === 'seal')  drawSeal(t.x, t.h);
+      else                         drawTree(t.x, t.h);
+    }
+
+    // ─────────────────────────────────────────
+    // DRAWING — clouds (grey + black outline, round bubbles)
     // ─────────────────────────────────────────
     function drawCloud(c) {
-      ctx.fillStyle = '#000';
       var left  = c.x - c.w / 2;
       var right = c.x + c.w / 2;
-      // Fit whole number of bumps exactly into cloud width
-      var n    = Math.max(3, Math.round(c.w / (c.bumpR * 2)));
-      var r    = c.w / (2 * n);   // exact radius so bumps tile with no gaps
-      var midY = c.bottom - r;    // y of bump centres
+      // Fewer, larger bumps → rounder/bubblier silhouette
+      var n    = Math.max(2, Math.round(c.w / (c.bumpR * 2.4)));
+      var r    = c.w / (2 * n);
+      var midY = c.bottom - r;
 
-      // One continuous path: flat top at y=0, straight sides, scalloped bottom
       ctx.beginPath();
       ctx.moveTo(left, 0);
       ctx.lineTo(right, 0);
       ctx.lineTo(right, midY);
-      // Scalloped bottom — arcs from right to left, each hanging downward
       for (var i = n - 1; i >= 0; i--) {
         var bx = left + (2 * i + 1) * r;
-        ctx.arc(bx, midY, r, 0, Math.PI); // clockwise = bottom half = bump down
+        ctx.arc(bx, midY, r, 0, Math.PI);
       }
-      ctx.closePath(); // back to (left, 0) via left edge
+      ctx.closePath();
+      ctx.fillStyle = '#e2e2e2';
       ctx.fill();
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.lineWidth = 1;
     }
 
     // ─────────────────────────────────────────
@@ -958,8 +1104,8 @@
       // Ground
       drawGround();
 
-      // Trees (obstacle + decorative small)
-      trees.forEach(function      (t) { drawTree(t.x, t.h); });
+      // Ground obstacles + decorative trees
+      trees.forEach(function      (t) { drawObstacle(t); });
       smallTrees.forEach(function (t) { drawTree(t.x, t.h); });
 
       // Ground animals
