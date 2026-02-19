@@ -199,6 +199,7 @@
     var HYPOXIA_Y  = 58;    // if plane.y < this, hypoxia kicks in
     var HYPOXIA_DUR = 3.0;  // seconds before auto-descend triggers
     var AUTO_G     = 0.45;  // extra gravity when auto-descending
+    var CRASH_DUR  = 1.4;   // seconds for crash debris animation
 
     // Replace with your deployed GAS web app URL after setup
     var GAS_URL = 'https://script.google.com/macros/s/AKfycbxOW7UbzYoJh888mfOREAfyPgH2zxU4Uo93clAHD0Cmqt9CIzzIzG0G1Go_wEy2g_ep/exec';
@@ -209,9 +210,10 @@
     var state = 'intro';  // intro | runway | flying | dead
     var elapsed = 0;      // seconds aloft
     var globalBest = null;
-    var plane, trees, smallTrees, animals, clouds, bgOffset, groundOffset, bgSpeed, frameCount;
+    var plane, trees, smallTrees, animals, clouds, fish, lakes, bgOffset, groundOffset, bgSpeed, frameCount;
     var hypoxiaTimer, hypoxiaActive, autoDescending, inputThisFrame;
     var prevBearMilestone, prevMooseMilestone;
+    var crashPieces, crashTimer;
 
     function resetAll() {
       plane = {
@@ -224,6 +226,10 @@
       smallTrees = [];
       animals = [];
       clouds = [];
+      fish = [];
+      lakes = [];
+      crashPieces = [];
+      crashTimer = 0;
       bgOffset = 0;
       groundOffset = 0;
       bgSpeed = 0;
@@ -307,6 +313,8 @@
         updateRunway(dt);
       } else if (state === 'flying') {
         updateFlying(dt);
+      } else if (state === 'crashing') {
+        updateCrash(dt);
       }
     }
 
@@ -386,6 +394,20 @@
       // Ground hills scroll at tree speed
       groundOffset -= diff.speed * dt;
 
+      // Lakes + fish
+      lakes = lakes.filter(function (l) { return l.x > -l.w / 2 - 10; });
+      fish  = fish.filter(function  (f) { return f.y < GROUND_Y + 8; });
+      lakes.forEach(function (l) { l.x -= spd; });
+      fish.forEach(function  (f) { f.x -= spd; f.y += f.vy; f.vy += 0.13; });
+      // Fish spawn from visible lakes
+      lakes.forEach(function (l) {
+        if (l.x > 20 && l.x < W - 20 && Math.random() < 0.007) {
+          fish.push({ x: l.x + (Math.random() - 0.5) * l.w * 0.55,
+                      y: GROUND_Y - 2,
+                      vy: -(5.5 + Math.random() * 3.5) });
+        }
+      });
+
       // Animal milestone spawning
       var bearMilestone  = Math.floor(elapsed / 30);
       var mooseMilestone = Math.floor(elapsed / 75);
@@ -434,6 +456,11 @@
       if (Math.random() < 0.022) {
         smallTrees.push({ x: W + 8, h: 12 + Math.random() * 30 });
       }
+      // Lakes — white ovals on the ground, source of jumping fish
+      if (Math.random() < 0.004) {
+        var lw = 55 + Math.random() * 80;
+        lakes.push({ x: W + lw / 2, w: lw });
+      }
       // Clouds — more height variation
       if (Math.random() < diff.cloudChance) {
         var lastC = clouds[clouds.length - 1];
@@ -478,11 +505,52 @@
     }
 
     // ─────────────────────────────────────────
-    // GAME OVER
+    // CRASH ANIMATION → GAME OVER
     // ─────────────────────────────────────────
     function doGameOver() {
-      state = 'dead';
-      checkHighScore();
+      if (state === 'crashing') return;
+      state = 'crashing';
+      crashTimer = 0;
+      initCrashPieces();
+    }
+
+    function initCrashPieces() {
+      crashPieces = [];
+      var px = PLANE_X, py = plane.y;
+      function rv(n) { return Math.random() * n; }
+      // [relX, relY, vx, vy, w, h, spin]
+      var defs = [
+        [  8,  0,  2+rv(3), -3-rv(3), 18,  5,  0.12],  // nose
+        [-12,  0, -3-rv(2), -2-rv(2), 14,  5, -0.09],  // tail
+        [  0,  4, -1+rv(3), -5-rv(3), 26,  4,  0.18],  // wing
+        [ -2, -8,  1+rv(2), -4-rv(2), 12,  8,  0.15],  // cabin
+        [-31,  3, -2-rv(2), -1-rv(3),  9,  4, -0.13],  // h-stab
+        [ 42,  0,  4+rv(3), -5-rv(3),  4, 14,  0.28],  // prop
+      ];
+      defs.forEach(function (d) {
+        crashPieces.push({
+          x: px + d[0] + (Math.random() - 0.5) * 6,
+          y: py + d[1] + (Math.random() - 0.5) * 4,
+          vx: d[2], vy: d[3],
+          w:  d[4], h:  d[5],
+          angle: (Math.random() - 0.5) * 0.4,
+          spin:  d[6]
+        });
+      });
+    }
+
+    function updateCrash(dt) {
+      crashTimer += dt / 60;
+      crashPieces.forEach(function (p) {
+        p.x    += p.vx  * dt;
+        p.y    += p.vy  * dt;
+        p.vy   += 0.28  * dt;   // gravity on debris
+        p.angle += p.spin * dt;
+      });
+      if (crashTimer >= CRASH_DUR) {
+        state = 'dead';
+        checkHighScore();
+      }
     }
 
     // ─────────────────────────────────────────
@@ -620,6 +688,14 @@
       ctx.closePath();
       ctx.fill();
 
+      // Lakes — white ovals sitting on the ground (Alaskan ponds)
+      ctx.fillStyle = '#f0f0f0';
+      lakes.forEach(function (l) {
+        ctx.beginPath();
+        ctx.ellipse(l.x, GROUND_Y + 4, l.w / 2, 7, 0, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
       // Runway centre-line dashes while taxiing / just after liftoff
       if (state === 'runway' || (state === 'flying' && elapsed < 1.8)) {
         var dashW = 26, dashH = 3, gap = 52;
@@ -695,16 +771,21 @@
       // Main post
       ctx.fillRect(cx - pw / 2, GROUND_Y - h, pw, h);
       // Top face / head
+      var hy = GROUND_Y - h + pw / 2;
       ctx.beginPath();
-      ctx.arc(cx, GROUND_Y - h + pw / 2, pw / 2 + 3, 0, Math.PI * 2);
+      ctx.arc(cx, hy, pw / 2 + 3, 0, Math.PI * 2);
       ctx.fill();
-      // Beak
+      // Bilateral beaks (left and right — eagle totem)
       ctx.beginPath();
-      ctx.moveTo(cx + pw / 2 + 3, GROUND_Y - h + pw / 2 - 2);
-      ctx.lineTo(cx + pw / 2 + 11, GROUND_Y - h + pw / 2);
-      ctx.lineTo(cx + pw / 2 + 3,  GROUND_Y - h + pw / 2 + 2);
-      ctx.closePath();
-      ctx.fill();
+      ctx.moveTo(cx - pw / 2 - 3, hy - 2);
+      ctx.lineTo(cx - pw / 2 - 11, hy);
+      ctx.lineTo(cx - pw / 2 - 3,  hy + 2);
+      ctx.closePath(); ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(cx + pw / 2 + 3, hy - 2);
+      ctx.lineTo(cx + pw / 2 + 11, hy);
+      ctx.lineTo(cx + pw / 2 + 3,  hy + 2);
+      ctx.closePath(); ctx.fill();
       // Wing sections stacked up the pole
       var sects = h > 95 ? 3 : 2;
       for (var i = 0; i < sects; i++) {
@@ -736,12 +817,12 @@
       ctx.arc(cx, GROUND_Y, h, Math.PI, 0);
       ctx.closePath();
       ctx.fill();
-      // Entrance arch (small dome on right side)
-      var er = Math.round(h * 0.21);
-      ctx.beginPath();
-      ctx.arc(cx + h * 0.55, GROUND_Y, er, Math.PI, 0);
-      ctx.closePath();
-      ctx.fill();
+      // Square entrance cutout (white rectangle punched into dome face)
+      var dw = Math.round(h * 0.30);
+      var dh = Math.round(h * 0.36);
+      var dx = cx + Math.round(h * 0.46);
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(dx - dw / 2, GROUND_Y - dh, dw, dh);
     }
 
     // ─────────────────────────────────────────
@@ -775,6 +856,47 @@
       ctx.beginPath();
       ctx.ellipse(cx - bW * 0.85, GROUND_Y - bH * 0.5, h * 0.18, h * 0.09,  0.3, 0, Math.PI * 2);
       ctx.fill();
+    }
+
+    // ─────────────────────────────────────────
+    // DRAWING — jumping fish
+    // ─────────────────────────────────────────
+    function drawFish(f) {
+      ctx.save();
+      ctx.translate(f.x, f.y);
+      ctx.rotate(Math.max(-1.1, Math.min(1.1, f.vy * 0.20)));
+      ctx.fillStyle = '#000';
+      // Body
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 7, 3.5, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Tail
+      ctx.beginPath();
+      ctx.moveTo(-7, 0);
+      ctx.lineTo(-13, -4);
+      ctx.lineTo(-13,  4);
+      ctx.closePath();
+      ctx.fill();
+      // Eye
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(4, -1, 1.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // ─────────────────────────────────────────
+    // DRAWING — crash debris pieces
+    // ─────────────────────────────────────────
+    function drawCrashPieces() {
+      ctx.fillStyle = '#000';
+      crashPieces.forEach(function (p) {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.angle);
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      });
     }
 
     // Route obstacle draw by type
@@ -891,6 +1013,12 @@
     function drawBear(x) {
       ctx.fillStyle = '#000';
       var base = GROUND_Y - 2;
+
+      // Legs (drawn first so body overlaps the tops cleanly)
+      ctx.fillRect(x - 12, base - 7, 5, 7);
+      ctx.fillRect(x - 4,  base - 7, 5, 7);
+      ctx.fillRect(x + 6,  base - 7, 5, 7);
+      ctx.fillRect(x + 14, base - 7, 5, 7);
 
       // Body
       ctx.beginPath();
@@ -1013,20 +1141,25 @@
     }
 
     // ─────────────────────────────────────────
-    // DRAWING — hypoxia alert
+    // DRAWING — hypoxia alert (3-2-1 countdown)
     // ─────────────────────────────────────────
     function drawHypoxia() {
-      var blink = (Math.floor(Date.now() / 300) % 2 === 0);
-      if (!blink && !autoDescending) return;
-
-      ctx.font = 'bold 12px Georgia, serif';
-      ctx.fillStyle = '#000';
       ctx.textAlign = 'center';
       if (autoDescending) {
-        ctx.fillText('HYPOXIA  —  AUTO DESCENDING', W / 2, HYPOXIA_Y + 20);
+        ctx.font = 'bold 14px Georgia, serif';
+        ctx.fillStyle = '#000';
+        ctx.fillText('HYPOXIA — AUTO DESCENDING', W / 2, HYPOXIA_Y + 24);
       } else {
-        var remain = Math.ceil(HYPOXIA_DUR - hypoxiaTimer);
-        ctx.fillText('HYPOXIA ALERT  —  DESCEND NOW  (' + remain + ')', W / 2, HYPOXIA_Y + 20);
+        // Pulsing number: grows small→large within each second, resets on tick
+        var remain = HYPOXIA_DUR - hypoxiaTimer;
+        var count  = Math.ceil(remain);
+        var frac   = remain % 1;                       // 0→1 within current second
+        var sz     = Math.round(22 + frac * 20);       // 22–42px, biggest just before tick
+        ctx.font   = 'bold ' + sz + 'px Georgia, serif';
+        ctx.fillStyle = '#000';
+        ctx.fillText(count, W / 2, HYPOXIA_Y + sz + 2);
+        ctx.font = 'bold 11px Georgia, serif';
+        ctx.fillText('HYPOXIA — DESCEND NOW', W / 2, HYPOXIA_Y + sz + 18);
       }
       ctx.textAlign = 'left';
     }
@@ -1117,11 +1250,15 @@
       // Clouds
       clouds.forEach(function (c) { drawCloud(c); });
 
-      // Plane
-      drawPlane();
+      // Fish (jump from lakes, drawn above ground + clouds but below plane)
+      fish.forEach(function (f) { drawFish(f); });
 
-      // Timer (only while flying or after death)
-      if (state === 'flying' || state === 'dead') drawTimer();
+      // Plane (replaced by debris during crash)
+      if (state !== 'crashing') drawPlane();
+      if (state === 'crashing') drawCrashPieces();
+
+      // Timer
+      if (state === 'flying' || state === 'crashing' || state === 'dead') drawTimer();
 
       // Hypoxia warning
       if (hypoxiaActive && state === 'flying') drawHypoxia();
