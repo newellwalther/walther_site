@@ -493,6 +493,7 @@
     });
 
     document.addEventListener('keydown', (e) => {
+      if (document.activeElement.tagName === 'INPUT') return;
       if (e.key === 'ArrowLeft') prevBtn.click();
       else if (e.key === 'ArrowRight') nextBtn.click();
       else if (e.key === ' ') { e.preventDefault(); flashcard.click(); }
