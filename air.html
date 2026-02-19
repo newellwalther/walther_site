@@ -15,9 +15,113 @@
     gtag('config', 'G-6XGRYTSC23');
   </script>
   <style>
-    main { max-width: 800px; margin: 0 auto; padding: 2rem; text-align: center; }
-    h1 { font-size: 2.5rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 2rem; }
-    .description { font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem; }
+    body { overflow-x: hidden; }
+
+    #gameWrap {
+      max-width: 820px;
+      margin: 1.5rem auto 0;
+      padding: 0 10px;
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    #scoreBar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 0 6px;
+      border-bottom: 1px solid #000;
+      margin-bottom: 4px;
+    }
+
+    .game-container {
+      position: relative;
+      line-height: 0;
+    }
+
+    #gameCanvas {
+      width: 100%;
+      height: auto;
+      border: 2px solid #000;
+      display: block;
+      touch-action: none;
+      cursor: crosshair;
+    }
+
+    /* Name entry overlay — sits centered over canvas */
+    #nameEntry {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border: 2px solid #000;
+      padding: 22px 28px;
+      text-align: center;
+      z-index: 20;
+      min-width: 270px;
+      font-family: Georgia, serif;
+    }
+    #nameEntry p { font-size: 13px; margin-bottom: 8px; letter-spacing: 1px; }
+    #nameEntry strong { font-size: 16px; letter-spacing: 2px; }
+    #nameInput {
+      font-family: Georgia, serif;
+      font-size: 15px;
+      border: 1px solid #000;
+      padding: 6px 10px;
+      width: 100%;
+      margin: 10px 0 8px;
+      text-align: center;
+      outline: none;
+    }
+    #nameSubmit {
+      font-family: Georgia, serif;
+      font-size: 13px;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 8px 24px;
+      cursor: pointer;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      width: 100%;
+    }
+    #nameSubmit:hover { background: #333; }
+
+    /* Controls row */
+    #controlsRow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      margin-top: 8px;
+      padding-bottom: 2rem;
+    }
+    #flyBtn {
+      font-family: Georgia, serif;
+      font-size: 17px;
+      padding: 12px 36px;
+      background: #000;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #flyBtn:active { background: #444; }
+    #controlsRow span {
+      font-size: 11px;
+      color: #888;
+      letter-spacing: 1px;
+    }
+
+    footer { margin-top: auto; }
   </style>
 </head>
 <body>
@@ -35,13 +139,24 @@
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </div>
-  <main>
-    <h1>Walther Air</h1>
-    <div class="description">
-      <p>Photos of Alaska from the air, airplane adventures.</p>
-      <p>Coming soon...</p>
+
+  <div id="gameWrap">
+    <div id="scoreBar">HIGH SCORE: <span id="highScoreText">&nbsp;—</span></div>
+    <div class="game-container">
+      <canvas id="gameCanvas" width="800" height="400"></canvas>
+      <div id="nameEntry">
+        <p>NEW HIGH SCORE</p>
+        <strong id="nameEntryScore"></strong>
+        <input type="text" id="nameInput" maxlength="20" placeholder="your name" autocomplete="off" />
+        <button id="nameSubmit">Submit</button>
+      </div>
     </div>
-  </main>
+    <div id="controlsRow">
+      <button id="flyBtn">&#9650; FLY</button>
+      <span>SPACEBAR &nbsp;/&nbsp; TAP</span>
+    </div>
+  </div>
+
   <footer>
     <div class="social-buttons footer-social">
       <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" rel="noopener">
@@ -55,6 +170,656 @@
     <a href="contact.html#newsletter" class="newsletter-link"><span class="sym">🗞️</span> Newsletter <span class="sym">🗞️</span></a>
     <p>© 2025–2026 Andrew Newell Walther. All rights reserved.</p>
   </footer>
+
+  <script>
+  (function () {
+    'use strict';
+
+    // ─────────────────────────────────────────
+    // CANVAS
+    // ─────────────────────────────────────────
+    var canvas = document.getElementById('gameCanvas');
+    var ctx = canvas.getContext('2d');
+    var W = 800;
+    var H = 400;
+
+    // ─────────────────────────────────────────
+    // CONSTANTS
+    // ─────────────────────────────────────────
+    var GROUND_Y   = 338;   // y of ground surface
+    var PLANE_X    = 118;   // fixed horizontal position of plane
+    var GRAVITY    = 0.22;  // px per normalized frame
+    var LIFT       = -5.2;  // velocity applied on button press
+    var MAX_FALL   = 6.5;   // max downward velocity
+    var HYPOXIA_Y  = 58;    // if plane.y < this, hypoxia kicks in
+    var HYPOXIA_DUR = 3.0;  // seconds before auto-descend triggers
+    var AUTO_G     = 0.45;  // extra gravity when auto-descending
+
+    // Replace with your deployed GAS web app URL after setup
+    var GAS_URL = 'https://script.google.com/macros/s/AKfycbxOW7UbzYoJh888mfOREAfyPgH2zxU4Uo93clAHD0Cmqt9CIzzIzG0G1Go_wEy2g_ep/exec';
+
+    // ─────────────────────────────────────────
+    // STATE
+    // ─────────────────────────────────────────
+    var state = 'intro';  // intro | runway | flying | dead
+    var elapsed = 0;      // seconds aloft
+    var globalBest = null;
+    var plane, trees, clouds, bgOffset, groundOffset, frameCount;
+    var hypoxiaTimer, hypoxiaActive, autoDescending, inputThisFrame;
+
+    function resetAll() {
+      plane = {
+        y: GROUND_Y - 16,
+        velY: 0,
+        angle: 0,
+        runwayVel: 0
+      };
+      trees = [];
+      clouds = [];
+      bgOffset = 0;
+      groundOffset = 0;
+      frameCount = 0;
+      elapsed = 0;
+      hypoxiaTimer = 0;
+      hypoxiaActive = false;
+      autoDescending = false;
+      inputThisFrame = false;
+    }
+
+    // ─────────────────────────────────────────
+    // INPUT
+    // ─────────────────────────────────────────
+    function handleInput() {
+      if (state === 'intro' || state === 'dead') {
+        if (document.getElementById('nameEntry').style.display === 'block') return;
+        resetAll();
+        state = 'runway';
+        return;
+      }
+      if (state === 'flying') {
+        inputThisFrame = true;
+      }
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        handleInput();
+      }
+    });
+
+    var flyBtn = document.getElementById('flyBtn');
+    flyBtn.addEventListener('touchstart', function (e) {
+      e.preventDefault();
+      handleInput();
+    }, { passive: false });
+    flyBtn.addEventListener('mousedown', function (e) {
+      e.preventDefault();
+      handleInput();
+    });
+
+    canvas.addEventListener('touchstart', function (e) {
+      e.preventDefault();
+      handleInput();
+    }, { passive: false });
+    canvas.addEventListener('mousedown', function () {
+      handleInput();
+    });
+
+    // ─────────────────────────────────────────
+    // DIFFICULTY — smooth ramp over time
+    // ─────────────────────────────────────────
+    function getDiff() {
+      var t = elapsed;
+      return {
+        speed:        Math.min(2.4 + t * 0.024, 6.2),
+        treeMaxH:     Math.min(52 + t * 1.45, 192),
+        treeMinGap:   Math.max(210 - t * 0.75, 108),
+        cloudBottomMin: Math.max(130 - t * 0.44, 68), // lowest a cloud bottom can reach
+        treeChance:   Math.min(0.0055 + t * 0.00007, 0.016),
+        cloudChance:  Math.min(0.0022 + t * 0.000035, 0.006)
+      };
+    }
+
+    // ─────────────────────────────────────────
+    // UPDATE
+    // ─────────────────────────────────────────
+    var lastTs = null;
+
+    function update(ts) {
+      // dt normalized: 1.0 at 60fps, 2.0 at 30fps
+      var dt = lastTs ? Math.min((ts - lastTs) / 16.667, 3.0) : 1.0;
+      lastTs = ts;
+      frameCount++;
+
+      if (state === 'runway') {
+        updateRunway(dt);
+      } else if (state === 'flying') {
+        updateFlying(dt);
+      }
+    }
+
+    function updateRunway(dt) {
+      plane.runwayVel = Math.min(plane.runwayVel + 0.55 * dt, 100);
+      groundOffset   -= plane.runwayVel * dt * 0.48;
+      bgOffset       -= plane.runwayVel * dt * 0.07;
+
+      // Slight taxi bump
+      plane.y = (GROUND_Y - 16) + Math.sin(frameCount * 0.35) * 0.9;
+
+      // Liftoff threshold
+      if (plane.runwayVel >= 92) {
+        state = 'flying';
+        plane.y = GROUND_Y - 16;
+        plane.velY = LIFT;
+        plane.angle = -0.22;
+      }
+    }
+
+    function updateFlying(dt) {
+      var diff = getDiff();
+      elapsed += dt / 60;
+
+      // Apply lift if button pressed
+      if (inputThisFrame) {
+        plane.velY = LIFT;
+        inputThisFrame = false;
+      }
+
+      // Gravity (add extra if auto-descending)
+      var g = GRAVITY + (autoDescending ? AUTO_G : 0);
+      plane.velY = Math.min(plane.velY + g * dt, MAX_FALL);
+      plane.y   += plane.velY * dt;
+
+      // Visual tilt — follows velocity
+      var targetAngle = plane.velY * 0.044;
+      plane.angle += (targetAngle - plane.angle) * 0.13;
+      plane.angle  = Math.max(-0.38, Math.min(0.44, plane.angle));
+
+      // Hypoxia check
+      if (plane.y < HYPOXIA_Y) {
+        if (!hypoxiaActive) { hypoxiaActive = true; hypoxiaTimer = 0; }
+        hypoxiaTimer += dt / 60;
+        if (hypoxiaTimer >= HYPOXIA_DUR && !autoDescending) {
+          autoDescending = true;
+        }
+      } else {
+        hypoxiaActive = false;
+        hypoxiaTimer  = 0;
+        if (plane.y > HYPOXIA_Y + 28) autoDescending = false;
+      }
+
+      // Hit ground
+      if (plane.y + 14 >= GROUND_Y) {
+        plane.y = GROUND_Y - 14;
+        doGameOver();
+        return;
+      }
+
+      // Spawn
+      spawnObjects(diff);
+
+      // Move objects
+      var spd = diff.speed * dt;
+      trees  = trees.filter(function (t) { return t.x > -70; });
+      clouds = clouds.filter(function (c) { return c.x > -c.w - 10; });
+      trees.forEach(function  (t) { t.x -= spd; });
+      clouds.forEach(function (c) { c.x -= spd; });
+
+      // Background scroll
+      bgOffset -= diff.speed * 0.28 * dt;
+
+      // Collision
+      if (checkCollision()) {
+        doGameOver();
+      }
+
+      inputThisFrame = false;
+    }
+
+    function spawnObjects(diff) {
+      // Trees
+      if (Math.random() < diff.treeChance) {
+        var lastT = trees[trees.length - 1];
+        if (!lastT || (W - lastT.x) >= diff.treeMinGap) {
+          var h = 32 + Math.random() * (diff.treeMaxH - 32);
+          trees.push({ x: W + 30, h: h });
+        }
+      }
+      // Clouds
+      if (Math.random() < diff.cloudChance) {
+        var lastC = clouds[clouds.length - 1];
+        if (!lastC || (W - lastC.x) >= 175) {
+          var cw      = 72 + Math.random() * 95;
+          var bumpR   = 18 + Math.random() * 10;
+          var bottom  = diff.cloudBottomMin + Math.random() * 22;
+          clouds.push({ x: W + cw / 2 + 10, w: cw, bottom: bottom, bumpR: bumpR });
+        }
+      }
+    }
+
+    // ─────────────────────────────────────────
+    // COLLISION — forgiving AABB
+    // ─────────────────────────────────────────
+    function checkCollision() {
+      // Plane hitbox (smaller than visual)
+      var px = PLANE_X - 16;
+      var py = plane.y  - 5;
+      var pw = 44;
+      var ph = 10;
+
+      // Trees
+      var i, t, c;
+      for (i = 0; i < trees.length; i++) {
+        t = trees[i];
+        var tLeft = t.x - 20;
+        var tRight = t.x + 20;
+        var tTop  = GROUND_Y - t.h;
+        if (px < tRight && px + pw > tLeft && py + ph > tTop) return true;
+      }
+
+      // Clouds (collision = plane top-half enters cloud fill zone)
+      for (i = 0; i < clouds.length; i++) {
+        c = clouds[i];
+        var cLeft = c.x - c.w / 2;
+        var cRight = c.x + c.w / 2;
+        if (px < cRight && px + pw > cLeft && py < c.bottom && py + ph > 0) return true;
+      }
+
+      return false;
+    }
+
+    // ─────────────────────────────────────────
+    // GAME OVER
+    // ─────────────────────────────────────────
+    function doGameOver() {
+      state = 'dead';
+      checkHighScore();
+    }
+
+    // ─────────────────────────────────────────
+    // HIGH SCORE
+    // ─────────────────────────────────────────
+    function formatTime(s) {
+      var m   = Math.floor(s / 60);
+      var sec = Math.floor(s % 60);
+      var dec = Math.floor((s * 10) % 10);
+      return m + ':' + (sec < 10 ? '0' : '') + sec + '.' + dec;
+    }
+
+    function checkHighScore() {
+      var score = Math.round(elapsed * 10) / 10;
+      var best  = globalBest ? globalBest.score : 0;
+      if (score > best && score > 1) {
+        showNameEntry(score);
+      }
+    }
+
+    function showNameEntry(score) {
+      document.getElementById('nameEntryScore').textContent = formatTime(score);
+      document.getElementById('nameInput').value = '';
+      document.getElementById('nameEntry').style.display = 'block';
+      document.getElementById('nameInput').focus();
+    }
+
+    document.getElementById('nameSubmit').addEventListener('click', function () {
+      var raw  = document.getElementById('nameInput').value;
+      var name = raw.trim().substring(0, 20);
+      if (!name) return;
+      var score = Math.round(elapsed * 10) / 10;
+      submitScore(name, score);
+      globalBest = { user: name, score: score };
+      updateScoreBar();
+      document.getElementById('nameEntry').style.display = 'none';
+    });
+
+    document.getElementById('nameInput').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') document.getElementById('nameSubmit').click();
+    });
+
+    function fetchGlobalBest() {
+      if (!GAS_URL || GAS_URL === 'YOUR_GAS_URL_HERE') return;
+      fetch(GAS_URL + '?type=air_get')
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (d && d.score > 0) {
+            globalBest = d;
+            updateScoreBar();
+          }
+        })
+        .catch(function () {});
+    }
+
+    function submitScore(user, score) {
+      if (!GAS_URL || GAS_URL === 'YOUR_GAS_URL_HERE') return;
+      var url = GAS_URL
+        + '?type=air_submit'
+        + '&user='  + encodeURIComponent(user)
+        + '&score=' + score;
+      fetch(url).catch(function () {});
+    }
+
+    function updateScoreBar() {
+      var el = document.getElementById('highScoreText');
+      if (globalBest && globalBest.score > 0) {
+        el.textContent = '  ' + globalBest.user.toUpperCase() + '  —  ' + formatTime(globalBest.score);
+      } else {
+        el.textContent = '  —';
+      }
+    }
+
+    // ─────────────────────────────────────────
+    // DRAWING — mountains
+    // ─────────────────────────────────────────
+    // Three mountain layers, tiled, each at a different speed + opacity
+    var MTN_W = 1000;
+    var MTN_PTS = [
+      [0, 0], [70, -62], [155, -18], [260, -105], [370, -38],
+      [480, -88], [590, -22], [700, -74], [820, -42], [1000, 0]
+    ];
+
+    function drawMtnLayer(offset, baseY, hScale, alpha) {
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      var off = ((offset % MTN_W) + MTN_W) % MTN_W;
+      var rep, i, px, py;
+      for (rep = -1; rep <= 1; rep++) {
+        var startX = rep * MTN_W - off;
+        for (i = 0; i < MTN_PTS.length; i++) {
+          px = startX + MTN_PTS[i][0];
+          py = baseY + MTN_PTS[i][1] * hScale;
+          if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        }
+      }
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // ─────────────────────────────────────────
+    // DRAWING — ground
+    // ─────────────────────────────────────────
+    function drawGround() {
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0, GROUND_Y, W, H - GROUND_Y);
+
+      // Runway center-line dashes when taxiing / just after liftoff
+      if (state === 'runway' || (state === 'flying' && elapsed < 1.8)) {
+        var dashW = 26, dashH = 3, gap = 52;
+        var period = dashW + gap;
+        var off = ((groundOffset % period) + period) % period;
+        ctx.fillStyle = '#fff';
+        for (var x = -gap; x < W + gap; x += period) {
+          ctx.fillRect(x + off, GROUND_Y + Math.floor((H - GROUND_Y) / 2) - 1, dashW, dashH);
+        }
+      }
+    }
+
+    // ─────────────────────────────────────────
+    // DRAWING — trees (tiered pine silhouette)
+    // ─────────────────────────────────────────
+    function drawTree(cx, totalH) {
+      ctx.fillStyle = '#000';
+      var trunkH = Math.max(10, Math.floor(totalH * 0.1));
+      var trunkW = Math.max(4, Math.floor(totalH * 0.042));
+
+      // Trunk
+      ctx.fillRect(cx - Math.floor(trunkW / 2), GROUND_Y - trunkH, trunkW, trunkH);
+
+      var foliageH = totalH - trunkH;
+      var tiers    = Math.max(3, Math.floor(totalH / 28));
+      var baseHalfW = totalH * 0.30;
+
+      for (var i = 0; i < tiers; i++) {
+        // Peak of this tier
+        var peakY = GROUND_Y - trunkH - ((i + 1) / tiers) * foliageH;
+        // Base of this tier (overlaps slightly into tier below)
+        var baseY = GROUND_Y - trunkH - (Math.max(0, i - 0.18) / tiers) * foliageH;
+        var halfW = baseHalfW * (1 - i * 0.55 / tiers);
+
+        ctx.beginPath();
+        ctx.moveTo(cx, peakY);
+        ctx.lineTo(cx - halfW, baseY);
+        ctx.lineTo(cx + halfW, baseY);
+        ctx.closePath();
+        ctx.fill();
+      }
+    }
+
+    // ─────────────────────────────────────────
+    // DRAWING — clouds (hang from top, bumpy bottom)
+    // ─────────────────────────────────────────
+    function drawCloud(c) {
+      ctx.fillStyle = '#000';
+      var r      = c.bumpR;
+      var numBumps = Math.max(3, Math.floor(c.w / 26));
+      var bumpTopY = c.bottom - r;
+
+      // Solid block top → just above bumps
+      if (bumpTopY > 0) {
+        ctx.fillRect(c.x - c.w / 2, 0, c.w, bumpTopY);
+      }
+
+      // Bumps along the bottom
+      for (var i = 0; i <= numBumps; i++) {
+        var bx = c.x - c.w / 2 + (i / numBumps) * c.w;
+        ctx.beginPath();
+        ctx.arc(bx, bumpTopY, r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // ─────────────────────────────────────────
+    // DRAWING — plane (classic propeller silhouette, facing right)
+    // ─────────────────────────────────────────
+    function drawPlane() {
+      ctx.save();
+      ctx.translate(PLANE_X, plane.y);
+      ctx.rotate(plane.angle);
+      ctx.fillStyle = '#000';
+
+      // Fuselage
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 25, 7, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Nose cone
+      ctx.beginPath();
+      ctx.moveTo(22, -4);
+      ctx.lineTo(37, 0);
+      ctx.lineTo(22, 4);
+      ctx.closePath();
+      ctx.fill();
+
+      // Cockpit bump
+      ctx.beginPath();
+      ctx.ellipse(4, -7, 9, 4, -0.1, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Main wing (below, sweeping back)
+      ctx.beginPath();
+      ctx.moveTo(8, 5);
+      ctx.lineTo(-12, 24);
+      ctx.lineTo(-5, 24);
+      ctx.lineTo(20, 5);
+      ctx.closePath();
+      ctx.fill();
+
+      // Vertical tail fin
+      ctx.beginPath();
+      ctx.moveTo(-19, -7);
+      ctx.lineTo(-19, -26);
+      ctx.lineTo(-10, -7);
+      ctx.closePath();
+      ctx.fill();
+
+      // Horizontal stabilizer (left side)
+      ctx.beginPath();
+      ctx.moveTo(-19, 1);
+      ctx.lineTo(-29,  4);
+      ctx.lineTo(-29, -2);
+      ctx.lineTo(-19, -2);
+      ctx.closePath();
+      ctx.fill();
+
+      // Propeller blades
+      ctx.beginPath();
+      ctx.ellipse(37, -11, 3.5, 11, 0.22, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(37,  11, 3.5, 11, -0.22, 0, Math.PI * 2);
+      ctx.fill();
+      // Hub
+      ctx.beginPath();
+      ctx.arc(37, 0, 3.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    // ─────────────────────────────────────────
+    // DRAWING — timer (bottom-right of canvas)
+    // ─────────────────────────────────────────
+    function drawTimer() {
+      ctx.font = 'bold 14px Georgia, serif';
+      ctx.fillStyle = '#000';
+      ctx.textAlign = 'right';
+      ctx.fillText(formatTime(elapsed), W - 10, H - 9);
+      ctx.textAlign = 'left';
+    }
+
+    // ─────────────────────────────────────────
+    // DRAWING — hypoxia alert
+    // ─────────────────────────────────────────
+    function drawHypoxia() {
+      var blink = (Math.floor(Date.now() / 300) % 2 === 0);
+      if (!blink && !autoDescending) return;
+
+      ctx.font = 'bold 12px Georgia, serif';
+      ctx.fillStyle = '#000';
+      ctx.textAlign = 'center';
+      if (autoDescending) {
+        ctx.fillText('HYPOXIA  —  AUTO DESCENDING', W / 2, HYPOXIA_Y + 20);
+      } else {
+        var remain = Math.ceil(HYPOXIA_DUR - hypoxiaTimer);
+        ctx.fillText('HYPOXIA ALERT  —  DESCEND NOW  (' + remain + ')', W / 2, HYPOXIA_Y + 20);
+      }
+      ctx.textAlign = 'left';
+    }
+
+    // ─────────────────────────────────────────
+    // DRAWING — intro screen
+    // ─────────────────────────────────────────
+    function drawIntro() {
+      ctx.fillStyle = 'rgba(255,255,255,0.92)';
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.fillStyle = '#000';
+      ctx.textAlign = 'center';
+
+      ctx.font = 'bold 30px Georgia, serif';
+      ctx.fillText('WALTHER AIR', W / 2, H / 2 - 68);
+
+      ctx.font = '13px Georgia, serif';
+      var lines = [
+        'Keep the plane aloft. Avoid trees and clouds.',
+        'Flying too high triggers a hypoxia alert — descend fast.',
+        '',
+        'Repeatedly press to climb.  Release to descend.',
+        '',
+        'SPACEBAR  or  TAP  to begin.'
+      ];
+      lines.forEach(function (line, i) {
+        ctx.fillText(line, W / 2, H / 2 - 22 + i * 22);
+      });
+      ctx.textAlign = 'left';
+    }
+
+    // ─────────────────────────────────────────
+    // DRAWING — game over overlay
+    // ─────────────────────────────────────────
+    function drawGameOver() {
+      var bw = 282, bh = 112;
+      var bx = W / 2 - bw / 2, by = H / 2 - bh / 2;
+
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(bx, by, bw, bh);
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(bx, by, bw, bh);
+
+      ctx.fillStyle = '#000';
+      ctx.textAlign = 'center';
+
+      ctx.font = 'bold 21px Georgia, serif';
+      ctx.fillText('GAME OVER', W / 2, by + 34);
+
+      ctx.font = '15px Georgia, serif';
+      ctx.fillText('Time aloft:  ' + formatTime(elapsed), W / 2, by + 63);
+
+      ctx.font = '12px Georgia, serif';
+      ctx.fillText('SPACE or FLY to try again', W / 2, by + 90);
+
+      ctx.textAlign = 'left';
+    }
+
+    // ─────────────────────────────────────────
+    // MAIN DRAW
+    // ─────────────────────────────────────────
+    function draw() {
+      // Background
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0, 0, W, H);
+
+      // Mountain layers (back to front, slower to faster)
+      drawMtnLayer(bgOffset * 0.22, 268, 0.75, 0.13);
+      drawMtnLayer(bgOffset * 0.44, 285, 0.95, 0.22);
+      drawMtnLayer(bgOffset * 0.78, 305, 1.15, 0.38);
+
+      // Ground
+      drawGround();
+
+      // Trees
+      trees.forEach(function (t) { drawTree(t.x, t.h); });
+
+      // Clouds
+      clouds.forEach(function (c) { drawCloud(c); });
+
+      // Plane
+      drawPlane();
+
+      // Timer (only while flying or after death)
+      if (state === 'flying' || state === 'dead') drawTimer();
+
+      // Hypoxia warning
+      if (hypoxiaActive && state === 'flying') drawHypoxia();
+
+      // State overlays
+      if (state === 'intro') drawIntro();
+      if (state === 'dead')  drawGameOver();
+    }
+
+    // ─────────────────────────────────────────
+    // GAME LOOP
+    // ─────────────────────────────────────────
+    function loop(ts) {
+      update(ts);
+      draw();
+      requestAnimationFrame(loop);
+    }
+
+    // ─────────────────────────────────────────
+    // INIT
+    // ─────────────────────────────────────────
+    resetAll();
+    fetchGlobalBest();
+    requestAnimationFrame(loop);
+
+  }());
+  </script>
+
   <script src="menu.js"></script>
 </body>
 </html>

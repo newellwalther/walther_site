@@ -4,11 +4,11 @@
 //
 // SETUP (one-time):
 //
-// 1. Create a Google Sheet named "walther.website" with three tabs:
-//      "Flashcards"  → Row 1 headers: english | vietnamese | timestamp
-//      "Suggestions" → Row 1 headers: suggestion | timestamp
-//      "Newsletter"  → Row 1 headers: name | email | timestamp
-//    Share the sheet → "Anyone with the link can view"
+// 1. Google Sheet tabs required:
+//      "Flashcards"  → Row 1: english | vietnamese | timestamp
+//      "Suggestions" → Row 1: suggestion | timestamp
+//      "Newsletter"  → Row 1: name | email | timestamp
+//      "Air Game"    → Row 1: user | score | timestamp
 //
 // 2. Paste this file into script.google.com → Deploy → New deployment
 //      Type: Web app | Execute as: Me | Who has access: Anyone
@@ -22,6 +22,8 @@ function doGet(e) {
     const p = e.parameter;
     const ss = SpreadsheetApp.openById(SHEET_ID);
     const timestamp = new Date().toISOString();
+
+    // ── existing features ──────────────────────────────────────
 
     if (p.type === 'flashcard') {
       ss.getSheetByName('Flashcards').appendRow([
@@ -42,6 +44,40 @@ function doGet(e) {
         String(p.email || '').substring(0, 200),
         timestamp
       ]);
+
+    // ── Air Game high score ────────────────────────────────────
+
+    } else if (p.type === 'air_get') {
+      // Return the all-time best score
+      const sheet = ss.getSheetByName('Air Game');
+      const data  = sheet.getDataRange().getValues();
+      let best = { user: '', score: 0 };
+      for (let i = 1; i < data.length; i++) {
+        const score = Number(data[i][1]);
+        if (data[i][0] && score > best.score) {
+          best = { user: String(data[i][0]), score: score };
+        }
+      }
+      return ContentService
+        .createTextOutput(JSON.stringify(best))
+        .setMimeType(ContentService.MimeType.JSON);
+
+    } else if (p.type === 'air_submit') {
+      // Only write if this is genuinely a new best
+      const user  = String(p.user  || '').trim().substring(0, 20);
+      const score = Number(p.score || 0);
+      if (user && score > 0) {
+        const sheet = ss.getSheetByName('Air Game');
+        const data  = sheet.getDataRange().getValues();
+        let currentBest = 0;
+        for (let i = 1; i < data.length; i++) {
+          const s = Number(data[i][1]);
+          if (s > currentBest) currentBest = s;
+        }
+        if (score > currentBest) {
+          sheet.appendRow([user, score, timestamp]);
+        }
+      }
     }
 
     return ContentService
