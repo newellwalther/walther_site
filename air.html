@@ -200,6 +200,8 @@
     var HYPOXIA_DUR = 3.0;  // seconds before auto-descend triggers
     var AUTO_G     = 0.75;  // extra gravity when auto-descending
     var CRASH_DUR  = 1.4;   // seconds for crash debris animation
+    var LOOP_RADIUS = 75;   // px radius of cloud loop-de-loop arc
+    var LOOP_DUR    = 1.15; // seconds for the 270° scripted arc
 
     // Replace with your deployed GAS web app URL after setup
     var GAS_URL = 'https://script.google.com/macros/s/AKfycbxOW7UbzYoJh888mfOREAfyPgH2zxU4Uo93clAHD0Cmqt9CIzzIzG0G1Go_wEy2g_ep/exec';
@@ -213,7 +215,7 @@
     var plane, trees, smallTrees, animals, clouds, fish, lakes, fishBits, bgOffset, groundOffset, bgSpeed, frameCount;
     var propAngle, windsockX;
     var hypoxiaTimer, hypoxiaActive, autoDescending, inputThisFrame;
-    var inverted;
+    var looping, loopT, loopStartY, loopCenterY;
     var prevBearMilestone, prevMooseMilestone;
     var crashPieces, crashTimer;
 
@@ -243,7 +245,7 @@
       hypoxiaTimer = 0;
       hypoxiaActive = false;
       autoDescending = false;
-      inverted = false;
+      looping = false; loopT = 0; loopStartY = 0; loopCenterY = 0;
       inputThisFrame = false;
       prevBearMilestone = 0;
       prevMooseMilestone = 0;
@@ -348,32 +350,41 @@
       var diff = getDiff();
       elapsed += dt / 60;
 
-      // Apply lift if button pressed — blocked during auto-descend or inversion
-      if (inputThisFrame && !autoDescending && !inverted) {
-        plane.velY = LIFT;
-      }
-
-      // Gravity (add extra if auto-descending or inverted)
-      var g = GRAVITY + (autoDescending ? AUTO_G : 0) + (inverted ? 0.5 : 0);
-      plane.velY = Math.min(plane.velY + g * dt, MAX_FALL);
-      plane.y   += plane.velY * dt;
-
-      // Visual tilt — follows velocity
-      var targetAngle = plane.velY * 0.044;
-      plane.angle += (targetAngle - plane.angle) * 0.13;
-      plane.angle  = Math.max(-0.38, Math.min(0.44, plane.angle));
-
-      // Hypoxia check — 3-second countdown, then auto-descend triggers at 0
-      if (plane.y < HYPOXIA_Y) {
-        if (!hypoxiaActive) { hypoxiaActive = true; hypoxiaTimer = 0; }
-        hypoxiaTimer += dt / 60;
-        if (hypoxiaTimer >= HYPOXIA_DUR && !autoDescending) {
-          autoDescending = true;
+      if (looping) {
+        // Scripted loop-de-loop arc: 270° upward then nose-down
+        loopT += (dt / 60) / LOOP_DUR;
+        plane.y     = loopCenterY + LOOP_RADIUS * Math.cos(loopT * Math.PI * 1.5);
+        plane.angle = -loopT * Math.PI * 1.5;  // continuous rotation nose-up→inverted→nose-down
+        if (loopT >= 1) {
+          looping    = false;
+          plane.velY = MAX_FALL;
+          plane.angle = 0.44;
         }
       } else {
-        hypoxiaActive = false;
-        hypoxiaTimer  = 0;
-        if (plane.y > GROUND_Y - 65) autoDescending = false;
+        // Normal physics
+        if (inputThisFrame && !autoDescending) {
+          plane.velY = LIFT;
+        }
+        var g = GRAVITY + (autoDescending ? AUTO_G : 0);
+        plane.velY = Math.min(plane.velY + g * dt, MAX_FALL);
+        plane.y   += plane.velY * dt;
+
+        var targetAngle = plane.velY * 0.044;
+        plane.angle += (targetAngle - plane.angle) * 0.13;
+        plane.angle  = Math.max(-0.38, Math.min(0.44, plane.angle));
+
+        // Hypoxia check — 3-second countdown, then auto-descend triggers at 0
+        if (plane.y < HYPOXIA_Y) {
+          if (!hypoxiaActive) { hypoxiaActive = true; hypoxiaTimer = 0; }
+          hypoxiaTimer += dt / 60;
+          if (hypoxiaTimer >= HYPOXIA_DUR && !autoDescending) {
+            autoDescending = true;
+          }
+        } else {
+          hypoxiaActive = false;
+          hypoxiaTimer  = 0;
+          if (plane.y > GROUND_Y - 65) autoDescending = false;
+        }
       }
 
       // Hit ground
@@ -440,12 +451,14 @@
       if (bearMilestone  > prevBearMilestone)  { prevBearMilestone  = bearMilestone;  animals.push({ x: W + 60, type: 'bear' }); }
       if (mooseMilestone > prevMooseMilestone) { prevMooseMilestone = mooseMilestone; animals.push({ x: W + 60, type: 'moose' }); }
 
-      // Collision — cloud → invert, obstacle → crash
-      var hit = checkCollision();
-      if (hit === 'cloud' && !inverted) {
-        triggerInversion();
-      } else if (hit) {
-        doGameOver();
+      // Collision — cloud → loop-de-loop, obstacle → crash (skip during loop)
+      if (!looping) {
+        var hit = checkCollision();
+        if (hit === 'cloud') {
+          triggerLoop();
+        } else if (hit) {
+          doGameOver();
+        }
       }
 
       inputThisFrame = false;
@@ -529,9 +542,12 @@
       return null;
     }
 
-    function triggerInversion() {
-      inverted = true;
-      plane.velY = MAX_FALL;  // immediately diving
+    function triggerLoop() {
+      looping     = true;
+      loopT       = 0;
+      loopStartY  = plane.y;
+      loopCenterY = plane.y - LOOP_RADIUS;
+      plane.velY  = 0;
     }
 
     function spawnFishBits(x, y) {
@@ -980,14 +996,6 @@
         var bx = (n > 1) ? left + r + (i / (n - 1)) * (c.w - 2 * r) : c.x;
         ctx.beginPath(); ctx.arc(bx, bottomY, r, 0, Math.PI * 2); ctx.fill();
       }
-      // Outline: bottom-half arc only (avoids overlapping ring effect)
-      ctx.strokeStyle = '#888';
-      ctx.lineWidth = 1.5;
-      for (var i = 0; i < n; i++) {
-        var bx = (n > 1) ? left + r + (i / (n - 1)) * (c.w - 2 * r) : c.x;
-        ctx.beginPath(); ctx.arc(bx, bottomY, r, 0, Math.PI); ctx.stroke();
-      }
-      ctx.lineWidth = 1;
     }
 
     // ─────────────────────────────────────────
@@ -1033,7 +1041,6 @@
       ctx.save();
       ctx.translate(PLANE_X, plane.y);
       ctx.rotate(plane.angle);
-      if (inverted) ctx.scale(1, -1);  // flip upside-down when cloud-inverted
       ctx.fillStyle = '#000';
 
       // Fuselage — long, blunt nose, tapers to tail point
