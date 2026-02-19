@@ -198,7 +198,7 @@
     var MAX_FALL   = 6.5;   // max downward velocity
     var HYPOXIA_Y  = 58;    // if plane.y < this, hypoxia kicks in
     var HYPOXIA_DUR = 3.0;  // seconds before auto-descend triggers
-    var AUTO_G     = 0.45;  // extra gravity when auto-descending
+    var AUTO_G     = 0.75;  // extra gravity when auto-descending
     var CRASH_DUR  = 1.4;   // seconds for crash debris animation
 
     // Replace with your deployed GAS web app URL after setup
@@ -212,6 +212,7 @@
     var globalBest = null;
     var plane, trees, smallTrees, animals, clouds, fish, lakes, bgOffset, groundOffset, bgSpeed, frameCount;
     var hypoxiaTimer, hypoxiaActive, autoDescending, inputThisFrame;
+    var inverted;
     var prevBearMilestone, prevMooseMilestone;
     var crashPieces, crashTimer;
 
@@ -238,6 +239,7 @@
       hypoxiaTimer = 0;
       hypoxiaActive = false;
       autoDescending = false;
+      inverted = false;
       inputThisFrame = false;
       prevBearMilestone = 0;
       prevMooseMilestone = 0;
@@ -340,13 +342,13 @@
       var diff = getDiff();
       elapsed += dt / 60;
 
-      // Apply lift if button pressed — blocked during hypoxia auto-descend
-      if (inputThisFrame && !autoDescending) {
+      // Apply lift if button pressed — blocked during auto-descend or inversion
+      if (inputThisFrame && !autoDescending && !inverted) {
         plane.velY = LIFT;
       }
 
-      // Gravity (add extra if auto-descending)
-      var g = GRAVITY + (autoDescending ? AUTO_G : 0);
+      // Gravity (add extra if auto-descending or inverted)
+      var g = GRAVITY + (autoDescending ? AUTO_G : 0) + (inverted ? 0.5 : 0);
       plane.velY = Math.min(plane.velY + g * dt, MAX_FALL);
       plane.y   += plane.velY * dt;
 
@@ -355,17 +357,14 @@
       plane.angle += (targetAngle - plane.angle) * 0.13;
       plane.angle  = Math.max(-0.38, Math.min(0.44, plane.angle));
 
-      // Hypoxia check
+      // Hypoxia check — auto-descend triggers immediately on entry
       if (plane.y < HYPOXIA_Y) {
-        if (!hypoxiaActive) { hypoxiaActive = true; hypoxiaTimer = 0; }
+        if (!hypoxiaActive) { hypoxiaActive = true; hypoxiaTimer = 0; autoDescending = true; }
         hypoxiaTimer += dt / 60;
-        if (hypoxiaTimer >= HYPOXIA_DUR && !autoDescending) {
-          autoDescending = true;
-        }
       } else {
         hypoxiaActive = false;
         hypoxiaTimer  = 0;
-        if (plane.y > HYPOXIA_Y + 28) autoDescending = false;
+        if (plane.y > GROUND_Y - 65) autoDescending = false;
       }
 
       // Hit ground
@@ -414,8 +413,11 @@
       if (bearMilestone  > prevBearMilestone)  { prevBearMilestone  = bearMilestone;  animals.push({ x: W + 60, type: 'bear' }); }
       if (mooseMilestone > prevMooseMilestone) { prevMooseMilestone = mooseMilestone; animals.push({ x: W + 60, type: 'moose' }); }
 
-      // Collision
-      if (checkCollision()) {
+      // Collision — cloud → invert, obstacle → crash
+      var hit = checkCollision();
+      if (hit === 'cloud' && !inverted) {
+        triggerInversion();
+      } else if (hit) {
         doGameOver();
       }
 
@@ -486,18 +488,23 @@
         var tLeft  = t.x - (t.hw || 20);
         var tRight = t.x + (t.hw || 20);
         var tTop   = GROUND_Y - t.h;
-        if (px < tRight && px + pw > tLeft && py + ph > tTop) return true;
+        if (px < tRight && px + pw > tLeft && py + ph > tTop) return 'obstacle';
       }
 
-      // Clouds (collision = plane top-half enters cloud fill zone)
+      // Clouds — returns 'cloud' so caller can trigger inversion instead of crash
       for (i = 0; i < clouds.length; i++) {
         c = clouds[i];
-        var cLeft = c.x - c.w / 2;
+        var cLeft  = c.x - c.w / 2;
         var cRight = c.x + c.w / 2;
-        if (px < cRight && px + pw > cLeft && py < c.bottom && py + ph > 0) return true;
+        if (px < cRight && px + pw > cLeft && py < c.bottom && py + ph > 0) return 'cloud';
       }
 
-      return false;
+      return null;
+    }
+
+    function triggerInversion() {
+      inverted = true;
+      plane.velY = MAX_FALL;  // immediately diving
     }
 
     // ─────────────────────────────────────────
@@ -934,12 +941,12 @@
         var bx = (n > 1) ? left + r + (i / (n - 1)) * (c.w - 2 * r) : c.x;
         ctx.beginPath(); ctx.arc(bx, bottomY, r, 0, Math.PI * 2); ctx.fill();
       }
-      // Outline bottom bumps only
+      // Outline: bottom-half arc only (avoids overlapping ring effect)
       ctx.strokeStyle = '#888';
       ctx.lineWidth = 1.5;
       for (var i = 0; i < n; i++) {
         var bx = (n > 1) ? left + r + (i / (n - 1)) * (c.w - 2 * r) : c.x;
-        ctx.beginPath(); ctx.arc(bx, bottomY, r, 0, Math.PI * 2); ctx.stroke();
+        ctx.beginPath(); ctx.arc(bx, bottomY, r, 0, Math.PI); ctx.stroke();
       }
       ctx.lineWidth = 1;
     }
@@ -951,6 +958,7 @@
       ctx.save();
       ctx.translate(PLANE_X, plane.y);
       ctx.rotate(plane.angle);
+      if (inverted) ctx.scale(1, -1);  // flip upside-down when cloud-inverted
       ctx.fillStyle = '#000';
 
       // Fuselage — long, blunt nose, tapers to tail point
@@ -1152,23 +1160,17 @@
     // DRAWING — hypoxia alert (3-2-1 countdown)
     // ─────────────────────────────────────────
     function drawHypoxia() {
+      // Descent is immediate — show pulsing countdown as visual feedback while diving
       ctx.textAlign = 'center';
-      if (autoDescending) {
-        ctx.font = 'bold 14px Georgia, serif';
-        ctx.fillStyle = '#000';
-        ctx.fillText('HYPOXIA — AUTO DESCENDING', W / 2, HYPOXIA_Y + 24);
-      } else {
-        // Pulsing number: grows small→large within each second, resets on tick
-        var remain = HYPOXIA_DUR - hypoxiaTimer;
-        var count  = Math.ceil(remain);
-        var frac   = remain % 1;                       // 0→1 within current second
-        var sz     = Math.round(22 + frac * 20);       // 22–42px, biggest just before tick
-        ctx.font   = 'bold ' + sz + 'px Georgia, serif';
-        ctx.fillStyle = '#000';
-        ctx.fillText(count, W / 2, HYPOXIA_Y + sz + 2);
-        ctx.font = 'bold 11px Georgia, serif';
-        ctx.fillText('HYPOXIA — DESCEND NOW', W / 2, HYPOXIA_Y + sz + 18);
-      }
+      var remain = Math.max(0, HYPOXIA_DUR - hypoxiaTimer);
+      var count  = Math.max(1, Math.ceil(remain));
+      var frac   = remain > 0 ? remain % 1 : 0;
+      var sz     = Math.round(22 + frac * 20);
+      ctx.font   = 'bold ' + sz + 'px Georgia, serif';
+      ctx.fillStyle = '#000';
+      ctx.fillText(count, W / 2, HYPOXIA_Y + sz + 2);
+      ctx.font = 'bold 11px Georgia, serif';
+      ctx.fillText('HYPOXIA — AUTO DESCENDING', W / 2, HYPOXIA_Y + sz + 18);
       ctx.textAlign = 'left';
     }
 
