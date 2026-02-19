@@ -180,6 +180,33 @@
       background: #fff;
       color: #000;
     }
+
+    .mobile-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 0.75rem 0 0.25rem;
+    }
+
+    .game-btn {
+      background: #000;
+      color: #fff;
+      border: 2px solid #000;
+      width: 64px;
+      height: 64px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      font-family: Georgia, serif;
+      transition: background 0.1s, color 0.1s;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+
+    .game-btn:active {
+      background: #fff;
+      color: #000;
+    }
   </style>
 </head>
 <body>
@@ -230,9 +257,13 @@
       <div class="game-canvas-container">
         <canvas id="gameCanvas" width="800" height="400"></canvas>
       </div>
+      <div class="mobile-controls">
+        <button class="game-btn" id="btnLeft">←</button>
+        <button class="game-btn" id="btnUp">↑</button>
+        <button class="game-btn" id="btnRight">→</button>
+      </div>
       <div class="controls">
-        <p><strong>Controls:</strong></p>
-        <p>Left Arrow: Move left | Right Arrow: Move right | Spacebar: Jump</p>
+        <p>Arrow keys + Spacebar, or use buttons above</p>
       </div>
     </section>
   </main>
@@ -457,6 +488,23 @@
     }
 
     gameLoop();
+
+    // Mobile buttons
+    function addGameBtn(id, key) {
+      const btn = document.getElementById(id);
+      const press   = (e) => { e.preventDefault(); keys[key] = true; };
+      const release = (e) => { e.preventDefault(); keys[key] = false; };
+      btn.addEventListener('touchstart',  press,   { passive: false });
+      btn.addEventListener('touchend',    release, { passive: false });
+      btn.addEventListener('touchcancel', release, { passive: false });
+      btn.addEventListener('mousedown',   press);
+      btn.addEventListener('mouseup',     release);
+      btn.addEventListener('mouseleave',  release);
+    }
+
+    addGameBtn('btnLeft',  'ArrowLeft');
+    addGameBtn('btnUp',    ' ');
+    addGameBtn('btnRight', 'ArrowRight');
   </script>
 </body>
 </html>
