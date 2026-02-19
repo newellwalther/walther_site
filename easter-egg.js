@@ -574,6 +574,17 @@
       setTimeout(() => { f.style.transform = currentRotation + ' scale(1)'; }, 300);
     });
 
+    // On desktop, make landed letters clickable to reload the page
+    if (!isMobile()) {
+      setTimeout(() => {
+        floaters.forEach(f => {
+          f.style.pointerEvents = 'auto';
+          f.style.cursor = 'pointer';
+          f.addEventListener('click', () => window.location.reload());
+        });
+      }, 350);
+    }
+
     const title = getTitle();
     const letters = title
       ? title.querySelectorAll('.title-letter')
