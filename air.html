@@ -122,6 +122,10 @@
     }
 
     footer { margin-top: auto; }
+
+    @media (max-width: 600px) {
+      #scoreBar { font-size: 14px; letter-spacing: 1px; padding: 7px 0 8px; }
+    }
   </style>
 </head>
 <body>
@@ -204,8 +208,9 @@
     var state = 'intro';  // intro | runway | flying | dead
     var elapsed = 0;      // seconds aloft
     var globalBest = null;
-    var plane, trees, clouds, bgOffset, groundOffset, frameCount;
+    var plane, trees, smallTrees, animals, clouds, bgOffset, groundOffset, bgSpeed, frameCount;
     var hypoxiaTimer, hypoxiaActive, autoDescending, inputThisFrame;
+    var prevBearMilestone, prevMooseMilestone;
 
     function resetAll() {
       plane = {
@@ -215,15 +220,20 @@
         runwayVel: 0
       };
       trees = [];
+      smallTrees = [];
+      animals = [];
       clouds = [];
       bgOffset = 0;
       groundOffset = 0;
+      bgSpeed = 0;
       frameCount = 0;
       elapsed = 0;
       hypoxiaTimer = 0;
       hypoxiaActive = false;
       autoDescending = false;
       inputThisFrame = false;
+      prevBearMilestone = 0;
+      prevMooseMilestone = 0;
     }
 
     // ─────────────────────────────────────────
@@ -302,7 +312,8 @@
     function updateRunway(dt) {
       plane.runwayVel = Math.min(plane.runwayVel + 0.55 * dt, 100);
       groundOffset   -= plane.runwayVel * dt * 0.48;
-      bgOffset       -= plane.runwayVel * dt * 0.07;
+      bgSpeed         = plane.runwayVel * 0.07;   // carry this speed into flight
+      bgOffset       -= bgSpeed * dt;
 
       // Slight taxi bump
       plane.y = (GROUND_Y - 16) + Math.sin(frameCount * 0.35) * 0.9;
@@ -361,13 +372,25 @@
 
       // Move objects
       var spd = diff.speed * dt;
-      trees  = trees.filter(function (t) { return t.x > -70; });
-      clouds = clouds.filter(function (c) { return c.x > -c.w - 10; });
-      trees.forEach(function  (t) { t.x -= spd; });
-      clouds.forEach(function (c) { c.x -= spd; });
+      trees      = trees.filter(function (t)  { return t.x > -70; });
+      smallTrees = smallTrees.filter(function (t) { return t.x > -20; });
+      animals    = animals.filter(function (a)  { return a.x > -140; });
+      clouds     = clouds.filter(function (c)  { return c.x > -c.w - 10; });
+      trees.forEach(function      (t) { t.x -= spd; });
+      smallTrees.forEach(function (t) { t.x -= spd; });
+      animals.forEach(function    (a) { a.x -= spd; });
+      clouds.forEach(function     (c) { c.x -= spd; });
 
-      // Background scroll
-      bgOffset -= diff.speed * 0.28 * dt;
+      // Background scroll — mountain speed locked to runway liftoff speed
+      bgOffset     -= bgSpeed * dt;
+      // Ground hills scroll
+      groundOffset -= diff.speed * dt * 8;
+
+      // Animal milestone spawning
+      var bearMilestone  = Math.floor(elapsed / 30);
+      var mooseMilestone = Math.floor(elapsed / 75);
+      if (bearMilestone  > prevBearMilestone)  { prevBearMilestone  = bearMilestone;  animals.push({ x: W + 60, type: 'bear' }); }
+      if (mooseMilestone > prevMooseMilestone) { prevMooseMilestone = mooseMilestone; animals.push({ x: W + 60, type: 'moose' }); }
 
       // Collision
       if (checkCollision()) {
@@ -378,7 +401,7 @@
     }
 
     function spawnObjects(diff) {
-      // Trees
+      // Obstacle trees
       if (Math.random() < diff.treeChance) {
         var lastT = trees[trees.length - 1];
         if (!lastT || (W - lastT.x) >= diff.treeMinGap) {
@@ -386,13 +409,17 @@
           trees.push({ x: W + 30, h: h });
         }
       }
-      // Clouds
+      // Small decorative trees (no collision, denser fill)
+      if (Math.random() < 0.022) {
+        smallTrees.push({ x: W + 8, h: 12 + Math.random() * 30 });
+      }
+      // Clouds — more height variation
       if (Math.random() < diff.cloudChance) {
         var lastC = clouds[clouds.length - 1];
         if (!lastC || (W - lastC.x) >= 175) {
-          var cw      = 72 + Math.random() * 95;
-          var bumpR   = 18 + Math.random() * 10;
-          var bottom  = diff.cloudBottomMin + Math.random() * 22;
+          var cw     = 72 + Math.random() * 95;
+          var bumpR  = 16 + Math.random() * 18;
+          var bottom = diff.cloudBottomMin + Math.random() * 90;
           clouds.push({ x: W + cw / 2 + 10, w: cw, bottom: bottom, bumpR: bumpR });
         }
       }
@@ -616,51 +643,22 @@
     }
 
     // ─────────────────────────────────────────
-    // DRAWING — clouds (fully rounded, overlapping circles)
+    // DRAWING — clouds (solid fill + bumpy bottom row)
     // ─────────────────────────────────────────
     function drawCloud(c) {
       ctx.fillStyle = '#000';
-      var r  = c.bumpR;
-      var r2 = r * 0.82;
-      var r3 = r * 0.65;
-
-      // Row 1 — bottom bumps (most visible)
-      var n1 = Math.max(3, Math.floor(c.w / (r * 1.5)));
-      for (var i = 0; i <= n1; i++) {
-        var bx = c.x - c.w / 2 + (i / n1) * c.w;
+      var r = c.bumpR;
+      // Solid block from canvas top to circle centres — seamlessly joined
+      if (c.bottom - r > 0) {
+        ctx.fillRect(c.x - c.w / 2, 0, c.w, c.bottom - r);
+      }
+      // Bumpy bottom row — centres at c.bottom-r, tips reach c.bottom
+      var n = Math.max(3, Math.round(c.w / (r * 1.35)));
+      for (var i = 0; i <= n; i++) {
+        var bx = c.x - c.w / 2 + (i / n) * c.w;
         ctx.beginPath();
         ctx.arc(bx, c.bottom - r, r, 0, Math.PI * 2);
         ctx.fill();
-      }
-
-      // Row 2 — middle row, slightly tighter
-      var n2 = Math.max(2, Math.floor(c.w / (r2 * 1.6)));
-      for (var j = 0; j <= n2; j++) {
-        var bx2 = c.x - c.w / 2 + r2 * 0.4 + (j / n2) * (c.w - r2 * 0.8);
-        var by2 = c.bottom - r * 1.75;
-        if (by2 + r2 > 0) {
-          ctx.beginPath();
-          ctx.arc(bx2, by2, r2, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-
-      // Row 3 — top row, fills toward screen edge
-      var n3 = Math.max(2, Math.floor(c.w / (r3 * 2.0)));
-      for (var k = 0; k <= n3; k++) {
-        var bx3 = c.x - c.w / 2 + r3 + (k / n3) * (c.w - r3 * 2);
-        var by3 = c.bottom - r * 2.9;
-        if (by3 + r3 > 0) {
-          ctx.beginPath();
-          ctx.arc(bx3, by3, r3, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-
-      // Solid fill to guarantee no gaps between top row and canvas edge
-      var solidTo = c.bottom - r * 2.9 - r3;
-      if (solidTo > 0) {
-        ctx.fillRect(c.x - c.w / 2, 0, c.w, solidTo);
       }
     }
 
@@ -736,15 +734,109 @@
     }
 
     // ─────────────────────────────────────────
+    // DRAWING — bear silhouette on ground
+    // ─────────────────────────────────────────
+    function drawBear(x) {
+      ctx.fillStyle = '#000';
+      var base = GROUND_Y - 2;
+
+      // Body
+      ctx.beginPath();
+      ctx.ellipse(x, base - 13, 16, 10, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Head (facing right)
+      ctx.beginPath();
+      ctx.arc(x + 18, base - 18, 9, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Snout
+      ctx.beginPath();
+      ctx.ellipse(x + 26, base - 16, 5, 4, 0.2, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Ears
+      ctx.beginPath();
+      ctx.arc(x + 13, base - 26, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(x + 21, base - 27, 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // ─────────────────────────────────────────
+    // DRAWING — moose silhouette on ground
+    // ─────────────────────────────────────────
+    function drawMoose(x) {
+      ctx.fillStyle = '#000';
+      var base = GROUND_Y - 2;
+
+      // Legs (drawn first so body overlaps cleanly)
+      ctx.fillRect(x - 14, base - 22, 5, 22);
+      ctx.fillRect(x - 4,  base - 22, 5, 22);
+      ctx.fillRect(x + 8,  base - 22, 5, 22);
+      ctx.fillRect(x + 18, base - 22, 5, 22);
+
+      // Body
+      ctx.beginPath();
+      ctx.ellipse(x + 4, base - 26, 22, 12, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Neck
+      ctx.beginPath();
+      ctx.moveTo(x + 16, base - 34);
+      ctx.lineTo(x + 20, base - 54);
+      ctx.lineTo(x + 28, base - 52);
+      ctx.lineTo(x + 24, base - 30);
+      ctx.closePath();
+      ctx.fill();
+
+      // Head
+      ctx.beginPath();
+      ctx.ellipse(x + 27, base - 59, 10, 7, -0.2, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Droopy moose snout
+      ctx.beginPath();
+      ctx.ellipse(x + 36, base - 57, 7, 5, 0.4, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Antlers
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 3;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      // Left antler
+      ctx.moveTo(x + 21, base - 63);
+      ctx.lineTo(x + 15, base - 79);
+      ctx.lineTo(x + 9,  base - 72);
+      ctx.moveTo(x + 15, base - 79);
+      ctx.lineTo(x + 12, base - 86);
+      ctx.moveTo(x + 15, base - 79);
+      ctx.lineTo(x + 21, base - 83);
+      // Right antler
+      ctx.moveTo(x + 27, base - 64);
+      ctx.lineTo(x + 31, base - 80);
+      ctx.lineTo(x + 37, base - 73);
+      ctx.moveTo(x + 31, base - 80);
+      ctx.lineTo(x + 33, base - 87);
+      ctx.moveTo(x + 31, base - 80);
+      ctx.lineTo(x + 25, base - 84);
+      ctx.stroke();
+      ctx.lineWidth = 1;
+      ctx.lineCap = 'butt';
+    }
+
+    // ─────────────────────────────────────────
     // DRAWING — timer + high score proximity
     // ─────────────────────────────────────────
     function drawTimer() {
       ctx.textAlign = 'right';
 
       // Current time
-      ctx.font = 'bold 15px Georgia, serif';
+      ctx.font = 'bold 18px Georgia, serif';
       ctx.fillStyle = '#000';
-      ctx.fillText(formatTime(elapsed), W - 10, H - 22);
+      ctx.fillText(formatTime(elapsed), W - 10, H - 20);
 
       // High score comparison line
       if (globalBest && globalBest.score > 0) {
@@ -857,8 +949,15 @@
       // Ground
       drawGround();
 
-      // Trees
-      trees.forEach(function (t) { drawTree(t.x, t.h); });
+      // Trees (obstacle + decorative small)
+      trees.forEach(function      (t) { drawTree(t.x, t.h); });
+      smallTrees.forEach(function (t) { drawTree(t.x, t.h); });
+
+      // Ground animals
+      animals.forEach(function (a) {
+        if (a.type === 'bear') drawBear(a.x);
+        else                   drawMoose(a.x);
+      });
 
       // Clouds
       clouds.forEach(function (c) { drawCloud(c); });
