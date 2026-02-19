@@ -173,7 +173,7 @@
       </a>
     </div>
     <a href="contact.html#newsletter" class="newsletter-link"><span class="sym">🗞️</span> Newsletter <span class="sym">🗞️</span></a>
-    <p>© 2025–2026 Andrew Newell Walther. All rights reserved.</p>
+    <p>© 2025–2026 Andrew Newell Walther. All rights reserved. <span id="airHitCount" style="margin-left:0.5rem;font-size:0.82rem;color:#666;"></span></p>
   </footer>
 
   <script>
@@ -1293,6 +1293,15 @@
     resetAll();
     fetchGlobalBest();
     requestAnimationFrame(loop);
+
+    // Hit counter — record this page visit and display total
+    fetch(GAS_URL + '?type=air_hit')
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        var el = document.getElementById('airHitCount');
+        if (el && d.count) el.textContent = d.count.toLocaleString() + ' visits';
+      })
+      .catch(function () {});
 
   }());
   </script>

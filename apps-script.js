@@ -9,6 +9,7 @@
 //      "Suggestions" → Row 1: suggestion | timestamp
 //      "Newsletter"  → Row 1: name | email | timestamp
 //      "Air Game"    → Row 1: user | score | timestamp
+//      "Air Hits"    → Row 1: timestamp
 //
 // 2. Paste this file into script.google.com → Deploy → New deployment
 //      Type: Web app | Execute as: Me | Who has access: Anyone
@@ -60,6 +61,16 @@ function doGet(e) {
       }
       return ContentService
         .createTextOutput(JSON.stringify(best))
+        .setMimeType(ContentService.MimeType.JSON);
+
+    // ── Air page hit counter ───────────────────────────────────
+
+    } else if (p.type === 'air_hit') {
+      const sheet = ss.getSheetByName('Air Hits');
+      sheet.appendRow([timestamp]);
+      const count = Math.max(0, sheet.getLastRow() - 1);  // subtract header row
+      return ContentService
+        .createTextOutput(JSON.stringify({ count: count }))
         .setMimeType(ContentService.MimeType.JSON);
 
     } else if (p.type === 'air_submit') {
