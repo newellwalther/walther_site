@@ -224,7 +224,7 @@
     var plane, trees, smallTrees, animals, clouds, fish, lakes, fishBits, bgOffset, groundOffset, bgSpeed, frameCount;
     var propAngle, windsockX;
     var hypoxiaTimer, hypoxiaActive, autoDescending, inputThisFrame;
-    var looping, loopT, loopStartY, loopCenterY;
+    var looping, loopT, loopStartY, loopCenterY, postLoop;
     var prevBearMilestone, prevMooseMilestone;
     var crashPieces, crashTimer;
 
@@ -254,7 +254,7 @@
       hypoxiaTimer = 0;
       hypoxiaActive = false;
       autoDescending = false;
-      looping = false; loopT = 0; loopStartY = 0; loopCenterY = 0;
+      looping = false; loopT = 0; loopStartY = 0; loopCenterY = 0; postLoop = false;
       inputThisFrame = false;
       prevBearMilestone = 0;
       prevMooseMilestone = 0;
@@ -367,9 +367,15 @@
         plane.angle = -loopT * loopArc;  // nose-up → inverted → past nose-down
         if (loopT >= 1) {
           looping    = false;
+          postLoop   = true;   // unrecoverable nose-down dive into ground
           plane.velY = MAX_FALL;
           plane.angle = 0.44;
         }
+      } else if (postLoop) {
+        // Unrecoverable post-loop dive — no input, falls straight to ground
+        plane.velY = Math.min(plane.velY + (GRAVITY + 0.6) * dt, 10);
+        plane.y   += plane.velY * dt;
+        plane.angle = 0.44;
       } else {
         // Normal physics
         if (inputThisFrame && !autoDescending) {
@@ -1062,10 +1068,10 @@
         ctx.drawImage(planeImg, PLANE_IMG_X, PLANE_IMG_Y, PLANE_IMG_W, PLANE_IMG_H);
       }
 
-      // Propeller — overlaps nose cone (approx x=38, y=0 in local coords)
+      // Propeller — overlaps nose cone
       ctx.fillStyle = '#000';
       ctx.save();
-      ctx.translate(38, 0);
+      ctx.translate(38, 5);
       ctx.rotate(propAngle);
       ctx.beginPath();
       ctx.ellipse(0, -11, 3, 11, 0.18, 0, Math.PI * 2);
@@ -1076,7 +1082,7 @@
       ctx.restore();
       // Spinner hub disc (covers prop root)
       ctx.beginPath();
-      ctx.arc(38, 0, 4, 0, Math.PI * 2);
+      ctx.arc(38, 5, 4, 0, Math.PI * 2);
       ctx.fill();
 
       ctx.restore();
