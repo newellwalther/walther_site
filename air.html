@@ -206,6 +206,15 @@
     // Replace with your deployed GAS web app URL after setup
     var GAS_URL = 'https://script.google.com/macros/s/AKfycbxOW7UbzYoJh888mfOREAfyPgH2zxU4Uo93clAHD0Cmqt9CIzzIzG0G1Go_wEy2g_ep/exec';
 
+    // Plane PNG (150×84) — displayed at 100×56, nose at x≈+43 from pivot
+    var planeImg = new Image();
+    planeImg.src = 'images/cherokee-6-warped.png';
+    var PLANE_IMG_X = -57;  // left edge in local plane coords
+    var PLANE_IMG_Y = -25;  // top edge in local plane coords
+    var PLANE_IMG_W = 100;  // display width
+    var PLANE_IMG_H =  56;  // display height
+    var PLANE_IMG_SCALE = PLANE_IMG_W / 150;  // 0.6667
+
     // ─────────────────────────────────────────
     // STATE
     // ─────────────────────────────────────────
@@ -353,8 +362,9 @@
       if (looping) {
         // Scripted loop-de-loop arc: 270° upward then nose-down
         loopT += (dt / 60) / LOOP_DUR;
-        plane.y     = loopCenterY + LOOP_RADIUS * Math.cos(loopT * Math.PI * 1.5);
-        plane.angle = -loopT * Math.PI * 1.5;  // continuous rotation nose-up→inverted→nose-down
+        var loopArc = Math.PI * (280 / 180);   // 280° arc
+        plane.y     = loopCenterY + LOOP_RADIUS * Math.cos(loopT * loopArc);
+        plane.angle = -loopT * loopArc;  // nose-up → inverted → past nose-down
         if (loopT >= 1) {
           looping    = false;
           plane.velY = MAX_FALL;
@@ -575,24 +585,28 @@
     function initCrashPieces() {
       crashPieces = [];
       var px = PLANE_X, py = plane.y;
+      var sc = PLANE_IMG_SCALE;
       function rv(n) { return Math.random() * n; }
-      // [relX, relY, vx, vy, w, h, spin]
+      // Each piece: src rect in original 150×84 image + outward velocity
+      // relX/relY = centre of piece in local plane coords (derived from src centre * sc + offset)
       var defs = [
-        [  8,  0,  2+rv(3), -3-rv(3), 18,  5,  0.12],  // nose
-        [-12,  0, -3-rv(2), -2-rv(2), 14,  5, -0.09],  // tail
-        [  0,  4, -1+rv(3), -5-rv(3), 26,  4,  0.18],  // wing
-        [ -2, -8,  1+rv(2), -4-rv(2), 12,  8,  0.15],  // cabin
-        [-31,  3, -2-rv(2), -1-rv(3),  9,  4, -0.13],  // h-stab
-        [ 42,  0,  4+rv(3), -5-rv(3),  4, 14,  0.28],  // prop
+        // [sx,  sy,  sw,  sh,  relX, relY,  vx,           vy,          spin ]
+        [ 118,  16,  32,  52,    34,    2,   4+rv(2),  -4-rv(3),   0.18 ],  // nose cone
+        [  58,   4,  60,  48,     3,   -5,   1+rv(2),  -5-rv(2),   0.10 ],  // cabin
+        [  18,  36,  90,  48,   -13,   17,  -1+rv(3),  -3-rv(3),  -0.15 ],  // wing
+        [  22,  14,  78,  32,   -10,   -4,  -2+rv(2),  -2-rv(2),   0.08 ],  // mid fuselage
+        [   0,   0,  26,  52,   -49,   -8,  -4-rv(2),  -5-rv(3),  -0.22 ],  // vertical fin
+        [   0,  50,  36,  34,   -45,   20,  -3-rv(2),   1+rv(2),   0.17 ],  // h-stab
       ];
       defs.forEach(function (d) {
         crashPieces.push({
-          x: px + d[0] + (Math.random() - 0.5) * 6,
-          y: py + d[1] + (Math.random() - 0.5) * 4,
-          vx: d[2], vy: d[3],
-          w:  d[4], h:  d[5],
-          angle: (Math.random() - 0.5) * 0.4,
-          spin:  d[6]
+          x:     px + d[4] + (Math.random() - 0.5) * 5,
+          y:     py + d[5] + (Math.random() - 0.5) * 4,
+          vx:    d[6], vy: d[7],
+          angle: (Math.random() - 0.5) * 0.3,
+          spin:  d[8],
+          sx: d[0], sy: d[1], sw: d[2], sh: d[3],
+          dw: d[2] * sc, dh: d[3] * sc   // display size
         });
       });
     }
@@ -948,12 +962,13 @@
     // DRAWING — crash debris pieces
     // ─────────────────────────────────────────
     function drawCrashPieces() {
-      ctx.fillStyle = '#000';
+      if (!planeImg.complete || !planeImg.naturalWidth) return;
       crashPieces.forEach(function (p) {
         ctx.save();
         ctx.translate(p.x, p.y);
         ctx.rotate(p.angle);
-        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.drawImage(planeImg, p.sx, p.sy, p.sw, p.sh,
+                      -p.dw / 2, -p.dh / 2, p.dw, p.dh);
         ctx.restore();
       });
     }
@@ -1035,75 +1050,33 @@
     }
 
     // ─────────────────────────────────────────
-    // DRAWING — plane (Piper Cherokee Six profile)
+    // DRAWING — plane PNG + spinning prop
     // ─────────────────────────────────────────
     function drawPlane() {
       ctx.save();
       ctx.translate(PLANE_X, plane.y);
       ctx.rotate(plane.angle);
+
+      // Draw PNG silhouette
+      if (planeImg.complete && planeImg.naturalWidth) {
+        ctx.drawImage(planeImg, PLANE_IMG_X, PLANE_IMG_Y, PLANE_IMG_W, PLANE_IMG_H);
+      }
+
+      // Propeller — overlaps nose cone (approx x=38, y=0 in local coords)
       ctx.fillStyle = '#000';
-
-      // Fuselage — long, blunt nose, tapers to tail point
-      ctx.beginPath();
-      ctx.moveTo(-34, 0);                              // tail point
-      ctx.lineTo(-30, -3);                             // tail top
-      ctx.bezierCurveTo(-14, -5, 8, -6, 24, -5);      // top fuselage
-      ctx.bezierCurveTo(34, -4, 40, -2, 42, 0);       // nose top
-      ctx.bezierCurveTo(40,  2, 34,  4, 24,  4);      // nose bottom
-      ctx.bezierCurveTo( 8,  5, -14, 4, -30,  2);     // bottom fuselage
-      ctx.lineTo(-34, 0);
-      ctx.closePath();
-      ctx.fill();
-
-      // Cabin — Cherokee-style long greenhouse, flat top
-      ctx.beginPath();
-      ctx.moveTo(-4, -5);
-      ctx.lineTo(-2, -13);
-      ctx.lineTo(20, -13);
-      ctx.lineTo(24,  -5);
-      ctx.closePath();
-      ctx.fill();
-
-      // Low wing — Cherokee is low-wing, roots at belly
-      ctx.beginPath();
-      ctx.moveTo( 12,  3);   // root leading edge
-      ctx.lineTo(-16, 24);   // tip leading edge
-      ctx.lineTo(-11, 26);   // tip trailing edge
-      ctx.lineTo( 18,  5);   // root trailing edge
-      ctx.closePath();
-      ctx.fill();
-
-      // Vertical stabilizer — tall, slightly swept
-      ctx.beginPath();
-      ctx.moveTo(-30, -3);   // base front (fuselage top)
-      ctx.lineTo(-33, -24);  // fin top leading edge
-      ctx.lineTo(-24, -22);  // fin top trailing edge
-      ctx.lineTo(-22, -3);   // base rear
-      ctx.closePath();
-      ctx.fill();
-
-      // Horizontal stabilizer
-      ctx.beginPath();
-      ctx.moveTo(-30,  1);
-      ctx.lineTo(-42,  5);
-      ctx.lineTo(-40,  7);
-      ctx.lineTo(-28,  3);
-      ctx.closePath();
-      ctx.fill();
-
-      // Propeller blades (spinning) + spinner hub
       ctx.save();
-      ctx.translate(42, 0);
+      ctx.translate(38, 0);
       ctx.rotate(propAngle);
       ctx.beginPath();
-      ctx.ellipse(0, -10, 3, 10, 0.18, 0, Math.PI * 2);
+      ctx.ellipse(0, -11, 3, 11, 0.18, 0, Math.PI * 2);
       ctx.fill();
       ctx.beginPath();
-      ctx.ellipse(0,  10, 3, 10, -0.18, 0, Math.PI * 2);
+      ctx.ellipse(0,  11, 3, 11, -0.18, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
+      // Spinner hub disc (covers prop root)
       ctx.beginPath();
-      ctx.arc(42, 0, 3.5, 0, Math.PI * 2);
+      ctx.arc(38, 0, 4, 0, Math.PI * 2);
       ctx.fill();
 
       ctx.restore();
