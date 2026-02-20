@@ -17,6 +17,7 @@ let comics = [];
 let currentIndex = 0;
 let isZoomed = false;
 let isPanning = false;
+let hasDragged = false;
 let startX = 0;
 let startY = 0;
 let scrollLeft = 0;
@@ -167,6 +168,7 @@ function setupLightbox() {
     imageContainer.addEventListener('click', (e) => {
         if (e.target !== image) return;
         if ('ontouchstart' in window) return; // mobile uses pinch/swipe instead
+        if (hasDragged) { hasDragged = false; return; } // suppress click after a pan drag
         if (!isZoomed) {
             // Calculate click position as a fraction of the image
             const rect = image.getBoundingClientRect();
@@ -309,8 +311,9 @@ function setupPanning(container, image) {
     // Mouse panning
     container.addEventListener('mousedown', (e) => {
         if (!isZoomed) return;
-        
+
         isPanning = true;
+        hasDragged = false;
         startX = e.pageX - container.offsetLeft;
         startY = e.pageY - container.offsetTop;
         scrollLeft = container.scrollLeft;
@@ -335,6 +338,7 @@ function setupPanning(container, image) {
     container.addEventListener('mousemove', (e) => {
         if (!isPanning) return;
         e.preventDefault();
+        hasDragged = true;
         
         const x = e.pageX - container.offsetLeft;
         const y = e.pageY - container.offsetTop;
