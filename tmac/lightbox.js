@@ -23,11 +23,18 @@ let startY = 0;
 let scrollLeft = 0;
 let scrollTop = 0;
 
-// Touch handling
+// Touch handling (swipe)
 let touchStartX = 0;
 let touchStartY = 0;
 let touchEndX = 0;
 let touchEndY = 0;
+
+// Pinch to zoom (mobile)
+let pinchActive = false;
+let pinchStartDist = 0;
+let pinchCurrentScale = 1;
+let pinchMidFracX = 0.5;
+let pinchMidFracY = 0.5;
 
 // ============================================
 // INITIALIZATION
@@ -349,20 +356,81 @@ function setupPanning(container, image) {
         container.scrollTop = scrollTop - walkY;
     });
     
-    // Touch panning (for mobile when zoomed)
-    let touchStartScrollLeft = 0;
-    let touchStartScrollTop = 0;
-    
+    // Touch: pinch-to-zoom + single-finger pan when zoomed
+    let touchPanStartX = 0;
+    let touchPanStartY = 0;
+    let touchPanScrollLeft = 0;
+    let touchPanScrollTop = 0;
+    let isPanningTouch = false;
+
     container.addEventListener('touchstart', (e) => {
-        if (!isZoomed || e.touches.length !== 1) return;
-        
-        touchStartScrollLeft = container.scrollLeft;
-        touchStartScrollTop = container.scrollTop;
-    });
-    
+        if (e.touches.length === 2) {
+            // Begin pinch
+            pinchActive = true;
+            isPanningTouch = false;
+            pinchStartDist = getTouchDist(e.touches);
+            pinchCurrentScale = 1;
+            const rect = image.getBoundingClientRect();
+            const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+            const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+            pinchMidFracX = Math.max(0, Math.min(1, (midX - rect.left) / rect.width));
+            pinchMidFracY = Math.max(0, Math.min(1, (midY - rect.top) / rect.height));
+            e.preventDefault();
+        } else if (e.touches.length === 1 && isZoomed) {
+            // Begin single-finger pan
+            isPanningTouch = true;
+            touchPanStartX = e.touches[0].clientX;
+            touchPanStartY = e.touches[0].clientY;
+            touchPanScrollLeft = container.scrollLeft;
+            touchPanScrollTop = container.scrollTop;
+        }
+    }, { passive: false });
+
     container.addEventListener('touchmove', (e) => {
-        if (!isZoomed || e.touches.length !== 1) return;
-        e.preventDefault();
+        if (pinchActive && e.touches.length === 2) {
+            const newDist = getTouchDist(e.touches);
+            pinchCurrentScale = Math.max(0.5, Math.min(4, newDist / pinchStartDist));
+            image.style.transform = `scale(${pinchCurrentScale})`;
+            image.style.transformOrigin = `${pinchMidFracX * 100}% ${pinchMidFracY * 100}%`;
+            e.preventDefault();
+        } else if (isPanningTouch && isZoomed && e.touches.length === 1) {
+            e.preventDefault();
+            const dx = e.touches[0].clientX - touchPanStartX;
+            const dy = e.touches[0].clientY - touchPanStartY;
+            container.scrollLeft = touchPanScrollLeft - dx;
+            container.scrollTop = touchPanScrollTop - dy;
+        }
+    }, { passive: false });
+
+    container.addEventListener('touchend', (e) => {
+        if (pinchActive && e.touches.length < 2) {
+            pinchActive = false;
+            // Clear the live transform
+            image.style.transform = '';
+            image.style.transformOrigin = '';
+
+            if (pinchCurrentScale > 1.2) {
+                // Commit zoom: apply width proportional to pinch scale
+                const zoomPct = Math.max(150, Math.min(400, Math.round(pinchCurrentScale * 100)));
+                isZoomed = true;
+                container.classList.add('zoomed');
+                image.style.maxWidth = 'none';
+                image.style.width = `${zoomPct}%`;
+                image.style.cursor = 'move';
+                requestAnimationFrame(() => {
+                    const scrollX = pinchMidFracX * image.offsetWidth - container.clientWidth / 2;
+                    const scrollY = pinchMidFracY * image.offsetHeight - container.clientHeight / 2;
+                    container.scrollLeft = Math.max(0, scrollX);
+                    container.scrollTop = Math.max(0, scrollY);
+                });
+            } else {
+                resetZoom();
+            }
+            pinchCurrentScale = 1;
+        }
+        if (e.touches.length === 0) {
+            isPanningTouch = false;
+        }
     });
 }
 
@@ -397,21 +465,27 @@ function setupKeyboardNavigation() {
 // TOUCH GESTURES (MOBILE)
 // ============================================
 
+function getTouchDist(touches) {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+}
+
 function setupTouchGestures() {
     const lightbox = document.getElementById('lightbox');
-    
+
     lightbox.addEventListener('touchstart', (e) => {
         if (!lightbox.classList.contains('active')) return;
-        if (isZoomed) return; // Don't swipe when zoomed
-        
+        if (isZoomed || pinchActive || e.touches.length > 1) return;
+
         touchStartX = e.changedTouches[0].screenX;
         touchStartY = e.changedTouches[0].screenY;
     });
-    
+
     lightbox.addEventListener('touchend', (e) => {
         if (!lightbox.classList.contains('active')) return;
-        if (isZoomed) return; // Don't swipe when zoomed
-        
+        if (isZoomed || pinchActive || e.touches.length > 0) return;
+
         touchEndX = e.changedTouches[0].screenX;
         touchEndY = e.changedTouches[0].screenY;
         handleSwipe();
