@@ -226,7 +226,7 @@
     var hypoxiaTimer, hypoxiaActive, autoDescending, inputThisFrame;
     var looping, loopT, loopStartY, loopCenterY, postLoop;
     var prevBearMilestone, prevMooseMilestone;
-    var crashPieces, crashTimer;
+    var crashPieces, crashParticles, crashTimer;
 
     function resetAll() {
       plane = {
@@ -258,6 +258,7 @@
       inputThisFrame = false;
       prevBearMilestone = 0;
       prevMooseMilestone = 0;
+      crashParticles = [];
     }
 
     // ─────────────────────────────────────────
@@ -587,6 +588,40 @@
       state = 'crashing';
       crashTimer = 0;
       initCrashPieces();
+      initCrashParticles();
+    }
+
+    function initCrashParticles() {
+      crashParticles = [];
+      var cx = PLANE_X, cy = plane.y;
+      var flameColors = ['#ffdd00', '#ffaa00', '#ff6600', '#dd2200'];
+      function rv(n) { return Math.random() * n; }
+      // Flames — shoot upward from impact point
+      for (var i = 0; i < 22; i++) {
+        crashParticles.push({
+          x: cx + (Math.random() - 0.5) * 28,
+          y: cy + (Math.random() - 0.5) * 10,
+          vx: (Math.random() - 0.5) * 3.5,
+          vy: -4 - rv(5),
+          life: 28 + rv(20),
+          maxLife: 28 + rv(20),
+          size: 5 + rv(8),
+          color: flameColors[Math.floor(Math.random() * flameColors.length)]
+        });
+      }
+      // Blood — spray outward
+      for (var i = 0; i < 16; i++) {
+        crashParticles.push({
+          x: cx + (Math.random() - 0.5) * 20,
+          y: cy + (Math.random() - 0.5) * 8,
+          vx: (Math.random() - 0.5) * 7,
+          vy: -1 - rv(5),
+          life: 18 + rv(14),
+          maxLife: 18 + rv(14),
+          size: 2 + rv(3.5),
+          color: Math.random() < 0.5 ? '#c00010' : '#8b0000'
+        });
+      }
     }
 
     function initCrashPieces() {
@@ -623,8 +658,14 @@
       crashPieces.forEach(function (p) {
         p.x    += p.vx  * dt;
         p.y    += p.vy  * dt;
-        p.vy   += 0.28  * dt;   // gravity on debris
+        p.vy   += 0.28  * dt;
         p.angle += p.spin * dt;
+      });
+      crashParticles.forEach(function (p) {
+        p.x    += p.vx * dt;
+        p.y    += p.vy * dt;
+        p.vy   += 0.22 * dt;   // gravity
+        p.life -= dt;
       });
       if (crashTimer >= CRASH_DUR) {
         state = 'dead';
@@ -980,6 +1021,21 @@
       });
     }
 
+    // DRAWING — crash flames and blood particles
+    function drawCrashParticles() {
+      crashParticles.forEach(function (p) {
+        if (p.life <= 0) return;
+        var alpha = Math.min(1, p.life / (p.maxLife * 0.45));
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = p.color;
+        var r = p.size * (p.life / p.maxLife);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, Math.max(0.5, r), 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+    }
+
     // Route obstacle draw by type
     function drawObstacle(t) {
       if      (t.type === 'cabin') drawCabin(t.x, t.h);
@@ -1072,7 +1128,7 @@
       // Propeller — overlaps nose cone
       ctx.fillStyle = '#000';
       ctx.save();
-      ctx.translate(39, 8);
+      ctx.translate(40, 9);
       ctx.rotate(propAngle);
       ctx.beginPath();
       ctx.ellipse(0, -8, 2.5, 8, 0.18, 0, Math.PI * 2);
@@ -1083,7 +1139,7 @@
       ctx.restore();
       // Spinner hub disc
       ctx.beginPath();
-      ctx.arc(39, 8, 3.5, 0, Math.PI * 2);
+      ctx.arc(40, 9, 3.5, 0, Math.PI * 2);
       ctx.fill();
 
       ctx.restore();
@@ -1341,7 +1397,7 @@
 
       // Plane (replaced by debris during crash)
       if (state !== 'crashing') drawPlane();
-      if (state === 'crashing') drawCrashPieces();
+      if (state === 'crashing') { drawCrashParticles(); drawCrashPieces(); }
 
       // Timer
       if (state === 'flying' || state === 'crashing' || state === 'dead') drawTimer();
