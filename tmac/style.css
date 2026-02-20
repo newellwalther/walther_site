@@ -69,20 +69,6 @@ header h1 {
 }
 
 /* ============================================
-   AD CONTAINER
-   ============================================ */
-
-.ad-container {
-    margin: 30px auto;
-    text-align: center;
-    padding: 20px;
-    background-color: #f8f8f8;
-    border: 1px solid #cccccc;
-    min-height: 100px;
-    max-width: 728px;
-}
-
-/* ============================================
    COMICS LIST
    ============================================ */
 
@@ -429,10 +415,6 @@ footer {
         padding: 50px 10px 80px;
     }
     
-    .ad-container {
-        max-width: 320px;
-        margin: 20px auto;
-    }
 }
 
 /* ============================================
@@ -441,7 +423,6 @@ footer {
 
 @media print {
     .back-nav,
-    .ad-container,
     .hit-counter,
     .lightbox {
         display: none;
