@@ -567,13 +567,14 @@
     }
 
     function spawnFishBits(x, y) {
-      for (var i = 0; i < 7; i++) {
+      for (var i = 0; i < 10; i++) {
         fishBits.push({
           x: x, y: y,
-          vx: (Math.random() - 0.5) * 7,
+          vx: (Math.random() - 0.5) * 8,
           vy: -2.5 - Math.random() * 4,
           life: 20 + Math.random() * 14,
-          size: 1.5 + Math.random() * 2.5
+          size: 1.5 + Math.random() * 2.5,
+          red: i < 5   // roughly half the bits are blood
         });
       }
     }
@@ -1045,9 +1046,9 @@
     // DRAWING — fish shred bits
     // ─────────────────────────────────────────
     function drawFishBits() {
-      ctx.fillStyle = '#000';
       fishBits.forEach(function (b) {
         ctx.globalAlpha = Math.min(1, b.life / 15);
+        ctx.fillStyle = b.red ? '#c0000a' : '#000';
         ctx.beginPath();
         ctx.arc(b.x, b.y, b.size, 0, Math.PI * 2);
         ctx.fill();
@@ -1071,18 +1072,18 @@
       // Propeller — overlaps nose cone
       ctx.fillStyle = '#000';
       ctx.save();
-      ctx.translate(38, 5);
+      ctx.translate(38, 7);
       ctx.rotate(propAngle);
       ctx.beginPath();
-      ctx.ellipse(0, -11, 3, 11, 0.18, 0, Math.PI * 2);
+      ctx.ellipse(0, -8, 2.5, 8, 0.18, 0, Math.PI * 2);
       ctx.fill();
       ctx.beginPath();
-      ctx.ellipse(0,  11, 3, 11, -0.18, 0, Math.PI * 2);
+      ctx.ellipse(0,  8, 2.5, 8, -0.18, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
-      // Spinner hub disc (covers prop root)
+      // Spinner hub disc
       ctx.beginPath();
-      ctx.arc(38, 5, 4, 0, Math.PI * 2);
+      ctx.arc(38, 7, 3.5, 0, Math.PI * 2);
       ctx.fill();
 
       ctx.restore();
