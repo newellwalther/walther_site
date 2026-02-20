@@ -1285,16 +1285,35 @@
 
       // Fish counter (appears after first catch)
       if (fishCount > 0) {
+        var countStr = '\xD7' + fishCount;
         ctx.font = '11px Georgia, serif';
+        var tw = ctx.measureText(countStr).width;
+        // Canvas fish icon — nose to the right, center at (iconX, 60)
+        var iconX = W - 8 - tw - 8;
+        ctx.save();
+        ctx.translate(iconX, 60);
+        ctx.scale(0.78, 0.78);
         ctx.fillStyle = '#000';
-        ctx.fillText('\uD83D\uDC1F \xD7' + fishCount, W - 8, 64);
-        // "+3s" bonus flash
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 7, 3.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(-7, 0); ctx.lineTo(-13, -4); ctx.lineTo(-13, 4);
+        ctx.closePath(); ctx.fill();
+        ctx.fillStyle = '#fff';
+        ctx.beginPath(); ctx.arc(4, -1, 1.5, 0, Math.PI * 2); ctx.fill();
+        ctx.restore();
+        // Count or "+3s" flash
         if (fishBonusFlash > 0) {
           ctx.globalAlpha = fishBonusFlash;
-          ctx.font = 'bold 13px Georgia, serif';
+          ctx.font = 'bold 12px Georgia, serif';
           ctx.fillStyle = '#007700';
           ctx.fillText('+3s', W - 8, 64);
           ctx.globalAlpha = 1;
+        } else {
+          ctx.font = '11px Georgia, serif';
+          ctx.fillStyle = '#000';
+          ctx.fillText(countStr, W - 8, 64);
         }
       }
 
@@ -1342,7 +1361,7 @@
       var lines = [
         'Keep the plane aloft. Avoid trees and clouds.',
         'Flying too high triggers a hypoxia alert — descend fast.',
-        'Hit a fish with your propeller for a 3-second time bonus.',
+        'Fish strikes earn a 3-second time bonus.',
         '',
         'Repeatedly press to climb.  Release to descend.',
         '',
@@ -1371,7 +1390,7 @@
       ctx.textAlign = 'center';
 
       ctx.font = 'bold 21px Georgia, serif';
-      ctx.fillText('GAME OVER', W / 2, by + 34);
+      ctx.fillText('PILOT ERROR', W / 2, by + 34);
 
       ctx.font = '15px Georgia, serif';
       ctx.fillText('Time aloft:  ' + formatTime(elapsed), W / 2, by + 63);
