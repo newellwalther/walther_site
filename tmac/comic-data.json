@@ -1,0 +1,148 @@
+{
+  "comics": [
+    {
+      "date": "September 11, 2025",
+      "title": "Kindergarten",
+      "filename": "september-11-2025-kindergarten",
+      "format": "jpg"
+    },
+    {
+      "date": "August 5, 2022",
+      "title": "The Best Show",
+      "filename": "august-5-2022-the-best-show",
+      "format": "jpg"
+    },
+    {
+      "date": "May 22, 2022",
+      "title": "Beau James",
+      "filename": "may-22-2022-beau-james",
+      "format": "png"
+    },
+    {
+      "date": "May 16, 2022",
+      "title": "Nightmare Disorder",
+      "filename": "may-16-2022-nightmare-disorder",
+      "format": "png"
+    },
+    {
+      "date": "May 8, 2022",
+      "title": "Enhanced Interrogation Techniques",
+      "filename": "may-8-2022-enhanced-interrogation-techniques",
+      "format": "png"
+    },
+    {
+      "date": "April 22, 2022",
+      "title": "Hot Dog",
+      "filename": "april-22-2022-hot-dog",
+      "format": "png"
+    },
+    {
+      "date": "April 8, 2022",
+      "title": "Service With a Smile",
+      "filename": "april-8-2022-service-with-a-smile",
+      "format": "png"
+    },
+    {
+      "date": "April 1, 2022",
+      "title": "Foreign Legion",
+      "filename": "april-1-2022-foreign-legion",
+      "format": "png"
+    },
+    {
+      "date": "March 25, 2022",
+      "title": "Ha Ha",
+      "filename": "march-25-2022-ha-ha",
+      "format": "png"
+    },
+    {
+      "date": "March 18, 2022",
+      "title": "Patron",
+      "filename": "march-18-2022-patron",
+      "format": "png"
+    },
+    {
+      "date": "March 11, 2022",
+      "title": "Taxi!",
+      "filename": "march-11-2022-Taxi-exclamation-point",
+      "format": "png"
+    },
+    {
+      "date": "March 4, 2022",
+      "title": "Critique",
+      "filename": "march-4-2022-critique",
+      "format": "jpg"
+    },
+    {
+      "date": "February 25, 2022",
+      "title": "Idle Threat?",
+      "filename": "february-25-2022-idle-threat-question-mark",
+      "format": "jpg"
+    },
+    {
+      "date": "February 18, 2022",
+      "title": "Dept. of Sanitation",
+      "filename": "february-18-2022-dept-of-sanitation",
+      "format": "png"
+    },
+    {
+      "date": "February 11, 2022",
+      "title": "Falling Into Criticism",
+      "filename": "february-11-2022-falling-into-criticism",
+      "format": "png"
+    },
+    {
+      "date": "February 5, 2022",
+      "title": "Morning In New York",
+      "filename": "february-5-2022-morning-in-new-york",
+      "format": "png"
+    },
+    {
+      "date": "January 28, 2022",
+      "title": "Pastrami",
+      "filename": "january-28-2022-pastrami",
+      "format": "png"
+    },
+    {
+      "date": "January 21, 2022",
+      "title": "Metro Card",
+      "filename": "january-21-2022-metro-card",
+      "format": "png"
+    },
+    {
+      "date": "January 14, 2022",
+      "title": "Bodega",
+      "filename": "january-14-2022-bodega",
+      "format": "png"
+    },
+    {
+      "date": "December 17, 2021",
+      "title": "New York Slice",
+      "filename": "december-17-2021-new-york-slice",
+      "format": "jpg"
+    },
+    {
+      "date": "December 10, 2021",
+      "title": "Gallery Visit",
+      "filename": "decembe-10-2021-gallery-visit",
+      "format": "jpg"
+    },
+    {
+      "date": "December 2, 2021",
+      "title": "Security",
+      "filename": "december-2-2021-security",
+      "format": "jpg"
+    },
+    {
+      "date": "December 28, 2020",
+      "title": "Dog Painter",
+      "filename": "december-28-2020-dog-painter",
+      "format": "jpg"
+    },
+    {
+      "date": "December 26, 2020",
+      "title": "Godfather",
+      "filename": "december-26-2020-godfather",
+      "format": "png"
+    }
+  ]
+}

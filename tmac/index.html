@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Manhattan Art Comic</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Back Navigation -->
+    <div class="back-nav">
+        <a href="https://19933.biz/manhattanartreview.html">← Back to Manhattan Art Review</a>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <h1>The Manhattan Art Comic</h1>
+        <p class="byline">by <a href="https://walther.website" style="color: inherit; text-decoration: underline;">Andrew Newell Walther</a></p>
+    </header>
+
+    <!-- Ad Slot (Top) -->
+    <div id="ad-slot-top" class="ad-container">
+        <!-- Your ad code goes here -->
+        <!-- Example: Square ad (300x250) or Horizontal banner (728x90) -->
+    </div>
+
+    <!-- Comics Container -->
+    <main id="comics-container" class="comics-list">
+        <!-- Comics will be loaded here by JavaScript -->
+        <div class="loading">Loading comics...</div>
+    </main>
+
+    <!-- Bottom Navigation & Stats -->
+    <footer>
+        <div class="back-nav">
+            <a href="https://19933.biz/manhattanartreview.html">← Back to Manhattan Art Review</a>
+        </div>
+        
+        <!-- Hit Counter Slot -->
+        <div id="hit-counter" class="hit-counter">
+            <!-- Your hit counter code goes here -->
+            <!-- Example from original site: -->
+            <!-- <a href="https://www.hitwebcounter.com">
+                <img src="https://hitwebcounter.com/counter/counter.php?page=7731710&style=0040&nbdigits=5&type=page&initCount=0" title="Total Website Hits" alt="Web Hits">
+            </a> -->
+        </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <div class="lightbox-overlay"></div>
+        <div class="lightbox-content">
+            <button class="lightbox-close" aria-label="Close">&times;</button>
+            <button class="lightbox-prev" aria-label="Previous">‹</button>
+            <button class="lightbox-next" aria-label="Next">›</button>
+            
+            <div class="lightbox-image-container">
+                <img id="lightbox-image" src="" alt="" draggable="false">
+            </div>
+            
+            <div class="lightbox-info">
+                <div class="lightbox-date" id="lightbox-date"></div>
+                <div class="lightbox-title" id="lightbox-title"></div>
+                <div class="lightbox-counter" id="lightbox-counter"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Configuration -->
+    <script>
+        // ============================================
+        // CONFIGURATION - EDIT THESE VALUES
+        // ============================================
+        
+        const CONFIG = {
+            // Your R2 public URL (copy from Cloudflare R2 bucket settings)
+            r2BaseUrl: 'https://pub-fcf0788a82b94428b78b73e98356e858.r2.dev',
+            
+            // Path to your comic data JSON file
+            comicDataPath: './comic-data.json',
+        };
+    </script>
+
+    <script src="lightbox.js"></script>
+</body>
+</html>
