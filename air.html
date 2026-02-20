@@ -222,6 +222,7 @@
     var elapsed = 0;      // seconds aloft
     var globalBest = null;
     var plane, trees, smallTrees, animals, clouds, fish, lakes, fishBits, bgOffset, groundOffset, bgSpeed, frameCount;
+    var fishCount, fishBonusFlash;
     var propAngle, windsockX;
     var hypoxiaTimer, hypoxiaActive, autoDescending, inputThisFrame;
     var looping, loopT, loopStartY, loopCenterY, postLoop;
@@ -243,6 +244,8 @@
       fishBits = [];
       lakes = [];
       crashPieces = [];
+      fishCount = 0;
+      fishBonusFlash = 0;
       propAngle = 0;
       windsockX = 700;
       crashTimer = 0;
@@ -359,6 +362,7 @@
     function updateFlying(dt) {
       var diff = getDiff();
       elapsed += dt / 60;
+      if (fishBonusFlash > 0) fishBonusFlash = Math.max(0, fishBonusFlash - dt / 60 / 0.85);
 
       if (looping) {
         // Scripted loop-de-loop arc: 270° upward then nose-down
@@ -442,6 +446,9 @@
         if (f.y >= GROUND_Y + 8) return false;
         if (Math.abs(f.x - propX) < 15 && Math.abs(f.y - propY) < 15) {
           spawnFishBits(f.x, f.y);
+          elapsed += 3;
+          fishCount++;
+          fishBonusFlash = 1.0;
           return false;
         }
         return true;
@@ -1249,9 +1256,10 @@
     // DRAWING — timer + high score proximity (top-right)
     // ─────────────────────────────────────────
     function drawTimer() {
+      var boxH = (fishCount > 0) ? 70 : 53;
       // White backing so text is legible over any scenery
       ctx.fillStyle = 'rgba(255,255,255,0.88)';
-      ctx.fillRect(W - 122, 3, 120, 53);
+      ctx.fillRect(W - 122, 3, 120, boxH);
 
       ctx.textAlign = 'right';
 
@@ -1272,6 +1280,21 @@
             ctx.fillStyle = '#000';
             ctx.fillText('NEW RECORD', W - 8, 46);
           }
+        }
+      }
+
+      // Fish counter (appears after first catch)
+      if (fishCount > 0) {
+        ctx.font = '11px Georgia, serif';
+        ctx.fillStyle = '#000';
+        ctx.fillText('\uD83D\uDC1F \xD7' + fishCount, W - 8, 64);
+        // "+3s" bonus flash
+        if (fishBonusFlash > 0) {
+          ctx.globalAlpha = fishBonusFlash;
+          ctx.font = 'bold 13px Georgia, serif';
+          ctx.fillStyle = '#007700';
+          ctx.fillText('+3s', W - 8, 64);
+          ctx.globalAlpha = 1;
         }
       }
 
@@ -1319,6 +1342,7 @@
       var lines = [
         'Keep the plane aloft. Avoid trees and clouds.',
         'Flying too high triggers a hypoxia alert — descend fast.',
+        'Hit a fish with your propeller for a 3-second time bonus.',
         '',
         'Repeatedly press to climb.  Release to descend.',
         '',
