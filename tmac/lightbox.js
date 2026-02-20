@@ -163,10 +163,18 @@ function setupLightbox() {
     prevBtn.addEventListener('click', () => navigateLightbox(-1));
     nextBtn.addEventListener('click', () => navigateLightbox(1));
     
-    // Zoom on click
+    // Zoom on click — zoom into the clicked point on desktop
     imageContainer.addEventListener('click', (e) => {
-        if (e.target === image) {
-            toggleZoom();
+        if (e.target !== image) return;
+        if ('ontouchstart' in window) return; // mobile uses pinch/swipe instead
+        if (!isZoomed) {
+            // Calculate click position as a fraction of the image
+            const rect = image.getBoundingClientRect();
+            const fracX = (e.clientX - rect.left) / rect.width;
+            const fracY = (e.clientY - rect.top) / rect.height;
+            zoomIntoPoint(fracX, fracY);
+        } else {
+            resetZoom();
         }
     });
     
@@ -196,28 +204,41 @@ function openLightbox(index) {
     currentIndex = index;
     const lightbox = document.getElementById('lightbox');
     const image = document.getElementById('lightbox-image');
+    const spinner = document.querySelector('.lightbox-spinner');
     const comic = comics[index];
-    
+
+    // Show spinner, hide image until loaded
+    spinner.classList.add('active');
+    image.style.opacity = '0';
+
     // Set image
+    image.onload = () => {
+        spinner.classList.remove('active');
+        image.style.opacity = '1';
+    };
+    image.onerror = () => {
+        spinner.classList.remove('active');
+        image.style.opacity = '1';
+    };
     image.src = getFullUrl(comic);
     image.alt = `${comic.title} by Andrew Newell Walther`;
-    
+
     // Set download attribute with artist name
     image.download = `andrew-newell-walther-${comic.filename}.${comic.format}`;
-    
+
     // Update info
     document.getElementById('lightbox-date').textContent = comic.date;
     document.getElementById('lightbox-title').textContent = comic.title;
     document.getElementById('lightbox-counter').textContent = `${index + 1} of ${comics.length}`;
-    
+
     // Update navigation buttons
     document.querySelector('.lightbox-prev').disabled = (index === 0);
     document.querySelector('.lightbox-next').disabled = (index === comics.length - 1);
-    
+
     // Show lightbox
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
-    
+
     // Reset zoom
     isZoomed = false;
     resetZoom();
@@ -244,19 +265,29 @@ function navigateLightbox(direction) {
 // ZOOM & PAN
 // ============================================
 
-function toggleZoom() {
+function zoomIntoPoint(fracX, fracY) {
     const container = document.querySelector('.lightbox-image-container');
     const image = document.getElementById('lightbox-image');
-    
+
+    isZoomed = true;
+    container.classList.add('zoomed');
+    image.style.maxWidth = 'none';
+    image.style.width = '200%';
+    image.style.cursor = 'move';
+
+    // After the DOM repaints at the new size, scroll so the clicked point stays centred
+    requestAnimationFrame(() => {
+        const scrollX = fracX * image.offsetWidth - container.clientWidth / 2;
+        const scrollY = fracY * image.offsetHeight - container.clientHeight / 2;
+        container.scrollLeft = Math.max(0, scrollX);
+        container.scrollTop = Math.max(0, scrollY);
+    });
+}
+
+function toggleZoom() {
     if (!isZoomed) {
-        // Zoom in
-        isZoomed = true;
-        container.classList.add('zoomed');
-        image.style.maxWidth = 'none';
-        image.style.width = '200%'; // 2x zoom
-        image.style.cursor = 'move';
+        zoomIntoPoint(0.5, 0.5); // fallback: zoom into centre
     } else {
-        // Zoom out
         resetZoom();
     }
 }
