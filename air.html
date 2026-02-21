@@ -328,9 +328,9 @@
       var t = elapsed;
       return {
         speed:          Math.min(2.0 + t * 0.0085, 4.8),
-        treeMaxH:       Math.min(36 + t * 0.55,  115),
+        treeMaxH:       Math.min(36 + t * 0.55,  200),
         treeMinGap:     Math.max(310 - t * 0.50,  135),
-        cloudBottomMin: Math.min(52 + t * 0.60,  175),
+        cloudBottomMin: Math.min(52 + t * 0.60,  220),
         treeChance:     Math.min(0.0022 + t * 0.000028, 0.009),
         cloudChance:    Math.min(0.0009 + t * 0.000014, 0.004)
       };
@@ -512,6 +512,8 @@
       inputThisFrame = false;
     }
 
+    var MIN_CLOUD_TREE_GAP = 58; // minimum passable gap between cloud bottom and tree top
+
     function spawnObjects(diff) {
       if (Math.random() < diff.treeChance) {
         var lastT = trees[trees.length - 1];
@@ -535,6 +537,11 @@
             h  = 36 + Math.random() * 22;   // radius 36–58
             hw = Math.round(h * 1.1);
           }
+          // If any cloud is on screen, cap this tree's height so the gap is passable
+          clouds.forEach(function (c) {
+            var maxH = GROUND_Y - c.bottom - MIN_CLOUD_TREE_GAP;
+            if (maxH > 0) h = Math.min(h, maxH);
+          });
           trees.push({ x: W + 30, h: h, type: type, hw: hw });
         }
       }
