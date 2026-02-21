@@ -921,7 +921,7 @@
     }
 
     // ─────────────────────────────────────────
-    // DRAWING — totem pole (PNG)
+    // DRAWING — totem pole (PNG, canvas fallback)
     // ─────────────────────────────────────────
     function drawTotem(cx, h) {
       if (totemImg.complete && totemImg.naturalWidth) {
@@ -929,6 +929,15 @@
         var dh = h;
         var dw = Math.min(dh * aspect, 60); // cap width so it doesn't sprawl
         ctx.drawImage(totemImg, cx - dw / 2, GROUND_Y - dh, dw, dh);
+      } else {
+        // Fallback: canvas totem — post + two horizontal crossarms
+        ctx.fillStyle = '#000';
+        var postW = Math.max(8, Math.round(h * 0.12));
+        ctx.fillRect(cx - postW / 2, GROUND_Y - h, postW, h);
+        var arm1W = Math.min(Math.round(h * 0.68), 54);
+        ctx.fillRect(cx - arm1W / 2, GROUND_Y - h + Math.round(h * 0.28) - 5, arm1W, 9);
+        var arm2W = Math.min(Math.round(h * 0.48), 40);
+        ctx.fillRect(cx - arm2W / 2, GROUND_Y - h + Math.round(h * 0.62) - 4, arm2W, 8);
       }
     }
 
@@ -1187,7 +1196,7 @@
     }
 
     // ─────────────────────────────────────────
-    // DRAWING — moose (PNG)
+    // DRAWING — moose (PNG, canvas fallback)
     // ─────────────────────────────────────────
     function drawMoose(x) {
       if (mooseImg.complete && mooseImg.naturalWidth) {
@@ -1195,6 +1204,46 @@
         var aspect = mooseImg.naturalWidth / mooseImg.naturalHeight;
         var dw = dh * aspect;
         ctx.drawImage(mooseImg, x - dw / 2, GROUND_Y - dh, dw, dh);
+      } else {
+        // Fallback: canvas moose silhouette — legs, body, neck, head, antlers
+        ctx.fillStyle = '#000';
+        var base = GROUND_Y - 2;
+        // Legs
+        ctx.fillRect(x - 17, base - 26, 6, 26);
+        ctx.fillRect(x - 7,  base - 28, 7, 28);
+        ctx.fillRect(x + 4,  base - 28, 7, 28);
+        ctx.fillRect(x + 14, base - 26, 6, 26);
+        // Body
+        ctx.beginPath();
+        ctx.ellipse(x, base - 34, 24, 13, 0, 0, Math.PI * 2);
+        ctx.fill();
+        // Neck
+        ctx.beginPath();
+        ctx.ellipse(x + 22, base - 50, 8, 13, -0.25, 0, Math.PI * 2);
+        ctx.fill();
+        // Head
+        ctx.beginPath();
+        ctx.ellipse(x + 32, base - 60, 11, 8, 0, 0, Math.PI * 2);
+        ctx.fill();
+        // Antlers (stroked)
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = '#000';
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(x + 24, base - 67);
+        ctx.lineTo(x + 12, base - 82);
+        ctx.lineTo(x + 6,  base - 84);
+        ctx.moveTo(x + 12, base - 82);
+        ctx.lineTo(x + 9,  base - 77);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x + 32, base - 68);
+        ctx.lineTo(x + 44, base - 82);
+        ctx.lineTo(x + 50, base - 84);
+        ctx.moveTo(x + 44, base - 82);
+        ctx.lineTo(x + 46, base - 76);
+        ctx.stroke();
+        ctx.lineWidth = 1;
       }
     }
 
