@@ -209,6 +209,11 @@
     // Plane PNG (150×84) — displayed at 100×56, nose at x≈+43 from pivot
     var planeImg = new Image();
     planeImg.src = 'images/cherokee-6-warped.png';
+
+    // Obstacle / animal / eagle PNGs
+    var mooseImg = new Image(); mooseImg.src = 'images/moose.PNG';
+    var totemImg = new Image(); totemImg.src = 'images/totem-pole.PNG';
+    var eagleImg = new Image(); eagleImg.src = 'images/eagle.PNG';
     var PLANE_IMG_X = -57;  // left edge in local plane coords
     var PLANE_IMG_Y = -25;  // top edge in local plane coords
     var PLANE_IMG_W = 100;  // display width
@@ -222,6 +227,7 @@
     var elapsed = 0;      // seconds aloft
     var globalBest = null;
     var plane, trees, smallTrees, animals, clouds, fish, lakes, fishBits, bgOffset, groundOffset, bgSpeed, frameCount;
+    var eagleAnim = null; // decorative eagle: { x, y, speed }
     var fishCount, fishBonusFlash;
     var propAngle, windsockX;
     var hypoxiaTimer, hypoxiaActive, autoDescending, inputThisFrame;
@@ -263,6 +269,17 @@
       prevMooseMilestone = 0;
       crashParticles = [];
     }
+
+    // Eagle soars through every 2 minutes (real time)
+    // x travels right→left; y undulates gently; alpha fades in/out at edges
+    setInterval(function () {
+      eagleAnim = {
+        x:     W + 70,
+        baseY: 28 + Math.random() * 40,
+        t:     0,          // time accumulator for wing/soar wave
+        speed: 1.0 + Math.random() * 0.5
+      };
+    }, 120000);
 
     // ─────────────────────────────────────────
     // INPUT
@@ -311,9 +328,9 @@
       var t = elapsed;
       return {
         speed:          Math.min(2.0 + t * 0.0085, 4.8),
-        treeMaxH:       Math.min(36 + t * 0.55,  165),
+        treeMaxH:       Math.min(36 + t * 0.55,  115),
         treeMinGap:     Math.max(310 - t * 0.50,  135),
-        cloudBottomMin: Math.min(52 + t * 0.60,  235),
+        cloudBottomMin: Math.min(52 + t * 0.60,  175),
         treeChance:     Math.min(0.0022 + t * 0.000028, 0.009),
         cloudChance:    Math.min(0.0009 + t * 0.000014, 0.004)
       };
@@ -483,6 +500,13 @@
         } else if (hit) {
           doGameOver();
         }
+      }
+
+      // Eagle soar
+      if (eagleAnim) {
+        eagleAnim.x -= eagleAnim.speed * dt;
+        eagleAnim.t += dt / 60;
+        if (eagleAnim.x < -80) eagleAnim = null;
       }
 
       inputThisFrame = false;
@@ -890,48 +914,14 @@
     }
 
     // ─────────────────────────────────────────
-    // DRAWING — totem pole
+    // DRAWING — totem pole (PNG)
     // ─────────────────────────────────────────
     function drawTotem(cx, h) {
-      ctx.fillStyle = '#000';
-      var pw = 13;
-      // Main post
-      ctx.fillRect(cx - pw / 2, GROUND_Y - h, pw, h);
-      // Top face / head
-      var hy = GROUND_Y - h + pw / 2;
-      ctx.beginPath();
-      ctx.arc(cx, hy, pw / 2 + 3, 0, Math.PI * 2);
-      ctx.fill();
-      // Bilateral beaks (left and right — eagle totem)
-      ctx.beginPath();
-      ctx.moveTo(cx - pw / 2 - 3, hy - 2);
-      ctx.lineTo(cx - pw / 2 - 11, hy);
-      ctx.lineTo(cx - pw / 2 - 3,  hy + 2);
-      ctx.closePath(); ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(cx + pw / 2 + 3, hy - 2);
-      ctx.lineTo(cx + pw / 2 + 11, hy);
-      ctx.lineTo(cx + pw / 2 + 3,  hy + 2);
-      ctx.closePath(); ctx.fill();
-      // Wing sections stacked up the pole
-      var sects = h > 95 ? 3 : 2;
-      for (var i = 0; i < sects; i++) {
-        var wy  = GROUND_Y - h * (0.28 + i * 0.27);
-        var ww  = 15 + (sects - i) * 7;  // each wing's half-span beyond post
-        var wh  = Math.max(9, Math.round(h * 0.10));
-        var span = ww + pw;               // full width: left-wing + post + right-wing
-        ctx.fillRect(cx - span / 2, wy - wh / 2, span, wh);
-        // Pointed tips — symmetric on both sides
-        ctx.beginPath();
-        ctx.moveTo(cx - span / 2,     wy - wh / 2);
-        ctx.lineTo(cx - span / 2 - 7, wy);
-        ctx.lineTo(cx - span / 2,     wy + wh / 2);
-        ctx.closePath(); ctx.fill();
-        ctx.beginPath();
-        ctx.moveTo(cx + span / 2,     wy - wh / 2);
-        ctx.lineTo(cx + span / 2 + 7, wy);
-        ctx.lineTo(cx + span / 2,     wy + wh / 2);
-        ctx.closePath(); ctx.fill();
+      if (totemImg.complete && totemImg.naturalWidth) {
+        var aspect = totemImg.naturalWidth / totemImg.naturalHeight;
+        var dh = h;
+        var dw = Math.min(dh * aspect, 60); // cap width so it doesn't sprawl
+        ctx.drawImage(totemImg, cx - dw / 2, GROUND_Y - dh, dw, dh);
       }
     }
 
@@ -1190,66 +1180,37 @@
     }
 
     // ─────────────────────────────────────────
-    // DRAWING — moose silhouette on ground
+    // DRAWING — moose (PNG)
     // ─────────────────────────────────────────
     function drawMoose(x) {
-      ctx.fillStyle = '#000';
-      var base = GROUND_Y - 2;
+      if (mooseImg.complete && mooseImg.naturalWidth) {
+        var dh = 86; // match original canvas moose height
+        var aspect = mooseImg.naturalWidth / mooseImg.naturalHeight;
+        var dw = dh * aspect;
+        ctx.drawImage(mooseImg, x - dw / 2, GROUND_Y - dh, dw, dh);
+      }
+    }
 
-      // Legs (drawn first so body overlaps cleanly)
-      ctx.fillRect(x - 14, base - 22, 5, 22);
-      ctx.fillRect(x - 4,  base - 22, 5, 22);
-      ctx.fillRect(x + 8,  base - 22, 5, 22);
-      ctx.fillRect(x + 18, base - 22, 5, 22);
+    // ─────────────────────────────────────────
+    // DRAWING — decorative eagle (soars right→left, top of screen)
+    // ─────────────────────────────────────────
+    function drawEagle() {
+      if (!eagleAnim || !eagleImg.complete || !eagleImg.naturalWidth) return;
 
-      // Body
-      ctx.beginPath();
-      ctx.ellipse(x + 4, base - 26, 22, 12, 0, 0, Math.PI * 2);
-      ctx.fill();
+      var ew = 58, eh = Math.round(58 * eagleImg.naturalHeight / eagleImg.naturalWidth);
 
-      // Neck
-      ctx.beginPath();
-      ctx.moveTo(x + 16, base - 34);
-      ctx.lineTo(x + 20, base - 54);
-      ctx.lineTo(x + 28, base - 52);
-      ctx.lineTo(x + 24, base - 30);
-      ctx.closePath();
-      ctx.fill();
+      // Gentle vertical undulation — slow thermal soar
+      var y = eagleAnim.baseY + Math.sin(eagleAnim.t * 1.4) * 8;
 
-      // Head
-      ctx.beginPath();
-      ctx.ellipse(x + 27, base - 59, 10, 7, -0.2, 0, Math.PI * 2);
-      ctx.fill();
+      // Fade in over first 80px of travel, fade out over last 80px
+      var travelled = W + 70 - eagleAnim.x;
+      var totalDist = W + 150;
+      var alpha = Math.min(1, Math.min(travelled / 80, (totalDist - travelled) / 80));
+      alpha = Math.max(0, alpha);
 
-      // Droopy moose snout
-      ctx.beginPath();
-      ctx.ellipse(x + 36, base - 57, 7, 5, 0.4, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Antlers
-      ctx.strokeStyle = '#000';
-      ctx.lineWidth = 3;
-      ctx.lineCap = 'round';
-      ctx.beginPath();
-      // Left antler
-      ctx.moveTo(x + 21, base - 63);
-      ctx.lineTo(x + 15, base - 79);
-      ctx.lineTo(x + 9,  base - 72);
-      ctx.moveTo(x + 15, base - 79);
-      ctx.lineTo(x + 12, base - 86);
-      ctx.moveTo(x + 15, base - 79);
-      ctx.lineTo(x + 21, base - 83);
-      // Right antler
-      ctx.moveTo(x + 27, base - 64);
-      ctx.lineTo(x + 31, base - 80);
-      ctx.lineTo(x + 37, base - 73);
-      ctx.moveTo(x + 31, base - 80);
-      ctx.lineTo(x + 33, base - 87);
-      ctx.moveTo(x + 31, base - 80);
-      ctx.lineTo(x + 25, base - 84);
-      ctx.stroke();
-      ctx.lineWidth = 1;
-      ctx.lineCap = 'butt';
+      ctx.globalAlpha = alpha;
+      ctx.drawImage(eagleImg, eagleAnim.x - ew / 2, y - eh / 2, ew, eh);
+      ctx.globalAlpha = 1;
     }
 
     // ─────────────────────────────────────────
@@ -1437,6 +1398,9 @@
       // Fish (jump from lakes, drawn above ground + clouds but below plane)
       fish.forEach(function (f) { drawFish(f); });
       if (fishBits.length) drawFishBits();
+
+      // Eagle (decorative, soars through top of screen)
+      drawEagle();
 
       // Plane (replaced by debris during crash)
       if (state !== 'crashing') drawPlane();
