@@ -227,7 +227,7 @@
     var elapsed = 0;      // seconds aloft
     var globalBest = null;
     var plane, trees, smallTrees, animals, clouds, fish, lakes, fishBits, bgOffset, groundOffset, bgSpeed, frameCount;
-    var eagleAnim = null; // decorative eagle: { x, y, speed }
+    var eagleAnim = null; // decorative eagle: { t } t runs 0→1 over 4 sec
     var fishCount, fishBonusFlash;
     var propAngle, windsockX;
     var hypoxiaTimer, hypoxiaActive, autoDescending, inputThisFrame;
@@ -270,16 +270,10 @@
       crashParticles = [];
     }
 
-    // Eagle soars through every 2 minutes (real time)
-    // x travels right→left; y undulates gently; alpha fades in/out at edges
+    // Eagle swoops diagonally top-right → bottom-center every ~60 seconds
     setInterval(function () {
-      eagleAnim = {
-        x:     W + 70,
-        baseY: 28 + Math.random() * 40,
-        t:     0,          // time accumulator for wing/soar wave
-        speed: 1.0 + Math.random() * 0.5
-      };
-    }, 120000);
+      if (state === 'flying') eagleAnim = { t: 0 };
+    }, 60000);
 
     // ─────────────────────────────────────────
     // INPUT
@@ -502,17 +496,16 @@
         }
       }
 
-      // Eagle soar
+      // Eagle diagonal swoop — ~4 seconds total
       if (eagleAnim) {
-        eagleAnim.x -= eagleAnim.speed * dt;
-        eagleAnim.t += dt / 60;
-        if (eagleAnim.x < -80) eagleAnim = null;
+        eagleAnim.t += dt / 240;
+        if (eagleAnim.t >= 1) eagleAnim = null;
       }
 
       inputThisFrame = false;
     }
 
-    var MIN_CLOUD_TREE_GAP = 58; // minimum passable gap between cloud bottom and tree top
+    var MIN_CLOUD_TREE_GAP = 63; // minimum passable gap between cloud bottom and tree top
 
     function spawnObjects(diff) {
       if (Math.random() < diff.treeChance) {
@@ -647,17 +640,19 @@
           color: flameColors[Math.floor(Math.random() * flameColors.length)]
         });
       }
-      // Blood — spray outward
-      for (var i = 0; i < 16; i++) {
+      // Blood — spray outward in all directions, heavy volume
+      for (var i = 0; i < 55; i++) {
+        var angle = Math.random() * Math.PI * 2;
+        var spd   = 1.5 + rv(9);
         crashParticles.push({
-          x: cx + (Math.random() - 0.5) * 20,
-          y: cy + (Math.random() - 0.5) * 8,
-          vx: (Math.random() - 0.5) * 7,
-          vy: -1 - rv(5),
-          life: 18 + rv(14),
-          maxLife: 18 + rv(14),
-          size: 2 + rv(3.5),
-          color: Math.random() < 0.5 ? '#c00010' : '#8b0000'
+          x: cx + (Math.random() - 0.5) * 36,
+          y: cy + (Math.random() - 0.5) * 14,
+          vx: Math.cos(angle) * spd,
+          vy: Math.sin(angle) * spd - 1.5,  // slight upward bias
+          life: 22 + rv(28),
+          maxLife: 22 + rv(28),
+          size: 1.5 + rv(6),
+          color: Math.random() < 0.55 ? '#c00010' : (Math.random() < 0.5 ? '#8b0000' : '#ff1a1a')
         });
       }
     }
@@ -1248,24 +1243,28 @@
     }
 
     // ─────────────────────────────────────────
-    // DRAWING — decorative eagle (soars right→left, top of screen)
+    // DRAWING — decorative eagle (diagonal swoop, top-right → bottom-center)
+    // Path stays in right half of screen — plane is at x=118, eagle never
+    // reaches below x=400, so no visual confusion with obstacles.
     // ─────────────────────────────────────────
     function drawEagle() {
       if (!eagleAnim || !eagleImg.complete || !eagleImg.naturalWidth) return;
 
-      var ew = 58, eh = Math.round(58 * eagleImg.naturalHeight / eagleImg.naturalWidth);
+      var t  = eagleAnim.t;
+      // top-right off-screen (850, -50) → bottom-center off-screen (400, 460)
+      var ex = (W + 50) + (W / 2 - W - 50) * t;   // 850 → 400
+      var ey = -50       + (H  + 110)       * t;   // -50 → 460
 
-      // Gentle vertical undulation — slow thermal soar
-      var y = eagleAnim.baseY + Math.sin(eagleAnim.t * 1.4) * 8;
+      // Grow as if swooping toward camera: 20px → 120px wide
+      var ew = Math.round(20 + 100 * t);
+      var eh = Math.round(ew * eagleImg.naturalHeight / eagleImg.naturalWidth);
 
-      // Fade in over first 80px of travel, fade out over last 80px
-      var travelled = W + 70 - eagleAnim.x;
-      var totalDist = W + 150;
-      var alpha = Math.min(1, Math.min(travelled / 80, (totalDist - travelled) / 80));
+      // Fade in over first 15% of journey, fade out over last 15%
+      var alpha = Math.min(1, Math.min(t / 0.15, (1 - t) / 0.15));
       alpha = Math.max(0, alpha);
 
       ctx.globalAlpha = alpha;
-      ctx.drawImage(eagleImg, eagleAnim.x - ew / 2, y - eh / 2, ew, eh);
+      ctx.drawImage(eagleImg, ex - ew / 2, ey - eh / 2, ew, eh);
       ctx.globalAlpha = 1;
     }
 
