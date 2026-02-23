@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Drawings — Andrew Newell Walther</title>
   <meta name="description" content="Drawings by Andrew Newell Walther, multidisciplinary artist from Alaska, based in Ho Chi Minh City">
-  
+
   <!-- Open Graph / Social Media -->
   <meta property="og:title" content="Drawings — Andrew Newell Walther" />
   <meta property="og:description" content="Drawings by Andrew Newell Walther" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://walther.website/drawings.html" />
-  
+
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="images/cheese-wedge.png">
-  
+
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="gallery.css" />
-  
+
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XGRYTSC23"></script>
   <script>
@@ -26,7 +26,7 @@
     gtag('js', new Date());
     gtag('config', 'G-6XGRYTSC23');
   </script>
-  
+
   <style>
     .page-header {
       text-align: center;
@@ -111,14 +111,23 @@
     .game-section h2 {
       text-align: center;
       font-size: 1.5rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
 
+    #artScoreBar {
+      text-align: center;
+      font-family: Georgia, serif;
+      font-size: 0.85rem;
+      color: #555;
+      min-height: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
     .game-canvas-container {
       text-align: center;
-      margin: 1rem 0;
+      margin: 0.5rem 0;
     }
 
     canvas {
@@ -128,6 +137,7 @@
       background-color: #fff;
       max-width: 100%;
       height: auto;
+      touch-action: none;
     }
 
     .controls {
@@ -205,6 +215,64 @@
       background: #fff;
       color: #000;
     }
+
+    /* Name entry modal */
+    #nameEntry {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border: 2px solid #000;
+      padding: 2rem;
+      z-index: 200;
+      text-align: center;
+      width: 300px;
+      box-shadow: 4px 4px 0 #000;
+      box-sizing: border-box;
+    }
+
+    #nameEntry h3 {
+      font-family: Georgia, serif;
+      font-size: 1.3rem;
+      margin: 0 0 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    #nameEntry p {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    #nameEntry input {
+      font-family: Georgia, serif;
+      font-size: 1rem;
+      padding: 0.4rem 0.8rem;
+      border: 2px solid #000;
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 0.75rem;
+      text-align: center;
+    }
+
+    #nameEntry button {
+      padding: 0.5rem 1.5rem;
+      background: #000;
+      color: #fff;
+      border: 2px solid #000;
+      cursor: pointer;
+      font-family: Georgia, serif;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    #nameEntry button:hover {
+      background: #fff;
+      color: #000;
+    }
   </style>
 </head>
 <body>
@@ -252,6 +320,7 @@
     <!-- GAME SECTION -->
     <section class="game-section">
       <h2>Artworld Game</h2>
+      <div id="artScoreBar"></div>
       <div class="game-canvas-container">
         <canvas id="gameCanvas" width="800" height="400"></canvas>
       </div>
@@ -261,10 +330,18 @@
         <button class="game-btn" id="btnRight">→</button>
       </div>
       <div class="controls">
-        <p>Arrow keys + Spacebar, or use buttons above</p>
+        <p>Arrow keys, Space/↑ to jump — or tap canvas to play</p>
       </div>
     </section>
   </main>
+
+  <!-- Name entry modal -->
+  <div id="nameEntry">
+    <h3>New Record!</h3>
+    <p>You reached Level <span id="newLevelDisplay"></span>!</p>
+    <input type="text" id="playerNameInput" placeholder="Your name" maxlength="20">
+    <button id="submitNameBtn">Submit</button>
+  </div>
 
   <footer>
     <div class="social-buttons footer-social">
@@ -316,7 +393,7 @@
       this.reset();
     });
   </script>
-  
+
   <!-- Game Script -->
   <script>
     const canvas = document.getElementById('gameCanvas');
@@ -324,37 +401,93 @@
     const W = canvas.width;   // 800
     const H = canvas.height;  // 400
 
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbxOW7UbzYoJh888mfOREAfyPgH2zxU4Uo93clAHD0Cmqt9CIzzIzG0G1Go_wEy2g_ep/exec';
+
+    // ── High Score ──────────────────────────────────────────────────────
+    let globalBest = null;
+    let sessionBestSubmitted = 0; // highest level submitted this session
+
+    function fetchGlobalBest() {
+      fetch(GAS_URL + '?type=artworld_get')
+        .then(r => r.json())
+        .then(data => {
+          globalBest = data;
+          updateScoreBar();
+        })
+        .catch(() => {});
+    }
+
+    function updateScoreBar() {
+      const bar = document.getElementById('artScoreBar');
+      if (!bar) return;
+      if (globalBest && globalBest.user && globalBest.score > 0) {
+        bar.textContent = 'Record: Level ' + globalBest.score + ' by ' + globalBest.user;
+      } else {
+        bar.textContent = 'No record yet — be the first!';
+      }
+    }
+
+    function submitScore(name, score) {
+      const params = new URLSearchParams({ type: 'artworld_submit', user: name, score: score });
+      fetch(GAS_URL + '?' + params.toString(), { mode: 'no-cors' }).catch(() => {});
+      globalBest = { user: name, score: score };
+      sessionBestSubmitted = score;
+      updateScoreBar();
+    }
+
+    function checkHighScore() {
+      const record = Math.max(
+        globalBest ? (globalBest.score || 0) : 0,
+        sessionBestSubmitted
+      );
+      if (level > record) {
+        showNameEntry();
+      }
+    }
+
+    function showNameEntry() {
+      gameActive = false;
+      const el = document.getElementById('nameEntry');
+      const lvlSpan = document.getElementById('newLevelDisplay');
+      if (lvlSpan) lvlSpan.textContent = level;
+      if (el) el.style.display = 'block';
+      const input = document.getElementById('playerNameInput');
+      if (input) { input.value = ''; input.focus(); }
+    }
+
+    function hideNameEntry() {
+      const el = document.getElementById('nameEntry');
+      if (el) el.style.display = 'none';
+      gameActive = true;
+    }
+
     // ── State ──────────────────────────────────────────────────────────
     let level      = 1;
-    let levelFlash = 0;   // frames remaining for level-advance flash
+    let gameActive = true;
 
     let player = {
       x: 50, y: 300,
       width: 20, height: 30,
       speed: 5, velY: 0,
       jumping: false, gravity: 0.5,
-      hitFlash: 0   // frames of red-flash after being hit
+      hitFlash: 0
     };
 
     let bloodParticles = [];
     let keys = {};
 
     // ── Platform layouts ───────────────────────────────────────────────
-    // 4 patterns cycling; gaps ≤ 190px (player can jump ~240px horizontal)
     function getPlatformsForLevel(lvl) {
       const p = lvl % 4;
       if (p === 0) {
-        // solid — easy breather
         return [{ x: 0, y: 350, width: 800, height: 50 }];
       } else if (p === 1) {
-        // two gaps
         return [
           { x: 0,   y: 350, width: 210, height: 50 },
           { x: 300, y: 350, width: 170, height: 50 },
           { x: 560, y: 350, width: 400, height: 50 }
         ];
       } else if (p === 2) {
-        // three gaps — harder
         return [
           { x: 0,   y: 350, width: 160, height: 50 },
           { x: 260, y: 350, width: 140, height: 50 },
@@ -362,7 +495,6 @@
           { x: 690, y: 350, width: 300, height: 50 }
         ];
       } else {
-        // one wide gap — committed running jump required
         return [
           { x: 0,   y: 350, width: 280, height: 50 },
           { x: 470, y: 350, width: 500, height: 50 }
@@ -374,7 +506,7 @@
 
     // ── Obstacles ──────────────────────────────────────────────────────
     function obstacleSpeed() {
-      return Math.min(2.5 + level * 0.45, 10);
+      return Math.min(2.0 + level * 0.2, 8);
     }
 
     let obstacles = [
@@ -385,7 +517,7 @@
 
     // ── Blood ──────────────────────────────────────────────────────────
     function spawnBlood(x, y) {
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 7; i++) {
         const angle = Math.random() * Math.PI * 2;
         const spd   = 1.5 + Math.random() * 6;
         bloodParticles.push({
@@ -403,6 +535,55 @@
     document.addEventListener('keydown', e => { keys[e.key] = true; });
     document.addEventListener('keyup',   e => { keys[e.key] = false; });
 
+    // Canvas touch zones (4 quadrants: top half = jump, bottom-left = left, bottom-right = right)
+    const activeTouchZones = new Map();
+
+    function getTouchZone(t) {
+      const r  = canvas.getBoundingClientRect();
+      const cx = (t.clientX - r.left) / r.width  * W;
+      const cy = (t.clientY - r.top)  / r.height * H;
+      if (cy < H / 2) return 'jump';
+      return cx < W / 2 ? 'left' : 'right';
+    }
+
+    function syncTouchKeys() {
+      const z = new Set(activeTouchZones.values());
+      keys['touchLeft']  = z.has('left');
+      keys['touchRight'] = z.has('right');
+      keys['touchJump']  = z.has('jump');
+    }
+
+    canvas.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      Array.from(e.changedTouches).forEach(function(t) {
+        activeTouchZones.set(t.identifier, getTouchZone(t));
+      });
+      syncTouchKeys();
+    }, { passive: false });
+
+    canvas.addEventListener('touchmove', function(e) {
+      e.preventDefault();
+      Array.from(e.changedTouches).forEach(function(t) {
+        activeTouchZones.set(t.identifier, getTouchZone(t));
+      });
+      syncTouchKeys();
+    }, { passive: false });
+
+    canvas.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      Array.from(e.changedTouches).forEach(function(t) {
+        activeTouchZones.delete(t.identifier);
+      });
+      syncTouchKeys();
+    }, { passive: false });
+
+    canvas.addEventListener('touchcancel', function(e) {
+      Array.from(e.changedTouches).forEach(function(t) {
+        activeTouchZones.delete(t.identifier);
+      });
+      syncTouchKeys();
+    });
+
     function resetPlayer() {
       player.x = 50; player.y = 300;
       player.velY = 0; player.jumping = false;
@@ -410,12 +591,13 @@
 
     // ── Update ─────────────────────────────────────────────────────────
     function update() {
-      if (keys['ArrowLeft'] && player.x > 0) player.x -= player.speed;
-      if (keys['ArrowRight'])                 player.x += player.speed;
+      if (!gameActive) return;
 
-      // Jump — Space or ArrowUp
-      if ((keys[' '] || keys['ArrowUp']) && !player.jumping) {
-        player.velY  = -12;
+      if ((keys['ArrowLeft'] || keys['touchLeft']) && player.x > 0) player.x -= player.speed;
+      if (keys['ArrowRight'] || keys['touchRight'])                   player.x += player.speed;
+
+      if ((keys[' '] || keys['ArrowUp'] || keys['touchJump']) && !player.jumping) {
+        player.velY    = -12;
         player.jumping = true;
       }
 
@@ -423,7 +605,7 @@
       player.y    += player.velY;
 
       // Platform collision (top surface only)
-      currentPlatforms.forEach(plat => {
+      currentPlatforms.forEach(function(plat) {
         if (player.x < plat.x + plat.width &&
             player.x + player.width > plat.x &&
             player.y + player.height > plat.y &&
@@ -441,7 +623,7 @@
       // Obstacle update + collision
       const spd = obstacleSpeed();
       let hitThisFrame = false;
-      obstacles.forEach(obs => {
+      obstacles.forEach(function(obs) {
         obs.x -= spd;
         if (obs.x + obs.width < 0) obs.x = W + 100 + Math.random() * 500;
 
@@ -458,60 +640,299 @@
       });
 
       // Blood update
-      bloodParticles = bloodParticles.filter(p => p.life > 0);
-      bloodParticles.forEach(p => {
+      bloodParticles = bloodParticles.filter(function(p) { return p.life > 0; });
+      bloodParticles.forEach(function(p) {
         p.x += p.vx; p.y += p.vy;
         p.vy += 0.28; p.life--;
       });
 
-      // Timers
-      if (levelFlash   > 0) levelFlash--;
       if (player.hitFlash > 0) player.hitFlash--;
 
-      // Advance level — player reaches right edge
+      // Level advance — player reaches right edge
       if (player.x + player.width >= W) {
         level++;
-        levelFlash = 72;
+        checkHighScore();
         resetPlayer();
         currentPlatforms = getPlatformsForLevel(level);
-        // Stagger obstacle respawn so they don't all pile in at once
-        obstacles.forEach((obs, i) => {
+        obstacles.forEach(function(obs, i) {
           obs.x = W + 200 + i * 350 + Math.random() * 200;
         });
       }
     }
 
-    // ── Skyline ────────────────────────────────────────────────────────
-    function drawSkyline(lvl) {
+    // ── Backgrounds ─────────────────────────────────────────────────────
+    function bgFlatHorizon() {
       ctx.strokeStyle = '#000';
-      ctx.lineWidth   = 1.5;
+      ctx.lineWidth = 1.5;
       ctx.beginPath();
-      const p = lvl % 3;
-      if (p === 0) {
-        ctx.moveTo(0, 210); ctx.lineTo(W, 210);
-      } else if (p === 1) {
-        ctx.moveTo(0, 205);
-        ctx.lineTo(160, 158); ctx.lineTo(320, 205);
-        ctx.lineTo(490, 152); ctx.lineTo(650, 208);
-        ctx.lineTo(W, 198);
-      } else {
-        // city buildings
-        [[70,190,55],[160,145,65],[265,178,45],[345,132,72],
-         [455,162,54],[545,143,62],[642,182,48],[722,150,56]
-        ].forEach(([bx, by, bw]) => {
-          ctx.lineTo(bx, 220); ctx.lineTo(bx, by);
-          ctx.lineTo(bx + bw, by); ctx.lineTo(bx + bw, 220);
-        });
-        ctx.lineTo(W, 220);
-      }
+      ctx.moveTo(0, 210); ctx.lineTo(W, 210);
       ctx.stroke();
+    }
+
+    function bgDesert() {
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(0, 215); ctx.lineTo(W, 215);
+      ctx.stroke();
+      [80, 195, 370, 545, 700].forEach(function(cx) {
+        var base = 215;
+        ctx.lineWidth = 5;
+        ctx.beginPath();
+        ctx.moveTo(cx, base); ctx.lineTo(cx, base - 62);
+        ctx.stroke();
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(cx, base - 42); ctx.lineTo(cx - 18, base - 42); ctx.lineTo(cx - 18, base - 57);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(cx, base - 30); ctx.lineTo(cx + 18, base - 30); ctx.lineTo(cx + 18, base - 50);
+        ctx.stroke();
+      });
+    }
+
+    function bgMountains() {
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(0, 220);
+      ctx.lineTo(100, 140); ctx.lineTo(200, 210);
+      ctx.lineTo(320, 110); ctx.lineTo(440, 200);
+      ctx.lineTo(580, 130); ctx.lineTo(680, 200);
+      ctx.lineTo(780, 160); ctx.lineTo(W, 195);
+      ctx.stroke();
+    }
+
+    function bgGentleHills() {
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(0, 200);
+      ctx.bezierCurveTo(130, 200, 150, 160, 200, 170);
+      ctx.bezierCurveTo(260, 182, 310, 155, 400, 165);
+      ctx.bezierCurveTo(490, 177, 560, 145, 650, 160);
+      ctx.bezierCurveTo(720, 170, 760, 190, W, 185);
+      ctx.stroke();
+    }
+
+    function bgForest() {
+      ctx.strokeStyle = '#000';
+      [30, 100, 170, 260, 340, 430, 520, 610, 690, 760].forEach(function(tx) {
+        var th = 50 + (tx * 7 + 13) % 30;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(tx, 220); ctx.lineTo(tx, 220 - th * 0.4);
+        ctx.stroke();
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(tx - 14, 220 - th * 0.4);
+        ctx.lineTo(tx, 220 - th);
+        ctx.lineTo(tx + 14, 220 - th * 0.4);
+        ctx.closePath();
+        ctx.stroke();
+      });
+    }
+
+    function bgHighway() {
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(0, 210); ctx.lineTo(W, 210);
+      ctx.moveTo(200, 350); ctx.lineTo(W / 2, 210);
+      ctx.moveTo(600, 350); ctx.lineTo(W / 2, 210);
+      ctx.stroke();
+      // dashed center line
+      [0.12, 0.28, 0.46, 0.64, 0.82].forEach(function(t) {
+        ctx.beginPath();
+        ctx.moveTo(W / 2, 210 + 140 * t);
+        ctx.lineTo(W / 2, 210 + 140 * (t + 0.09));
+        ctx.stroke();
+      });
+    }
+
+    function bgCityscape() {
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(0, 222);
+      [[70,190,55],[160,145,65],[265,178,45],[345,132,72],
+       [455,162,54],[545,143,62],[642,182,48],[722,150,56]
+      ].forEach(function(b) {
+        ctx.lineTo(b[0], 222); ctx.lineTo(b[0], b[1]);
+        ctx.lineTo(b[0] + b[2], b[1]); ctx.lineTo(b[0] + b[2], 222);
+      });
+      ctx.lineTo(W, 222);
+      ctx.stroke();
+    }
+
+    function bgLiquorStore() {
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 1.5;
+      // back wall
+      ctx.beginPath();
+      ctx.rect(80, 90, 640, 235);
+      ctx.stroke();
+      // shelves
+      [145, 200, 255].forEach(function(sy) {
+        ctx.beginPath();
+        ctx.moveTo(90, sy); ctx.lineTo(710, sy);
+        ctx.stroke();
+      });
+      // bottles on top shelf
+      [108,135,162,192,224,265,310,360,410,460,510,560,606,644,675].forEach(function(bx) {
+        ctx.beginPath();
+        ctx.rect(bx, 100, 7, 38);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.rect(bx + 1, 94, 5, 8);
+        ctx.stroke();
+      });
+      // window sign
+      ctx.beginPath();
+      ctx.rect(595, 108, 80, 55);
+      ctx.stroke();
+      ctx.font = '9px Georgia, serif';
+      ctx.fillStyle = '#000';
+      ctx.textAlign = 'center';
+      ctx.fillText('OPEN', 635, 140);
+      ctx.textAlign = 'left';
+    }
+
+    function bgArtGallery() {
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 1.5;
+      // floor line
+      ctx.beginPath();
+      ctx.moveTo(0, 235); ctx.lineTo(W, 235);
+      ctx.stroke();
+      // frames on wall
+      [[60,110,100,80],[210,100,120,90],[380,120,85,65],[510,105,110,80],[660,115,100,75]].forEach(function(f) {
+        var fx = f[0], fy = f[1], fw = f[2], fh = f[3];
+        ctx.beginPath();
+        ctx.rect(fx, fy, fw, fh);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.rect(fx + 8, fy + 8, fw - 16, fh - 16);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(fx + 12, fy + 12); ctx.lineTo(fx + fw - 12, fy + fh - 12);
+        ctx.moveTo(fx + fw - 12, fy + 12); ctx.lineTo(fx + 12, fy + fh - 12);
+        ctx.stroke();
+      });
+    }
+
+    function bgPumpkinPatch() {
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(0, 222); ctx.lineTo(W, 222);
+      ctx.stroke();
+      [60, 140, 250, 370, 480, 600, 720].forEach(function(px) {
+        var py = 218;
+        var r  = 14 + (px * 3 + 5) % 8;
+        ctx.beginPath();
+        ctx.arc(px, py, r, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(px, py - r); ctx.lineTo(px, py - r - 10);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(px - r * 0.5, py - r * 0.8);
+        ctx.lineTo(px - r * 0.5, py + r * 0.8);
+        ctx.moveTo(px + r * 0.5, py - r * 0.8);
+        ctx.lineTo(px + r * 0.5, py + r * 0.8);
+        ctx.stroke();
+      });
+    }
+
+    function bgCoralReef() {
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(0, 225); ctx.lineTo(W, 225);
+      ctx.stroke();
+      [80, 200, 340, 490, 630, 760].forEach(function(cx) {
+        var h = 40 + (cx * 5 + 7) % 35;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(cx, 225); ctx.lineTo(cx, 225 - h);
+        ctx.stroke();
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(cx, 225 - h * 0.6); ctx.lineTo(cx - 16, 225 - h * 0.85);
+        ctx.moveTo(cx, 225 - h * 0.5); ctx.lineTo(cx + 16, 225 - h * 0.78);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(cx, 225 - h, 8, 0, Math.PI * 2);
+        ctx.stroke();
+      });
+    }
+
+    function bgDinnerTable() {
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(40, 195); ctx.lineTo(760, 195);
+      ctx.moveTo(80, 195); ctx.lineTo(80, 240);
+      ctx.moveTo(720, 195); ctx.lineTo(720, 240);
+      ctx.stroke();
+      ctx.lineWidth = 1.5;
+      // plate
+      ctx.beginPath();
+      ctx.arc(230, 193, 28, Math.PI, 0);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(230, 193, 18, Math.PI, 0);
+      ctx.stroke();
+      // wine glass
+      ctx.beginPath();
+      ctx.moveTo(400, 193); ctx.lineTo(388, 150);
+      ctx.lineTo(412, 150); ctx.closePath();
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(400, 193); ctx.lineTo(400, 210);
+      ctx.moveTo(388, 210); ctx.lineTo(412, 210);
+      ctx.stroke();
+      // candle + flame
+      ctx.beginPath();
+      ctx.rect(560, 164, 12, 33);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(566, 161);
+      ctx.bezierCurveTo(558, 148, 574, 148, 566, 161);
+      ctx.stroke();
+    }
+
+    function bgCityscape2() {
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(0, 222);
+      [[20,205,35],[75,175,45],[135,195,30],[190,155,50],[260,135,65],
+       [355,168,38],[415,145,52],[505,175,40],[575,135,68],[670,158,42],[740,170,55]
+      ].forEach(function(b) {
+        ctx.lineTo(b[0], 222); ctx.lineTo(b[0], b[1]);
+        ctx.lineTo(b[0] + b[2], b[1]); ctx.lineTo(b[0] + b[2], 222);
+      });
+      ctx.lineTo(W, 222);
+      ctx.stroke();
+    }
+
+    var backgrounds = [
+      bgFlatHorizon, bgDesert, bgMountains, bgGentleHills, bgForest,
+      bgHighway, bgCityscape, bgLiquorStore, bgArtGallery, bgPumpkinPatch,
+      bgCoralReef, bgDinnerTable, bgCityscape2
+    ];
+
+    function drawBackground() {
+      backgrounds[(level - 1) % backgrounds.length]();
     }
 
     // ── Player ─────────────────────────────────────────────────────────
     function drawPlayer() {
-      const flash = player.hitFlash > 0 && Math.floor(player.hitFlash / 3) % 2 === 0;
+      var flash = player.hitFlash > 0 && Math.floor(player.hitFlash / 3) % 2 === 0;
       ctx.fillStyle = flash ? '#cc0010' : '#000';
-      const px = player.x, py = player.y, hw = player.width / 2;
+      var px = player.x, py = player.y, hw = player.width / 2;
       ctx.beginPath();
       ctx.arc(px + hw, py + 6, 7, 0, Math.PI * 2);
       ctx.fill();
@@ -527,16 +948,16 @@
       ctx.fillStyle = '#fff';
       ctx.fillRect(0, 0, W, H);
 
-      drawSkyline(level);
+      drawBackground();
 
       // Platforms
       ctx.fillStyle = '#000';
-      currentPlatforms.forEach(plat => {
+      currentPlatforms.forEach(function(plat) {
         ctx.fillRect(plat.x, plat.y, plat.width, plat.height);
       });
 
       // ART obstacles
-      obstacles.forEach(obs => {
+      obstacles.forEach(function(obs) {
         ctx.fillStyle = '#000';
         ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
         ctx.fillStyle   = '#fff';
@@ -547,8 +968,8 @@
       ctx.textAlign = 'left';
 
       // Blood particles
-      bloodParticles.forEach(p => {
-        const a = p.life / p.maxLife;
+      bloodParticles.forEach(function(p) {
+        var a = p.life / p.maxLife;
         ctx.globalAlpha = a;
         ctx.fillStyle   = '#cc0010';
         ctx.beginPath();
@@ -565,30 +986,32 @@
       ctx.textAlign = 'right';
       ctx.fillText('LEVEL ' + level, W - 10, 24);
       ctx.textAlign = 'left';
-
-      // Level-advance flash (fades out)
-      if (levelFlash > 0) {
-        ctx.globalAlpha = Math.min(levelFlash / 40, 1);
-        ctx.fillStyle   = '#000';
-        ctx.font        = 'bold 40px Georgia, serif';
-        ctx.textAlign   = 'center';
-        ctx.fillText('LEVEL ' + level, W / 2, H / 2 - 8);
-        ctx.font = '15px Georgia, serif';
-        ctx.fillText('keep going', W / 2, H / 2 + 20);
-        ctx.textAlign   = 'left';
-        ctx.globalAlpha = 1;
-      }
     }
 
     // ── Loop ───────────────────────────────────────────────────────────
     function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
+
+    fetchGlobalBest();
     gameLoop();
+
+    // ── Name entry ─────────────────────────────────────────────────────
+    document.getElementById('submitNameBtn').addEventListener('click', function() {
+      var name = document.getElementById('playerNameInput').value.trim();
+      if (!name) return;
+      submitScore(name, level);
+      hideNameEntry();
+    });
+
+    document.getElementById('playerNameInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') document.getElementById('submitNameBtn').click();
+    });
 
     // ── Mobile buttons ─────────────────────────────────────────────────
     function addGameBtn(id, key) {
-      const btn = document.getElementById(id);
-      const press   = e => { e.preventDefault(); keys[key] = true; };
-      const release = e => { e.preventDefault(); keys[key] = false; };
+      var btn = document.getElementById(id);
+      if (!btn) return;
+      var press   = function(e) { e.preventDefault(); keys[key] = true; };
+      var release = function(e) { e.preventDefault(); keys[key] = false; };
       btn.addEventListener('touchstart',  press,   { passive: false });
       btn.addEventListener('touchend',    release, { passive: false });
       btn.addEventListener('touchcancel', release, { passive: false });
