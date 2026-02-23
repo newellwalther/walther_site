@@ -1,29 +1,27 @@
 // WhatsApp temporarily disabled — intercept all wa.me links
 (function () {
+  var waTimer = null;
+
   function showWANotice(e) {
     e.preventDefault();
     var note = document.getElementById('wa-notice');
     if (!note) return;
+    if (waTimer) clearTimeout(waTimer);
     note.classList.add('wa-notice--visible');
-    clearTimeout(note._timer);
-    note._timer = setTimeout(function () {
+    waTimer = setTimeout(function () {
       note.classList.remove('wa-notice--visible');
+      waTimer = null;
     }, 3000);
   }
 
-  function bindWALinks() {
-    document.querySelectorAll('a[href*="wa.me"]').forEach(function (a) {
-      a.addEventListener('click', showWANotice);
-    });
-  }
-
-  // Inject the notification element once DOM is ready
   function init() {
     var note = document.createElement('div');
     note.id = 'wa-notice';
     note.textContent = 'WHATSAPP TEMPORARILY UNAVAILABLE';
     document.body.appendChild(note);
-    bindWALinks();
+    document.querySelectorAll('a[href*="wa.me"]').forEach(function (a) {
+      a.addEventListener('click', showWANotice);
+    });
   }
 
   if (document.readyState === 'loading') {
