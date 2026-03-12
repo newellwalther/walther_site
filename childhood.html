@@ -15,9 +15,51 @@
     gtag('config', 'G-6XGRYTSC23');
   </script>
   <style>
-    main { max-width: 800px; margin: 0 auto; padding: 2rem; text-align: center; }
-    h1 { font-size: 2.5rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 2rem; }
-    .description { font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem; }
+    .childhood-header {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 2rem 1rem;
+      text-align: center;
+    }
+
+    .childhood-header h1 {
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 1.5rem;
+    }
+
+    .childhood-header p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .childhood-grid {
+      columns: 3;
+      column-gap: 6px;
+      padding: 0 6px 6px;
+    }
+
+    .childhood-grid img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin-bottom: 6px;
+      break-inside: avoid;
+    }
+
+    @media (max-width: 768px) {
+      .childhood-grid {
+        columns: 2;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .childhood-grid {
+        columns: 1;
+      }
+    }
   </style>
 </head>
 <body>
@@ -35,13 +77,32 @@
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </div>
-  <main>
+
+  <div class="childhood-header">
     <h1>Childhood</h1>
-    <div class="description">
-      <p>Photos of my childhood.</p>
-      <p>Coming soon...</p>
-    </div>
-  </main>
+    <p>Photos of my childhood.</p>
+  </div>
+
+  <div class="childhood-grid">
+    <img src="https://pub-1a24c863e9654cf59be6136420ba1770.r2.dev/childhood/childhood-01.jpg" alt="Childhood" loading="lazy">
+    <img src="https://pub-1a24c863e9654cf59be6136420ba1770.r2.dev/childhood/childhood-02.jpg" alt="Childhood" loading="lazy">
+    <img src="https://pub-1a24c863e9654cf59be6136420ba1770.r2.dev/childhood/childhood-03.jpg" alt="Childhood" loading="lazy">
+    <img src="https://pub-1a24c863e9654cf59be6136420ba1770.r2.dev/childhood/childhood-04.jpg" alt="Childhood" loading="lazy">
+    <img src="https://pub-1a24c863e9654cf59be6136420ba1770.r2.dev/childhood/childhood-05.jpg" alt="Childhood" loading="lazy">
+    <img src="https://pub-1a24c863e9654cf59be6136420ba1770.r2.dev/childhood/childhood-06.jpg" alt="Childhood" loading="lazy">
+    <img src="https://pub-1a24c863e9654cf59be6136420ba1770.r2.dev/childhood/childhood-07.jpg" alt="Childhood" loading="lazy">
+    <img src="https://pub-1a24c863e9654cf59be6136420ba1770.r2.dev/childhood/childhood-08.jpg" alt="Childhood" loading="lazy">
+    <img src="https://pub-1a24c863e9654cf59be6136420ba1770.r2.dev/childhood/childhood-09.jpg" alt="Childhood" loading="lazy">
+    <img src="https://pub-1a24c863e9654cf59be6136420ba1770.r2.dev/childhood/childhood-10.jpg" alt="Childhood" loading="lazy">
+    <img src="https://pub-1a24c863e9654cf59be6136420ba1770.r2.dev/childhood/childhood-11.jpg" alt="Childhood" loading="lazy">
+    <img src="https://pub-1a24c863e9654cf59be6136420ba1770.r2.dev/childhood/childhood-12.jpg" alt="Childhood" loading="lazy">
+    <img src="https://pub-1a24c863e9654cf59be6136420ba1770.r2.dev/childhood/childhood-13.jpg" alt="Childhood" loading="lazy">
+    <img src="https://pub-1a24c863e9654cf59be6136420ba1770.r2.dev/childhood/childhood-14.jpg" alt="Childhood" loading="lazy">
+    <img src="https://pub-1a24c863e9654cf59be6136420ba1770.r2.dev/childhood/childhood-15.jpg" alt="Childhood" loading="lazy">
+    <img src="https://pub-1a24c863e9654cf59be6136420ba1770.r2.dev/childhood/childhood-16.jpg" alt="Childhood" loading="lazy">
+    <img src="https://pub-1a24c863e9654cf59be6136420ba1770.r2.dev/childhood/childhood-17.jpg" alt="Childhood" loading="lazy">
+  </div>
+
   <footer>
     <div class="social-buttons footer-social">
       <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" rel="noopener">
@@ -55,6 +116,7 @@
     <a href="contact.html#newsletter" class="newsletter-link"><span class="sym">🗞️</span> Newsletter <span class="sym">🗞️</span></a>
     <p>© 2025–2026 Andrew Newell Walther. All rights reserved.</p>
   </footer>
+
   <script src="menu.js"></script>
 </body>
 </html>
