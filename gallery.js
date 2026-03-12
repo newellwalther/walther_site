@@ -88,7 +88,7 @@
         thumb.loading = 'lazy';
         thumb.style.backgroundColor = '#e0e0e0';
 
-        const r2 = 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/';
+        const r2 = window.GALLERY_R2 || 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/';
         thumb.src = r2 + img.filename;
         thumb.alt = img.title || 'Artwork';
 
@@ -383,7 +383,7 @@
     seriesCard.style.display = 'none';
     img.style.opacity = '0';
 
-    const r2 = 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/';
+    const r2 = window.GALLERY_R2 || 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/';
     const newSrc = r2 + image.filename;
 
     // Show loader only if image takes more than 200ms to load

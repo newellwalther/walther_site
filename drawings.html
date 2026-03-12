@@ -304,6 +304,10 @@
 
   <!-- GALLERY CONTAINER -->
   <main>
+    <div id="gallery-container">
+      <!-- Gallery will be populated by JavaScript -->
+    </div>
+
     <section class="suggestion-form">
       <h2>SUGGEST TO ME WHAT TO DRAW</h2>
       <form id="suggestionForm">
@@ -312,10 +316,6 @@
       </form>
       <div id="suggestionMessage" style="display:none; margin-top:1rem; font-size:0.9rem;"></div>
     </section>
-
-    <div id="gallery-container">
-      <!-- Gallery will be populated by JavaScript -->
-    </div>
 
     <!-- GAME SECTION -->
     <section class="game-section">
@@ -365,13 +365,37 @@
 
   <!-- Gallery Data -->
   <script>
+    window.GALLERY_R2 = 'https://pub-1a24c863e9654cf59be6136420ba1770.r2.dev/drawings/';
+
     fetch('drawings-data.json')
       .then(response => response.json())
       .then(data => {
+        var images = data.series[0].images;
+        var PINNED = ['nacre.jpg', 'cake.jpg'];
+        var pinnedImgs = images.filter(function(img) { return PINNED.includes(img.filename); });
+        var rest = images.filter(function(img) { return !PINNED.includes(img.filename); });
+
+        // Shuffle rest (Fisher-Yates)
+        for (var i = rest.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var tmp = rest[i]; rest[i] = rest[j]; rest[j] = tmp;
+        }
+
+        // Pick nacre or cake randomly for first position
+        var firstIdx = Math.floor(Math.random() * pinnedImgs.length);
+        var first = pinnedImgs[firstIdx];
+        var otherPinned = pinnedImgs.filter(function(img) { return img !== first; });
+
+        // Insert other pinned randomly into rest
+        otherPinned.forEach(function(img) {
+          var pos = Math.floor(Math.random() * (rest.length + 1));
+          rest.splice(pos, 0, img);
+        });
+
+        data.series[0].images = [first].concat(rest);
         initGallery(data.series);
       })
-      .catch(error => {
-        console.error('Error loading gallery data:', error);
+      .catch(function() {
         document.getElementById('gallery-container').innerHTML =
           '<p style="text-align: center; padding: 2rem;">Gallery loading error. Please refresh the page.</p>';
       });
