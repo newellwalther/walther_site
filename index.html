@@ -4,7 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Walther Worldwide — Andrew Newell Walther</title>
-  <meta name="description" content="Andrew Newell Walther, multidisciplinary artist from Alaska, based in Ho Chi Minh City">
+  <meta name="description" content="Andrew Newell Walther — multidisciplinary artist from Alaska, based in Ho Chi Minh City. Paintings, drawings, comics, video, and text-based work.">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Andrew Newell Walther">
+  <meta property="og:title" content="Walther Worldwide — Andrew Newell Walther">
+  <meta property="og:description" content="Andrew Newell Walther — multidisciplinary artist from Alaska, based in Ho Chi Minh City. Paintings, drawings, comics, video, and text-based work.">
+  <meta property="og:url" content="https://walther.website/">
+  <meta property="og:image" content="https://walther.website/images/portrait-bw.png">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@newellwalther">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://walther.website/">
   <link rel="icon" type="image/png" href="images/cheese-wedge.png">
   <link rel="stylesheet" href="style.css" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XGRYTSC23"></script>
@@ -21,15 +33,7 @@
       width: 100%; max-width: 100vw;
       overflow-x: hidden;
     }
-
-    /* Easter egg landing zone space above footer */
-    .easter-egg-floor {
-      width: 100%;
-      height: 80px;
-      position: relative;
-    }
-
-    /* ===================== TITLE ===================== */
+    .easter-egg-floor { width: 100%; height: 80px; position: relative; }
     #main-title {
       font-size: 3.2rem;
       text-transform: uppercase;
@@ -40,14 +44,8 @@
       text-align: center;
       white-space: nowrap;
     }
-    #main-title .title-letter {
-      display: inline-block;
-      transition: transform 0.15s ease;
-      cursor: pointer;
-    }
+    #main-title .title-letter { display: inline-block; transition: transform 0.15s ease; cursor: pointer; }
     #main-title .title-letter:hover { transform: scale(1.2); }
-
-    /* ===================== DESKTOP LAYOUT ===================== */
     .desktop-layout {
       display: flex;
       align-items: center;
@@ -69,15 +67,10 @@
       z-index: 10;
       text-decoration: none;
     }
-    .globe-wrapper:hover {
-      transform: translate(-50%, -50%) scale(1.1);
-    }
-
-    /* LINKS label overlay - hidden by default, shown on hover */
+    .globe-wrapper:hover { transform: translate(-50%, -50%) scale(1.1); }
     .links-label {
       position: absolute;
-      top: 50%;
-      left: 50%;
+      top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       font-size: 1.8rem;
       font-weight: bold;
@@ -92,9 +85,7 @@
       white-space: nowrap;
     }
     .globe-wrapper:hover .links-label,
-    .mobile-globe-link:hover .links-label {
-      opacity: 0.85;
-    }
+    .mobile-globe-link:hover .links-label { opacity: 0.85; }
     .nav-col-left {
       position: absolute;
       right: calc(50% + 220px);
@@ -131,7 +122,6 @@
     .nav-col-right .nav-btn:nth-child(3):hover { transform: translateY(20px) scale(1.12); }
     .nav-col-right .nav-btn:nth-child(4) { transform: translateY(60px); }
     .nav-col-right .nav-btn:nth-child(4):hover { transform: translateY(60px) scale(1.12); }
-
     .nav-btn {
       display: block;
       width: 210px;
@@ -147,13 +137,7 @@
       white-space: nowrap;
       transition: background 0.2s, color 0.2s, transform 0.2s;
     }
-    .nav-btn:hover {
-      background: #000;
-      color: #fff;
-      transform: scale(1.12);
-    }
-
-    /* ===================== SOCIAL BUTTONS ===================== */
+    .nav-btn:hover { background: #000; color: #fff; transform: scale(1.12); }
     .homepage-social { margin: 1.5rem 0; text-align: center; }
     .social-btn {
       display: inline-flex;
@@ -169,83 +153,35 @@
       transition: background 0.2s, color 0.2s, transform 0.2s ease;
       margin: 0.2rem;
     }
-    .social-btn:hover {
-      background: #000;
-      color: #fff;
-      transform: scale(1.1);
-    }
+    .social-btn:hover { background: #000; color: #fff; transform: scale(1.1); }
     .social-btn:hover .social-icon { filter: invert(1); }
     .social-icon { width: 15px; height: 15px; object-fit: contain; flex-shrink: 0; }
-
-    /* ===================== FOOTER ===================== */
     footer {
       text-align: center;
       padding: 0.75rem 1rem;
       font-size: 0.82rem;
       width: 100%;
     }
-    .visitor-counter { display: inline-block; margin-left: 0.75rem; vertical-align: middle; }
-    .visitor-counter img { height: 13px; width: auto; vertical-align: middle; }
-
-    /* ===================== MOBILE LAYOUT ===================== */
+    .visitor-counter { display: inline-block; margin-left: 0.75rem; vertical-align: middle; font-size: 0.82rem; color: #666; }
     .mobile-layout { display: none; }
-
     @media (max-width: 1000px) {
-      /* Hide desktop layout, show mobile */
       .desktop-layout { display: none; }
-      .mobile-layout {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        max-width: 100vw;
-        overflow: hidden;
-      }
-
-      /* Title: force each word onto its own line */
-      #main-title {
-        white-space: normal;
-        word-spacing: 100vw;
-        font-size: 1.75rem;
-        letter-spacing: 1px;
-        line-height: 1.1;
-        text-align: center;
-        margin-top: 2.2rem;
-        margin-bottom: 0.1rem;
-        padding: 0 1rem;
-      }
-
-      /* Mobile globe - 25% larger: 190 * 1.25 = 238px */
+      .mobile-layout { display: flex; flex-direction: column; align-items: center; width: 100%; padding: 0 1rem; }
+      #main-title { font-size: 1.8rem; letter-spacing: 2px; margin: 1rem 0 0.5rem; white-space: nowrap; }
       .mobile-globe-link {
         display: block;
-        width: 238px;
-        height: 238px;
-        margin: 0.5rem auto 0;
-        flex-shrink: 0;
-        text-decoration: none;
+        width: 280px; height: 280px;
+        position: relative;
         cursor: pointer;
-        position: relative;
+        transition: transform 0.3s ease;
+        text-decoration: none;
+        margin: 0.5rem auto;
       }
-      .mobile-globe-link .globe-container {
-        width: 238px;
-        height: 238px;
-        position: relative;
-      }
+      .mobile-globe-link:hover { transform: scale(1.06); }
+      .mobile-globe-link .globe-container { width: 280px; height: 280px; position: relative; }
       .mobile-globe-link img.globe { width: 100%; height: 100%; display: block; }
-      .mobile-globe-link .rotating-text {
-        position: absolute; top: 0; left: 0;
-        width: 100%; height: 100%;
-      }
-
-      /* Animation space - tall enough for 2 lines of landing text */
-      .animation-space {
-        width: 100%;
-        height: 18vh;
-        min-height: 105px;
-        flex-shrink: 0;
-      }
-
-      /* Mobile nav grid */
+      .mobile-globe-link .rotating-text { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+      .animation-space { width: 100%; height: 18vh; min-height: 105px; flex-shrink: 0; }
       .mobile-nav-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -254,37 +190,14 @@
         max-width: 380px;
         margin: 0 auto 1.5rem;
       }
-      .mobile-nav-grid .nav-btn {
-        width: auto;
-        white-space: normal;
-        font-size: 0.8rem;
-        padding: 0.6rem 0.5rem;
-      }
+      .mobile-nav-grid .nav-btn { width: auto; white-space: normal; font-size: 0.8rem; padding: 0.6rem 0.5rem; }
       .mobile-nav-grid .nav-btn:hover { transform: none; }
     }
-
-    /* Landscape overrides - nested inside mobile breakpoint */
     @media (max-width: 1000px) and (orientation: landscape) {
-      #main-title {
-        margin-top: 2.0rem;
-        margin-bottom: 0.05rem;
-        font-size: 1.4rem;
-        line-height: 1.0;
-      }
-      .mobile-globe-link,
-      .mobile-globe-link .globe-container {
-        width: 188px;
-        height: 188px;
-        margin-top: 0.1rem;
-        margin-bottom: 0;
-      }
+      #main-title { margin-top: 2.0rem; margin-bottom: 0.05rem; font-size: 1.4rem; line-height: 1.0; }
+      .mobile-globe-link, .mobile-globe-link .globe-container { width: 188px; height: 188px; margin-top: 0.1rem; margin-bottom: 0; }
       .animation-space { display: none; }
-      .mobile-nav-grid {
-        max-width: 500px;
-        gap: 0.5rem;
-        margin-top: 7rem;
-        margin-bottom: 1rem;
-      }
+      .mobile-nav-grid { max-width: 500px; gap: 0.5rem; margin-top: 7rem; margin-bottom: 1rem; }
       .mobile-nav-grid .nav-btn { font-size: 0.78rem; padding: 0.5rem 0.4rem; }
     }
   </style>
@@ -306,7 +219,6 @@
     </ul>
   </div>
 
-  <!-- Title shown on both desktop and mobile -->
   <header style="text-align:center; width:100%;">
     <h1 id="main-title">WALTHER&nbsp;&nbsp;WORLDWIDE</h1>
   </header>
@@ -345,7 +257,6 @@
 
   <!-- ===== MOBILE LAYOUT ===== -->
   <div class="mobile-layout">
-
     <a href="links.html" class="mobile-globe-link">
       <div class="globe-container">
         <img src="images/world-icon-hand-drawn-illustration-editable-line-stroke-vector.png" alt="Globe" class="globe" />
@@ -375,7 +286,6 @@
     </div>
   </div>
 
-  <!-- SOCIAL - same on all screen sizes -->
   <div class="social-buttons homepage-social">
     <a class="social-btn" href="https://instagram.com/newellwalther" target="_blank" rel="noopener">
       <img src="images/picture-frame.png" alt="" class="social-icon"> Instagram
@@ -398,23 +308,15 @@
     </p>
     <p>
       © 2025–2026 Andrew Newell Walther. All rights reserved.
-      <span class="visitor-counter">
-        <div id="sfcjsx5sysr3cptq5s7hcjj7bq7mxpe3b5w" style="display:inline;"></div>
-        <script type="text/javascript" src="https://counter1.optistats.ovh/private/counter.js?c=jsx5sysr3cptq5s7hcjj7bq7mxpe3b5w&down=async" async></script>
-        <noscript>
-          <a href="https://www.freecounterstat.com" title="visits">
-            <img src="https://counter1.optistats.ovh/private/freecounterstat.php?c=jsx5sysr3cptq5s7hcjj7bq7mxpe3b5w" border="0" alt="visits" style="height:13px;">
-          </a>
-        </noscript>
-      </span>
+      <span id="site-visits" class="visitor-counter"></span>
     </p>
   </footer>
 
   <script src="menu.js"></script>
+  <script src="counter.js"></script>
   <script src="script.js"></script>
   <script src="easter-egg.js"></script>
   <script>
-    // Wrap letters for Easter egg
     const title = document.getElementById('main-title');
     const words = ['WALTHER', 'WORLDWIDE'];
     let letterHTML = '';

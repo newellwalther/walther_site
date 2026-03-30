@@ -4,7 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About — Andrew Newell Walther</title>
-  <meta name="description" content="About Andrew Newell Walther">
+  <meta name="description" content="About Andrew Newell Walther — multidisciplinary artist born in Alaska, 1993, based in Ho Chi Minh City">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Andrew Newell Walther">
+  <meta property="og:title" content="About — Andrew Newell Walther">
+  <meta property="og:description" content="Andrew Newell Walther — multidisciplinary artist born in Alaska, 1993, based in Ho Chi Minh City. Paintings, drawings, comics, video, and text-based work.">
+  <meta property="og:url" content="https://walther.website/about.html">
+  <meta property="og:image" content="https://walther.website/images/portrait-bw.png">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@newellwalther">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://walther.website/about.html">
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="images/cheese-wedge.png">
@@ -212,12 +224,12 @@
       <a class="social-btn" href="https://wa.me/84339441925" target="_blank" aria-label="WhatsApp"><img src="images/clamshell-mobile-phone.png" alt="WhatsApp" class="social-icon"></a>
     </div>
     <a href="contact.html#newsletter" class="newsletter-link"><span class="sym">🗞️</span> Newsletter <span class="sym">🗞️</span></a>
-    <p>© 2025–2026 Andrew Newell Walther. All rights reserved.</p>
+    <p>© 2025–2026 Andrew Newell Walther. All rights reserved. <span id="site-visits" class="visitor-counter"></span></p>
   </footer>
 
   <script src="menu.js"></script>
+  <script src="counter.js"></script>
   <script>
-    // Easter egg: Click title to rotate letters 180° with staggered animation
     const aboutTitle = document.getElementById('about-title');
     let rotated = false;
 
@@ -227,7 +239,7 @@
         const letters = this.textContent.split('');
         this.innerHTML = letters.map((letter, index) => {
           if (letter === ' ') return '&nbsp;';
-          const delay = index * 0.03; // 30ms stagger per letter
+          const delay = index * 0.03;
           return `<span style="display:inline-block;transition:transform 0.6s ease ${delay}s;transform:rotate(${rotated ? 180 : 0}deg);">${letter}</span>`;
         }).join('');
       });

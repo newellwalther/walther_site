@@ -4,7 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact — Andrew Newell Walther</title>
-  <meta name="description" content="Contact Andrew Newell Walther">
+  <meta name="description" content="Contact Andrew Newell Walther — artist from Alaska, based in Ho Chi Minh City">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Andrew Newell Walther">
+  <meta property="og:title" content="Contact — Andrew Newell Walther">
+  <meta property="og:description" content="Get in touch with Andrew Newell Walther — artist from Alaska, based in Ho Chi Minh City">
+  <meta property="og:url" content="https://walther.website/contact.html">
+  <meta property="og:image" content="https://walther.website/images/portrait-bw.png">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@newellwalther">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://walther.website/contact.html">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="images/cheese-wedge.png">
@@ -289,10 +301,11 @@
       </a>
     </div>
     <a href="contact.html#newsletter" class="newsletter-link"><span class="sym">🗞️</span> Newsletter <span class="sym">🗞️</span></a>
-    <p>© 2025–2026 Andrew Newell Walther. All rights reserved.</p>
+    <p>© 2025–2026 Andrew Newell Walther. All rights reserved. <span id="site-visits" class="visitor-counter"></span></p>
   </footer>
 
   <script src="menu.js"></script>
+  <script src="counter.js"></script>
   <script>
     // Newsletter Form
     document.getElementById('newsletterForm').addEventListener('submit', function(e) {

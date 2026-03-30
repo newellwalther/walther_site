@@ -135,8 +135,8 @@
           <button class="lightbox-prev" aria-label="Previous">&#8249;</button>
           <button class="lightbox-zoom" aria-label="Toggle zoom">&#x1F50D;</button>
           <div class="zoom-slider-wrap">
-            <input type="range" class="zoom-slider" min="25" max="200" value="150" step="5">
-            <span class="zoom-label">150%</span>
+            <input type="range" class="zoom-slider" min="25" max="200" value="50" step="5">
+            <span class="zoom-label">50%</span>
           </div>
           <button class="lightbox-inquire" aria-label="Inquire">Inquire</button>
           <button class="lightbox-next" aria-label="Next">&#8250;</button>
