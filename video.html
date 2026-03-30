@@ -4,8 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Video — Andrew Newell Walther</title>
-  <meta name="description" content="Video works by Andrew Newell Walther">
-  
+  <meta name="description" content="Video works by Andrew Newell Walther, multidisciplinary artist from Alaska, based in Ho Chi Minh City">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Andrew Newell Walther">
+  <meta property="og:title" content="Video — Andrew Newell Walther">
+  <meta property="og:description" content="Video works by Andrew Newell Walther, multidisciplinary artist from Alaska, based in Ho Chi Minh City">
+  <meta property="og:url" content="https://walther.website/video.html">
+  <meta property="og:image" content="https://walther.website/images/portrait-bw.png">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@newellwalther">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://walther.website/video.html">
+
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="images/cheese-wedge.png">
   
@@ -89,7 +101,7 @@
 </head>
 <body>
   <div class="menu">
-    <button class="menu-trigger">MENU</button>
+    <button class="menu-trigger" aria-label="Open site menu">MENU</button>
     <ul class="dropdown" role="menu">
       <li><a href="index.html">Home</a></li>
       <li><a href="paintings.html">Paintings</a></li>
@@ -111,28 +123,28 @@
     <section>
       <h2>Feature-Length Trailer for My Very Long Movie</h2>
       <div class="video-container">
-        <iframe src="https://player.vimeo.com/video/238863304" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+        <iframe src="https://player.vimeo.com/video/238863304" width="640" height="360" frameborder="0" allowfullscreen title="Feature-Length Trailer for My Very Long Movie"></iframe>
       </div>
     </section>
 
     <section>
       <h2>Screen-o</h2>
       <div class="video-container">
-        <iframe width="640" height="360" src="https://www.youtube.com/embed/VvgWH3II588" frameborder="0" allowfullscreen></iframe>
+        <iframe width="640" height="360" src="https://www.youtube.com/embed/VvgWH3II588" frameborder="0" allowfullscreen title="Screen-o"></iframe>
       </div>
     </section>
 
     <section>
       <h2>Pris: Ethyl A</h2>
       <div class="video-container">
-        <iframe width="640" height="360" src="https://www.youtube.com/embed/M0TJIGnZZB8?start=64" frameborder="0" allowfullscreen></iframe>
+        <iframe width="640" height="360" src="https://www.youtube.com/embed/M0TJIGnZZB8?start=64" frameborder="0" allowfullscreen title="Pris: Ethyl A"></iframe>
       </div>
     </section>
 
     <section>
       <h2>This Sexy Never Ends</h2>
       <div class="video-container">
-        <iframe width="640" height="360" src="https://www.youtube.com/embed/tM2ChsrfryY" frameborder="0" allowfullscreen></iframe>
+        <iframe width="640" height="360" src="https://www.youtube.com/embed/tM2ChsrfryY" frameborder="0" allowfullscreen title="This Sexy Never Ends"></iframe>
       </div>
     </section>
 
@@ -150,9 +162,10 @@
       <a class="social-btn" href="https://wa.me/84339441925" target="_blank" aria-label="WhatsApp"><img src="images/clamshell-mobile-phone.png" alt="WhatsApp" class="social-icon"></a>
     </div>
     <a href="contact.html#newsletter" class="newsletter-link"><span class="sym">🗞️</span> Newsletter <span class="sym">🗞️</span></a>
-    <p>© 2025–2026 Andrew Newell Walther. All rights reserved.</p>
+    <p>© 2025–2026 Andrew Newell Walther. All rights reserved. <span id="site-visits" class="visitor-counter"></span></p>
   </footer>
 
   <script src="menu.js"></script>
+  <script src="counter.js"></script>
 </body>
 </html>

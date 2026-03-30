@@ -135,8 +135,8 @@
           <button class="lightbox-prev" aria-label="Previous">&#8249;</button>
           <button class="lightbox-zoom" aria-label="Toggle zoom">&#x1F50D;</button>
           <div class="zoom-slider-wrap">
-            <input type="range" class="zoom-slider" min="25" max="200" value="25" step="5">
-            <span class="zoom-label">25%</span>
+            <input type="range" class="zoom-slider" min="25" max="200" value="50" step="5">
+            <span class="zoom-label">50%</span>
           </div>
           <button class="lightbox-inquire" aria-label="Inquire">Inquire</button>
           <button class="lightbox-next" aria-label="Next">&#8250;</button>
@@ -479,7 +479,7 @@
   }
 
   function preloadAdjacentImages() {
-    const r2 = 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/';
+    const r2 = window.GALLERY_R2 || 'https://pub-c7202c315ad94697823c64022db4c1fd.r2.dev/';
     const series = allSeries[currentSeriesIndex];
     for (let offset = -2; offset <= 2; offset++) {
       if (offset === 0) continue;

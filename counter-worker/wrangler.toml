@@ -1,0 +1,8 @@
+name = "walther-counter"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+account_id = "31a35595add67ae1366b3f6420432773"
+
+[[kv_namespaces]]
+binding = "COUNTER"
+id = "REPLACE_WITH_KV_ID"

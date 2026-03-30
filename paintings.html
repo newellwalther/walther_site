@@ -4,7 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Paintings — Andrew Newell Walther</title>
-  <meta name="description" content="Paintings by Andrew Newell Walther">
+  <meta name="description" content="Paintings by Andrew Newell Walther, multidisciplinary artist from Alaska, based in Ho Chi Minh City">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Andrew Newell Walther">
+  <meta property="og:title" content="Paintings — Andrew Newell Walther">
+  <meta property="og:description" content="Paintings by Andrew Newell Walther, multidisciplinary artist from Alaska, based in Ho Chi Minh City">
+  <meta property="og:url" content="https://walther.website/paintings.html">
+  <meta property="og:image" content="https://walther.website/images/portrait-bw.png">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@newellwalther">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://walther.website/paintings.html">
 
   <link rel="icon" type="image/png" href="images/cheese-wedge.png">
 
@@ -142,10 +154,11 @@
       </a>
     </div>
     <a href="contact.html#newsletter" class="newsletter-link"><span class="sym">🗞️</span> Newsletter <span class="sym">🗞️</span></a>
-    <p>© 2025–2026 Andrew Newell Walther. All rights reserved.</p>
+    <p>© 2025–2026 Andrew Newell Walther. All rights reserved. <span id="site-visits" class="visitor-counter"></span></p>
   </footer>
 
   <script src="menu.js"></script>
+  <script src="counter.js"></script>
   <script src="gallery.js"></script>
   <script>
     fetch('paintings-data.json')

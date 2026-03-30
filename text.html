@@ -4,8 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Text — Andrew Newell Walther</title>
-  <meta name="description" content="Text works by Andrew Newell Walther">
-  
+  <meta name="description" content="Text-based video works by Andrew Newell Walther — a dataset of tens of thousands of images of words and phrases">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Andrew Newell Walther">
+  <meta property="og:title" content="Text-Based Work — Andrew Newell Walther">
+  <meta property="og:description" content="Text-based video works by Andrew Newell Walther — a dataset of tens of thousands of images of words and phrases">
+  <meta property="og:url" content="https://walther.website/text.html">
+  <meta property="og:image" content="https://walther.website/images/portrait-bw.png">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@newellwalther">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://walther.website/text.html">
+
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="images/cheese-wedge.png">
   
@@ -22,46 +34,15 @@
   
   <style>
     /* Black background, white text */
-    body {
-      background-color: #000;
-      color: #fff;
-    }
+    body { background-color: #000; color: #fff; }
+    header, main, footer { background-color: #000; color: #fff; }
+    h1, h2, p, a { color: #fff; }
+    .menu-trigger { background-color: #fff; color: #000; border: 1px solid #fff; }
+    .menu-trigger:hover { background-color: #000; color: #fff; }
+    .dropdown { background-color: #fff; border: 1px solid #fff; }
+    .dropdown a { color: #000; }
+    .dropdown a:hover { background-color: #eee; }
 
-    header, main, footer {
-      background-color: #000;
-      color: #fff;
-    }
-
-    h1, h2, p, a {
-      color: #fff;
-    }
-
-    /* Menu visibility on black background */
-    .menu-trigger {
-      background-color: #fff;
-      color: #000;
-      border: 1px solid #fff;
-    }
-
-    .menu-trigger:hover {
-      background-color: #000;
-      color: #fff;
-    }
-
-    .dropdown {
-      background-color: #fff;
-      border: 1px solid #fff;
-    }
-
-    .dropdown a {
-      color: #000;
-    }
-
-    .dropdown a:hover {
-      background-color: #eee;
-    }
-
-    /* Random Text Artwork Header */
     #text-artwork-header {
       width: 100%;
       background-color: #000;
@@ -74,7 +55,6 @@
       overflow: hidden;
       min-height: 60px;
     }
-
     #text-artwork-header img {
       width: 100%;
       height: auto;
@@ -89,114 +69,34 @@
       -moz-user-drag: none;
       -o-user-drag: none;
     }
-
     @media (max-width: 768px) {
-      #text-artwork-header {
-        padding: 1rem 0;
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-        min-height: 40px;
-      }
+      #text-artwork-header { padding: 1rem 0; margin-top: 2rem; margin-bottom: 2rem; min-height: 40px; }
     }
-
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-    }
-
-    .video-section {
-      margin-bottom: 4rem;
-    }
-
-    .video-section h2 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      text-align: center;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
+    main { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+    .video-section { margin-bottom: 4rem; }
+    .video-section h2 { font-size: 1.8rem; margin-bottom: 1rem; text-align: center; text-transform: uppercase; letter-spacing: 1px; }
     .video-container {
       position: relative;
-      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
       margin-bottom: 1.5rem;
     }
-
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 1px solid #666;
-    }
-
-    .video-description {
-      line-height: 1.8;
-      text-align: left;
-      margin: 0 auto;
-      max-width: 700px;
-    }
-
-    .video-description p {
-      margin-bottom: 1rem;
-    }
-
-    /* Two-column layout for bottom videos */
-    .videos-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-
-    /* Offset effect */
-    .videos-grid .video-section:first-child {
-      margin-top: 2rem;
-    }
-
-    .newsletter-link {
-      color: #fff;
-    }
-
-    .newsletter-link:hover {
-      color: #ccc;
-    }
-
-    footer {
-      background: #f8f8f8 !important;
-      color: #666 !important;
-      border-top: 1px solid #ddd;
-    }
-
-    footer p, footer a {
-      color: #666 !important;
-    }
-
-    .newsletter-link {
-      color: #000 !important;
-    }
-
-    .newsletter-link:hover {
-      color: #333 !important;
-    }
-
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid #666; }
+    .video-description { line-height: 1.8; text-align: left; margin: 0 auto; max-width: 700px; }
+    .video-description p { margin-bottom: 1rem; }
+    .videos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+    .videos-grid .video-section:first-child { margin-top: 2rem; }
+    .newsletter-link { color: #fff; }
+    .newsletter-link:hover { color: #ccc; }
+    footer { background: #f8f8f8 !important; color: #666 !important; border-top: 1px solid #ddd; }
+    footer p, footer a { color: #666 !important; }
+    .newsletter-link { color: #000 !important; }
+    .newsletter-link:hover { color: #333 !important; }
     @media (max-width: 768px) {
-      .videos-grid {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-      }
-
-      .videos-grid .video-section:first-child {
-        margin-top: 0;
-      }
-
-      .video-section h2 {
-        font-size: 1.4rem;
-      }
+      .videos-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .videos-grid .video-section:first-child { margin-top: 0; }
+      .video-section h2 { font-size: 1.4rem; }
     }
   </style>
 </head>
@@ -235,7 +135,7 @@
     <section class="video-section">
       <h2>Andrew Newell Walther's Super-Feature Text Movie</h2>
       <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/EgjbIcrp4og" frameborder="0" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/EgjbIcrp4og" frameborder="0" allowfullscreen title="Andrew Newell Walther's Super-Feature Text Movie"></iframe>
       </div>
       <div class="video-description">
         <p>
@@ -258,14 +158,14 @@
       <section class="video-section">
         <h2>Day 3</h2>
         <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/_vB0uJK5DA8" frameborder="0" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/_vB0uJK5DA8" frameborder="0" allowfullscreen title="Day 3"></iframe>
         </div>
       </section>
 
       <section class="video-section">
         <h2>Day 2</h2>
         <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/Ul3klpv4RTI" frameborder="0" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/Ul3klpv4RTI" frameborder="0" allowfullscreen title="Day 2"></iframe>
         </div>
       </section>
     </div>
@@ -283,51 +183,34 @@
       <a class="social-btn" href="https://wa.me/84339441925" target="_blank" aria-label="WhatsApp"><img src="images/clamshell-mobile-phone.png" alt="WhatsApp" class="social-icon"></a>
     </div>
     <a href="contact.html#newsletter" class="newsletter-link"><span class="sym">🗞️</span> Newsletter <span class="sym">🗞️</span></a>
-    <p>© 2025–2026 Andrew Newell Walther. All rights reserved.</p>
+    <p>© 2025–2026 Andrew Newell Walther. All rights reserved. <span id="site-visits" class="visitor-counter"></span></p>
   </footer>
 
   <script src="menu.js"></script>
+  <script src="counter.js"></script>
   
   <script>
-    // Load random text artwork image
     (function() {
       fetch('images/text-images/manifest.json')
         .then(response => response.json())
         .then(data => {
-          // Select random image
           const randomIndex = Math.floor(Math.random() * data.images.length);
           const randomImage = data.images[randomIndex];
-          
-          // Create and insert image
           const img = document.createElement('img');
           img.src = `images/text-images/${randomImage}`;
           img.alt = 'Text artwork by Andrew Newell Walther';
-          
-          // Disable right-click on image
-          img.oncontextmenu = function(e) {
-            e.preventDefault();
-            return false;
-          };
-          
+          img.oncontextmenu = function(e) { e.preventDefault(); return false; };
           document.getElementById('text-artwork-header').appendChild(img);
         })
-        .catch(error => {
-          console.error('Error loading text artwork:', error);
-        });
+        .catch(error => { console.error('Error loading text artwork:', error); });
       
-      // Disable common save shortcuts
       document.addEventListener('keydown', function(e) {
-        // Ctrl+S / Cmd+S
-        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-          e.preventDefault();
-        }
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); }
       });
       
-      // Additional right-click protection for all images
       document.addEventListener('contextmenu', function(e) {
         if (e.target.tagName === 'IMG' && e.target.closest('#text-artwork-header')) {
-          e.preventDefault();
-          return false;
+          e.preventDefault(); return false;
         }
       });
     })();

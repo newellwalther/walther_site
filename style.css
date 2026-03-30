@@ -1,4 +1,15 @@
 /* ------------------------------
+   VISITOR COUNTER
+------------------------------ */
+.visitor-counter {
+  display: inline-block;
+  margin-left: 0.75rem;
+  vertical-align: middle;
+  font-size: 0.82rem;
+  color: #666;
+}
+
+/* ------------------------------
    WHATSAPP NOTICE
 ------------------------------ */
 #wa-notice {
