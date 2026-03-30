@@ -304,7 +304,7 @@
       fetch('https://script.google.com/macros/s/AKfycbxOW7UbzYoJh888mfOREAfyPgH2zxU4Uo93clAHD0Cmqt9CIzzIzG0G1Go_wEy2g_ep/exec?' + params.toString(), { mode: 'no-cors' }).catch(() => {});
 
       const msg = document.getElementById('newsletterMessage');
-      msg.textContent = 'Subscribed!';
+      msg.textContent = 'Got it — you\'ll be added to the list.';
       msg.className = 'form-message success';
       msg.style.display = 'block';
       this.reset();
@@ -322,7 +322,7 @@
         '\nEmail: ' + email +
         '\n\nMessage:\n' + message
       );
-      window.open('mailto:newell.pdx@gmail.com?subject=' + subject + '&body=' + body, '_blank');
+      window.location.href = 'mailto:newell.pdx@gmail.com?subject=' + subject + '&body=' + body;
       const msg = document.getElementById('formMessage');
       msg.textContent = 'Opening your email client...';
       msg.className = 'form-message success';
