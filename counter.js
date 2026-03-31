@@ -7,6 +7,9 @@
   function buildOdometer(container, count) {
     var digits = String(count).split('');
 
+    var H = 16; // px — window height per digit slot
+    var W = 11; // px — window width
+
     container.style.cssText = [
       'display:inline-flex',
       'align-items:center',
@@ -14,7 +17,6 @@
       'vertical-align:middle',
       'gap:2px',
       'font-family:Georgia,serif',
-      'font-size:0.82rem',
     ].join(';');
 
     digits.forEach(function(d, i) {
@@ -22,8 +24,8 @@
       wheel.style.cssText = [
         'display:inline-block',
         'overflow:hidden',
-        'height:1.15em',
-        'width:0.62em',
+        'height:' + H + 'px',
+        'width:' + W + 'px',
         'border:1px solid #bbb',
         'border-radius:1px',
         'background:#fff',
@@ -42,11 +44,11 @@
         var digit = document.createElement('span');
         digit.style.cssText = [
           'display:block',
-          'height:1.15em',
-          'line-height:1.15em',
+          'height:' + H + 'px',
+          'line-height:' + H + 'px',
           'text-align:center',
+          'font-size:11px',
           'color:#111',
-          'font-variant-numeric:tabular-nums',
         ].join(';');
         digit.textContent = n;
         inner.appendChild(digit);
@@ -59,12 +61,12 @@
       var delay = (digits.length - 1 - i) * 90 + 120;
       setTimeout(function(innerEl, target) {
         innerEl.style.transition = 'transform 0.7s cubic-bezier(0.23,1,0.32,1)';
-        innerEl.style.transform = 'translateY(-' + (target * 1.15) + 'em)';
+        innerEl.style.transform = 'translateY(-' + (target * H) + 'px)';
       }.bind(null, inner, parseInt(d)), delay);
     });
 
     var label = document.createElement('span');
-    label.style.cssText = 'margin-left:0.35em;color:#888;font-size:0.78rem;letter-spacing:0.5px;';
+    label.style.cssText = 'margin-left:0.35em;color:#888;font-size:11px;letter-spacing:0.5px;';
     label.textContent = 'visits';
     container.appendChild(label);
   }
