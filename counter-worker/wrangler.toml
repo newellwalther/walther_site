@@ -5,4 +5,4 @@ account_id = "31a35595add67ae1366b3f6420432773"
 
 [[kv_namespaces]]
 binding = "COUNTER"
-id = "REPLACE_WITH_KV_ID"
+id = "d2ae31fbdccf42cc9ac51375cda16a32"
