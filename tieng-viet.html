@@ -119,10 +119,16 @@
       max-width: 100%;
     }
 
-    .tts-btn {
+    .tts-btns {
       position: absolute;
       bottom: 0.6rem;
       right: 0.75rem;
+      display: flex;
+      gap: 0.3rem;
+      z-index: 10;
+    }
+
+    .tts-btn {
       background: none;
       border: none;
       font-size: 1.2rem;
@@ -131,7 +137,6 @@
       transition: opacity 0.2s;
       line-height: 1;
       padding: 0.2rem;
-      z-index: 10;
     }
 
     .tts-btn:hover {
@@ -283,11 +288,17 @@
       <div class="flashcard" id="flashcard">
         <div class="card-face card-front">
           <div class="card-text" id="frontText"></div>
-          <button class="tts-btn" id="ttsFront" title="Speak Vietnamese" aria-label="Speak Vietnamese">🔊</button>
+          <div class="tts-btns" id="ttsFront">
+            <button class="tts-btn" id="ttsFrontNormal" title="Speak Vietnamese" aria-label="Speak Vietnamese">🔊</button>
+            <button class="tts-btn" id="ttsFrontSlow" title="Speak slowly" aria-label="Speak Vietnamese slowly">🐢</button>
+          </div>
         </div>
         <div class="card-face card-back">
           <div class="card-text" id="backText"></div>
-          <button class="tts-btn" id="ttsBack" title="Speak Vietnamese" aria-label="Speak Vietnamese">🔊</button>
+          <div class="tts-btns" id="ttsBack">
+            <button class="tts-btn" id="ttsBackNormal" title="Speak Vietnamese" aria-label="Speak Vietnamese">🔊</button>
+            <button class="tts-btn" id="ttsBackSlow" title="Speak slowly" aria-label="Speak Vietnamese slowly">🐢</button>
+          </div>
         </div>
       </div>
     </div>
@@ -990,6 +1001,10 @@
     const backText = document.getElementById('backText');
     const ttsFront = document.getElementById('ttsFront');
     const ttsBack = document.getElementById('ttsBack');
+    const ttsFrontNormal = document.getElementById('ttsFrontNormal');
+    const ttsFrontSlow = document.getElementById('ttsFrontSlow');
+    const ttsBackNormal = document.getElementById('ttsBackNormal');
+    const ttsBackSlow = document.getElementById('ttsBackSlow');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const toggleLangBtn = document.getElementById('toggleLang');
@@ -1012,11 +1027,12 @@
       return shuffled;
     }
 
-    function speakVietnamese(text) {
+    function speakVietnamese(text, rate) {
       if (!window.speechSynthesis) return;
       window.speechSynthesis.cancel();
       const utter = new SpeechSynthesisUtterance(text);
       utter.lang = 'vi-VN';
+      utter.rate = rate || 1.0;
       window.speechSynthesis.speak(utter);
     }
 
@@ -1036,14 +1052,16 @@
         // ENG→VIET: Vietnamese is on the back, hide front TTS button
         ttsFront.style.display = 'none';
         ttsBack.style.display = '';
-        ttsBack.onclick = (e) => { e.stopPropagation(); speakVietnamese(card.vietnamese); };
+        ttsBackNormal.onclick = (e) => { e.stopPropagation(); speakVietnamese(card.vietnamese, 1.0); };
+        ttsBackSlow.onclick = (e) => { e.stopPropagation(); speakVietnamese(card.vietnamese, 0.6); };
       } else {
         frontText.textContent = card.vietnamese;
         backText.textContent = card.english;
         // VIET→ENG: Vietnamese is on the front, hide back TTS button
         ttsFront.style.display = '';
         ttsBack.style.display = 'none';
-        ttsFront.onclick = (e) => { e.stopPropagation(); speakVietnamese(card.vietnamese); };
+        ttsFrontNormal.onclick = (e) => { e.stopPropagation(); speakVietnamese(card.vietnamese, 1.0); };
+        ttsFrontSlow.onclick = (e) => { e.stopPropagation(); speakVietnamese(card.vietnamese, 0.6); };
       }
       counter.textContent = `Card ${currentIndex + 1} of ${shuffledCards.length}`;
     }
