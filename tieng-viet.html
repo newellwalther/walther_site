@@ -531,7 +531,43 @@
       { english: "vagina (very vulgar)", vietnamese: "lồn" },
       { english: "whatever the nose, so the penis (crude saying)", vietnamese: "mũi nào cặc ấy" },
       { english: "swallow saliva", vietnamese: "nuốt nước miếng" },
-      { english: "continuously", vietnamese: "liên tục" }
+      { english: "continuously", vietnamese: "liên tục" },
+      { english: "from past to present / ever", vietnamese: "xưa nay" },
+      { english: "never seen", vietnamese: "chưa từng thấy" },
+      { english: "heart-shaped", vietnamese: "hình trái tim" },
+      { english: "this love/relationship", vietnamese: "cuộc tình này" },
+      { english: "stand still", vietnamese: "đứng im" },
+      { english: "not much / hardly", vietnamese: "không… là mấy" },
+      { english: "only / nothing but", vietnamese: "chỉ toàn là" },
+      { english: "texting", vietnamese: "nhắn tin" },
+      { english: "go nowhere", vietnamese: "đi về không đâu" },
+      { english: "high/far", vietnamese: "cao xa" },
+      { english: "shallow/deep", vietnamese: "nông sâu" },
+      { english: "parallel", vietnamese: "song song" },
+      { english: "close", vietnamese: "kề" },
+      { english: "linking arms", vietnamese: "khoác tay" },
+      { english: "as if never knew each other", vietnamese: "như thể chưa bao giờ quen nhau" },
+      { english: "behind", vietnamese: "đằng sau" },
+      { english: "two parallel lines", vietnamese: "hai đường song song" },
+      { english: "don't fucking know (very informal)", vietnamese: "đéo biết" },
+      { english: "live how long", vietnamese: "sống được bao lâu" },
+      { english: "pull legs in (withdraw)", vietnamese: "thu chân vào" },
+      { english: "inside you", vietnamese: "bên trong em" },
+      { english: "wherever you are", vietnamese: "ở nơi đâu" },
+      { english: "send a couple messages", vietnamese: "nhắn được hai câu" },
+      { english: "today is the last time", vietnamese: "hôm nay lần cuối" },
+      { english: "slowly / take it easy", vietnamese: "từ từ thôi" },
+      { english: "because", vietnamese: "bởi vì" },
+      { english: "pampered / indulged", vietnamese: "nuông chiều" },
+      { english: "in this life", vietnamese: "trần đời" },
+      { english: "nobody wants", vietnamese: "đâu ai muốn" },
+      { english: "overthink", vietnamese: "nghĩ nhiều" },
+      { english: "unfamiliar / foreign", vietnamese: "xa lạ" },
+      { english: "everyone", vietnamese: "ai ai cũng" },
+      { english: "long-lasting", vietnamese: "bền lâu" },
+      { english: "we", vietnamese: "ta" },
+      { english: "build", vietnamese: "xây" },
+      { english: "for each other", vietnamese: "cho nhau" }
     ];
 
     // Parse a single CSV row, handling quoted fields
@@ -588,6 +624,13 @@
     function displayCard() {
       if (shuffledCards.length === 0) return;
       const card = shuffledCards[currentIndex];
+      // Instantly snap card to unflipped state before updating content,
+      // preventing the answer from flashing during the flip-back animation.
+      flashcard.style.transition = 'none';
+      flashcard.classList.remove('flipped');
+      void flashcard.offsetWidth; // force reflow so transition:none takes effect
+      flashcard.style.transition = '';
+      isFlipped = false;
       if (isEngFirst) {
         frontText.textContent = card.english;
         backText.textContent = card.vietnamese;
@@ -596,8 +639,6 @@
         backText.textContent = card.english;
       }
       counter.textContent = `Card ${currentIndex + 1} of ${shuffledCards.length}`;
-      isFlipped = false;
-      flashcard.classList.remove('flipped');
     }
 
     async function loadCards() {
