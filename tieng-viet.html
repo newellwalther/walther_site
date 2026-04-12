@@ -612,7 +612,13 @@
             return { english: cols[0] || '', vietnamese: cols[1] || '' };
           })
           .filter(card => card.english && card.vietnamese);
-        allCards = cards.length > 0 ? cards : [...initialCards];
+        if (cards.length > 0) {
+          const sheetViet = new Set(cards.map(c => c.vietnamese));
+          const extras = initialCards.filter(c => !sheetViet.has(c.vietnamese));
+          allCards = [...cards, ...extras];
+        } else {
+          allCards = [...initialCards];
+        }
       } catch (err) {
         allCards = [...initialCards];
       }
