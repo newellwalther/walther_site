@@ -119,6 +119,25 @@
       max-width: 100%;
     }
 
+    .tts-btn {
+      position: absolute;
+      bottom: 0.6rem;
+      right: 0.75rem;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+      line-height: 1;
+      padding: 0.2rem;
+      z-index: 10;
+    }
+
+    .tts-btn:hover {
+      opacity: 1;
+    }
+
     .navigation {
       display: flex;
       justify-content: center;
@@ -260,13 +279,15 @@
       <button class="control-btn" id="toggleLang">Switch to VIET → ENG</button>
     </div>
 
-    <div class="flashcard-container">
+    <div class="flashcard-container" style="position:relative;">
       <div class="flashcard" id="flashcard">
         <div class="card-face card-front">
           <div class="card-text" id="frontText"></div>
+          <button class="tts-btn" id="ttsFront" title="Speak Vietnamese" aria-label="Speak Vietnamese">🔊</button>
         </div>
         <div class="card-face card-back">
           <div class="card-text" id="backText"></div>
+          <button class="tts-btn" id="ttsBack" title="Speak Vietnamese" aria-label="Speak Vietnamese">🔊</button>
         </div>
       </div>
     </div>
@@ -718,6 +739,8 @@
     const flashcard = document.getElementById('flashcard');
     const frontText = document.getElementById('frontText');
     const backText = document.getElementById('backText');
+    const ttsFront = document.getElementById('ttsFront');
+    const ttsBack = document.getElementById('ttsBack');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const toggleLangBtn = document.getElementById('toggleLang');
@@ -740,6 +763,14 @@
       return shuffled;
     }
 
+    function speakVietnamese(text) {
+      if (!window.speechSynthesis) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'vi-VN';
+      window.speechSynthesis.speak(utter);
+    }
+
     function displayCard() {
       if (shuffledCards.length === 0) return;
       const card = shuffledCards[currentIndex];
@@ -753,9 +784,17 @@
       if (isEngFirst) {
         frontText.textContent = card.english;
         backText.textContent = card.vietnamese;
+        // ENG→VIET: Vietnamese is on the back, hide front TTS button
+        ttsFront.style.display = 'none';
+        ttsBack.style.display = '';
+        ttsBack.onclick = (e) => { e.stopPropagation(); speakVietnamese(card.vietnamese); };
       } else {
         frontText.textContent = card.vietnamese;
         backText.textContent = card.english;
+        // VIET→ENG: Vietnamese is on the front, hide back TTS button
+        ttsFront.style.display = '';
+        ttsBack.style.display = 'none';
+        ttsFront.onclick = (e) => { e.stopPropagation(); speakVietnamese(card.vietnamese); };
       }
       counter.textContent = `Card ${currentIndex + 1} of ${shuffledCards.length}`;
     }
