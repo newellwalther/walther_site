@@ -1,0 +1,2116 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question_vi": "Các tai nạn thường xảy ra trên phương tiện thuỷ nội địa:",
+      "answers_vi": ["Gãy tay, chân, hoặc bị thương một phần cơ thể.", "Bị ngất do hít phải khí độc.", "Bị bỏng, điện giật, chết đuối.", "Tất cả các đáp án trên"],
+      "correct_index": 3,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "Common accidents on inland waterway vessels include:",
+        "answers_en": ["Broken arms, legs, or partial body injuries.", "Fainting from inhaling toxic gas.", "Burns, electric shock, drowning.", "All of the above."]
+      },
+      "explanation_en": "Inland waterway vessels face multiple hazard types simultaneously — physical trauma, toxic gas exposure, and drowning risks are all common."
+    },
+    {
+      "id": 2,
+      "question_vi": "Trong quy định an toàn lao động, người lao động được sử dụng và vận hành thiết bị là:",
+      "answers_vi": ["Người mới vào làm việc.", "Người đã được huấn luyện về quy tắc an toàn và vận hành thiết bị.", "Người được huấn luyện vận hành thiết bị.", "Người đã làm việc lâu năm."],
+      "correct_index": 1,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "Under labor safety regulations, who is permitted to operate equipment?",
+        "answers_en": ["New employees.", "Someone trained in BOTH safety rules AND equipment operation.", "Someone trained in equipment operation only.", "Long-term employees."]
+      },
+      "explanation_en": "Both safety rules training AND equipment operation training are required — option b specifies both conditions, while option c only covers one."
+    },
+    {
+      "id": 3,
+      "question_vi": "Tam giác cháy gồm 3 yếu tố là:",
+      "answers_vi": ["Nitơ, nguồn nhiệt, chất cháy.", "Oxy, nguồn nhiệt, chất cháy.", "Oxy, Nitơ, chất cháy.", "Oxy, nguồn nhiệt, Nitơ."],
+      "correct_index": 1,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "The fire triangle consists of 3 elements:",
+        "answers_en": ["Nitrogen, heat source, fuel.", "Oxygen, heat source, fuel.", "Oxygen, nitrogen, fuel.", "Oxygen, heat source, nitrogen."]
+      },
+      "explanation_en": "Fire requires oxygen (not nitrogen), a heat source, and fuel. Nitrogen is inert and does not support combustion."
+    },
+    {
+      "id": 4,
+      "question_vi": "Khi khí và hơi phát cháy thì dùng loại bình chữa cháy hóa học để dập cháy tốt nhất là:",
+      "answers_vi": ["Bình bọt.", "Bình bột.", "Bình CO2.", "Bình axit bazơ."],
+      "correct_index": 1,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "For gas and vapor fires, the best chemical fire extinguisher is:",
+        "answers_en": ["Foam extinguisher.", "Dry powder extinguisher.", "CO2 extinguisher.", "Acid-base extinguisher."]
+      },
+      "explanation_en": "Dry powder (ABC powder) is most effective for flammable gas/vapor fires — it smothers the flame and interrupts chemical chain reactions."
+    },
+    {
+      "id": 5,
+      "question_vi": "Các thiết bị điện, hóa chất không gây phản ứng với CO2 thì dùng loại bình chữa cháy hóa học tốt nhất để dập cháy là:",
+      "answers_vi": ["Bình CO2.", "Bình bột.", "Bình bọt.", "Bình Axít bazơ."],
+      "correct_index": 0,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "For electrical equipment and chemicals that don't react with CO2, the best extinguisher is:",
+        "answers_en": ["CO2 extinguisher.", "Dry powder.", "Foam.", "Acid-base."]
+      },
+      "explanation_en": "CO2 extinguishers are ideal for electrical fires — they leave no residue and don't conduct electricity."
+    },
+    {
+      "id": 6,
+      "question_vi": "Bình bọt dùng để chữa cháy tốt nhất cho loại đám cháy:",
+      "answers_vi": ["Thiết bị điện.", "Đám cháy khi và hơi.", "Kim loại cháy được.", "Xăng dầu, mỡ và chất lỏng cháy được."],
+      "correct_index": 3,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "Foam extinguishers work best for which type of fire?",
+        "answers_en": ["Electrical equipment.", "Gas and vapor fires.", "Combustible metals.", "Fuel, grease, and flammable liquids."]
+      },
+      "explanation_en": "Foam floats on liquid surfaces, cutting off oxygen supply — ideal for Class B fires (fuel, oil, grease)."
+    },
+    {
+      "id": 7,
+      "question_vi": "Trang thiết bị cứu hỏa trên phương tiện thuỷ thường được sơn:",
+      "answers_vi": ["Màu đỏ.", "Màu xanh.", "Màu vàng.", "Màu xám."],
+      "correct_index": 0,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "Firefighting equipment on watercraft is typically painted:",
+        "answers_en": ["Red.", "Blue.", "Yellow.", "Gray."]
+      },
+      "explanation_en": "Red is the international standard color for fire safety equipment, making it immediately visible in emergencies."
+    },
+    {
+      "id": 8,
+      "question_vi": "Nguyên nhân phương tiện thuỷ bị thủng:",
+      "answers_vi": ["Do va chạm giữa các phương tiện với nhau.", "Do va chạm giữa phương tiện với các vật thể khác.", "Do mòn tự nhiên.", "Tất cả các đáp án trên"],
+      "correct_index": 3,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "Causes of a watercraft hull breach include:",
+        "answers_en": ["Collision between vessels.", "Collision with other objects.", "Natural wear and corrosion.", "All of the above."]
+      },
+      "explanation_en": "Hull breaches can result from vessel collisions, impact with objects, or gradual deterioration — all three are valid causes."
+    },
+    {
+      "id": 9,
+      "question_vi": "Trang bị, dụng cụ nào dưới đây thuộc trang bị cứu thủng là:",
+      "answers_vi": ["Phao các loại.", "Bơm nước, thảm, nêm gỗ.", "Cáng, xuồng cứu sinh.", "Các loại phao."],
+      "correct_index": 1,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "Which equipment belongs to hull-breach repair gear?",
+        "answers_en": ["Various life buoys.", "Water pump, patching mat, wooden wedges.", "Stretcher, rescue boat.", "Various types of floats."]
+      },
+      "explanation_en": "Hull-breach repair (cứu thủng) requires plugging tools: pumps to control flooding, mats to cover holes, and wooden wedges to seal gaps."
+    },
+    {
+      "id": 10,
+      "question_vi": "Sau khi đưa người đuối nước lên bờ, để đầu nạn nhân ở tư thế trên cáng để khiêng là:",
+      "answers_vi": ["Để đầu cao hơn ngực.", "Để đầu cao bằng ngực.", "Để đầu thấp hơn ngực.", "Để đầu như thế nào cũng được."],
+      "correct_index": 2,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "After rescuing a drowning victim, when carrying them on a stretcher, the head should be:",
+        "answers_en": ["Higher than the chest.", "Level with the chest.", "Lower than the chest.", "Any position is fine."]
+      },
+      "explanation_en": "Keeping the head lower than the chest allows water to drain from airways and maintains blood flow to the brain."
+    },
+    {
+      "id": 11,
+      "question_vi": "Nạn nhân ngưng thở, tim còn đập ta:",
+      "answers_vi": ["Giúp thở 02 hơi cho nạn nhân.", "Giúp thở 01 hơi cho nạn nhân.", "Giúp thở cho nạn nhân cứ mỗi 05 giây 01 lần.", "Giúp thở cho nạn nhân 05 hơi trong 10 giây."],
+      "correct_index": 2,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "When a victim stops breathing but still has a pulse:",
+        "answers_en": ["Give 2 rescue breaths.", "Give 1 rescue breath.", "Give 1 rescue breath every 5 seconds.", "Give 5 breaths in 10 seconds."]
+      },
+      "explanation_en": "When the heart beats but breathing stops, give artificial respiration at 1 breath every 5 seconds (12/minute) to maintain oxygenation."
+    },
+    {
+      "id": 12,
+      "question_vi": "Vị trí ấn tim (trường hợp ngưng tim) là:",
+      "answers_vi": ["1/2 Ngực bên trái nạn nhân.", "1/2 Giữa xương ức.", "1/2 dưới xương ức.", "Tất cả đều sai."],
+      "correct_index": 2,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "The correct position for chest compressions (cardiac arrest) is:",
+        "answers_en": ["Left half of the chest.", "Middle of the sternum.", "Lower half of the sternum.", "All are wrong."]
+      },
+      "explanation_en": "CPR compressions are applied to the lower half of the sternum, which compresses the heart against the spine effectively."
+    },
+    {
+      "id": 13,
+      "question_vi": "Hô hấp nhân tạo nhằm mục đích:",
+      "answers_vi": ["Loại bỏ nguyên nhân gây ngạt thở.", "Giúp cho không khí từ ngoài vào, để tăng cường chức năng cho tim hoạt động trở lại.", "Làm cho không khí ở ngoài vào phổi kết hợp ép tim ngoài lồng ngực.", "Giúp không khí ở ngoài vào phổi và đẩy không khí trong phổi ra ngoài để thay thế cho hô hấp tự nhiên."],
+      "correct_index": 3,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "The purpose of artificial respiration is:",
+        "answers_en": ["To remove the cause of suffocation.", "To allow air in to help the heart resume function.", "To push air into lungs combined with chest compressions.", "To move fresh air into the lungs and expel used air, replacing natural breathing."]
+      },
+      "explanation_en": "Artificial respiration mechanically replicates natural breathing — pumping oxygen in and pushing CO2 out when the body cannot do so independently."
+    },
+    {
+      "id": 14,
+      "question_vi": "Khi nghi ngờ nạn nhân bị gãy xương, ta có thể:",
+      "answers_vi": ["Khám nghiệm khắp cơ thể nạn nhân tìm xem nạn nhân còn những vết thương nào khác để xử lý.", "Không khám dụng chạm mà chuyển đến cơ sở Y tế gần nhất.", "Lay động thử nhẹ nhàng nơi gãy xem sự tổn thương nặng nhẹ để xử lý kịp thời.", "Cố định tạm thời nơi nghi bị gãy rồi chuyển đến bệnh viện ngay."],
+      "correct_index": 3,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "When a fracture is suspected, you should:",
+        "answers_en": ["Examine the whole body for other injuries first.", "Don't touch — transport directly to the nearest medical facility.", "Gently move the injured area to assess severity.", "Immobilize the suspected fracture temporarily, then transport to hospital immediately."]
+      },
+      "explanation_en": "Suspected fractures must be splinted/immobilized before moving the patient to prevent further injury, then taken to hospital immediately."
+    },
+    {
+      "id": 15,
+      "question_vi": "Xử lý một vết thương phần mềm có dị vật:",
+      "answers_vi": ["Rút dị vật ra và băng ép để cầm máu.", "Cấp cứu viên dùng tay ép mạnh lên miệng vết thương có dị vật để cầm máu.", "Cấp cứu viên ép mạnh lên vết thương có dị vật và băng ép lại.", "Dùng gòn, gạc ép mạnh lên miệng vết thương có dị vật và băng ép để cầm máu."],
+      "correct_index": 3,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "Treating a soft tissue wound with an embedded foreign object:",
+        "answers_en": ["Remove the object, then apply pressure bandage.", "Rescuer presses hard directly on the wound with their hand to stop bleeding.", "Rescuer presses on the wound and bandages it.", "Apply cotton/gauze firmly around the embedded object and bandage to control bleeding."]
+      },
+      "explanation_en": "Never remove an embedded object — it may be plugging a vessel. Apply padding around it and bandage firmly without disturbing the object."
+    },
+    {
+      "id": 16,
+      "question_vi": "Phương pháp cầm máu hiệu quả và thông dụng hiện nay là:",
+      "answers_vi": ["Phương pháp đặt garot (ga – rô).", "Phương pháp băng ép cầm máu.", "Phương pháp băng ép ấn chặn động mạch.", "Đặt con chèn cầm máu."],
+      "correct_index": 1,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "The most effective and commonly used method for stopping bleeding today is:",
+        "answers_en": ["Tourniquet application.", "Pressure bandaging.", "Pressure bandaging with arterial compression.", "Placing a wedge to stop bleeding."]
+      },
+      "explanation_en": "Pressure bandaging is the standard first-line method — effective, low-risk, and applicable to most wounds. Tourniquets are reserved for severe limb hemorrhage."
+    },
+    {
+      "id": 17,
+      "question_vi": "Khi băng đối với vết thương bỏng ta dùng:",
+      "answers_vi": ["Dùng băng thun, băng chặt để cầm máu.", "Dùng băng lưới băng lỏng đề tạo sự thông thoáng.", "Không cần băng, chỉ thoa thuốc là đủ.", "Tất cả đều sai."],
+      "correct_index": 1,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "When bandaging a burn wound:",
+        "answers_en": ["Apply an elastic bandage tightly to control bleeding.", "Use a mesh/net bandage applied loosely to allow airflow.", "No bandaging needed — just apply medication.", "All are wrong."]
+      },
+      "explanation_en": "Burn wounds need loose net bandaging to allow air circulation, reduce infection risk, and prevent fabric from sticking to the wound."
+    },
+    {
+      "id": 18,
+      "question_vi": "Nguyên tắc cột dây cơ bản trong cố định xương gãy là:",
+      "answers_vi": ["Cột trên dưới 2 đầu nẹp trước.", "Cột 2 đầu khớp trước.", "Cột ngay ổ gãy để tránh sốc.", "Cột trên ổ gãy – dưới ổ gãy trước."],
+      "correct_index": 3,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "The basic rule for tying splints on a fracture is:",
+        "answers_en": ["Tie above and below the two splint ends first.", "Tie at both joints first.", "Tie directly at the fracture site to prevent shock.", "Tie above the fracture site first, then below it."]
+      },
+      "explanation_en": "Splint ties should secure above and below the fracture site first, then at the joints — stabilizing the break before handling the surrounding area."
+    },
+    {
+      "id": 19,
+      "question_vi": "Nguyên tắc tải thương là:",
+      "answers_vi": ["Di chuyển phải theo dõi nạn nhân.", "Động tác phải nhẹ nhàng và đồng bộ.", "Đúng cách, thích hợp theo bệnh trạng.", "Cả 3 câu trên đều đúng."],
+      "correct_index": 3,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "The principles of patient transport include:",
+        "answers_en": ["Monitor the patient during movement.", "Movements must be gentle and coordinated.", "Use the appropriate method based on the patient's condition.", "All three of the above."]
+      },
+      "explanation_en": "Safe patient transport requires all three: continuous monitoring, gentle coordinated movement, and technique matched to the specific injury/condition."
+    },
+    {
+      "id": 20,
+      "question_vi": "Khi cần thiết phải gọi xe cấp cứu, cần nói rõ:",
+      "answers_vi": ["Tên tuổi nạn nhân, địa chỉ, số điện thoại.", "Tính chất tai nạn.", "Hỏi và tìm chỗ đau.", "Cả 3 đều đúng."],
+      "correct_index": 1,
+      "section": "an-toan-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "When calling for an ambulance, you must clearly state:",
+        "answers_en": ["Victim's name, address, and phone number.", "The nature of the accident.", "Ask about and locate the injury.", "All three."]
+      },
+      "explanation_en": "The nature of the accident (type and severity) is the critical information so dispatchers can send appropriate resources and brief the medical team."
+    },
+    {
+      "id": 21,
+      "question_vi": "Nhược điểm của dây thực vật là:",
+      "answers_vi": ["Dễ bị ẩm mốc.", "Dễ tích điện và gây cháy nổ.", "Phải bôi mỡ bảo quản thường xuyên.", "Chịu tải lớn."],
+      "correct_index": 0,
+      "section": "thuy-nghiep-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "The disadvantage of natural fiber rope is:",
+        "answers_en": ["Susceptible to moisture and mold.", "Can build up static electricity and cause explosions.", "Must be regularly greased for maintenance.", "Carries heavy loads."]
+      },
+      "explanation_en": "Natural fiber rope (hemp, manila) absorbs moisture easily, which causes mold, rot, and weakens the rope over time."
+    },
+    {
+      "id": 22,
+      "question_vi": "Ưu điểm của dây cáp là:",
+      "answers_vi": ["Chịu được tải trọng lớn.", "Chịu được axít loãng và kiềm.", "Nổi trên mặt nước.", "Độ đàn hồi lớn."],
+      "correct_index": 0,
+      "section": "thuy-nghiep-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "The advantage of wire/cable rope is:",
+        "answers_en": ["Can bear heavy loads.", "Resistant to dilute acids and alkalis.", "Floats on water.", "High elasticity."]
+      },
+      "explanation_en": "Wire rope's primary advantage is its high load-bearing capacity — it is used for heavy mooring, towing, and structural applications."
+    },
+    {
+      "id": 23,
+      "question_vi": "Neo Hải quân là loại neo có:",
+      "answers_vi": ["1 cánh neo và ngáng.", "2 cánh neo và ngáng.", "3 cánh neo.", "4 cánh neo."],
+      "correct_index": 1,
+      "section": "thuy-nghiep-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "A Navy anchor (Neo Hải quân) has:",
+        "answers_en": ["1 fluke and a stock.", "2 flukes and a stock.", "3 flukes.", "4 flukes."]
+      },
+      "explanation_en": "The standard Navy (Admiralty) anchor has 2 flukes and a crossbar (stock) that helps the flukes dig into the seabed."
+    },
+    {
+      "id": 24,
+      "question_vi": "Nút sống có tác dụng:",
+      "answers_vi": ["Để buộc vào cột, cọc.", "Để đưa thuyền viên lên cao làm việc.", "Dùng để bớt dây.", "Để nối 2 đầu dây nhỏ cùng cỡ, khác cỡ."],
+      "correct_index": 3,
+      "section": "thuy-nghiep-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "The sheet bend knot (nút sống) is used:",
+        "answers_en": ["To tie to a post or pole.", "To hoist crew members aloft.", "To shorten a rope.", "To join two rope ends of the same or different sizes."]
+      },
+      "explanation_en": "The sheet bend is specifically designed for joining ropes of different diameters — making it essential for connecting lines of unequal thickness."
+    },
+    {
+      "id": 25,
+      "question_vi": "Nút lèo đơn có tác dụng:",
+      "answers_vi": ["Để nối 2 đầu dây cùng cỡ hoặc để nối 1 đầu dây với 1 khuyết.", "Để buộc đầu dây cáp.", "Để đưa thuyền viên ra mạn làm việc.", "Để cẩu hàng lên cao."],
+      "correct_index": 0,
+      "section": "thuy-nghiep-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "The single sheet bend (nút lèo đơn) is used:",
+        "answers_en": ["To join two rope ends of the same size, or to attach a rope end to a loop.", "To secure the end of a wire rope.", "To send crew members over the side to work.", "To hoist cargo aloft."]
+      },
+      "explanation_en": "The single sheet bend joins ropes of equal diameter or attaches a line to a loop — it's the basic joining knot for similarly-sized ropes."
+    },
+    {
+      "id": 26,
+      "question_vi": "Nút hai khóa ngược có tác dụng:",
+      "answers_vi": ["Để buộc neo.", "Để làm quai chèo, làm vòng đệm mái chèo.", "Để buộc đầu dây vào cọc, cột, khuyết.", "Để cứu người ngã xuống nước."],
+      "correct_index": 2,
+      "section": "thuy-nghiep-co-ban",
+      "image": null,
+      "translation": {
+        "question_en": "The clove hitch (nút hai khóa ngược) is used:",
+        "answers_en": ["To tie an anchor.", "To make oarlock loops or oar cushion rings.", "To fasten a rope end to a post, pole, or loop.", "To rescue someone who has fallen overboard."]
+      },
+      "explanation_en": "The clove hitch secures a line to a post, bollard, or ring — widely used for temporary mooring and securing to fixed points."
+    },
+    {
+      "id": 27,
+      "question_vi": "Nút số 8 là:",
+      "answers_vi": ["Nút 1", "Nút 2", "Nút 3", "Nút 4"],
+      "correct_index": 1,
+      "section": "thuy-nghiep-co-ban",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.51.46 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.51.59 PM.png"
+      },
+      "translation": {
+        "question_en": "The figure-8 knot is:",
+        "answers_en": ["Knot 1", "Knot 2", "Knot 3", "Knot 4"]
+      },
+      "explanation_en": "The figure-8 knot creates an ∞ shape and is used as a stopper knot to prevent rope from slipping through a block or fitting."
+    },
+    {
+      "id": 28,
+      "question_vi": "Nút dẹt dễ mở là:",
+      "answers_vi": ["Nút 1", "Nút 2", "Nút 3", "Nút 4"],
+      "correct_index": 2,
+      "section": "thuy-nghiep-co-ban",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.52.07 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.52.19 PM.png"
+      },
+      "translation": {
+        "question_en": "The slip reef knot (easy to untie) is:",
+        "answers_en": ["Knot 1", "Knot 2", "Knot 3", "Knot 4"]
+      },
+      "explanation_en": "The slip reef knot (nút dẹt dễ mở) is a reef knot with one slipped bight, allowing quick release by pulling one end."
+    },
+    {
+      "id": 29,
+      "question_vi": "Nút sống là:",
+      "answers_vi": ["Nút 1", "Nút 2", "Nút 3", "Nút 4"],
+      "correct_index": 0,
+      "section": "thuy-nghiep-co-ban",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.52.26 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.52.35 PM.png"
+      },
+      "translation": {
+        "question_en": "The sheet bend knot is:",
+        "answers_en": ["Knot 1", "Knot 2", "Knot 3", "Knot 4"]
+      },
+      "explanation_en": "The sheet bend (nút sống) is used to join two ropes, especially of different diameters. It forms a distinct asymmetric interlocking shape."
+    },
+    {
+      "id": 30,
+      "question_vi": "Nút câu là:",
+      "answers_vi": ["Nút 1", "Nút 2", "Nút 3", "Nút 4"],
+      "correct_index": 3,
+      "section": "thuy-nghiep-co-ban",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.52.41 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.52.49 PM.png"
+      },
+      "translation": {
+        "question_en": "The cleat hitch knot is:",
+        "answers_en": ["Knot 1", "Knot 2", "Knot 3", "Knot 4"]
+      },
+      "explanation_en": "The cleat hitch (nút câu) is used to secure a line to a cleat on a dock or vessel, allowing easy adjustment and release."
+    },
+    {
+      "id": 31,
+      "question_vi": "Nút móc đơn là:",
+      "answers_vi": ["Nút 1", "Nút 2", "Nút 3", "Nút 4"],
+      "correct_index": 3,
+      "section": "thuy-nghiep-co-ban",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.53.03 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.53.28 PM.png"
+      },
+      "translation": {
+        "question_en": "The single hook knot (timber hitch) is:",
+        "answers_en": ["Knot 1", "Knot 2", "Knot 3", "Knot 4"]
+      },
+      "explanation_en": "The single hook knot (nút móc đơn) secures a rope to a hook or log; it tightens under load and is easy to untie when slack."
+    },
+    {
+      "id": 32,
+      "question_vi": "Nút cô dây vào cọc bích đơn có ngáng là:",
+      "answers_vi": ["Nút 1", "Nút 2", "Nút 3", "Nút 4"],
+      "correct_index": 2,
+      "section": "thuy-nghiep-co-ban",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.53.33 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.53.43 PM.png"
+      },
+      "translation": {
+        "question_en": "Securing a line to a single bollard WITH a crossbar is:",
+        "answers_en": ["Knot 1", "Knot 2", "Knot 3", "Knot 4"]
+      },
+      "explanation_en": "This mooring technique wraps the line around a bollard with a crossbar (ngáng), using the bar to lock the line securely."
+    },
+    {
+      "id": 33,
+      "question_vi": "Nút đa ghi là:",
+      "answers_vi": ["Nút 1", "Nút 2", "Nút 3", "Nút 4"],
+      "correct_index": 0,
+      "section": "thuy-nghiep-co-ban",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.53.50 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.54.01 PM.png"
+      },
+      "translation": {
+        "question_en": "The chain/daisy knot is:",
+        "answers_en": ["Knot 1", "Knot 2", "Knot 3", "Knot 4"]
+      },
+      "explanation_en": "The daisy chain knot (nút đa ghi) creates a series of linked loops, used to shorten rope temporarily while keeping it tangle-free."
+    },
+    {
+      "id": 34,
+      "question_vi": "Nút 1 vòng chết 2 khóa là:",
+      "answers_vi": ["Nút 1", "Nút 2", "Nút 3", "Nút 4"],
+      "correct_index": 1,
+      "section": "thuy-nghiep-co-ban",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.54.08 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.54.17 PM.png"
+      },
+      "translation": {
+        "question_en": "The round turn and two half hitches knot is:",
+        "answers_en": ["Knot 1", "Knot 2", "Knot 3", "Knot 4"]
+      },
+      "explanation_en": "Round turn and two half hitches (nút 1 vòng chết 2 khóa) is a reliable fastening knot used to secure a line to a ring, rail, or post."
+    },
+    {
+      "id": 35,
+      "question_vi": "Nút ghế đơn là:",
+      "answers_vi": ["Nút 1", "Nút 2", "Nút 3", "Nút 4"],
+      "correct_index": 2,
+      "section": "thuy-nghiep-co-ban",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.54.27 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.54.33 PM.png"
+      },
+      "translation": {
+        "question_en": "The single bowline knot is:",
+        "answers_en": ["Knot 1", "Knot 2", "Knot 3", "Knot 4"]
+      },
+      "explanation_en": "The bowline (nút ghế đơn) creates a fixed loop that won't slip or jam — the most important rescue and mooring knot on any vessel."
+    },
+    {
+      "id": 36,
+      "question_vi": "Nút ghế kép là:",
+      "answers_vi": ["Nút 1", "Nút 2", "Nút 3", "Nút 4"],
+      "correct_index": 0,
+      "section": "thuy-nghiep-co-ban",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.54.38 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.54.44 PM.png"
+      },
+      "translation": {
+        "question_en": "The double bowline knot is:",
+        "answers_en": ["Knot 1", "Knot 2", "Knot 3", "Knot 4"]
+      },
+      "explanation_en": "The double bowline (nút ghế kép) creates two loops used as a harness seat for hoisting crew members safely aloft or over the side."
+    },
+    {
+      "id": 37,
+      "question_vi": "Nút cầu thùng đứng là:",
+      "answers_vi": ["Nút 1", "Nút 2", "Nút 3", "Nút 4"],
+      "correct_index": 0,
+      "section": "thuy-nghiep-co-ban",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.54.51 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.54.58 PM.png"
+      },
+      "translation": {
+        "question_en": "The barrel hitch (vertical) knot is:",
+        "answers_en": ["Knot 1", "Knot 2", "Knot 3", "Knot 4"]
+      },
+      "explanation_en": "The vertical barrel hitch (nút cầu thùng đứng) keeps cylindrical cargo upright during hoisting — the rope wraps around the barrel to hold it level."
+    },
+    {
+      "id": 38,
+      "question_vi": "Nút neo thuận là:",
+      "answers_vi": ["Nút 1", "Nút 2", "Nút 3", "Nút 4"],
+      "correct_index": 3,
+      "section": "thuy-nghiep-co-ban",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.55.04 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.55.13 PM.png"
+      },
+      "translation": {
+        "question_en": "The anchor bend knot is:",
+        "answers_en": ["Knot 1", "Knot 2", "Knot 3", "Knot 4"]
+      },
+      "explanation_en": "The anchor bend (nút neo thuận) is a strong knot for attaching a rope to an anchor ring — it holds firmly under load and resists slipping."
+    },
+    {
+      "id": 39,
+      "question_vi": "Nút xổ dùi là:",
+      "answers_vi": ["Nút 1", "Nút 2", "Nút 3", "Nút 4"],
+      "correct_index": 2,
+      "section": "thuy-nghiep-co-ban",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.55.17 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.55.28 PM.png"
+      },
+      "translation": {
+        "question_en": "The toggle/marlinspike hitch knot is:",
+        "answers_en": ["Knot 1", "Knot 2", "Knot 3", "Knot 4"]
+      },
+      "explanation_en": "The toggle knot (nút xổ dùi) uses a pin or spike to create a quick-release fastening that can be undone instantly by removing the toggle."
+    },
+    {
+      "id": 40,
+      "question_vi": "Nút cô dây vào cọc bích đơn không ngáng là:",
+      "answers_vi": ["Nút 1", "Nút 2", "Nút 3", "Nút 4"],
+      "correct_index": 3,
+      "section": "thuy-nghiep-co-ban",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.55.34 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.55.42 PM.png"
+      },
+      "translation": {
+        "question_en": "Securing a line to a single bollard WITHOUT a crossbar is:",
+        "answers_en": ["Knot 1", "Knot 2", "Knot 3", "Knot 4"]
+      },
+      "explanation_en": "This mooring technique wraps the line around a plain bollard (no crossbar), using figure-8 turns to hold the mooring line securely."
+    },
+    {
+      "id": 41,
+      "question_vi": "Sông ngòi ở khu vực thượng lưu thường có đặc điểm:",
+      "answers_vi": ["Độ dốc lớn, lưu tốc lớn và có nhiều bãi cạn.", "Độ dốc lớn, lưu tốc nhỏ và có nhiều ghềnh đá nguy hiểm.", "Độ dốc lớn, lưu tốc lớn, nhiều ghềnh đá nguy hiểm và có ít bãi cạn.", "Độ dốc lớn, lưu tốc nhỏ và có ít bãi cạn."],
+      "correct_index": 2,
+      "section": "luong-duong-thuy",
+      "image": null,
+      "translation": {
+        "question_en": "Rivers in the upper reaches typically have:",
+        "answers_en": ["High gradient, high current speed, and many shallows.", "High gradient, low current speed, and many dangerous rapids.", "High gradient, high current speed, many dangerous rapids, and few shallows.", "High gradient, low current speed, and few shallows."]
+      },
+      "explanation_en": "Upper reaches have steep gradients driving fast currents over rocky beds, creating rapids but few sand/gravel shallows (which form downstream)."
+    },
+    {
+      "id": 42,
+      "question_vi": "Dạng đoạn sông cong thường có đặc điểm:",
+      "answers_vi": ["Bên bờ vịnh thường có bãi cạn.", "Bên bờ doi thường có bãi cạn.", "Cả hai bên bờ thường có bãi cạn.", "Giữa sông có bãi cạn."],
+      "correct_index": 1,
+      "section": "luong-duong-thuy",
+      "image": null,
+      "translation": {
+        "question_en": "A curved river section typically has:",
+        "answers_en": ["Shallows on the concave (bay) bank.", "Shallows on the convex (point bar) bank.", "Shallows on both banks.", "Shallows in the middle of the river."]
+      },
+      "explanation_en": "On a river bend, water flows fastest on the outside (concave/bay bank), eroding it deep. On the inside (convex/doi bank), slower water deposits sediment, creating shallows."
+    },
+    {
+      "id": 43,
+      "question_vi": "Dòng chảy phân luồng thường xuất hiện khi:",
+      "answers_vi": ["Có cồn ở giữa sông.", "Có cồn ở bờ phải.", "Có cồn ở bờ trái.", "Có cồn ở cả hai bên bờ."],
+      "correct_index": 0,
+      "section": "luong-duong-thuy",
+      "image": null,
+      "translation": {
+        "question_en": "Divided channel flow typically occurs when:",
+        "answers_en": ["There is an island in the middle of the river.", "There is a sandbar on the right bank.", "There is a sandbar on the left bank.", "There are sandbars on both banks."]
+      },
+      "explanation_en": "A mid-river island or sandbar splits the current into two separate channels — causing divided (bifurcated) flow on each side."
+    },
+    {
+      "id": 44,
+      "question_vi": "Dòng chảy vận thường xuất hiện khi dòng chảy gặp phải:",
+      "answers_vi": ["Đoạn sông cong.", "Đoạn sông có dòng chảy phân luồng.", "Đoạn sông có dòng chảy phủ luồng", "Đoạn sông thẳng"],
+      "correct_index": 0,
+      "section": "luong-duong-thuy",
+      "image": null,
+      "translation": {
+        "question_en": "Transverse (cross) currents typically appear when the flow encounters:",
+        "answers_en": ["A curved river section.", "A section with divided channel flow.", "A section with covered channel flow.", "A straight river section."]
+      },
+      "explanation_en": "Curved river sections cause the water to accelerate on the outside and decelerate inside, creating transverse (cross-river) current components."
+    },
+    {
+      "id": 45,
+      "question_vi": "Khi có dòng nước chảy từ thượng lưu, qua cầu xuống hạ lưu thì lưu tốc dòng nước chảy nhanh ở:",
+      "answers_vi": ["Thượng lưu cầu.", "Giữa hai trụ cầu.", "Hạ lưu cầu.", "Phía hai bờ."],
+      "correct_index": 1,
+      "section": "luong-duong-thuy",
+      "image": null,
+      "translation": {
+        "question_en": "When river water flows from upstream through a bridge to downstream, the current is fastest:",
+        "answers_en": ["Upstream of the bridge.", "Between the bridge piers.", "Downstream of the bridge.", "Near both banks."]
+      },
+      "explanation_en": "Bridge piers narrow the cross-section, so water accelerates between the piers — similar to water speeding up through a constricted nozzle."
+    },
+    {
+      "id": 46,
+      "question_vi": "Sông, kênh ở Việt Nam thường chảy theo hướng:",
+      "answers_vi": ["Tây Bắc – Đông Nam.", "Đông - Tây.", "Tây Nam – Đông Bắc.", "Bắc - Nam."],
+      "correct_index": 0,
+      "section": "luong-duong-thuy",
+      "image": null,
+      "translation": {
+        "question_en": "Rivers and canals in Vietnam generally flow in the direction:",
+        "answers_en": ["Northwest to Southeast.", "East to West.", "Southwest to Northeast.", "North to South."]
+      },
+      "explanation_en": "Vietnam's terrain slopes from the northwestern highlands toward the southeastern coast, so most rivers flow NW→SE to reach the sea."
+    },
+    {
+      "id": 47,
+      "question_vi": "Khu vực nào ở Việt Nam có mật độ sông, kênh lớn nhất?",
+      "answers_vi": ["Miền Bắc.", "Miền Trung.", "Tây Nguyên.", "Miền Nam."],
+      "correct_index": 3,
+      "section": "luong-duong-thuy",
+      "image": null,
+      "translation": {
+        "question_en": "Which region of Vietnam has the highest density of rivers and canals?",
+        "answers_en": ["The North.", "The Central region.", "The Central Highlands.", "The South."]
+      },
+      "explanation_en": "Southern Vietnam (the Mekong Delta) has the densest waterway network — thousands of canals and river branches create a vast inland transport system."
+    },
+    {
+      "id": 48,
+      "question_vi": "Sông nào chảy trong địa phận Việt Nam là dài nhất?",
+      "answers_vi": ["Sông Thái Bình.", "Sông Hồng.", "Sông Đồng Nai.", "Sông Tiền."],
+      "correct_index": 2,
+      "section": "luong-duong-thuy",
+      "image": null,
+      "translation": {
+        "question_en": "Which river entirely within Vietnam's territory is the longest?",
+        "answers_en": ["Thai Binh River.", "Red River (Song Hong).", "Dong Nai River.", "Tien River (Mekong branch)."]
+      },
+      "explanation_en": "The Dong Nai River, at approximately 586 km entirely within Vietnam, is the longest river wholly within Vietnamese territory."
+    },
+    {
+      "id": 49,
+      "question_vi": "Hệ thống sông nào có lưu lượng nước nhiều nhất Việt Nam?",
+      "answers_vi": ["Hệ thống sông Thái Bình.", "Hệ thống sông Hồng.", "Hệ thống sông Đồng Nai.", "Hệ thống sông Cửu Long."],
+      "correct_index": 3,
+      "section": "luong-duong-thuy",
+      "image": null,
+      "translation": {
+        "question_en": "Which river system has the highest water volume in Vietnam?",
+        "answers_en": ["Thai Binh River system.", "Red River system.", "Dong Nai River system.", "Mekong (Cuu Long) River system."]
+      },
+      "explanation_en": "The Mekong (Cửu Long) carries the largest volume of water through Vietnam — it drains an enormous basin covering much of Southeast Asia."
+    },
+    {
+      "id": 50,
+      "question_vi": "Hệ thống sông nào có lưu vực rộng lớn nhất Việt Nam?",
+      "answers_vi": ["Hệ thống sông Thái Bình.", "Hệ thống sông Hồng.", "Hệ thống sông Đồng Nai.", "Hệ thống sông Cửu Long."],
+      "correct_index": 1,
+      "section": "luong-duong-thuy",
+      "image": null,
+      "translation": {
+        "question_en": "Which river system has the largest drainage basin in Vietnam?",
+        "answers_en": ["Thai Binh River system.", "Red River system.", "Dong Nai River system.", "Mekong River system."]
+      },
+      "explanation_en": "The Red River (Sông Hồng) system has the largest drainage basin entirely in Vietnam, covering much of the northern highlands."
+    },
+    {
+      "id": 51,
+      "question_vi": "Phương tiện có người ngã xuống nước, ban đêm ở vị trí cao nhất trên cột đèn phải thắp:",
+      "answers_vi": ["1 đèn xanh giữa hai đèn đỏ", "1 đèn xanh giữa hai đèn trắng", "1 đèn đỏ giữa hai đèn trắng", "1 đèn đỏ giữa hai đèn xanh"],
+      "correct_index": 0,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A vessel with a person overboard must display at night, at the highest point on the mast:",
+        "answers_en": ["1 green light between two red lights", "1 green light between two white lights", "1 red light between two white lights", "1 red light between two green lights"]
+      },
+      "explanation_en": "The 'man overboard' signal at night is 1 green light between two red lights — a distinctive pattern warning other vessels of the emergency."
+    },
+    {
+      "id": 52,
+      "question_vi": "Phương tiện chữa cháy khi làm nhiệm vụ ngoài đèn qui định, ban đêm thắp thêm:",
+      "answers_vi": ["Đèn đỏ nhấp nháy liên tục", "Đèn xanh quay nhanh liên tục", "Đèn đỏ quay nhanh liên tục", "Đèn trắng quay nhanh liên tục"],
+      "correct_index": 1,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A fire vessel on duty must display at night, in addition to standard lights:",
+        "answers_en": ["Continuously flashing red light", "Rapidly rotating blue light", "Rapidly rotating red light", "Rapidly rotating white light"]
+      },
+      "explanation_en": "Firefighting vessels on duty show a rapidly rotating blue light — the international emergency service signal for priority vessels."
+    },
+    {
+      "id": 53,
+      "question_vi": "Phương tiện của quân đội khi làm nhiệm vụ khẩn cấp ngoài đèn qui định, ban đêm thắp thêm:",
+      "answers_vi": ["Đèn đỏ nhấp nháy liên tục", "Đèn xanh quay nhanh liên tục", "Đèn đỏ quay nhanh liên tục", "Đèn trắng quay nhanh liên tục"],
+      "correct_index": 2,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A military vessel on urgent duty must display at night, in addition to standard lights:",
+        "answers_en": ["Continuously flashing red light", "Rapidly rotating blue light", "Rapidly rotating red light", "Rapidly rotating white light"]
+      },
+      "explanation_en": "Military vessels on urgent duty display a rapidly rotating red light — distinguishing them from fire vessels (blue) and police vessels."
+    },
+    {
+      "id": 54,
+      "question_vi": "Phương tiện của công an khi làm nhiệm vụ khẩn cấp ban ngày phải treo:",
+      "answers_vi": ["Cờ trắng chữ thập đỏ", "Cờ đỏ đuôi nheo", "Cờ đỏ đuôi nheo có quân hiệu", "Cờ xanh lá cây đuôi nheo có công an hiệu"],
+      "correct_index": 3,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A police vessel on urgent duty must display during the day:",
+        "answers_en": ["White flag with red cross", "Red swallow-tail flag", "Red swallow-tail flag with military insignia", "Green swallow-tail flag with police insignia"]
+      },
+      "explanation_en": "Police vessels on duty fly the green swallow-tail flag bearing the police insignia — their distinctive daytime identification signal."
+    },
+    {
+      "id": 55,
+      "question_vi": "Thuyền trưởng, người lái phương tiện khi hành trình phải giảm tốc độ trong trường hợp nào?",
+      "answers_vi": ["Đi gần đê, kè khi có nước lớn", "Đi gần phương tiện chở hành khách", "Đi ngoài phạm vi cảng, bến thủy nội địa", "Tất cả các trường hợp trên"],
+      "correct_index": 3,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A captain/helmsman must reduce speed when:",
+        "answers_en": ["Passing near an embankment or revetment during high water", "Passing near a passenger vessel", "Operating outside the scope of an inland port or landing", "All of the above"]
+      },
+      "explanation_en": "Speed must be reduced in all three situations — high water near embankments, proximity to passenger vessels, and around port areas — to ensure safety."
+    },
+    {
+      "id": 56,
+      "question_vi": "Thuyền trưởng, người lái phương tiện khi hành trình không được bám, buộc vào:",
+      "answers_vi": ["Phương tiện chở than", "Phương tiện chở hàng nguy hiểm", "Phương tiện chở xi măng", "Cả ba phương tiện trên"],
+      "correct_index": 1,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A captain/helmsman must NOT latch onto or tie to:",
+        "answers_en": ["A coal-carrying vessel", "A dangerous goods vessel", "A cement-carrying vessel", "All three vessels above"]
+      },
+      "explanation_en": "Attaching to dangerous goods vessels is prohibited — an accident or spillage could cause catastrophic fire, explosion, or chemical hazard."
+    },
+    {
+      "id": 57,
+      "question_vi": "Trong trường hợp nước đứng, hai phương tiện đi đối hướng gặp nhau có nguy cơ va chạm, phải tránh và nhường đường theo nguyên tắc nào?",
+      "answers_vi": ["Phương tiện phát tín hiệu xin đường trước được quyền ưu tiên", "Phương tiện phát tín hiệu xin đường sau được quyền ưu tiên", "Tránh nhau về phía mạn trái của mình", "Tránh nhau thế nào cũng được"],
+      "correct_index": 0,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "In slack water, when two vessels heading toward each other risk collision, the rule is:",
+        "answers_en": ["The vessel that signals first has the right of way", "The vessel that signals second has the right of way", "Both vessels turn to their port (left) side", "They can avoid each other any way they like"]
+      },
+      "explanation_en": "In slack water (no current), the vessel that requests passage first (signals first) takes priority — a first-come, first-served rule."
+    },
+    {
+      "id": 58,
+      "question_vi": "Thuyền trưởng, người lái phương tiện đang hành trình gặp phương tiện nhiệm vụ đặc biệt phải:",
+      "answers_vi": ["Tăng tốc độ, đi sát về một bên luồng để nhường đường", "Giảm tốc độ", "Giảm tốc độ, đi sát về một bên luồng để nhường đường", "Đi sát về một bên luồng để nhường đường"],
+      "correct_index": 2,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "When a captain/helmsman underway encounters a special duty vessel, they must:",
+        "answers_en": ["Speed up and hug one side of the channel to give way", "Reduce speed", "Reduce speed AND hug one side of the channel to give way", "Hug one side of the channel to give way"]
+      },
+      "explanation_en": "When encountering emergency/special-duty vessels, you must both reduce speed AND move to one side — doing only one action is insufficient."
+    },
+    {
+      "id": 59,
+      "question_vi": "Ba tiếng còi dài có ý nghĩa:",
+      "answers_vi": ["Sắp cập bến, rời bến, chào nhau", "Đang chạy lùi", "Không thể nhường đường", "Đổi hướng đi sang phải"],
+      "correct_index": 0,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "Three long whistle blasts means:",
+        "answers_en": ["Approaching dock, departing dock, or greeting", "Moving astern (reversing)", "Cannot give way", "Changing course to starboard (right)"]
+      },
+      "explanation_en": "Three long blasts is the signal for approaching/departing a dock or exchanging greetings between vessels on inland waterways."
+    },
+    {
+      "id": 60,
+      "question_vi": "Bốn tiếng còi dài có ý nghĩa:",
+      "answers_vi": ["Tin hiệu xin mở cầu, cống, âu tàu", "Đang chạy lùi", "Không thể nhường đường", "Gọi các phương tiện khác đến giúp đỡ"],
+      "correct_index": 0,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "Four long whistle blasts means:",
+        "answers_en": ["Request to open a bridge, sluice, or lock", "Moving astern (reversing)", "Cannot give way", "Calling other vessels for assistance"]
+      },
+      "explanation_en": "Four long blasts is the signal requesting the opening of a movable bridge, sluice gate, or canal lock to allow passage."
+    },
+    {
+      "id": 61,
+      "question_vi": "Phương tiện đang hành trình trên sông muốn vượt một phương tiện khác phải:",
+      "answers_vi": ["Phát âm hiệu là một tiếng còi ngắn, lặp lại nhiều lần", "Phát âm hiệu là hai tiếng còi ngắn, lặp lại nhiều lần", "Phát âm hiệu là một tiếng còi dài, lặp lại nhiều lần", "Phát âm hiệu là ba tiếng còi dài lặp lại nhiều lần"],
+      "correct_index": 2,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A vessel underway wishing to overtake another vessel must:",
+        "answers_en": ["Sound one short blast, repeated", "Sound two short blasts, repeated", "Sound one long blast, repeated", "Sound three long blasts, repeated"]
+      },
+      "explanation_en": "One long blast repeated is the overtaking request signal on inland waterways — the vessel ahead must respond before the overtake can proceed."
+    },
+    {
+      "id": 62,
+      "question_vi": "Phương tiện chở hàng nguy hiểm, ban ngày phải treo:",
+      "answers_vi": ["Cờ chữ B", "Cờ chữ C", "Cờ chữ N", "Cờ chữ O"],
+      "correct_index": 0,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A vessel carrying dangerous goods must display during the day:",
+        "answers_en": ["Flag letter B", "Flag letter C", "Flag letter N", "Flag letter O"]
+      },
+      "explanation_en": "Flag B (Bravo) — a red flag — is the international signal for 'dangerous cargo on board,' warning other vessels and port authorities."
+    },
+    {
+      "id": 63,
+      "question_vi": "Phương tiện có động cơ chở khách khi hành trình, ngoài đèn quy định, ban đêm phải thắp thêm:",
+      "answers_vi": ["Đèn đỏ nhấp nháy liên tục", "Đèn trắng nhấp nháy liên tục", "Đèn vàng nhấp nháy liên tục", "Đèn xanh nhấp nháy liên tục"],
+      "correct_index": 1,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A motorized passenger vessel underway must display at night, in addition to standard lights:",
+        "answers_en": ["Continuously flashing red light", "Continuously flashing white light", "Continuously flashing yellow light", "Continuously flashing blue light"]
+      },
+      "explanation_en": "Passenger vessels show a continuously flashing white light at night — alerting other mariners that passengers are on board and extra caution is needed."
+    },
+    {
+      "id": 64,
+      "question_vi": "Phương tiện có động cơ chở khách khi hành trình, ban ngày treo:",
+      "answers_vi": ["Cờ đỏ đuôi nheo", "Cờ xanh đuôi nheo", "Cờ trắng trắng đuôi nheo", "Cờ vàng đuôi nheo"],
+      "correct_index": 3,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A motorized passenger vessel underway must fly during the day:",
+        "answers_en": ["Red swallow-tail flag", "Blue swallow-tail flag", "White swallow-tail flag", "Yellow swallow-tail flag"]
+      },
+      "explanation_en": "Passenger vessels fly a yellow swallow-tail flag during the day — the daytime identification signal indicating passengers on board."
+    },
+    {
+      "id": 65,
+      "question_vi": "Phương tiện có chiều dài lớn nhất từ 45 mét trở xuống, ban đêm khi neo phải thắp:",
+      "answers_vi": ["1 đèn trắng sáng 360⁰ ở phía mũi", "1 đèn trắng sáng 360⁰ ở phía lái", "1 đèn đỏ sáng 360⁰ ở phía mũi", "1 đèn xanh sáng 360⁰ ở phía lái"],
+      "correct_index": 0,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A vessel up to 45 meters in length at anchor at night must display:",
+        "answers_en": ["1 white all-round light (360°) at the bow", "1 white all-round light (360°) at the stern", "1 red all-round light (360°) at the bow", "1 blue all-round light (360°) at the stern"]
+      },
+      "explanation_en": "Vessels under 45m at anchor show one white 360° anchor light at the bow — the standard international anchor signal for small vessels."
+    },
+    {
+      "id": 66,
+      "question_vi": "Phương tiện bị mắc cạn trên luồng mà một bên luồng còn lưu thông được ban đêm ở vị trí cao nhất trên cột đèn phải thắp:",
+      "answers_vi": ["1 đèn xanh trên một đèn đỏ, phía luồng lưu thông được thắp một đèn trắng", "1 đèn đỏ trên một đèn vàng, phía luồng lưu thông được thắp một đèn trắng", "1 đèn đỏ trên một đèn xanh, phía luồng lưu thông được thắp một đèn trắng", "1 đèn đỏ trên một đèn trắng phía luồng lưu thông được thắp một đèn trắng"],
+      "correct_index": 2,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A vessel aground on a channel where one side remains navigable must display at night, at the highest point on the mast:",
+        "answers_en": ["1 green over 1 red, with 1 white light on the navigable side", "1 red over 1 yellow, with 1 white light on the navigable side", "1 red over 1 green, with 1 white light on the navigable side", "1 red over 1 white, with 1 white light on the navigable side"]
+      },
+      "explanation_en": "A vessel aground shows red-over-green (the international 'aground' signal) and a separate white light indicating which side traffic can safely pass."
+    },
+    {
+      "id": 67,
+      "question_vi": "Phương tiện làm nhiệm vụ đặc biệt nào được ưu tiên đi trước?",
+      "answers_vi": ["Phương tiện, đoàn phương tiện có công an dẫn đường", "Phương tiện cứu nạn", "Phương tiện quân đội làm nhiệm vụ khẩn cấp", "Phương tiện, đoàn phương tiện có công an hộ tống"],
+      "correct_index": 1,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "Which special-duty vessel has the highest navigation priority?",
+        "answers_en": ["Police-escorted vessel or convoy (police leading)", "Search and rescue vessel", "Military vessel on urgent duty", "Police-escorted vessel or convoy (police guarding)"]
+      },
+      "explanation_en": "Search and rescue (SAR) vessels have the highest priority — saving lives takes precedence over all other special duties."
+    },
+    {
+      "id": 68,
+      "question_vi": "Phương tiện làm nhiệm vụ đặc biệt nào được ưu tiên đi trước?",
+      "answers_vi": ["Phương tiện chữa cháy", "Phương tiện cứu nạn", "Phương tiện quân đội làm nhiệm vụ khẩn cấp", "Phương tiện, đoàn phương tiện có công an hộ tống"],
+      "correct_index": 0,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "Which special-duty vessel has priority of passage?",
+        "answers_en": ["Firefighting vessel", "Search and rescue vessel", "Military vessel on urgent duty", "Police-escorted convoy"]
+      },
+      "explanation_en": "Among the options listed here, firefighting vessels are given navigation priority — fires can spread rapidly and seconds matter in fire suppression."
+    },
+    {
+      "id": 69,
+      "question_vi": "Hai phương tiện đi đối hướng nhau có nguy cơ va chạm, thuyền trưởng, người lái phương tiện tránh và nhường đường theo nguyên tắc nào?",
+      "answers_vi": ["Phương tiện thô sơ phải tránh bề", "Bề phải tránh phương tiện có động cơ", "Bề phải tránh mọi phương tiện", "Mọi phương tiện phải tránh bề"],
+      "correct_index": 3,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "When two vessels heading toward each other risk collision, the rule is:",
+        "answers_en": ["Non-motorized vessels must give way to the bank side", "The bank side must give way to motorized vessels", "The bank side must give way to all vessels", "All vessels must give way to the bank side"]
+      },
+      "explanation_en": "All vessels must steer toward the bank (bờ) side to avoid collision — clearing the channel center so both can pass safely."
+    },
+    {
+      "id": 70,
+      "question_vi": "Thuyền trưởng, người lái phương tiện khi hành trình phải giảm tốc độ của phương tiện trong trường hợp đi gần phương tiện nào?",
+      "answers_vi": ["Đi gần phương tiện đang thực hiện nghiệp vụ trên luồng", "Đi gần phương tiện bị nạn", "Đi gần phương tiện chở hàng nguy hiểm", "Cả ba trường hợp trên"],
+      "correct_index": 3,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A captain/helmsman must reduce speed when passing near which type of vessel?",
+        "answers_en": ["A vessel performing duties on the channel", "A vessel in distress", "A vessel carrying dangerous goods", "All three of the above"]
+      },
+      "explanation_en": "Speed reduction is required in all three cases — to avoid creating dangerous wash or interference with duty operations, rescues, or hazardous cargo vessels."
+    },
+    {
+      "id": 71,
+      "question_vi": "Phương tiện loại A kéo đoàn dài dưới 100 mét, ban ngày treo:",
+      "answers_vi": ["2 dấu hiệu, mỗi dấu hiệu gồm 2 hình tròn màu đen ghép kiểu múi khế", "1 dấu hiệu, mỗi dấu hiệu gồm 2 hình tròn màu đen ghép kiểu múi khế", "3 dấu hiệu, mỗi dấu hiệu gồm 2 hình tròn màu đen ghép kiểu múi khế", "4 dấu hiệu, mỗi dấu hiệu gồm 2 hình tròn màu đen ghép kiểu múi khế"],
+      "correct_index": 0,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A Class A vessel towing a convoy less than 100 meters long must display during the day:",
+        "answers_en": ["2 shapes, each consisting of 2 black circles in a star-fruit pattern", "1 shape consisting of 2 black circles in a star-fruit pattern", "3 shapes, each consisting of 2 black circles in a star-fruit pattern", "4 shapes, each consisting of 2 black circles in a star-fruit pattern"]
+      },
+      "explanation_en": "A Class A tug towing under 100m shows 2 black ball shapes during the day — indicating a towing operation of limited length."
+    },
+    {
+      "id": 72,
+      "question_vi": "Phương tiện loại A kéo đoàn dài từ 100 mét trở lên, ban đêm thắp:",
+      "answers_vi": ["1 đèn trắng cột mũi, 2 đèn mạn, 1 đèn trắng lái", "2 đèn trắng cột mũi, 2 đèn mạn, 1 đèn trắng lái", "3 đèn trắng cột mũi, 2 đèn mạn, 1 đèn trắng lái", "4 đèn trắng cột mũi, 2 đèn mạn, 1 đèn trắng lái"],
+      "correct_index": 2,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A Class A vessel towing a convoy 100 meters or longer must display at night:",
+        "answers_en": ["1 white masthead light, 2 sidelights, 1 white stern light", "2 white masthead lights, 2 sidelights, 1 white stern light", "3 white masthead lights, 2 sidelights, 1 white stern light", "4 white masthead lights, 2 sidelights, 1 white stern light"]
+      },
+      "explanation_en": "A Class A tug towing 100m or more shows 3 masthead lights at night — the additional masthead lights indicate the greater length and hazard of the tow."
+    },
+    {
+      "id": 73,
+      "question_vi": "Phương tiện loại A kéo đoàn dài từ 100 mét trở lên, ban ngày treo:",
+      "answers_vi": ["1 dấu hiệu, mỗi dấu hiệu gồm 2 hình tròn màu đen ghép kiểu múi khế", "2 dấu hiệu, mỗi dấu hiệu gồm 2 hình tròn màu đen ghép kiểu múi khế", "3 dấu hiệu, mỗi dấu hiệu gồm 2 hình tròn màu đen ghép kiểu múi khế", "4 dấu hiệu, mỗi dấu hiệu gồm 2 hình tròn màu đen ghép kiểu múi khế"],
+      "correct_index": 2,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A Class A vessel towing a convoy 100 meters or longer must display during the day:",
+        "answers_en": ["1 shape of 2 black circles in star-fruit pattern", "2 shapes of 2 black circles in star-fruit pattern", "3 shapes of 2 black circles in star-fruit pattern", "4 shapes of 2 black circles in star-fruit pattern"]
+      },
+      "explanation_en": "Three shapes during the day for a 100m+ tow matches the three masthead lights shown at night — signaling a long and potentially hazardous convoy."
+    },
+    {
+      "id": 74,
+      "question_vi": "Phương tiện loại A lai áp mạn, ban đêm thắp:",
+      "answers_vi": ["1 đèn trắng cột mũi, 2 đèn mạn, 1 đèn trắng sau lái", "2 đèn trắng cột mũi, 2 đèn mạn, 1 đèn trắng sau lái", "3 đèn trắng cột mũi, 2 đèn mạn, 1 đèn trắng sau lái", "4 đèn trắng cột mũi, 2 đèn mạn, 1 đèn trắng sau lái"],
+      "correct_index": 1,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A Class A vessel pushing alongside must display at night:",
+        "answers_en": ["1 white masthead light, 2 sidelights, 1 white stern light", "2 white masthead lights, 2 sidelights, 1 white stern light", "3 white masthead lights, 2 sidelights, 1 white stern light", "4 white masthead lights, 2 sidelights, 1 white stern light"]
+      },
+      "explanation_en": "A Class A vessel pushing alongside (áp mạn) shows 2 masthead lights — indicating the pushing/alongside towing operation."
+    },
+    {
+      "id": 75,
+      "question_vi": "Phương tiện Loại A áp mạn, ban ngày treo:",
+      "answers_vi": ["1 dấu hiệu, mỗi dấu hiệu gồm 2 hình tròn màu đen ghép kiểu múi khế", "2 dấu hiệu, mỗi dấu hiệu gồm 2 hình tròn màu đen ghép kiểu múi khế", "3 dấu hiệu, mỗi dấu hiệu gồm 2 hình tròn màu đen ghép kiểu múi khế", "4 dấu hiệu, mỗi dấu hiệu gồm 2 hình tròn màu đen ghép kiểu múi khế"],
+      "correct_index": 1,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A Class A vessel pushing alongside must display during the day:",
+        "answers_en": ["1 shape of 2 black circles in star-fruit pattern", "2 shapes of 2 black circles in star-fruit pattern", "3 shapes of 2 black circles in star-fruit pattern", "4 shapes of 2 black circles in star-fruit pattern"]
+      },
+      "explanation_en": "Two daytime shapes for pushing alongside corresponds to the 2 masthead lights shown at night — indicating the push-alongside operation."
+    },
+    {
+      "id": 76,
+      "question_vi": "Phương tiện yêu cầu cảnh sát, thanh tra giao thông đường thủy hỗ trợ, ban ngày ở trên cột đèn phải treo:",
+      "answers_vi": ["Cờ chữ A", "Cờ xanh", "Cờ chữ B", "Cờ chữ K"],
+      "correct_index": 1,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A vessel requesting assistance from waterway police or inspectors must fly during the day:",
+        "answers_en": ["Flag letter A", "Blue flag", "Flag letter B", "Flag letter K"]
+      },
+      "explanation_en": "A plain blue flag signals a request for police or traffic inspection assistance — a simple, easily recognizable distress/request signal."
+    },
+    {
+      "id": 77,
+      "question_vi": "Phương tiện yêu cầu cảnh sát, thanh tra giao thông đường thủy hỗ trợ, ban đêm ở trên cột đèn phải thắp thêm:",
+      "answers_vi": ["1 đèn xanh trên một đèn đỏ", "1 đèn xanh trên một đèn trắng", "1 đèn đỏ trên một đèn trắng", "1 đèn đỏ trên một đèn vàng"],
+      "correct_index": 0,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A vessel requesting waterway police/inspector assistance must display at night, in addition to standard lights:",
+        "answers_en": ["1 green light over 1 red light", "1 green light over 1 white light", "1 red light over 1 white light", "1 red light over 1 yellow light"]
+      },
+      "explanation_en": "Green over red is the night signal for requesting police/inspector assistance — matching the daytime blue flag signal."
+    },
+    {
+      "id": 78,
+      "question_vi": "Phương tiện đang thử máy, thử tốc độ, ban ngày ở vị trí cao nhất trên cột đèn phải treo:",
+      "answers_vi": ["Cờ chữ A", "Cờ chữ C", "Cờ chữ B", "Cờ chữ H"],
+      "correct_index": 0,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A vessel undergoing engine or speed trials must fly at the highest mast point during the day:",
+        "answers_en": ["Flag letter A", "Flag letter C", "Flag letter B", "Flag letter H"]
+      },
+      "explanation_en": "Flag A (Alpha) — a blue-and-white swallowtail flag — signals that a vessel is engaged in engine/speed trials and may behave unpredictably."
+    },
+    {
+      "id": 79,
+      "question_vi": "Cờ chữ B có màu gì?",
+      "answers_vi": ["Đỏ", "Trắng", "Vàng", "Xanh"],
+      "correct_index": 0,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "What color is Flag B (Bravo)?",
+        "answers_en": ["Red", "White", "Yellow", "Blue"]
+      },
+      "explanation_en": "Flag B (Bravo) is solid red — the international signal for 'dangerous cargo on board.' Red ensures maximum visibility and urgency."
+    },
+    {
+      "id": 80,
+      "question_vi": "Cảnh sát giao thông đường thủy khi gọi phương tiện để kiểm soát, phải phát:",
+      "answers_vi": ["Cờ chữ K", "Cờ chữ O", "Cờ chữ C", "Cờ chữ B"],
+      "correct_index": 0,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "Waterway traffic police signaling a vessel to stop for inspection must display:",
+        "answers_en": ["Flag letter K", "Flag letter O", "Flag letter C", "Flag letter B"]
+      },
+      "explanation_en": "Flag K (Kilo) means 'I wish to communicate with you' or 'stop for inspection' — used by authorities to signal vessels to halt."
+    },
+    {
+      "id": 81,
+      "question_vi": "Phương tiện có người, súc vật bị dịch bệnh, ban ngày ở vị trí cao nhất trên cột đèn phải treo:",
+      "answers_vi": ["Cờ chữ A/L", "Cờ chữ Q/L", "Cờ chữ B/L", "Cờ chữ K/L"],
+      "correct_index": 1,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A vessel with persons or animals affected by infectious disease must fly at the highest mast point during the day:",
+        "answers_en": ["Flag A/L", "Flag Q/L", "Flag B/L", "Flag K/L"]
+      },
+      "explanation_en": "Flag Q (Quebec) is the quarantine flag — yellow — indicating disease on board. Combined with L (Lima), it signals the specific quarantine situation."
+    },
+    {
+      "id": 82,
+      "question_vi": "Phương tiện không có động cơ có trọng tải toàn phần trên 15 tấn, phương tiện có động cơ tổng công suất máy chính trên 15 sức ngựa, phương tiện có sức chở trên 12 người khi hoạt động trên đường thủy nội địa phải đảm bảo các điều kiện nào?",
+      "answers_vi": ["Đạt tiêu chuẩn chất lượng, an toàn kỹ thuật và bảo vệ môi trường", "Có giấy chứng nhận đăng ký phương tiện, giấy chứng nhận an toàn kỹ thuật và bảo vệ môi trường", "Có đủ định biên thuyền viên và danh bạ thuyền viên theo quy định", "Cả ba đáp án trên"],
+      "correct_index": 3,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "Vessels over 15 tons (non-motorized), over 15hp engine, or carrying over 12 persons on inland waterways must ensure:",
+        "answers_en": ["Meet quality, technical safety, and environmental standards", "Hold vessel registration certificate and technical safety/environmental certificate", "Have adequate crew complement and crew register as required", "All three of the above"]
+      },
+      "explanation_en": "All three conditions are mandatory — technical standards, proper registration/certification, and correct crew documentation are all required for legal operation."
+    },
+    {
+      "id": 83,
+      "question_vi": "Phương tiện bị nạn yêu cầu cấp cứu ban ngày ở vị trí cao nhất trên cột đèn treo:",
+      "answers_vi": ["Cờ chữ A", "Cờ chữ O", "Cờ chữ B", "Cờ chữ N/C"],
+      "correct_index": 3,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A vessel in distress requesting emergency assistance must fly at the highest mast point during the day:",
+        "answers_en": ["Flag letter A", "Flag letter O", "Flag letter B", "Flag N/C"]
+      },
+      "explanation_en": "Flag N over C (November/Charlie) is the international distress signal meaning 'I am in distress and require immediate assistance.'"
+    },
+    {
+      "id": 84,
+      "question_vi": "Phương tiện cứu nạn khi làm nhiệm vụ khẩn cấp ban ngày phải treo:",
+      "answers_vi": ["Cờ trắng chữ thập đỏ", "Cờ đỏ đuôi nheo", "Cờ đỏ đuôi nheo có quân hiệu", "Cờ xanh lá cây đuôi nheo"],
+      "correct_index": 0,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A rescue vessel on urgent duty must fly during the day:",
+        "answers_en": ["White flag with red cross", "Red swallow-tail flag", "Red swallow-tail flag with military insignia", "Green swallow-tail flag"]
+      },
+      "explanation_en": "The Red Cross flag on white background is the universal humanitarian/rescue symbol — immediately recognized as a medical or rescue vessel."
+    },
+    {
+      "id": 85,
+      "question_vi": "Phương tiện bị mất chủ động còn trôi dối với phương tiện loại A ban đêm phải thắp:",
+      "answers_vi": ["2 đèn xanh cách nhau một mét, đèn mạn và đèn trắng lái", "2 đèn đỏ cách nhau một mét, đèn mạn và đèn trắng lái", "2 đèn vàng cách nhau một mét, đèn mạn và đèn trắng lái", "2 đèn trắng cách nhau một mét, đèn mạn và đèn trắng lái"],
+      "correct_index": 1,
+      "section": "phap-luat-giao-thong",
+      "image": null,
+      "translation": {
+        "question_en": "A Class A vessel that has lost propulsion and is adrift must display at night:",
+        "answers_en": ["2 green lights 1 meter apart, sidelights, and white stern light", "2 red lights 1 meter apart, sidelights, and white stern light", "2 yellow lights 1 meter apart, sidelights, and white stern light", "2 white lights 1 meter apart, sidelights, and white stern light"]
+      },
+      "explanation_en": "Two red lights vertically 1m apart is the 'vessel not under command' signal — warning all other traffic that the vessel cannot maneuver."
+    },
+    {
+      "id": 86,
+      "question_vi": "Báo hiệu chỉ vị trí giới hạn bên phải của luồng tàu chạy là:",
+      "answers_vi": ["Phao 1", "Phao 2", "Phao 3", "Phao 4"],
+      "correct_index": 1,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.55.59 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.56.09 PM.png"
+      },
+      "translation": {
+        "question_en": "The mark indicating the right-hand limit of the navigation channel is:",
+        "answers_en": ["Buoy 1", "Buoy 2", "Buoy 3", "Buoy 4"]
+      },
+      "explanation_en": "The right-bank limit buoy is red (solid red square shape) — consistent with IALA Region B where red marks the right side going upstream."
+    },
+    {
+      "id": 87,
+      "question_vi": "Báo hiệu chỉ vị trí giới hạn bên trái của luồng tàu chạy là:",
+      "answers_vi": ["Phao 1", "Phao 2", "Phao 3", "Phao 4"],
+      "correct_index": 0,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.56.15 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.56.21 PM.png"
+      },
+      "translation": {
+        "question_en": "The mark indicating the left-hand limit of the navigation channel is:",
+        "answers_en": ["Buoy 1", "Buoy 2", "Buoy 3", "Buoy 4"]
+      },
+      "explanation_en": "The left-bank limit buoy is green (triangular shape) — marking the left (port) side of the channel when traveling upstream."
+    },
+    {
+      "id": 88,
+      "question_vi": "Báo hiệu chỉ vị trí giới hạn bên phải của luồng tàu sông đi cạnh luồng tàu biển là:",
+      "answers_vi": ["Phao 1", "Phao 2", "Phao 3", "Phao 4"],
+      "correct_index": 2,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.56.27 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.56.34 PM.png"
+      },
+      "translation": {
+        "question_en": "The mark indicating the right-hand limit of the river channel running alongside a sea channel is:",
+        "answers_en": ["Buoy 1", "Buoy 2", "Buoy 3", "Buoy 4"]
+      },
+      "explanation_en": "Where river and sea channels run parallel, the right-bank river channel limit uses a special red-topped composite buoy to distinguish it from sea channel marks."
+    },
+    {
+      "id": 89,
+      "question_vi": "Báo hiệu chỉ vị trí giới hạn bên trái của luồng tàu sông đi cạnh luồng tàu biển là:",
+      "answers_vi": ["Phao 1", "Phao 2", "Phao 3", "Phao 4"],
+      "correct_index": 1,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.56.46 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.56.55 PM.png"
+      },
+      "translation": {
+        "question_en": "The mark indicating the left-hand limit of the river channel running alongside a sea channel is:",
+        "answers_en": ["Buoy 1", "Buoy 2", "Buoy 3", "Buoy 4"]
+      },
+      "explanation_en": "The left-bank river channel limit adjacent to a sea channel uses a green-topped composite buoy, distinguishing it from the sea channel's green marks."
+    },
+    {
+      "id": 90,
+      "question_vi": "Báo hiệu chỉ nơi phân luồng, ngã ba là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 0,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.57.01 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.57.07 PM.png"
+      },
+      "translation": {
+        "question_en": "The mark indicating a channel junction or three-way split is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "A junction/bifurcation mark indicates where one channel splits into two — critical information for navigators choosing a route."
+    },
+    {
+      "id": 91,
+      "question_vi": "Báo hiệu chỉ vật chướng ngại đơn lẻ trên đường thủy rộng là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 1,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.57.13 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.57.19 PM.png"
+      },
+      "translation": {
+        "question_en": "The mark indicating an isolated hazard/obstacle on a wide waterway is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "An isolated danger mark indicates a single obstacle surrounded by navigable water — vessels can pass on any side but must stay clear of the mark."
+    },
+    {
+      "id": 92,
+      "question_vi": "Báo hiệu chỉ khoang thông thuyền của công trình vượt sông trên không, cho phương tiện thô sơ qua là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 3,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.57.26 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.57.34 PM.png"
+      },
+      "translation": {
+        "question_en": "The mark indicating the navigation span of an overhead crossing structure, allowing non-motorized vessels only, is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "This sign marks the clearance opening under a bridge or overhead structure — indicating only non-motorized (unpowered) vessels may use this span."
+    },
+    {
+      "id": 93,
+      "question_vi": "Báo hiệu chỉ khoang thông thuyền của công trình vượt sông trên không, cho phương tiện cơ giới và thô sơ đi chung là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 3,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.57.41 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.57.47 PM.png"
+      },
+      "translation": {
+        "question_en": "The mark indicating the navigation span of an overhead crossing structure, allowing both motorized and non-motorized vessels, is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "This sign marks the main navigation span under a bridge — both powered and unpowered vessels may use this opening, which has adequate clearance for all."
+    },
+    {
+      "id": 94,
+      "question_vi": "Báo hiệu chỉ vị trí giới hạn vùng nước phía bên trái của luồng là:",
+      "answers_vi": ["Phao 1", "Phao 2", "Phao 3", "Phao 4"],
+      "correct_index": 0,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.57.53 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.57.58 PM.png"
+      },
+      "translation": {
+        "question_en": "The mark indicating the water area boundary on the left side of the channel is:",
+        "answers_en": ["Buoy 1", "Buoy 2", "Buoy 3", "Buoy 4"]
+      },
+      "explanation_en": "The left-side water area boundary buoy marks the edge of navigable water on the port (left) side — beyond this mark water may be too shallow or restricted."
+    },
+    {
+      "id": 95,
+      "question_vi": "Báo hiệu chỉ cửa luồng ra vào cảng, bến đặt ở phía bên phải là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 1,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.58.07 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.58.15 PM.png"
+      },
+      "translation": {
+        "question_en": "The mark indicating the entrance/exit of a port or landing channel, placed on the right side, is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "This sign marks the right-side boundary of a port/dock entrance channel — essential for safely entering and exiting berths."
+    },
+    {
+      "id": 96,
+      "question_vi": "Báo hiệu chập tiêu tim luồng đặt bên bờ phải là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 1,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.58.21 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.58.27 PM.png"
+      },
+      "translation": {
+        "question_en": "The transit/range mark (for channel centerline alignment) placed on the right bank is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "Transit marks (chập tiêu) are aligned pairs of signs — when they appear vertically aligned, the vessel is on the correct channel centerline."
+    },
+    {
+      "id": 97,
+      "question_vi": "Báo hiệu chỉ vị trí tim luồng là:",
+      "answers_vi": ["Phao 1", "Phao 2", "Phao 3", "Phao 4"],
+      "correct_index": 1,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.58.33 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.58.40 PM.png"
+      },
+      "translation": {
+        "question_en": "The mark indicating the centerline of the navigation channel is:",
+        "answers_en": ["Buoy 1", "Buoy 2", "Buoy 3", "Buoy 4"]
+      },
+      "explanation_en": "The channel centerline buoy marks the exact middle of the navigation lane — helping vessels maintain optimal positioning in the channel."
+    },
+    {
+      "id": 98,
+      "question_vi": "Báo hiệu chỉ luồng chạy tàu chuyển hướng từ bờ phải sang bờ trái là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 2,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.58.47 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.58.53 PM.png"
+      },
+      "translation": {
+        "question_en": "The mark indicating the navigation channel shifts direction from right bank to left bank is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "This course-change sign warns mariners that the deep-water channel crosses from the right bank to the left bank — requiring a course alteration."
+    },
+    {
+      "id": 99,
+      "question_vi": "Báo hiệu thông báo cấm thả neo, cấm kéo rê neo, cáp hay xích là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 0,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.59.00 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.59.04 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign prohibiting anchoring, dragging anchor, cable, or chain is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "No-anchoring signs protect underwater cables, pipelines, or sensitive seabed infrastructure from damage by anchors or drag chains."
+    },
+    {
+      "id": 100,
+      "question_vi": "Báo hiệu thông báo cấm đỗ là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 1,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.59.11 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.59.17 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign prohibiting mooring/parking is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "No-mooring signs indicate areas where vessels must not tie up — typically near active ferry crossings, navigation marks, or restricted zones."
+    },
+    {
+      "id": 101,
+      "question_vi": "Báo hiệu thông báo luồng cách bờ là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 2,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.59.23 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.59.27 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign indicating the distance of the channel from the bank is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "This informational sign tells mariners how far the navigable channel lies from the bank — preventing grounding by hugging the shore too closely."
+    },
+    {
+      "id": 102,
+      "question_vi": "Báo hiệu thông báo chiều dài đoàn lai dắt bị hạn chế là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 0,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.59.33 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.59.37 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign indicating a maximum tow/convoy length restriction is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "This sign shows the maximum permitted length for towing convoys — longer convoys cannot safely navigate the channel, bridge, or lock ahead."
+    },
+    {
+      "id": 103,
+      "question_vi": "Báo hiệu thông báo chiều sâu luồng bị hạn chế là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 0,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.59.43 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 5.59.53 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign indicating a channel depth restriction is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "The depth restriction sign displays the maximum allowable draft — vessels with deeper keels must not enter this section of the channel."
+    },
+    {
+      "id": 104,
+      "question_vi": "Báo hiệu thông báo số hàng tối đa được phép neo đậu là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 1,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 5.59.59 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.00.06 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign indicating the maximum number of rows permitted for mooring is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "This sign limits how many vessels deep (rows) can moor side-by-side — preventing excessive clustering that blocks traffic or endangers the outer vessels."
+    },
+    {
+      "id": 105,
+      "question_vi": "Báo hiệu thông báo tĩnh không trực tiếp là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 1,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.00.12 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.00.17 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign indicating direct/minimum overhead clearance is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "The overhead clearance sign shows the vertical clearance available — vessels with tall masts, wheelhouses, or loads must compare their air draft to this value."
+    },
+    {
+      "id": 106,
+      "question_vi": "Báo hiệu chỉ dẫn chú ý nguy hiểm là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 0,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.00.23 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.00.27 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign directing attention to a hazard is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "The hazard warning sign alerts mariners to a nearby danger requiring extra caution — such as rocks, shoals, or strong currents."
+    },
+    {
+      "id": 107,
+      "question_vi": "Báo hiệu thông báo cấm rẽ trái là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 1,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.00.32 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.00.36 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign prohibiting a left turn is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "A no-left-turn sign prevents vessels from turning into a restricted area, tributary, or dangerous zone on the left (port) side."
+    },
+    {
+      "id": 108,
+      "question_vi": "Báo hiệu thông báo điểm kết thúc một tình huống là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 3,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.00.41 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.00.48 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign indicating the end of a regulated situation is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "The 'end of restriction' sign marks where a regulated zone (speed limit, no-wake, restricted passage) ends — normal rules resume beyond this point."
+    },
+    {
+      "id": 109,
+      "question_vi": "Báo hiệu thông báo khu vực được phép tổ chức các hoạt động thể thao giải trí là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 3,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.00.55 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.01.02 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign indicating an area authorized for sports and recreational activities is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "This sign designates a permitted zone for water sports and recreation — mariners should be alert to swimmers, kayakers, and other recreational users."
+    },
+    {
+      "id": 110,
+      "question_vi": "Báo hiệu thông báo vị trí Đoạn, Trạm quản lý đường thủy nội địa là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 3,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.01.08 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.01.12 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign indicating the location of an inland waterway management section or station is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "This information sign marks the location of a waterway authority office or management station — mariners can report incidents or seek assistance here."
+    },
+    {
+      "id": 111,
+      "question_vi": "Báo hiệu thông báo cấm phương tiện thô sơ là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 3,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.01.16 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.01.20 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign prohibiting non-motorized vessels is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "This prohibition sign bars non-motorized vessels (rowboats, sampans, rafts) from the channel — typically in areas with fast commercial traffic where slow vessels are a hazard."
+    },
+    {
+      "id": 112,
+      "question_vi": "Báo hiệu thông báo cấm vượt là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 3,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.01.26 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.01.32 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign prohibiting overtaking is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "No-overtaking signs appear in narrow channels, near bridges, or in visibility-restricted areas where overtaking creates an unacceptable collision risk."
+    },
+    {
+      "id": 113,
+      "question_vi": "Báo hiệu thông báo hạn chế tạo sóng là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 1,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.01.36 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.01.41 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign restricting wake creation is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "No-wake zones require vessels to slow to minimum steerage — wakes can damage moored boats, erode banks, and endanger swimmers or small craft."
+    },
+    {
+      "id": 114,
+      "question_vi": "Báo hiệu thông báo cấm tàu thuyền chạy buồm là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 2,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.01.46 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.01.54 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign prohibiting sailing vessels is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "Sailing prohibited signs appear in narrow channels where the unpredictable nature of sail maneuvers creates collision risks with commercial traffic."
+    },
+    {
+      "id": 115,
+      "question_vi": "Báo hiệu thông báo cấm đi lại với tốc độ cao là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 1,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.02.00 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.02.05 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign prohibiting high-speed travel is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "Speed restriction signs limit vessel speed — protecting embankments from erosion, nearby structures, and other waterway users from dangerous wakes."
+    },
+    {
+      "id": 116,
+      "question_vi": "Báo hiệu thông báo được phép neo đậu là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 0,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.02.20 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.02.25 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign indicating mooring is permitted is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "The mooring-permitted sign (blue with a P) designates an official mooring area where vessels may tie up — with adequate depth and infrastructure."
+    },
+    {
+      "id": 117,
+      "question_vi": "Báo hiệu thông báo chiều rộng vùng nước được phép neo đậu là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 3,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.02.29 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.02.34 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign indicating the width of the water area permitted for mooring is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "This sign specifies the beam width available in the mooring zone — helping captains determine if their vessel fits without obstructing the channel."
+    },
+    {
+      "id": 118,
+      "question_vi": "Báo hiệu thông báo phía trước có đường dây điện qua sông là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 1,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.02.40 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.02.45 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign warning that an overhead power line crosses the river ahead is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "Power line crossing signs are critical — tall masts or antennas contacting overhead lines cause electrocution and vessel fires. Check air draft before proceeding."
+    },
+    {
+      "id": 119,
+      "question_vi": "Báo hiệu thông báo có bến phà, bến khách ngang sông là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 0,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.02.51 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.02.57 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign indicating a river-crossing ferry or passenger terminal ahead is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "Ferry crossing signs warn vessels of regular cross-river traffic — ferries have right of way in their crossing lanes and mariners must give way."
+    },
+    {
+      "id": 120,
+      "question_vi": "Báo hiệu thông báo mốc cây số đường thủy nội địa là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 0,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.03.03 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.03.08 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign indicating an inland waterway kilometer marker is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "Kilometer markers measure distance along a waterway route — used for navigation, reporting positions to authorities, and estimating travel times."
+    },
+    {
+      "id": 121,
+      "question_vi": "Báo hiệu thông báo có công trình ngầm vượt sông là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 1,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.03.14 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.03.18 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign indicating an underwater crossing structure (tunnel, pipe, cable) beneath the river is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "Underwater crossing signs warn against anchoring in this area — anchor chains or dragging tackle can damage submerged pipelines, cables, or tunnel roofs."
+    },
+    {
+      "id": 122,
+      "question_vi": "Báo hiệu thông báo nơi giao nhau của nhiều sông kênh là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 1,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.03.24 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.03.29 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign indicating the intersection of multiple rivers or canals is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "A multi-waterway intersection sign alerts mariners to a complex junction where traffic converges from several directions — requiring extra caution and reduced speed."
+    },
+    {
+      "id": 123,
+      "question_vi": "Báo hiệu thông báo khu vực tiếp giáp là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 3,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.03.35 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.03.39 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign indicating an adjoining/border area is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "An adjoining area sign marks the boundary between different administrative waterway zones — regulations may change and different authorities may apply."
+    },
+    {
+      "id": 124,
+      "question_vi": "Báo hiệu thông báo phía trước có cống, đập, âu thuyền là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 3,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.03.43 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.03.48 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign warning of a sluice gate, dam, or canal lock ahead is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "This sign warns of a structure requiring vessels to stop or proceed with caution — locks require lock-through procedures; dams may be impassable."
+    },
+    {
+      "id": 125,
+      "question_vi": "Báo hiệu thông báo chiều rộng luồng bị hạn chế là:",
+      "answers_vi": ["Biển 1", "Biển 2", "Biển 3", "Biển 4"],
+      "correct_index": 1,
+      "section": "bao-hieu-giao-thong",
+      "image": {
+        "question_img": "Screenshot 2026-04-13 at 6.03.53 PM.png",
+        "answer_img": "Screenshot 2026-04-13 at 6.03.59 PM.png"
+      },
+      "translation": {
+        "question_en": "The sign indicating a restricted channel width is:",
+        "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
+      },
+      "explanation_en": "A channel width restriction sign shows the maximum beam permitted — wide vessels may need to wait for the channel to clear before proceeding."
+    },
+    {
+      "id": 126,
+      "question_vi": "Các đại lượng đặc trưng cho quán tính là:",
+      "answers_vi": ["Quãng đường và thời gian.", "Quãng đường và vận tốc.", "Quãng đường và khối lượng.", "Vận tốc và khối lượng."],
+      "correct_index": 0,
+      "section": "dieu-dong-phuong-tien",
+      "image": null,
+      "translation": {
+        "question_en": "The quantities that characterize a vessel's inertia are:",
+        "answers_en": ["Distance and time.", "Distance and speed.", "Distance and mass.", "Speed and mass."]
+      },
+      "explanation_en": "Inertia on a vessel is measured practically by stopping distance (quãng đường) and stopping time — how far and how long it takes to halt from full speed."
+    },
+    {
+      "id": 127,
+      "question_vi": "Tại khu vực bờ đứng nước sâu, hiện tượng hút nước giữa phương tiện thuỷ và bờ xảy ra khi:",
+      "answers_vi": ["phương tiện chạy chậm gần bờ.", "phương tiện chạy nhanh xa bờ.", "Phương tiện chạy nhanh gần bờ.", "phương tiện chạy nhanh giữa sông."],
+      "correct_index": 2,
+      "section": "dieu-dong-phuong-tien",
+      "image": null,
+      "translation": {
+        "question_en": "At a steep-banked deep-water area, the suction effect between a vessel and the bank occurs when:",
+        "answers_en": ["The vessel moves slowly near the bank.", "The vessel moves fast far from the bank.", "The vessel moves fast near the bank.", "The vessel moves fast in the middle of the river."]
+      },
+      "explanation_en": "The bank suction effect (shallow water/bank effect) occurs when a vessel moves fast near a steep bank — reduced water pressure between hull and bank pulls the vessel toward it."
+    },
+    {
+      "id": 128,
+      "question_vi": "Khi điều động phương tiện thuỷ cập cầu, cập phao, thả neo thì thường lựa chọn:",
+      "answers_vi": ["Nước ngược nhẹ.", "Nước xuôi.", "Nước ngược mạnh.", "Nước nào cũng được."],
+      "correct_index": 0,
+      "section": "dieu-dong-phuong-tien",
+      "image": null,
+      "translation": {
+        "question_en": "When maneuvering a vessel to dock at a pier, buoy, or drop anchor, the preferred condition is:",
+        "answers_en": ["Gentle opposing current (heading into light current).", "Downstream (current from astern).", "Strong opposing current.", "Any current condition."]
+      },
+      "explanation_en": "A light opposing current provides natural braking and better directional control when docking — the current slows the vessel and holds it in position."
+    },
+    {
+      "id": 129,
+      "question_vi": "Khi có người ngã xuống nước, người điều khiển phương tiện thuỷ phải:",
+      "answers_vi": ["Phải lập tức dừng máy, bẻ lái về phía người ngã, ném phao cho người ngã, theo dõi người.", "Phải lập tức bẻ lái về phía người ngã, ném phao cho người ngã.", "Nhanh chóng lái tàu về phía người ngã, ném nhiều phao cho người ngã.", "Dừng ngay tàu, cử người bơi giỏi xuống cứu người bị nạn."],
+      "correct_index": 0,
+      "section": "dieu-dong-phuong-tien",
+      "image": null,
+      "translation": {
+        "question_en": "When someone falls overboard, the vessel operator must:",
+        "answers_en": ["Immediately stop the engine, turn the helm toward the person, throw a life buoy, and keep the person in sight.", "Immediately turn toward the person and throw a life buoy.", "Quickly steer toward the person and throw multiple life buoys.", "Stop immediately and send a strong swimmer to rescue the person."]
+      },
+      "explanation_en": "The complete man-overboard response: stop the engine first (propeller danger), turn toward the victim, throw a buoy, and maintain visual contact throughout."
+    },
+    {
+      "id": 130,
+      "question_vi": "Phương tiện đang chạy xuôi nước mà có người ngã xuống nước thì:",
+      "answers_vi": ["Điều động phương tiện quay trở 270⁰ (chữ C) để cứu người.", "Điều động phương tiện quay trở 180⁰ (số 8) để cứu người.", "Điều động phương tiện quay trở ngay lập tức để cứu người.", "Cả 3 cách trên đều được."],
+      "correct_index": 1,
+      "section": "dieu-dong-phuong-tien",
+      "image": null,
+      "translation": {
+        "question_en": "When a vessel is traveling downstream and someone falls overboard:",
+        "answers_en": ["Execute a 270° turn (C-maneuver) to rescue the person.", "Execute a 180° figure-8 turn to rescue the person.", "Turn around immediately in any manner.", "All three methods are acceptable."]
+      },
+      "explanation_en": "Going downstream, a 180° figure-8 turn (Williamson turn) allows the vessel to reverse direction and approach the victim from the correct angle while accounting for current drift."
+    },
+    {
+      "id": 131,
+      "question_vi": "Phương tiện đang chạy ngược nước mà có người ngã xuống nước thì:",
+      "answers_vi": ["Điều động phương tiện tàu quay trở 270⁰ (chữ C) để cứu người.", "Điều động phương tiện quay trở 180⁰ (số 8) để cứu người.", "Điều động phương tiện quay trở ngay lập tức để cứu người.", "Cả 3 cách trên đều được."],
+      "correct_index": 0,
+      "section": "dieu-dong-phuong-tien",
+      "image": null,
+      "translation": {
+        "question_en": "When a vessel is traveling upstream and someone falls overboard:",
+        "answers_en": ["Execute a 270° C-turn to rescue the person.", "Execute a 180° figure-8 turn to rescue the person.", "Turn around immediately in any manner.", "All three methods are acceptable."]
+      },
+      "explanation_en": "Going upstream, a 270° C-maneuver (Anderson turn) is used — the vessel swings wide, loops back, and approaches the victim from downstream into the current."
+    },
+    {
+      "id": 132,
+      "question_vi": "Khi phương tiện thuỷ đang chạy tới, bánh lái để 0°, nếu chỉ xét tác dụng của bánh lái thì hướng mũi phương tiện sẽ:",
+      "answers_vi": ["Ngã sang phải.", "Ngã sang trái.", "Không ngã sang bên nào.", "Khi ngã phải, khi ngã trái."],
+      "correct_index": 2,
+      "section": "dieu-dong-phuong-tien",
+      "image": null,
+      "translation": {
+        "question_en": "When a vessel is moving forward with the rudder at 0°, considering only the rudder's effect, the bow will:",
+        "answers_en": ["Swing to starboard (right).", "Swing to port (left).", "Not swing to either side.", "Sometimes right, sometimes left."]
+      },
+      "explanation_en": "A rudder at 0° (amidships/neutral) produces no turning force — the vessel maintains its current heading with no lateral deflection from the rudder."
+    },
+    {
+      "id": 133,
+      "question_vi": "Khi phương tiện thuỷ đang chạy tới, nếu bẻ bánh lái sang trái thì hướng mũi phương tiện sẽ:",
+      "answers_vi": ["Ngã sang phải.", "Ngã sang trái.", "Không thay đổi.", "Khi ngã phải, khi ngã trái."],
+      "correct_index": 1,
+      "section": "dieu-dong-phuong-tien",
+      "image": null,
+      "translation": {
+        "question_en": "When a vessel is moving forward and the helm is put to port (left), the bow will:",
+        "answers_en": ["Swing to starboard (right).", "Swing to port (left).", "Not change direction.", "Sometimes right, sometimes left."]
+      },
+      "explanation_en": "Turning the helm left on a forward-moving vessel deflects water flow to the right off the rudder, pushing the stern right and the bow left — the vessel turns left."
+    },
+    {
+      "id": 134,
+      "question_vi": "Khi phương tiện thuỷ đang chạy lùi, nếu bẻ bánh lái sang trái thì hướng mũi phương tiện sẽ:",
+      "answers_vi": ["Ngã sang phải.", "Ngã sang trái.", "Không thay đổi.", "Khi ngã phải, khi ngã trái."],
+      "correct_index": 0,
+      "section": "dieu-dong-phuong-tien",
+      "image": null,
+      "translation": {
+        "question_en": "When a vessel is moving astern (reversing) and the helm is put to port (left), the bow will:",
+        "answers_en": ["Swing to starboard (right).", "Swing to port (left).", "Not change direction.", "Sometimes right, sometimes left."]
+      },
+      "explanation_en": "When reversing, the helm effect is reversed — putting the helm left pushes the stern left, which swings the bow to the right (starboard)."
+    },
+    {
+      "id": 135,
+      "question_vi": "Khi phương tiện thuỷ đang chạy lùi, bánh lái để 0°, nếu chỉ xét tác dụng của bánh lái thì hướng mũi phương tiện sẽ:",
+      "answers_vi": ["Ngã sang phải.", "Ngã sang trái.", "Không ngã sang bên nào.", "Khi ngã phải, khi ngã trái."],
+      "correct_index": 2,
+      "section": "dieu-dong-phuong-tien",
+      "image": null,
+      "translation": {
+        "question_en": "When a vessel is moving astern with the rudder at 0°, considering only the rudder's effect, the bow will:",
+        "answers_en": ["Swing to starboard (right).", "Swing to port (left).", "Not swing to either side.", "Sometimes right, sometimes left."]
+      },
+      "explanation_en": "A centered rudder (0°) produces no turning effect regardless of direction of travel — the vessel continues straight astern."
+    },
+    {
+      "id": 136,
+      "question_vi": "Điều khiển phương tiện thuỷ đi đường có ảnh hưởng của gió, nước ngang, để trừ hao độ đạt người điều khiển cần:",
+      "answers_vi": ["Tăng tốc độ.", "Giảm tốc độ.", "Giữ nguyên tốc độ.", "Bẻ lái về phía đầu gió, đầu nước."],
+      "correct_index": 3,
+      "section": "dieu-dong-phuong-tien",
+      "image": null,
+      "translation": {
+        "question_en": "When navigating in the presence of crosswind or cross-current, to compensate for leeway the operator should:",
+        "answers_en": ["Increase speed.", "Decrease speed.", "Maintain current speed.", "Steer into the wind/current (up-wind, up-current)."]
+      },
+      "explanation_en": "To counteract drift from crosswind or cross-current, you must angle the bow into the wind/current — the vessel crabs sideways while maintaining its intended track."
+    },
+    {
+      "id": 137,
+      "question_vi": "Điều khiển phương tiện thuỷ đi đường có ảnh hưởng của sóng, để giảm được ảnh hưởng của sóng hướng đi người điều khiển cần chọn là:",
+      "answers_vi": ["Ngược với hướng sóng.", "Ngang với hướng sóng.", "Vát, chếch với hướng sóng.", "Chạy Xuôi với hướng sóng."],
+      "correct_index": 2,
+      "section": "dieu-dong-phuong-tien",
+      "image": null,
+      "translation": {
+        "question_en": "When navigating in wave conditions, to minimize wave impact the operator should head:",
+        "answers_en": ["Directly against the waves.", "Perpendicular (beam-on) to the waves.", "At an angle (diagonal) to the waves.", "Directly with (downwind of) the waves."]
+      },
+      "explanation_en": "Taking waves at an oblique angle reduces both the pitching/rolling motion and the slamming force compared to heading directly into or across the waves."
+    },
+    {
+      "id": 138,
+      "question_vi": "Phương tiện thuỷ đang chạy mà có người ngã xuống nước thì khi điều động tàu cứu người phải để người ngã phía:",
+      "answers_vi": ["Mạn dưới sóng.", "Mạn trên sóng.", "Mạn nào cũng được.", "Ngay trước mũi tàu."],
+      "correct_index": 0,
+      "section": "dieu-dong-phuong-tien",
+      "image": null,
+      "translation": {
+        "question_en": "When maneuvering to rescue an overboard person in rough seas, the victim should be positioned on:",
+        "answers_en": ["The leeward side (downwind/down-wave side).", "The windward side (upwind/up-wave side).", "Either side.", "Directly ahead of the bow."]
+      },
+      "explanation_en": "Position the victim on the leeward side — the vessel's hull acts as a windbreak, creating a calmer patch of water and preventing the vessel from rolling onto the victim."
+    },
+    {
+      "id": 139,
+      "question_vi": "Muốn chạy phương tiện thuỷ an toàn khi gặp dòng chảy vận, thuyền trưởng, người lái phương tiện phải:",
+      "answers_vi": ["Chạy tàu sát bờ vịnh.", "Chạy tàu sát bờ doi.", "Chạy tàu theo đường ngắn nước (lợi nước) hay dải bọt nước.", "Chạy tàu giữa luồng."],
+      "correct_index": 2,
+      "section": "dieu-dong-phuong-tien",
+      "image": null,
+      "translation": {
+        "question_en": "To navigate safely through transverse (cross) currents, the captain/helmsman should:",
+        "answers_en": ["Hug the concave bank.", "Hug the convex bank.", "Follow the shortest water path (slack water line) or foam/debris line.", "Stay in the center of the channel."]
+      },
+      "explanation_en": "The foam/debris line (dải bọt nước) marks the boundary between converging currents — following it finds the slack water where cross-current effects are minimized."
+    },
+    {
+      "id": 140,
+      "question_vi": "Trường hợp gặp xoáy mạnh thì thuyền trưởng, người lái phương tiện nên:",
+      "answers_vi": ["Chạy ngược dòng chảy xoáy.", "Chạy xuôi chiều dòng chảy xoáy, càng xa tâm xoáy càng tốt.", "Cố tránh hoặc chỉ bám phía trong dòng chảy xoáy.", "Chạy qua tâm dòng chảy xoáy."],
+      "correct_index": 1,
+      "section": "dieu-dong-phuong-tien",
+      "image": null,
+      "translation": {
+        "question_en": "When encountering a strong whirlpool/eddy, the captain/helmsman should:",
+        "answers_en": ["Drive against the whirlpool current.", "Follow the whirlpool current direction, staying as far from the center as possible.", "Try to avoid it or stay only on the inner edge.", "Drive through the center of the whirlpool."]
+      },
+      "explanation_en": "In a strong whirlpool, go with the rotation and keep maximum distance from the violent center — fighting the current risks loss of control and capsizing."
+    },
+    {
+      "id": 141,
+      "question_vi": "Khi bảo quản hàng hóa cần phải chú ý những đặc tính:",
+      "answers_vi": ["Tính chất hàng hóa.", "Kích thước hàng hóa.", "Trọng lượng hàng hóa.", "Cả ba đặc tính trên."],
+      "correct_index": 0,
+      "section": "van-tai-hang-hoa",
+      "image": null,
+      "translation": {
+        "question_en": "When storing/preserving cargo, the key characteristic to consider is:",
+        "answers_en": ["The nature/properties of the cargo.", "The dimensions of the cargo.", "The weight of the cargo.", "All three characteristics above."]
+      },
+      "explanation_en": "The nature of the cargo (flammable, perishable, hazardous, hygroscopic) is the primary consideration — it determines all storage requirements including ventilation, temperature, and segregation."
+    },
+    {
+      "id": 142,
+      "question_vi": "Nguyên nhân gây ra lượng giảm tự nhiên là:",
+      "answers_vi": ["Bản chất hàng hóa.", "Hàng hóa bị thấm nước hoặc bị ẩm ướt.", "Hàng hóa bị nén, ép, xô đẩy gây hư hỏng.", "Sâu bọ hoặc côn trùng gây nên."],
+      "correct_index": 0,
+      "section": "van-tai-hang-hoa",
+      "image": null,
+      "translation": {
+        "question_en": "The cause of natural weight loss (shrinkage) in cargo is:",
+        "answers_en": ["The inherent nature of the cargo.", "Cargo absorbing water or becoming damp.", "Cargo being compressed or damaged by impact.", "Caused by insects or pests."]
+      },
+      "explanation_en": "Natural shrinkage (lượng giảm tự nhiên) is inherent to certain cargo types — grain loses moisture, salt dissolves slightly, coal oxidizes. This is expected and unavoidable."
+    },
+    {
+      "id": 143,
+      "question_vi": "Những chú ý khi vận chuyển hàng phân hóa học:",
+      "answers_vi": ["Phương tiện chở phân hóa học phải khô, có đủ dụng cụ che đậy khi cần thiết.", "Không xếp phân hóa học dưới trời mưa, khi xếp dỡ phải có công cụ mang hàng phù hợp.", "Khi xếp hàng phân hóa học ở dưới tàu hay trong kho đều phải có đệm lót cách ly thành phương tiện và nền kho.", "Tất cả các chú ý trên."],
+      "correct_index": 3,
+      "section": "van-tai-hang-hoa",
+      "image": null,
+      "translation": {
+        "question_en": "Precautions when transporting chemical fertilizer include:",
+        "answers_en": ["The transport vessel must be dry with adequate covering equipment.", "Do not load fertilizer in rain; use appropriate handling tools when loading/unloading.", "When stowing fertilizer in the hold or warehouse, use isolation padding between cargo and vessel walls/floor.", "All of the above precautions."]
+      },
+      "explanation_en": "All three precautions apply — chemical fertilizer is hygroscopic (absorbs moisture), corrosive to metal surfaces, and can become dangerously reactive if wet."
+    },
+    {
+      "id": 144,
+      "question_vi": "Nghĩa vụ của hành khách là:",
+      "answers_vi": ["Mua vé hành khách và trả cước phí vận tải hành lý mang theo quá mức quy định.", "Khai đúng tên, địa chỉ của mình và trẻ em đi kèm khi người kinh doanh vận tải lập danh sách hành khách.", "Ngồi đúng vị trí chỗ ngồi có in trên vé.", "Tất cả các nghĩa vụ trên."],
+      "correct_index": 3,
+      "section": "van-tai-hang-hoa",
+      "image": null,
+      "translation": {
+        "question_en": "The obligations of a passenger include:",
+        "answers_en": ["Purchase a ticket and pay excess baggage fees for luggage over the permitted limit.", "Accurately declare name, address, and accompanying children when the carrier compiles the passenger list.", "Sit in the seat assigned on the ticket.", "All of the above obligations."]
+      },
+      "explanation_en": "All three are legal passenger obligations on Vietnamese inland waterways — they support safety headcounts, proper ticketing, and stable vessel loading."
+    },
+    {
+      "id": 145,
+      "question_vi": "Khi người kinh doanh vận tải phải chịu trách nhiệm bồi thường đối với hàng hóa mất mát, hư hỏng toàn bộ hoặc một phần thì mức bồi thường được tính theo giá trị hàng hóa tại thời điểm:",
+      "answers_vi": ["Tại thời điểm mà hàng hóa được giao cho người nhận hàng.", "Tại thời điểm ghi trên hóa đơn mua hàng.", "Tại thời điểm mà hàng hóa được giao cho người kinh doanh vận tải.", "Tại thời điểm mà hàng hóa bị mất mát, hư hỏng."],
+      "correct_index": 0,
+      "section": "van-tai-hang-hoa",
+      "image": null,
+      "translation": {
+        "question_en": "When a carrier is liable for total or partial loss/damage of cargo, compensation is calculated based on the cargo's value at the time:",
+        "answers_en": ["The cargo is delivered to the consignee (recipient).", "Stated on the purchase invoice.", "The cargo is handed to the carrier.", "The cargo was lost or damaged."]
+      },
+      "explanation_en": "Compensation is based on delivery-point value — this accounts for price changes during transit and represents the actual economic loss to the cargo owner."
+    },
+    {
+      "id": 146,
+      "question_vi": "Trên đường vận tải nếu phát hiện hàng hóa thông thường không đúng với kê khai của người thuê vận tải thì người kinh doanh vận tải xử lý:",
+      "answers_vi": ["Báo cho người thuê vận tải biết và tiếp tục vận tải đến nơi trả hàng.", "Báo cho người thuê vận tải biết và cho tàu dừng lại.", "Báo cho người thuê vận tải biết và vận tải quay về nơi nhận hàng.", "Không báo cho người thuê vận tải biết và tiếp tục vận tải đến nơi trả hàng."],
+      "correct_index": 0,
+      "section": "van-tai-hang-hoa",
+      "image": null,
+      "translation": {
+        "question_en": "En route, if a carrier discovers regular cargo does not match what the shipper declared, the carrier should:",
+        "answers_en": ["Notify the shipper and continue transport to the delivery destination.", "Notify the shipper and stop the vessel.", "Notify the shipper and return to the loading point.", "Continue transport without notifying the shipper."]
+      },
+      "explanation_en": "For non-hazardous discrepancies, the carrier notifies the shipper and continues to destination — creating a record of the discrepancy while completing the commercial obligation."
+    },
+    {
+      "id": 147,
+      "question_vi": "Thuyền trưởng, người lái phương tiện phải lập biên bản hiện trường trong các trường hợp:",
+      "answers_vi": ["Xảy ra sự cố thương vụ.", "Ách tắc giao thông dọc tuyến vận chuyển.", "Có người trên phương tiện bị chết.", "Tất cả các ý trên."],
+      "correct_index": 3,
+      "section": "van-tai-hang-hoa",
+      "image": null,
+      "translation": {
+        "question_en": "A captain/helmsman must prepare an on-scene incident report in the following cases:",
+        "answers_en": ["A commercial incident occurs.", "Traffic blockage along the transport route.", "A person on the vessel dies.", "All of the above."]
+      },
+      "explanation_en": "Incident reports are required in all three cases — they document events for insurance claims, legal proceedings, and waterway authority investigations."
+    },
+    {
+      "id": 148,
+      "question_vi": "Trường hợp phải chuyển tải hàng hóa qua nơi luồng bị ách tắc thì người kinh doanh vận tải phải:",
+      "answers_vi": ["Đảm nhận việc chuyển tải.", "Không đảm nhận việc chuyển tải.", "Giao cho một bên thứ ba.", "Đảm nhận vận chuyển 50% hàng hóa."],
+      "correct_index": 0,
+      "section": "van-tai-hang-hoa",
+      "image": null,
+      "translation": {
+        "question_en": "When cargo must be transshipped past a blocked section of waterway, the carrier must:",
+        "answers_en": ["Take responsibility for the transshipment.", "Refuse to take responsibility for transshipment.", "Hand it over to a third party.", "Take responsibility for transshipping 50% of the cargo."]
+      },
+      "explanation_en": "The carrier bears full transshipment responsibility — the shipper contracted for delivery to destination, and channel blockages don't void that contractual obligation."
+    },
+    {
+      "id": 149,
+      "question_vi": "Phương tiện vận tải bị trưng dụng do lệnh của cơ quan có thẩm quyền thì thuyền trưởng, người lái phương tiện phải:",
+      "answers_vi": ["Thông báo cho người kinh doanh vận tải biết.", "Thông báo cho người thuê vận tải biết.", "Không cần phải thông báo cho người kinh doanh vận tải và người thuê vận tải biết.", "Thông báo cho người kinh doanh vận tải và người thuê vận tải biết để phối hợp thực hiện."],
+      "correct_index": 3,
+      "section": "van-tai-hang-hoa",
+      "image": null,
+      "translation": {
+        "question_en": "When a transport vessel is requisitioned by order of a competent authority, the captain/helmsman must:",
+        "answers_en": ["Notify the transport business operator.", "Notify the shipping customer (charterer).", "No need to notify either party.", "Notify both the transport operator and the shipping customer so they can coordinate."]
+      },
+      "explanation_en": "Both parties must be notified immediately — the operator needs to manage their fleet and insurance, and the customer needs to arrange alternative transport for their cargo."
+    },
+    {
+      "id": 150,
+      "question_vi": "Ngành vận tải thủy nội địa có những đặc điểm:",
+      "answers_vi": ["Tốc độ vận tải thấp và giá thành vận tải thấp.", "Tốc độ vận tải cao và giá thành vận tải thấp.", "Tốc độ vận tải thấp và giá thành vận tải cao.", "Tốc độ vận tải cao và giá thành vận tải cao."],
+      "correct_index": 0,
+      "section": "van-tai-hang-hoa",
+      "image": null,
+      "translation": {
+        "question_en": "The characteristics of the inland waterway transport sector are:",
+        "answers_en": ["Low transport speed and low transport cost.", "High transport speed and low transport cost.", "Low transport speed and high transport cost.", "High transport speed and high transport cost."]
+      },
+      "explanation_en": "Inland waterway transport is slow but cheap — barges carry massive loads per unit of fuel cost, making it the most economical mode for bulk cargo despite its slow speed."
+    }
+  ]
+}
