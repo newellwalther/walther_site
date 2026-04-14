@@ -6,56 +6,36 @@
   <title>Đường Thủy — Vietnamese Inland Waterway Quiz</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☯️</text></svg>" />
   <link rel="stylesheet" href="style.css" />
-
   <style>
-    /* ── Layout ─────────────────────────────────────── */
+    /* ═══════════════════════════════════════════════════
+       BASE
+    ═══════════════════════════════════════════════════ */
     #quiz-app {
       max-width: 680px;
       margin: 0 auto;
-      padding: 48px 24px 100px;
+      padding: 40px 20px 100px;
       text-align: left;
     }
-
-    /* ── Header ─────────────────────────────────────── */
     .quiz-header {
-      margin-bottom: 40px;
+      margin-bottom: 36px;
       border-bottom: 1px solid #f0f0f0;
-      padding-bottom: 24px;
+      padding-bottom: 20px;
     }
-    .quiz-header h1 {
-      font-size: 1.5rem;
-      font-weight: normal;
-      letter-spacing: 0.02em;
-      margin-bottom: 6px;
-      color: #111;
-    }
-    .quiz-header p {
-      font-size: 0.78rem;
-      color: #aaa;
-      margin: 0;
-      letter-spacing: 0.03em;
-    }
+    .quiz-header h1 { font-size: 1.4rem; font-weight: normal; letter-spacing: 0.02em; margin-bottom: 4px; color: #111; }
+    .quiz-header p  { font-size: 0.78rem; color: #aaa; margin: 0; letter-spacing: 0.03em; }
 
-    /* ── Controls row ────────────────────────────────── */
-    .controls-row {
+    /* ═══════════════════════════════════════════════════
+       MAIN NAV
+    ═══════════════════════════════════════════════════ */
+    .main-nav {
       display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 18px;
       flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 16px;
     }
-    .mode-group {
-      display: flex;
-      gap: 1px;
-      align-items: center;
-    }
-    .mode-label {
-      font-size: 0.7rem;
-      color: #bbb;
-      margin-right: 8px;
-      letter-spacing: 0.06em;
-    }
-    .mode-btn {
+    .nav-tab {
       font-family: Georgia, serif;
       font-size: 0.7rem;
       padding: 5px 14px;
@@ -64,34 +44,21 @@
       cursor: pointer;
       letter-spacing: 0.04em;
       color: #888;
-      transition: all 0.15s;
+      transition: all 0.12s;
     }
-    .mode-btn:first-of-type { border-radius: 0; }
-    .mode-btn + .mode-btn { border-left: none; }
-    .mode-btn.active {
-      background: #111;
-      color: #fff;
-      border-color: #111;
-      z-index: 1;
-    }
-    .mode-btn:hover:not(.active) { background: #f8f8f8; color: #444; }
+    .nav-tab.active { background: #111; color: #fff; border-color: #111; }
+    .nav-tab:hover:not(.active) { background: #f5f5f5; color: #444; border-color: #ccc; }
 
-    .weak-count {
-      font-size: 0.7rem;
-      color: #ccc;
-      margin-left: auto;
-      letter-spacing: 0.02em;
-    }
-    .weak-count span { color: #e57373; }
-
-    /* ── Section filter ──────────────────────────────── */
-    .section-filter {
+    /* ═══════════════════════════════════════════════════
+       SECTION SELECTOR (for by-section mode)
+    ═══════════════════════════════════════════════════ */
+    .section-selector {
       display: flex;
       flex-wrap: wrap;
       gap: 5px;
       margin-bottom: 28px;
     }
-    .section-btn {
+    .sec-btn {
       font-family: Georgia, serif;
       font-size: 0.68rem;
       padding: 4px 11px;
@@ -102,338 +69,275 @@
       color: #888;
       transition: all 0.12s;
     }
-    .section-btn.active {
-      background: #111;
-      color: #fff;
-      border-color: #111;
-    }
-    .section-btn:hover:not(.active):not(:disabled) {
-      background: #f5f5f5;
-      color: #444;
-      border-color: #ccc;
-    }
-    .section-btn.weak-btn {
-      border-color: #fcc;
-      color: #c0392b;
-    }
-    .section-btn.weak-btn.active {
-      background: #c0392b;
-      border-color: #c0392b;
-      color: #fff;
-    }
-    .section-btn.weak-btn:hover:not(.active):not(:disabled) {
-      background: #fff5f5;
-      border-color: #e57373;
-    }
+    .sec-btn.active { background: #111; color: #fff; border-color: #111; }
+    .sec-btn:hover:not(.active) { background: #f5f5f5; border-color: #ccc; color: #444; }
 
-    /* ── Progress ────────────────────────────────────── */
-    .progress-bar-wrap {
-      height: 1px;
-      background: #ebebeb;
-      margin-bottom: 36px;
-      position: relative;
-    }
-    .progress-bar-fill {
-      height: 100%;
-      background: #111;
-      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .progress-label {
-      position: absolute;
-      right: 0;
-      top: 6px;
-      font-size: 0.65rem;
-      color: #ccc;
-      letter-spacing: 0.04em;
-    }
+    /* ═══════════════════════════════════════════════════
+       PROGRESS
+    ═══════════════════════════════════════════════════ */
+    .progress-wrap { height: 1px; background: #ebebeb; margin-bottom: 32px; position: relative; }
+    .progress-fill { height: 100%; background: #111; transition: width 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .progress-label { position: absolute; right: 0; top: 6px; font-size: 0.65rem; color: #ccc; letter-spacing: 0.04em; }
 
-    /* ── Question card ───────────────────────────────── */
-    #question-screen {
-      animation: fadeIn 0.2s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
+    /* ═══════════════════════════════════════════════════
+       QUESTION CARD
+    ═══════════════════════════════════════════════════ */
+    #question-screen { animation: fadeUp 0.22s ease; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .question-meta {
+    .q-meta { font-size: 0.68rem; color: #bbb; letter-spacing: 0.08em; margin-bottom: 14px; text-transform: uppercase; }
+    .q-text { font-size: 1.06rem; line-height: 1.65; margin-bottom: 6px; color: #111; }
+    .q-translation { font-size: 0.78rem; color: #aaa; margin-bottom: 4px; font-style: italic; line-height: 1.5; display: none; }
+    .q-translation.visible { display: block; }
+
+    /* Translation button */
+    .translate-btn {
+      font-family: Georgia, serif;
       font-size: 0.68rem;
       color: #bbb;
-      letter-spacing: 0.08em;
-      margin-bottom: 14px;
-      text-transform: uppercase;
-    }
-    .question-text {
-      font-size: 1.08rem;
-      line-height: 1.65;
-      margin-bottom: 6px;
-      color: #111;
-    }
-    .question-translation {
-      font-size: 0.78rem;
-      color: #aaa;
-      margin-bottom: 24px;
-      font-style: italic;
-      line-height: 1.5;
-    }
-
-    /* ── Images ──────────────────────────────────────── */
-    .question-image-wrap {
-      margin-bottom: 24px;
-    }
-    .question-image-wrap img,
-    .answer-image-wrap img {
-      max-width: 100%;
-      max-height: 280px;
-      object-fit: contain;
-      display: block;
-      border: 1px solid #f0f0f0;
-      cursor: zoom-in;
-      transition: opacity 0.15s, transform 0.15s;
-      border-radius: 2px;
-    }
-    .question-image-wrap img:hover,
-    .answer-image-wrap img:hover {
-      opacity: 0.85;
-      transform: scale(1.01);
-    }
-    .answer-image-wrap {
-      margin-top: 16px;
-      display: none;
-      animation: fadeIn 0.25s ease;
-    }
-    .answer-image-wrap.visible { display: block; }
-    .answer-image-wrap img { max-height: 220px; }
-    .answer-image-label {
-      font-size: 0.65rem;
-      color: #bbb;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    /* ── Lightbox ────────────────────────────────────── */
-    #lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.92);
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-      cursor: zoom-out;
-      animation: lbFade 0.18s ease;
-    }
-    @keyframes lbFade {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-    #lightbox.open { display: flex; }
-    #lightbox img {
-      max-width: 92vw;
-      max-height: 88vh;
-      object-fit: contain;
-      display: block;
-      border: none;
-      box-shadow: 0 8px 60px rgba(0,0,0,0.6);
-      animation: lbScale 0.2s cubic-bezier(0.34, 1.4, 0.64, 1);
-    }
-    @keyframes lbScale {
-      from { transform: scale(0.88); }
-      to   { transform: scale(1); }
-    }
-    #lightbox-close {
-      position: absolute;
-      top: 20px;
-      right: 24px;
-      color: rgba(255,255,255,0.6);
-      font-size: 1.8rem;
       background: none;
       border: none;
       cursor: pointer;
-      line-height: 1;
-      font-family: Georgia, serif;
-      transition: color 0.15s;
-    }
-    #lightbox-close:hover { color: #fff; }
-
-    /* ── Choices ─────────────────────────────────────── */
-    .choices {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 24px;
-    }
-    .choice-btn {
-      font-family: Georgia, serif;
-      font-size: 0.88rem;
-      text-align: left;
-      padding: 13px 18px;
-      border: 1px solid #e8e8e8;
-      background: #fff;
-      cursor: pointer;
-      line-height: 1.55;
-      transition: background 0.12s, border-color 0.12s, transform 0.1s;
-      display: flex;
-      flex-direction: column;
-    }
-    .choice-btn:hover:not(:disabled) {
-      background: #f8f8f8;
-      border-color: #ccc;
-    }
-    .choice-btn:active:not(:disabled) {
-      transform: scale(0.995);
-    }
-    .choice-btn.correct {
-      background: #f0fff4;
-      border-color: #66bb6a;
-      animation: correctPop 0.25s ease;
-    }
-    @keyframes correctPop {
-      0%   { transform: scale(1); }
-      40%  { transform: scale(1.015); }
-      100% { transform: scale(1); }
-    }
-    .choice-btn.wrong {
-      background: #fff5f5;
-      border-color: #ef9a9a;
-    }
-    .choice-btn.reveal-correct {
-      background: #f0fff4;
-      border-color: #66bb6a;
-    }
-    .choice-btn:disabled { cursor: default; }
-    .choice-header {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-    }
-    .choice-letter {
-      font-size: 0.68rem;
-      color: #ccc;
-      letter-spacing: 0.04em;
-      flex-shrink: 0;
-      width: 14px;
-    }
-    .choice-btn.correct .choice-letter,
-    .choice-btn.reveal-correct .choice-letter { color: #4caf50; }
-    .choice-btn.wrong .choice-letter { color: #ef5350; }
-    .choice-vi { color: #111; }
-    .choice-en {
-      font-size: 0.73rem;
-      color: #bbb;
-      font-style: italic;
-      margin-top: 3px;
-      padding-left: 24px;
-    }
-
-    /* ── Feedback ────────────────────────────────────── */
-    .feedback {
-      font-size: 0.82rem;
-      line-height: 1.7;
-      padding: 14px 18px;
-      border-left: 2px solid #ddd;
-      background: #fafafa;
-      color: #555;
-      margin-bottom: 24px;
-      display: none;
-      animation: fadeIn 0.2s ease;
-    }
-    .feedback.visible { display: block; }
-
-    /* ── Nav ─────────────────────────────────────────── */
-    .nav-row {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-    .nav-btn {
-      font-family: Georgia, serif;
-      font-size: 0.78rem;
-      padding: 10px 24px;
-      border: 1px solid #111;
-      background: #111;
-      color: #fff;
-      cursor: pointer;
-      letter-spacing: 0.05em;
-      transition: background 0.15s, border-color 0.15s;
-    }
-    .nav-btn:hover:not(:disabled) { background: #333; border-color: #333; }
-    .nav-btn:disabled { opacity: 0.28; cursor: default; }
-    .skip-link {
-      font-size: 0.73rem;
-      color: #ccc;
-      cursor: pointer;
-      background: none;
-      border: none;
-      font-family: Georgia, serif;
       padding: 0;
       letter-spacing: 0.03em;
+      margin-bottom: 20px;
+      display: block;
       transition: color 0.12s;
+    }
+    .translate-btn:hover { color: #666; }
+
+    /* Vocab tooltip */
+    .vocab-term {
+      border-bottom: 1px dotted #bbb;
+      cursor: help;
+      position: relative;
+    }
+    .vocab-term .vocab-tip {
+      display: none;
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #111;
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      white-space: nowrap;
+      z-index: 100;
+      pointer-events: none;
+      font-style: normal;
+    }
+    .vocab-term:hover .vocab-tip,
+    .vocab-term.tip-open .vocab-tip { display: block; }
+
+    /* Images */
+    .q-image-wrap { margin-bottom: 20px; }
+    .q-image-wrap img, .a-image-wrap img {
+      max-width: 100%; max-height: 280px; object-fit: contain; display: block;
+      border: 1px solid #f0f0f0; cursor: zoom-in;
+      transition: opacity 0.15s, transform 0.15s; border-radius: 2px;
+    }
+    .q-image-wrap img:hover, .a-image-wrap img:hover { opacity: 0.85; transform: scale(1.01); }
+    .a-image-wrap { margin-top: 14px; display: none; animation: fadeUp 0.2s ease; }
+    .a-image-wrap.visible { display: block; }
+    .a-image-wrap img { max-height: 200px; }
+    .a-image-label { font-size: 0.65rem; color: #bbb; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+
+    /* Choices */
+    .choices { display: flex; flex-direction: column; gap: 6px; margin-bottom: 24px; }
+    .choice-btn {
+      font-family: Georgia, serif; font-size: 0.88rem; text-align: left;
+      padding: 12px 16px; border: 1px solid #e8e8e8; background: #fff;
+      cursor: pointer; line-height: 1.55; transition: background 0.1s, border-color 0.1s, transform 0.08s;
+      display: flex; flex-direction: column;
+    }
+    .choice-btn:hover:not(:disabled) { background: #f8f8f8; border-color: #ccc; }
+    .choice-btn:active:not(:disabled) { transform: scale(0.997); }
+    .choice-btn.correct { background: #f0fff4; border-color: #66bb6a; animation: pop 0.22s ease; }
+    .choice-btn.wrong   { background: #fff5f5; border-color: #ef9a9a; }
+    .choice-btn.reveal  { background: #f0fff4; border-color: #66bb6a; }
+    .choice-btn:disabled { cursor: default; }
+    @keyframes pop { 0%{transform:scale(1)} 40%{transform:scale(1.013)} 100%{transform:scale(1)} }
+    .choice-header { display: flex; align-items: baseline; gap: 10px; }
+    .choice-letter { font-size: 0.68rem; color: #ccc; width: 14px; flex-shrink: 0; }
+    .choice-btn.correct .choice-letter, .choice-btn.reveal .choice-letter { color: #4caf50; }
+    .choice-btn.wrong   .choice-letter { color: #ef5350; }
+    .choice-vi { color: #111; }
+    .choice-en { font-size: 0.72rem; color: #bbb; font-style: italic; margin-top: 2px; padding-left: 24px; display: none; }
+    .choice-en.visible { display: block; }
+
+    /* Feedback */
+    .feedback {
+      font-size: 0.82rem; line-height: 1.7; padding: 12px 16px;
+      border-left: 2px solid #ddd; background: #fafafa; color: #555;
+      margin-bottom: 22px; display: none; animation: fadeUp 0.2s ease;
+    }
+    .feedback.visible { display: block; }
+    .feedback-en { display: none; }
+    .feedback-en.visible { display: block; }
+
+    /* Nav row */
+    .nav-row { display: flex; gap: 12px; align-items: center; }
+    .go-btn {
+      font-family: Georgia, serif; font-size: 0.78rem; padding: 10px 22px;
+      border: 1px solid #111; background: #111; color: #fff;
+      cursor: pointer; letter-spacing: 0.05em; transition: background 0.12s;
+    }
+    .go-btn:hover:not(:disabled) { background: #333; border-color: #333; }
+    .go-btn:disabled { opacity: 0.28; cursor: default; }
+    .skip-link {
+      font-size: 0.73rem; color: #ccc; cursor: pointer; background: none;
+      border: none; font-family: Georgia, serif; padding: 0;
+      letter-spacing: 0.03em; transition: color 0.12s;
     }
     .skip-link:hover { color: #888; }
 
-    /* ── Score screen ────────────────────────────────── */
-    #score-screen { display: none; }
-    #score-screen.visible {
-      display: block;
-      animation: fadeIn 0.3s ease;
+    /* ═══════════════════════════════════════════════════
+       TYPING MODE
+    ═══════════════════════════════════════════════════ */
+    .typing-input-wrap { margin-bottom: 20px; }
+    .typing-input {
+      font-family: Georgia, serif; font-size: 1rem;
+      width: 100%; padding: 12px 14px; border: 1px solid #e0e0e0;
+      outline: none; letter-spacing: 0.01em;
+      transition: border-color 0.15s;
     }
-    .score-display {
-      font-size: 3.5rem;
-      font-weight: normal;
-      margin-bottom: 6px;
-      color: #111;
-      letter-spacing: -0.02em;
-    }
-    .score-label {
-      font-size: 0.82rem;
-      color: #999;
-      margin-bottom: 36px;
-      line-height: 1.6;
-    }
-    .score-breakdown {
-      font-size: 0.75rem;
-      color: #aaa;
-      line-height: 2.2;
-      margin-bottom: 36px;
-      border-left: 1px solid #f0f0f0;
-      padding-left: 16px;
-    }
-    .score-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .score-btn {
-      font-family: Georgia, serif;
-      font-size: 0.78rem;
-      padding: 10px 22px;
-      border: 1px solid #111;
-      cursor: pointer;
-      letter-spacing: 0.04em;
-      transition: all 0.15s;
-    }
-    .score-btn.primary { background: #111; color: #fff; }
-    .score-btn.primary:hover { background: #333; border-color: #333; }
-    .score-btn.secondary { background: #fff; color: #111; }
-    .score-btn.secondary:hover { background: #f5f5f5; }
-    .score-btn.danger { border-color: #ef9a9a; color: #c0392b; background: #fff; }
-    .score-btn.danger:hover { background: #fff5f5; border-color: #e57373; }
-    .score-btn:disabled { opacity: 0.3; cursor: default; }
+    .typing-input:focus { border-color: #bbb; }
+    .typing-input.correct-input { border-color: #66bb6a; background: #f0fff4; }
+    .typing-input.wrong-input   { border-color: #ef9a9a; background: #fff5f5; }
+    .typing-hint { font-size: 0.72rem; color: #bbb; margin-top: 6px; letter-spacing: 0.02em; }
 
-    /* ── Mobile ──────────────────────────────────────── */
+    /* ═══════════════════════════════════════════════════
+       FLASHCARD
+    ═══════════════════════════════════════════════════ */
+    .flashcard-filter { display: flex; gap: 5px; margin-bottom: 24px; flex-wrap: wrap; }
+    .fc-cat-btn {
+      font-family: Georgia, serif; font-size: 0.68rem; padding: 4px 11px;
+      border: 1px solid #e8e8e8; background: #fff; cursor: pointer;
+      letter-spacing: 0.03em; color: #888; transition: all 0.12s;
+    }
+    .fc-cat-btn.active { background: #111; color: #fff; border-color: #111; }
+    .fc-cat-btn:hover:not(.active) { background: #f5f5f5; border-color: #ccc; }
+
+    .flashcard-wrap { perspective: 1000px; margin-bottom: 28px; cursor: pointer; }
+    .flashcard {
+      width: 100%; min-height: 200px; position: relative;
+      transform-style: preserve-3d; transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+    }
+    .flashcard.flipped { transform: rotateY(180deg); }
+    .fc-front, .fc-back {
+      position: absolute; inset: 0; backface-visibility: hidden;
+      border: 1px solid #e8e8e8; padding: 28px 24px;
+      display: flex; flex-direction: column; justify-content: center;
+      min-height: 200px;
+    }
+    .fc-back { transform: rotateY(180deg); background: #fafafa; }
+    .fc-label { font-size: 0.65rem; color: #bbb; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
+    .fc-main  { font-size: 1.05rem; line-height: 1.6; color: #111; }
+    .fc-sub   { font-size: 0.8rem; color: #888; font-style: italic; margin-top: 8px; line-height: 1.5; }
+    .fc-image { max-width: 100%; max-height: 180px; object-fit: contain; margin-top: 12px; border: 1px solid #f0f0f0; }
+    .fc-tap-hint { font-size: 0.68rem; color: #ccc; margin-top: 12px; letter-spacing: 0.03em; }
+    .fc-nav { display: flex; gap: 12px; align-items: center; }
+    .fc-counter { font-size: 0.7rem; color: #bbb; }
+
+    /* ═══════════════════════════════════════════════════
+       END SCREEN
+    ═══════════════════════════════════════════════════ */
+    #end-screen { display: none; }
+    #end-screen.visible { display: block; animation: fadeUp 0.3s ease; }
+
+    /* Trophy animation */
+    .trophy-wrap { font-size: 4rem; margin-bottom: 12px; display: inline-block; }
+    .trophy-wrap.spin { animation: spin 0.9s cubic-bezier(0.4,0,0.2,1) infinite alternate; }
+    @keyframes spin {
+      0%   { transform: rotate(-18deg) scale(1); }
+      100% { transform: rotate(18deg) scale(1.08); }
+    }
+
+    /* Sinking ship animation */
+    .ship-wrap { font-size: 3.5rem; margin-bottom: 12px; display: inline-block; }
+    .ship-wrap.sink {
+      animation: sink 2.5s ease-in-out infinite;
+    }
+    @keyframes sink {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+      60%  { transform: translateY(12px) rotate(-8deg); opacity: 0.7; }
+      100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    }
+
+    .end-score { font-size: 3.2rem; font-weight: normal; margin-bottom: 6px; color: #111; letter-spacing: -0.02em; }
+    .end-label { font-size: 0.85rem; color: #999; margin-bottom: 8px; }
+    .end-result { font-size: 1rem; font-weight: normal; margin-bottom: 32px; }
+    .end-result.pass { color: #2e7d32; }
+    .end-result.fail { color: #c0392b; }
+    .end-breakdown { font-size: 0.75rem; color: #aaa; line-height: 2.2; margin-bottom: 32px; border-left: 1px solid #f0f0f0; padding-left: 14px; white-space: pre; }
+    .end-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .end-btn {
+      font-family: Georgia, serif; font-size: 0.78rem; padding: 10px 22px;
+      border: 1px solid #111; cursor: pointer; letter-spacing: 0.04em; transition: all 0.12s;
+    }
+    .end-btn.primary   { background: #111; color: #fff; }
+    .end-btn.primary:hover { background: #333; border-color: #333; }
+    .end-btn.secondary { background: #fff; color: #111; }
+    .end-btn.secondary:hover { background: #f5f5f5; }
+    .end-btn.danger    { border-color: #ef9a9a; color: #c0392b; background: #fff; }
+    .end-btn.danger:hover { background: #fff5f5; border-color: #e57373; }
+
+    /* Weak count badge */
+    .weak-badge { font-size: 0.7rem; color: #ccc; margin-left: auto; letter-spacing: 0.02em; }
+    .weak-badge span { color: #e57373; }
+    .top-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+
+    /* ═══════════════════════════════════════════════════
+       LIGHTBOX
+    ═══════════════════════════════════════════════════ */
+    #lightbox {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+      z-index: 9999; align-items: center; justify-content: center; cursor: zoom-out;
+      animation: lbFade 0.18s ease;
+    }
+    @keyframes lbFade { from{opacity:0} to{opacity:1} }
+    #lightbox.open { display: flex; }
+    #lightbox img {
+      max-width: 92vw; max-height: 88vh; object-fit: contain;
+      box-shadow: 0 8px 60px rgba(0,0,0,0.6);
+      animation: lbPop 0.2s cubic-bezier(0.34,1.4,0.64,1);
+    }
+    @keyframes lbPop { from{transform:scale(0.88)} to{transform:scale(1)} }
+    #lb-close {
+      position: absolute; top: 20px; right: 24px; color: rgba(255,255,255,0.6);
+      font-size: 1.8rem; background: none; border: none; cursor: pointer; font-family: Georgia, serif;
+      transition: color 0.15s;
+    }
+    #lb-close:hover { color: #fff; }
+
+    /* ═══════════════════════════════════════════════════
+       REVIEW MODE indicator
+    ═══════════════════════════════════════════════════ */
+    .mode-badge {
+      display: inline-block; font-size: 0.65rem; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 2px 8px; border: 1px solid #e57373;
+      color: #c0392b; margin-bottom: 16px;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       MOBILE
+    ═══════════════════════════════════════════════════ */
     @media (max-width: 480px) {
-      #quiz-app { padding: 32px 16px 80px; }
-      .quiz-header h1 { font-size: 1.2rem; }
-      .question-text { font-size: 0.96rem; }
-      .choice-btn { font-size: 0.84rem; padding: 11px 14px; }
-      .score-display { font-size: 2.6rem; }
+      #quiz-app { padding: 28px 14px 80px; }
+      .quiz-header h1 { font-size: 1.15rem; }
+      .q-text { font-size: 0.96rem; }
+      .choice-btn { font-size: 0.84rem; padding: 10px 12px; }
+      .end-score { font-size: 2.6rem; }
+      .fc-main { font-size: 0.96rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- site nav -->
+  <!-- Site nav -->
   <div class="menu">
     <button class="menu-trigger" aria-label="Open site menu">MENU</button>
     <ul class="dropdown" role="menu">
@@ -448,475 +352,885 @@
     </ul>
   </div>
 
-  <!-- lightbox -->
-  <div id="lightbox" role="dialog" aria-label="Image zoom">
-    <button id="lightbox-close" aria-label="Close">×</button>
-    <img id="lightbox-img" src="" alt="" />
+  <!-- Lightbox -->
+  <div id="lightbox" role="dialog">
+    <button id="lb-close">×</button>
+    <img id="lb-img" src="" alt="" />
   </div>
 
   <div id="quiz-app">
 
-    <!-- header -->
+    <!-- Header -->
     <div class="quiz-header">
       <h1>đường thủy nội địa</h1>
       <p>Vietnamese Inland Waterway — bằng lái hạng IV</p>
     </div>
 
-    <!-- controls -->
-    <div class="controls-row">
-      <div class="mode-group">
-        <span class="mode-label">mode</span>
-        <button class="mode-btn active" id="mode-quiz">quiz</button>
-        <button class="mode-btn" id="mode-study">study</button>
-      </div>
-      <div class="weak-count" id="weak-count"></div>
+    <!-- Main nav -->
+    <nav class="main-nav" id="main-nav">
+      <button class="nav-tab active" data-mode="practice">thực hành / practice test</button>
+      <button class="nav-tab" data-mode="all">tất cả / test all</button>
+      <button class="nav-tab" data-mode="section">theo mục / by section</button>
+      <button class="nav-tab" data-mode="flashcard">thẻ học / flashcards</button>
+      <button class="nav-tab" data-mode="typing">điền từ / fill in</button>
+    </nav>
+
+    <!-- Section selector (by-section mode) -->
+    <div id="section-selector" class="section-selector" style="display:none"></div>
+
+    <!-- Flashcard category filter -->
+    <div id="fc-filter" class="flashcard-filter" style="display:none">
+      <button class="fc-cat-btn active" data-cat="all">tất cả / all</button>
+      <button class="fc-cat-btn" data-cat="knots">nút dây / knots</button>
+      <button class="fc-cat-btn" data-cat="signals">báo hiệu / signals</button>
+      <button class="fc-cat-btn" data-cat="vocab">từ vựng / vocab</button>
     </div>
 
-    <!-- section filter -->
-    <div class="section-filter" id="section-filter"></div>
+    <!-- Top row (weak badge) -->
+    <div class="top-row">
+      <div class="weak-badge" id="weak-badge"></div>
+    </div>
 
-    <!-- progress -->
-    <div class="progress-bar-wrap">
-      <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+    <!-- Progress -->
+    <div class="progress-wrap" id="progress-wrap" style="display:none">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
       <div class="progress-label" id="progress-label"></div>
     </div>
 
-    <!-- question -->
-    <div id="question-screen">
-      <div class="question-meta" id="question-meta"></div>
-      <div class="question-text" id="question-text"></div>
-      <div class="question-translation" id="question-translation"></div>
+    <!-- ── QUIZ SCREEN ── -->
+    <div id="question-screen" style="display:none">
+      <div class="mode-badge" id="mode-badge" style="display:none"></div>
+      <div class="q-meta" id="q-meta"></div>
+      <div class="q-text" id="q-text"></div>
+      <div class="q-translation" id="q-translation"></div>
+      <button class="translate-btn" id="translate-btn">dịch / show translation</button>
 
-      <div class="question-image-wrap" id="question-image-wrap" style="display:none">
-        <img id="question-img" src="" alt="question image" />
+      <div class="q-image-wrap" id="q-image-wrap" style="display:none">
+        <img id="q-img" src="" alt="question image" />
       </div>
 
       <div class="choices" id="choices"></div>
 
-      <div class="answer-image-wrap" id="answer-image-wrap">
-        <div class="answer-image-label">correct answer</div>
-        <img id="answer-img" src="" alt="answer image" />
+      <div class="a-image-wrap" id="a-image-wrap">
+        <div class="a-image-label">correct answer / đáp án đúng</div>
+        <img id="a-img" src="" alt="answer image" />
       </div>
 
       <div class="feedback" id="feedback"></div>
 
       <div class="nav-row">
-        <button class="nav-btn" id="next-btn" disabled>next →</button>
-        <button class="skip-link" id="skip-btn">skip</button>
+        <button class="go-btn" id="next-btn" disabled>tiếp theo →</button>
+        <button class="skip-link" id="skip-btn" style="display:none">bỏ qua / skip</button>
       </div>
     </div>
 
-    <!-- score screen -->
-    <div id="score-screen">
-      <div class="score-display" id="score-display"></div>
-      <div class="score-label" id="score-label"></div>
-      <div class="score-breakdown" id="score-breakdown"></div>
-      <div class="score-actions">
-        <button class="score-btn primary" id="restart-btn">try again</button>
-        <button class="score-btn danger" id="retry-missed-btn" style="display:none">retry missed</button>
-        <button class="score-btn secondary" id="clear-weak-btn">clear weak list</button>
+    <!-- ── TYPING SCREEN ── -->
+    <div id="typing-screen" style="display:none">
+      <div class="q-meta" id="t-meta"></div>
+      <div class="q-image-wrap" id="t-image-wrap" style="display:none">
+        <img id="t-img" src="" alt="question image" />
+      </div>
+      <div class="q-text" id="t-text" style="margin-bottom:16px"></div>
+
+      <div class="typing-input-wrap">
+        <input type="text" class="typing-input" id="typing-input"
+          placeholder="Gõ câu trả lời bằng tiếng Việt… (hoặc tiếng Anh)" autocomplete="off" spellcheck="false" />
+        <div class="typing-hint" id="typing-hint"></div>
+      </div>
+
+      <div class="feedback" id="t-feedback"></div>
+      <div class="a-image-wrap" id="t-a-image-wrap">
+        <div class="a-image-label">correct answer / đáp án đúng</div>
+        <img id="t-a-img" src="" alt="answer image" />
+      </div>
+
+      <div class="nav-row" style="margin-top:4px">
+        <button class="go-btn" id="t-next-btn" disabled>tiếp theo →</button>
+        <button class="go-btn" id="t-check-btn" style="background:#fff;color:#111">kiểm tra / check</button>
+        <button class="skip-link" id="t-skip-btn">bỏ qua</button>
       </div>
     </div>
 
-  </div>
+    <!-- ── FLASHCARD SCREEN ── -->
+    <div id="flashcard-screen" style="display:none">
+      <div class="progress-wrap" style="display:block;margin-bottom:20px">
+        <div class="progress-fill" id="fc-progress" style="width:0%"></div>
+        <div class="progress-label" id="fc-label"></div>
+      </div>
+
+      <div class="flashcard-wrap" id="fc-wrap">
+        <div class="flashcard" id="flashcard">
+          <div class="fc-front">
+            <div class="fc-label">câu hỏi / question</div>
+            <div class="fc-main" id="fc-front-text"></div>
+            <img class="fc-image" id="fc-front-img" src="" alt="" style="display:none" />
+            <div class="fc-tap-hint">nhấn để lật / tap to flip</div>
+          </div>
+          <div class="fc-back">
+            <div class="fc-label">đáp án / answer</div>
+            <div class="fc-main" id="fc-back-text"></div>
+            <div class="fc-sub"  id="fc-back-en"></div>
+            <img class="fc-image" id="fc-back-img" src="" alt="" style="display:none" />
+          </div>
+        </div>
+      </div>
+
+      <div class="fc-nav">
+        <button class="go-btn" id="fc-prev" style="padding:8px 16px;font-size:0.75rem">← trước</button>
+        <button class="go-btn" id="fc-next" style="padding:8px 16px;font-size:0.75rem">sau →</button>
+        <div class="fc-counter" id="fc-counter"></div>
+      </div>
+    </div>
+
+    <!-- ── END SCREEN ── -->
+    <div id="end-screen">
+      <div id="end-icon"></div>
+      <div class="end-score" id="end-score"></div>
+      <div class="end-label" id="end-label"></div>
+      <div class="end-result" id="end-result"></div>
+      <div class="end-breakdown" id="end-breakdown"></div>
+      <div class="end-actions">
+        <button class="end-btn primary"   id="end-restart">thử lại / try again</button>
+        <button class="end-btn danger"    id="end-review"  style="display:none">ôn sai / review missed</button>
+        <button class="end-btn secondary" id="end-weak"    style="display:none">ôn yếu / drill weak</button>
+        <button class="end-btn secondary" id="end-clear-weak">xóa danh sách yếu</button>
+      </div>
+    </div>
+
+  </div><!-- #quiz-app -->
 
   <script src="menu.js"></script>
   <script>
-  (function () {
+  (function(){
     'use strict';
 
-    // ── Constants ─────────────────────────────────────────
-    const IMG_BASE = 'duong_thuy/images/';
-    const LS_KEY   = 'duong-thuy-weak';
+    // ══════════════════════════════════════════════════
+    // CONSTANTS
+    // ══════════════════════════════════════════════════
+    const IMG     = 'duong_thuy/images/';
+    const LS_WEAK = 'dt-weak-v2';
+    const PASS_N  = 30; // out of 40 for practice test
 
     const SECTIONS = [
-      { slug: 'all',                   label: 'all' },
-      { slug: 'weak',                  label: 'weak' },
-      { slug: 'an-toan-co-ban',        label: 'an toàn' },
-      { slug: 'thuy-nghiep-co-ban',    label: 'thủy nghiệp' },
-      { slug: 'luong-duong-thuy',      label: 'luồng đường thủy' },
-      { slug: 'phap-luat-giao-thong',  label: 'pháp luật' },
-      { slug: 'bao-hieu-giao-thong',   label: 'báo hiệu' },
-      { slug: 'dieu-dong-phuong-tien', label: 'điều động' },
-      { slug: 'van-tai-hang-hoa',      label: 'vận tải' },
+      {slug:'all',                    label:'tất cả',              en:'all'},
+      {slug:'an-toan-co-ban',         label:'an toàn cơ bản',      en:'basic safety'},
+      {slug:'thuy-nghiep-co-ban',     label:'thủy nghiệp cơ bản',  en:'basic seamanship'},
+      {slug:'luong-duong-thuy',       label:'luồng đường thủy',    en:'waterway channels'},
+      {slug:'phap-luat-giao-thong',   label:'pháp luật giao thông',en:'traffic law'},
+      {slug:'bao-hieu-giao-thong',    label:'báo hiệu giao thông', en:'navigation signals'},
+      {slug:'dieu-dong-phuong-tien',  label:'điều động phương tiện',en:'vessel maneuvering'},
+      {slug:'van-tai-hang-hoa',       label:'vận tải hàng hóa',    en:'cargo transport'},
     ];
 
-    // ── State ─────────────────────────────────────────────
-    let allQuestions    = [];
-    let queue           = [];
-    let currentIndex    = 0;
-    let answered        = false;
-    let score           = { correct: 0, wrong: 0, skipped: 0 };
-    let sectionScores   = {};
-    let missedThisRound = [];
-    let activeSection   = 'all';
-    let mode            = 'quiz';
-    let weakIds         = loadWeak();
-    let transitioning   = false;
+    // ══════════════════════════════════════════════════
+    // STATE
+    // ══════════════════════════════════════════════════
+    let allQ = [], vocab = [], queue = [], fcDeck = [];
+    let ci = 0, fcIndex = 0;
+    let answered = false, transitioning = false;
+    let score = {correct:0, wrong:0, skipped:0};
+    let secScores = {}, missed = [];
+    let curMode = 'practice';  // practice | all | section | flashcard | typing
+    let curSection = 'all';
+    let fcCat = 'all';
+    let reviewMode = false; // true = reviewing missed answers
+    let weakIds = loadWeak();
 
-    // ── DOM refs ──────────────────────────────────────────
-    const $meta          = document.getElementById('question-meta');
-    const $text          = document.getElementById('question-text');
-    const $trans         = document.getElementById('question-translation');
-    const $qImgWrap      = document.getElementById('question-image-wrap');
-    const $qImg          = document.getElementById('question-img');
-    const $choices       = document.getElementById('choices');
-    const $aImgWrap      = document.getElementById('answer-image-wrap');
-    const $aImg          = document.getElementById('answer-img');
-    const $feedback      = document.getElementById('feedback');
-    const $nextBtn       = document.getElementById('next-btn');
-    const $skipBtn       = document.getElementById('skip-btn');
-    const $progress      = document.getElementById('progress-fill');
+    // ══════════════════════════════════════════════════
+    // DOM
+    // ══════════════════════════════════════════════════
+    const $qScreen   = document.getElementById('question-screen');
+    const $tScreen   = document.getElementById('typing-screen');
+    const $fcScreen  = document.getElementById('flashcard-screen');
+    const $endScreen = document.getElementById('end-screen');
+
+    const $qMeta     = document.getElementById('q-meta');
+    const $qText     = document.getElementById('q-text');
+    const $qTrans    = document.getElementById('q-translation');
+    const $transBtnEl= document.getElementById('translate-btn');
+    const $qImgWrap  = document.getElementById('q-image-wrap');
+    const $qImg      = document.getElementById('q-img');
+    const $choices   = document.getElementById('choices');
+    const $aImgWrap  = document.getElementById('a-image-wrap');
+    const $aImg      = document.getElementById('a-img');
+    const $feedback  = document.getElementById('feedback');
+    const $nextBtn   = document.getElementById('next-btn');
+    const $skipBtn   = document.getElementById('skip-btn');
+    const $modeBadge = document.getElementById('mode-badge');
+    const $progressWrap = document.getElementById('progress-wrap');
+    const $progress  = document.getElementById('progress-fill');
     const $progressLabel = document.getElementById('progress-label');
-    const $qScreen       = document.getElementById('question-screen');
-    const $scoreScreen   = document.getElementById('score-screen');
-    const $scoreDisp     = document.getElementById('score-display');
-    const $scoreLabel    = document.getElementById('score-label');
-    const $scoreBreak    = document.getElementById('score-breakdown');
-    const $restartBtn    = document.getElementById('restart-btn');
-    const $retryMissed   = document.getElementById('retry-missed-btn');
-    const $clearWeak     = document.getElementById('clear-weak-btn');
-    const $filterWrap    = document.getElementById('section-filter');
-    const $weakCount     = document.getElementById('weak-count');
-    const $lightbox      = document.getElementById('lightbox');
-    const $lightboxImg   = document.getElementById('lightbox-img');
-    const $lightboxClose = document.getElementById('lightbox-close');
+    const $weakBadge = document.getElementById('weak-badge');
+    const $sectionSelector = document.getElementById('section-selector');
+    const $fcFilter  = document.getElementById('fc-filter');
 
-    // ── Init ──────────────────────────────────────────────
-    fetch('duong_thuy/questions.json')
-      .then(r => r.json())
-      .then(data => {
-        allQuestions = data.questions;
-        buildFilter();
-        buildModeToggle();
-        updateWeakCount();
-        startQuiz();
-      })
-      .catch(() => {
-        $text.textContent = 'Error loading questions. Run from a local server (python3 -m http.server 8000).';
-      });
+    const $tMeta     = document.getElementById('t-meta');
+    const $tImgWrap  = document.getElementById('t-image-wrap');
+    const $tImg      = document.getElementById('t-img');
+    const $tText     = document.getElementById('t-text');
+    const $typingInput = document.getElementById('typing-input');
+    const $typingHint  = document.getElementById('typing-hint');
+    const $tFeedback   = document.getElementById('t-feedback');
+    const $tAImgWrap   = document.getElementById('t-a-image-wrap');
+    const $tAImg       = document.getElementById('t-a-img');
+    const $tNextBtn    = document.getElementById('t-next-btn');
+    const $tCheckBtn   = document.getElementById('t-check-btn');
+    const $tSkipBtn    = document.getElementById('t-skip-btn');
 
-    // ── Weak list (localStorage) ──────────────────────────
-    function loadWeak() {
+    const $fcWrap    = document.getElementById('fc-wrap');
+    const $fcCard    = document.getElementById('flashcard');
+    const $fcFront   = document.getElementById('fc-front-text');
+    const $fcFrontImg= document.getElementById('fc-front-img');
+    const $fcBack    = document.getElementById('fc-back-text');
+    const $fcBackEn  = document.getElementById('fc-back-en');
+    const $fcBackImg = document.getElementById('fc-back-img');
+    const $fcPrev    = document.getElementById('fc-prev');
+    const $fcNext    = document.getElementById('fc-next');
+    const $fcCounter = document.getElementById('fc-counter');
+    const $fcProgress= document.getElementById('fc-progress');
+    const $fcLabel   = document.getElementById('fc-label');
+
+    const $endIcon   = document.getElementById('end-icon');
+    const $endScore  = document.getElementById('end-score');
+    const $endLabel  = document.getElementById('end-label');
+    const $endResult = document.getElementById('end-result');
+    const $endBreak  = document.getElementById('end-breakdown');
+    const $endRestart= document.getElementById('end-restart');
+    const $endReview = document.getElementById('end-review');
+    const $endWeak   = document.getElementById('end-weak');
+    const $endClearWeak = document.getElementById('end-clear-weak');
+
+    const $lightbox  = document.getElementById('lightbox');
+    const $lbImg     = document.getElementById('lb-img');
+    const $lbClose   = document.getElementById('lb-close');
+
+    // ══════════════════════════════════════════════════
+    // LOAD DATA
+    // ══════════════════════════════════════════════════
+    Promise.all([
+      fetch('duong_thuy/questions.json').then(r=>r.json()),
+      fetch('duong_thuy/vocab.json').then(r=>r.json()),
+    ]).then(([qData, vData]) => {
+      allQ  = qData.questions;
+      vocab = vData.vocab.sort((a,b) => b.vi.length - a.vi.length); // longest first
+      buildSectionSelector();
+      buildMainNav();
+      updateWeakBadge();
+      switchMode('practice');
+    }).catch(()=>{
+      $qText.textContent = 'Error loading data. Run from a local server.';
+      showScreen($qScreen);
+    });
+
+    // ══════════════════════════════════════════════════
+    // SOUND (Web Audio API — no files needed)
+    // ══════════════════════════════════════════════════
+    let audioCtx = null;
+    function getAudio() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      return audioCtx;
+    }
+    function playDing() {
       try {
-        const raw = localStorage.getItem(LS_KEY);
-        return raw ? new Set(JSON.parse(raw)) : new Set();
-      } catch (_) { return new Set(); }
+        const ctx = getAudio();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(880, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(660, ctx.currentTime + 0.25);
+        gain.gain.setValueAtTime(0.35, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.4);
+      } catch(_){}
+    }
+    function playBuzz() {
+      try {
+        const ctx = getAudio();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(180, ctx.currentTime);
+        gain.gain.setValueAtTime(0.18, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.35);
+      } catch(_){}
+    }
+
+    // ══════════════════════════════════════════════════
+    // WEAK LIST
+    // ══════════════════════════════════════════════════
+    function loadWeak() {
+      try { const r = localStorage.getItem(LS_WEAK); return r ? new Set(JSON.parse(r)) : new Set(); }
+      catch(_){ return new Set(); }
     }
     function saveWeak() {
-      try { localStorage.setItem(LS_KEY, JSON.stringify([...weakIds])); } catch (_) {}
+      try { localStorage.setItem(LS_WEAK, JSON.stringify([...weakIds])); } catch(_){}
     }
-    function updateWeakCount() {
+    function updateWeakBadge() {
       const n = weakIds.size;
-      $weakCount.innerHTML = n > 0 ? 'weak: <span>' + n + '</span>' : '';
-      const weakBtn = $filterWrap.querySelector('.weak-btn');
-      if (weakBtn) {
-        weakBtn.textContent = 'weak (' + n + ')';
-        weakBtn.disabled = n === 0;
-        weakBtn.style.opacity = n === 0 ? '0.35' : '1';
-        weakBtn.style.cursor = n === 0 ? 'default' : 'pointer';
+      $weakBadge.innerHTML = n > 0 ? 'yếu / weak: <span>' + n + '</span>' : '';
+    }
+
+    // ══════════════════════════════════════════════════
+    // SCREEN SWITCHING
+    // ══════════════════════════════════════════════════
+    function showScreen(el) {
+      [$qScreen,$tScreen,$fcScreen,$endScreen].forEach(s=>{
+        s.style.display='none'; s.classList.remove('visible');
+      });
+      if (el) { el.style.display = 'block'; el.classList.add('visible'); }
+    }
+
+    // ══════════════════════════════════════════════════
+    // MAIN NAV
+    // ══════════════════════════════════════════════════
+    function buildMainNav() {
+      document.getElementById('main-nav').querySelectorAll('.nav-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          switchMode(btn.dataset.mode);
+        });
+      });
+    }
+
+    function switchMode(mode) {
+      curMode = mode;
+      $endScreen.style.display = 'none';
+      $endScreen.classList.remove('visible');
+      $sectionSelector.style.display = (mode === 'section') ? 'flex' : 'none';
+      $fcFilter.style.display = (mode === 'flashcard') ? 'flex' : 'none';
+      $progressWrap.style.display = (mode === 'flashcard') ? 'none' : 'block';
+
+      if (mode === 'flashcard') {
+        $progressWrap.style.display = 'none';
+        buildFlashcardDeck();
+      } else if (mode === 'typing') {
+        $progressWrap.style.display = 'block';
+        startTyping();
+      } else {
+        startQuiz();
       }
     }
 
-    // ── Section filter ────────────────────────────────────
-    function buildFilter() {
-      $filterWrap.innerHTML = '';
-      SECTIONS.forEach(sec => {
-        const isWeak = sec.slug === 'weak';
-        const count = isWeak
-          ? weakIds.size
-          : sec.slug === 'all'
-            ? allQuestions.length
-            : allQuestions.filter(q => q.section === sec.slug).length;
-
+    // ══════════════════════════════════════════════════
+    // SECTION SELECTOR
+    // ══════════════════════════════════════════════════
+    function buildSectionSelector() {
+      $sectionSelector.innerHTML = '';
+      SECTIONS.slice(1).forEach(sec => {
+        const n = allQ.filter(q=>q.section===sec.slug).length;
         const btn = document.createElement('button');
-        btn.className = 'section-btn' +
-          (sec.slug === activeSection ? ' active' : '') +
-          (isWeak ? ' weak-btn' : '');
-        btn.textContent = sec.label + ' (' + count + ')';
-        if (isWeak && count === 0) {
-          btn.disabled = true;
-          btn.style.opacity = '0.35';
-          btn.style.cursor = 'default';
-        }
-
+        btn.className = 'sec-btn' + (curSection === sec.slug ? ' active' : '');
+        btn.textContent = sec.label + ' (' + n + ')';
         btn.addEventListener('click', () => {
-          if (btn.disabled) return;
-          activeSection = sec.slug;
-          $filterWrap.querySelectorAll('.section-btn').forEach(b => b.classList.remove('active'));
+          curSection = sec.slug;
+          $sectionSelector.querySelectorAll('.sec-btn').forEach(b=>b.classList.remove('active'));
           btn.classList.add('active');
           startQuiz();
         });
-        $filterWrap.appendChild(btn);
+        $sectionSelector.appendChild(btn);
       });
     }
 
-    // ── Mode toggle ───────────────────────────────────────
-    function buildModeToggle() {
-      document.getElementById('mode-quiz').addEventListener('click', () => {
-        if (mode === 'quiz') return;
-        mode = 'quiz';
-        document.getElementById('mode-quiz').classList.add('active');
-        document.getElementById('mode-study').classList.remove('active');
-        startQuiz();
-      });
-      document.getElementById('mode-study').addEventListener('click', () => {
-        if (mode === 'study') return;
-        mode = 'study';
-        document.getElementById('mode-study').classList.add('active');
-        document.getElementById('mode-quiz').classList.remove('active');
-        startQuiz();
-      });
-    }
+    // ══════════════════════════════════════════════════
+    // START QUIZ (practice / all / section / review)
+    // ══════════════════════════════════════════════════
+    function startQuiz(customQueue, isReview) {
+      reviewMode = !!isReview;
+      missed = [];
+      score = {correct:0, wrong:0, skipped:0};
+      secScores = {};
+      ci = 0;
+      answered = false;
 
-    // ── Start quiz ────────────────────────────────────────
-    function startQuiz(customQueue) {
       if (customQueue) {
         queue = customQueue;
-      } else {
-        let pool;
-        if (activeSection === 'all') {
-          pool = allQuestions.slice();
-        } else if (activeSection === 'weak') {
-          pool = allQuestions.filter(q => weakIds.has(q.id));
-        } else {
-          pool = allQuestions.filter(q => q.section === activeSection);
-        }
-        queue = pool.sort(() => Math.random() - 0.5);
+      } else if (curMode === 'practice') {
+        queue = shuffle(allQ).slice(0, 40);
+      } else if (curMode === 'all') {
+        queue = shuffle(allQ);
+      } else if (curMode === 'section') {
+        queue = shuffle(allQ.filter(q=>q.section===curSection));
       }
 
-      currentIndex    = 0;
-      score           = { correct: 0, wrong: 0, skipped: 0 };
-      sectionScores   = {};
-      missedThisRound = [];
-      $retryMissed.style.display = 'none';
-      $scoreScreen.classList.remove('visible');
-      $qScreen.style.display = 'block';
+      $endScreen.style.display = 'none';
+      $endScreen.classList.remove('visible');
+      $progressWrap.style.display = 'block';
+      showScreen($qScreen);
       showQuestion();
     }
 
-    // ── Show question (with fade transition) ──────────────
+    // ══════════════════════════════════════════════════
+    // SHOW QUESTION
+    // ══════════════════════════════════════════════════
     function showQuestion() {
-      if (currentIndex >= queue.length) { showScore(); return; }
-
-      const q = queue[currentIndex];
+      if (ci >= queue.length) { showEnd(); return; }
+      const q = queue[ci];
       answered = false;
 
-      // progress
-      const pct = currentIndex / queue.length * 100;
+      // Progress
+      const pct = ci / queue.length * 100;
       $progress.style.width = pct + '%';
-      $progressLabel.textContent = (currentIndex + 1) + ' / ' + queue.length;
+      $progressLabel.textContent = (ci+1) + ' / ' + queue.length;
 
-      // meta
-      $meta.textContent = sectionLabel(q.section).toUpperCase() +
-        (weakIds.has(q.id) ? '  ★' : '');
+      // Badge
+      if (reviewMode) {
+        $modeBadge.style.display = 'inline-block';
+        $modeBadge.textContent = 'ôn sai / review';
+      } else {
+        $modeBadge.style.display = 'none';
+      }
 
-      // content
-      $text.textContent = q.question_vi;
-      $trans.textContent = q.translation ? q.translation.question_en : '';
+      // Meta
+      $qMeta.textContent = secLabel(q.section).toUpperCase() + (weakIds.has(q.id) ? '  ★' : '');
 
-      // question image
+      // Question text with vocab highlighting
+      $qText.innerHTML = tagVocab(escHtml(q.question_vi));
+
+      // Translation (hidden)
+      const t = q.translation || {};
+      $qTrans.textContent = t.question_en || '';
+      $qTrans.classList.remove('visible');
+      $transBtnEl.textContent = 'dịch / show translation';
+
+      // Question image
       if (q.image && q.image.question_img) {
-        $qImg.src = IMG_BASE + encodeURIComponent(q.image.question_img);
+        $qImg.src = IMG + encodeURIComponent(q.image.question_img);
         $qImgWrap.style.display = 'block';
       } else {
         $qImgWrap.style.display = 'none';
         $qImg.src = '';
       }
 
-      // answer image (hidden until answered)
+      // Answer image (hidden)
       $aImgWrap.classList.remove('visible');
-      $aImg.src = q.image && q.image.answer_img
-        ? IMG_BASE + encodeURIComponent(q.image.answer_img)
-        : '';
+      $aImg.src = q.image && q.image.answer_img ? IMG + encodeURIComponent(q.image.answer_img) : '';
 
+      // Feedback
       $feedback.textContent = '';
       $feedback.classList.remove('visible');
-      $nextBtn.disabled = (mode === 'quiz');
-      $skipBtn.style.display = (mode === 'quiz') ? 'inline' : 'none';
 
-      // choices
+      $nextBtn.disabled = true;
+      $skipBtn.style.display = reviewMode ? 'none' : 'inline';
+
+      // Build choices
       $choices.innerHTML = '';
-      const letters = ['A', 'B', 'C', 'D'];
+      const letters = ['A','B','C','D'];
       q.answers_vi.forEach((ans, i) => {
+        const enAns = t.answers_en ? t.answers_en[i] : '';
         const btn = document.createElement('button');
         btn.className = 'choice-btn';
-        const enAns = q.translation && q.translation.answers_en ? q.translation.answers_en[i] : '';
         btn.innerHTML =
           '<div class="choice-header">' +
             '<span class="choice-letter">' + letters[i] + '</span>' +
             '<span class="choice-vi">' + escHtml(ans) + '</span>' +
           '</div>' +
           (enAns ? '<span class="choice-en">' + escHtml(enAns) + '</span>' : '');
-        btn.dataset.index = i;
         btn.addEventListener('click', () => handleAnswer(i, q));
-        if (mode === 'study' && i === q.correct_index) btn.classList.add('reveal-correct');
         $choices.appendChild(btn);
       });
 
-      if (mode === 'study') {
-        showExplanation(q);
-        if (q.image && q.image.answer_img) $aImgWrap.classList.add('visible');
-        $nextBtn.disabled = false;
-      }
-
-      // re-trigger fade animation
+      // Trigger re-animation
       $qScreen.style.animation = 'none';
-      $qScreen.offsetHeight; // reflow
+      $qScreen.offsetHeight;
       $qScreen.style.animation = '';
+
+      // Mobile vocab tips
+      setupMobileTips($qScreen);
     }
 
-    // ── Handle answer ─────────────────────────────────────
+    // ══════════════════════════════════════════════════
+    // HANDLE ANSWER
+    // ══════════════════════════════════════════════════
     function handleAnswer(chosen, q) {
-      if (answered && mode === 'quiz') return;
+      if (answered) return;
       answered = true;
-
       const btns = $choices.querySelectorAll('.choice-btn');
       btns.forEach(b => b.disabled = true);
 
       const correct = q.correct_index;
-      const isCorrect = chosen === correct;
+      const ok = chosen === correct;
 
-      if (isCorrect) {
+      if (ok) {
         btns[chosen].classList.add('correct');
         score.correct++;
-        if (weakIds.has(q.id)) { weakIds.delete(q.id); saveWeak(); updateWeakCount(); }
+        playDing();
+        if (weakIds.has(q.id)) { weakIds.delete(q.id); saveWeak(); updateWeakBadge(); }
       } else {
         btns[chosen].classList.add('wrong');
-        btns[correct].classList.add('reveal-correct');
+        btns[correct].classList.add('reveal');
         score.wrong++;
-        missedThisRound.push(q);
+        missed.push(q);
+        playBuzz();
         weakIds.add(q.id);
         saveWeak();
-        updateWeakCount();
+        updateWeakBadge();
       }
 
+      // Show translation on answers
+      $choices.querySelectorAll('.choice-en').forEach(el => el.classList.add('visible'));
+
       if (q.image && q.image.answer_img) $aImgWrap.classList.add('visible');
-      showExplanation(q);
-      $nextBtn.disabled = false;
 
-      if (!sectionScores[q.section]) sectionScores[q.section] = { correct: 0, total: 0 };
-      sectionScores[q.section].total++;
-      if (isCorrect) sectionScores[q.section].correct++;
-    }
-
-    function showExplanation(q) {
       if (q.explanation_en) {
         $feedback.textContent = q.explanation_en;
         $feedback.classList.add('visible');
       }
+
+      $nextBtn.disabled = false;
+      $skipBtn.style.display = 'none';
+
+      if (!secScores[q.section]) secScores[q.section] = {c:0, t:0};
+      secScores[q.section].t++;
+      if (ok) secScores[q.section].c++;
     }
 
-    // ── Navigation ────────────────────────────────────────
-    $skipBtn.addEventListener('click', () => {
-      if (answered) return;
-      score.skipped++;
-      currentIndex++;
-      showQuestion();
+    // Translation button
+    $transBtnEl.addEventListener('click', () => {
+      const visible = $qTrans.classList.contains('visible');
+      $qTrans.classList.toggle('visible');
+      $transBtnEl.textContent = visible ? 'dịch / show translation' : 'ẩn / hide translation';
     });
 
+    // Next
     $nextBtn.addEventListener('click', advance);
     function advance() {
       if (transitioning) return;
       transitioning = true;
-      currentIndex++;
+      ci++;
       showQuestion();
-      setTimeout(() => { transitioning = false; }, 250);
+      setTimeout(()=>{ transitioning=false; }, 280);
     }
 
-    // ── Keyboard ──────────────────────────────────────────
+    // Skip
+    $skipBtn.addEventListener('click', () => {
+      if (answered) return;
+      score.skipped++;
+      ci++;
+      showQuestion();
+    });
+
+    // ══════════════════════════════════════════════════
+    // END SCREEN
+    // ══════════════════════════════════════════════════
+    function showEnd() {
+      showScreen(null);
+      $progressWrap.style.display = 'none';
+      $progress.style.width = '100%';
+      $endScreen.style.display = 'block';
+      $endScreen.classList.add('visible');
+
+      const answeredCount = score.correct + score.wrong;
+      const pct = answeredCount > 0 ? Math.round(score.correct / answeredCount * 100) : 0;
+
+      // Pass/fail for practice (40q), or 80% threshold otherwise
+      let passed = false;
+      if (curMode === 'practice' && !reviewMode) {
+        passed = score.correct >= PASS_N;
+      } else {
+        passed = pct >= 80;
+      }
+
+      // Animate icon
+      if (passed) {
+        $endIcon.innerHTML = '<div class="trophy-wrap spin">🏆</div>';
+      } else {
+        $endIcon.innerHTML = '<div class="ship-wrap sink">🚢</div>';
+      }
+
+      $endScore.textContent = score.correct + ' / ' + answeredCount;
+      $endLabel.textContent = pct + '% correct' +
+        (score.skipped > 0 ? '  ·  ' + score.skipped + ' skipped' : '') +
+        (weakIds.size > 0  ? '  ·  ' + weakIds.size + ' weak' : '');
+
+      if (curMode === 'practice' && !reviewMode) {
+        $endResult.textContent = passed
+          ? 'ĐẠT — ' + score.correct + '/' + queue.length + ' (cần ' + PASS_N + ')'
+          : 'CHƯA ĐẠT — ' + score.correct + '/' + queue.length + ' (cần ' + PASS_N + ')';
+      } else {
+        $endResult.textContent = passed ? 'ĐẠT / PASS' : 'CHƯA ĐẠT / FAIL';
+      }
+      $endResult.className = 'end-result ' + (passed ? 'pass' : 'fail');
+
+      // Section breakdown
+      let bd = '';
+      SECTIONS.slice(1).forEach(sec => {
+        const s = secScores[sec.slug];
+        if (s && s.t > 0) {
+          const p = Math.round(s.c/s.t*100);
+          bd += sec.label + ':  ' + s.c + '/' + s.t + '  (' + p + '%)\n';
+        }
+      });
+      $endBreak.textContent = bd;
+
+      // Action buttons
+      $endReview.style.display = missed.length > 0 ? 'inline-block' : 'none';
+      $endReview.textContent = 'ôn sai / review (' + missed.length + ')';
+      $endWeak.style.display = weakIds.size > 0 ? 'inline-block' : 'none';
+    }
+
+    $endRestart.addEventListener('click', () => {
+      reviewMode = false;
+      switchMode(curMode);
+    });
+    $endReview.addEventListener('click', () => {
+      startQuiz(shuffle(missed), true);
+    });
+    $endWeak.addEventListener('click', () => {
+      const weakQ = allQ.filter(q => weakIds.has(q.id));
+      if (weakQ.length > 0) startQuiz(shuffle(weakQ), false);
+    });
+    $endClearWeak.addEventListener('click', () => {
+      weakIds.clear();
+      saveWeak();
+      updateWeakBadge();
+      $endWeak.style.display = 'none';
+    });
+
+    // ══════════════════════════════════════════════════
+    // TYPING MODE
+    // ══════════════════════════════════════════════════
+    function startTyping() {
+      // Use knot questions (Q27-40) + signal questions (Q86-125)
+      const typingPool = shuffle(allQ.filter(q => q.image));
+      queue = typingPool;
+      ci = 0;
+      score = {correct:0, wrong:0, skipped:0};
+      missed = [];
+      $endScreen.style.display = 'none';
+      showScreen($tScreen);
+      showTypingQ();
+    }
+
+    function showTypingQ() {
+      if (ci >= queue.length) { showEnd(); return; }
+      const q = queue[ci];
+      answered = false;
+
+      $progress.style.width = (ci / queue.length * 100) + '%';
+      $progressLabel.textContent = (ci+1) + ' / ' + queue.length;
+      $tMeta.textContent = secLabel(q.section).toUpperCase();
+      $tText.textContent = q.question_vi;
+
+      if (q.image && q.image.question_img) {
+        $tImg.src = IMG + encodeURIComponent(q.image.question_img);
+        $tImgWrap.style.display = 'block';
+      } else {
+        $tImgWrap.style.display = 'none';
+      }
+
+      $tAImgWrap.classList.remove('visible');
+      $tAImg.src = q.image && q.image.answer_img ? IMG + encodeURIComponent(q.image.answer_img) : '';
+      $tFeedback.textContent = '';
+      $tFeedback.classList.remove('visible');
+      $typingInput.value = '';
+      $typingInput.className = 'typing-input';
+      $typingHint.textContent = 'Gõ tên nút / biển báo (tiếng Việt hoặc tiếng Anh)';
+      $tNextBtn.disabled = true;
+      $tCheckBtn.disabled = false;
+      $typingInput.focus();
+    }
+
+    function checkTyping() {
+      if (answered) return;
+      const q = queue[ci];
+      const userRaw = $typingInput.value;
+      const userNorm = normalizeVi(userRaw);
+      if (!userNorm) return;
+
+      answered = true;
+      $tCheckBtn.disabled = true;
+
+      const correct = q.answers_vi[q.correct_index];
+      const correctNorm = normalizeVi(correct);
+      const correctEnNorm = q.translation && q.translation.answers_en
+        ? normalizeVi(q.translation.answers_en[q.correct_index])
+        : '';
+
+      // Match: user input matches Vietnamese OR English, full or partial (min 3 chars)
+      const isMatch = partialMatch(userNorm, correctNorm) || (correctEnNorm && partialMatch(userNorm, correctEnNorm));
+
+      if (isMatch) {
+        $typingInput.classList.add('correct-input');
+        $tFeedback.textContent = '✓ Đúng! — ' + correct;
+        if (q.translation && q.translation.answers_en) {
+          $tFeedback.textContent += ' / ' + q.translation.answers_en[q.correct_index];
+        }
+        $tFeedback.classList.add('visible');
+        score.correct++;
+        playDing();
+        if (weakIds.has(q.id)) { weakIds.delete(q.id); saveWeak(); updateWeakBadge(); }
+      } else {
+        $typingInput.classList.add('wrong-input');
+        $tFeedback.textContent = '✗ Đáp án đúng: ' + correct;
+        if (q.translation && q.translation.answers_en) {
+          $tFeedback.textContent += ' / ' + q.translation.answers_en[q.correct_index];
+        }
+        $tFeedback.classList.add('visible');
+        score.wrong++;
+        missed.push(q);
+        playBuzz();
+        weakIds.add(q.id);
+        saveWeak();
+        updateWeakBadge();
+        if (q.image && q.image.answer_img) $tAImgWrap.classList.add('visible');
+      }
+
+      if (q.explanation_en) {
+        $tFeedback.textContent += '\n' + q.explanation_en;
+      }
+
+      $typingHint.textContent = 'Bình thường hóa: "' + userNorm + '" vs "' + correctNorm + '"';
+      $tNextBtn.disabled = false;
+    }
+
+    $tCheckBtn.addEventListener('click', checkTyping);
+    $typingInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { if (!answered) checkTyping(); else if (!$tNextBtn.disabled) advanceTyping(); }
+    });
+    $tNextBtn.addEventListener('click', advanceTyping);
+    function advanceTyping() { ci++; showTypingQ(); }
+    $tSkipBtn.addEventListener('click', () => { if (!answered) { score.skipped++; ci++; showTypingQ(); } });
+
+    // ══════════════════════════════════════════════════
+    // FLASHCARDS
+    // ══════════════════════════════════════════════════
+    document.getElementById('fc-filter').querySelectorAll('.fc-cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.fc-cat-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        fcCat = btn.dataset.cat;
+        buildFlashcardDeck();
+      });
+    });
+
+    function buildFlashcardDeck() {
+      if (fcCat === 'knots') {
+        fcDeck = allQ.filter(q => q.id >= 27 && q.id <= 40);
+      } else if (fcCat === 'signals') {
+        fcDeck = allQ.filter(q => q.id >= 86 && q.id <= 125);
+      } else if (fcCat === 'vocab') {
+        // Vocab cards: vi → en
+        fcDeck = vocab.map(v => ({_isVocab:true, vi:v.vi, en:v.en, cat:v.category}));
+      } else {
+        fcDeck = allQ.slice();
+      }
+      fcDeck = shuffle(fcDeck);
+      fcIndex = 0;
+      showScreen($fcScreen);
+      showFlashcard();
+    }
+
+    function showFlashcard() {
+      if (fcDeck.length === 0) return;
+      const card = fcDeck[fcIndex];
+      $fcCard.classList.remove('flipped');
+
+      $fcProgress.style.width = (fcIndex / fcDeck.length * 100) + '%';
+      $fcLabel.textContent = (fcIndex + 1) + ' / ' + fcDeck.length;
+      $fcCounter.textContent = '';
+
+      if (card._isVocab) {
+        // Vocab card
+        $fcFront.textContent = card.vi;
+        $fcFrontImg.style.display = 'none';
+        $fcBack.textContent = card.en;
+        $fcBackEn.textContent = '(' + card.cat + ')';
+        $fcBackImg.style.display = 'none';
+      } else {
+        const q = card;
+        const t = q.translation || {};
+        $fcFront.textContent = q.question_vi;
+        if (q.image && q.image.question_img) {
+          $fcFrontImg.src = IMG + encodeURIComponent(q.image.question_img);
+          $fcFrontImg.style.display = 'block';
+        } else {
+          $fcFrontImg.style.display = 'none';
+        }
+        $fcBack.textContent = q.answers_vi[q.correct_index];
+        $fcBackEn.textContent = t.answers_en ? t.answers_en[q.correct_index] + (t.question_en ? '\n' + t.question_en : '') : '';
+        if (q.image && q.image.answer_img) {
+          $fcBackImg.src = IMG + encodeURIComponent(q.image.answer_img);
+          $fcBackImg.style.display = 'block';
+        } else {
+          $fcBackImg.style.display = 'none';
+        }
+      }
+    }
+
+    $fcWrap.addEventListener('click', () => $fcCard.classList.toggle('flipped'));
+    $fcNext.addEventListener('click', () => { fcIndex = Math.min(fcIndex+1, fcDeck.length-1); showFlashcard(); });
+    $fcPrev.addEventListener('click', () => { fcIndex = Math.max(fcIndex-1, 0); showFlashcard(); });
+
+    // ══════════════════════════════════════════════════
+    // KEYBOARD
+    // ══════════════════════════════════════════════════
     document.addEventListener('keydown', e => {
-      if ($scoreScreen.classList.contains('visible')) {
-        if (e.key === 'Enter') $restartBtn.click();
+      if ($lightbox.classList.contains('open')) { closeLightbox(); return; }
+
+      // Flashcard
+      if ($fcScreen.style.display !== 'none') {
+        if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); $fcNext.click(); }
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); $fcPrev.click(); }
+        if (e.key === 'Enter' || e.key === 'f') $fcCard.classList.toggle('flipped');
         return;
       }
-      if ($lightbox.classList.contains('open')) { closeLightbox(); return; }
-      if (e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT') return;
 
+      // Typing
+      if ($tScreen.style.display !== 'none') return;
+
+      // End screen
+      if ($endScreen.classList.contains('visible')) {
+        if (e.key === 'Enter') $endRestart.click();
+        return;
+      }
+
+      if (e.target.tagName === 'BUTTON') return;
       if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
         if (!$nextBtn.disabled) advance();
       }
-      if ((e.key === 's' || e.key === 'S') && mode === 'quiz' && !answered) $skipBtn.click();
+      if (e.key === 's' && !answered) $skipBtn.click();
 
       const n = parseInt(e.key, 10);
-      if (n >= 1 && n <= 4 && !answered && mode === 'quiz') {
+      if (n >= 1 && n <= 4 && !answered) {
         const btns = $choices.querySelectorAll('.choice-btn');
-        if (btns[n - 1] && !btns[n - 1].disabled) btns[n - 1].click();
+        if (btns[n-1] && !btns[n-1].disabled) btns[n-1].click();
       }
     });
 
-    // ── Touch swipe ───────────────────────────────────────
-    (function () {
-      let tx = 0, ty = 0;
-      const area = $qScreen;
-      area.addEventListener('touchstart', e => {
-        tx = e.touches[0].clientX;
-        ty = e.touches[0].clientY;
-      }, { passive: true });
-      area.addEventListener('touchend', e => {
+    // ══════════════════════════════════════════════════
+    // TOUCH SWIPE (quiz + flashcard)
+    // ══════════════════════════════════════════════════
+    (function(){
+      let tx=0, ty=0;
+      document.addEventListener('touchstart', e=>{ tx=e.touches[0].clientX; ty=e.touches[0].clientY; }, {passive:true});
+      document.addEventListener('touchend', e=>{
         const dx = e.changedTouches[0].clientX - tx;
         const dy = e.changedTouches[0].clientY - ty;
-        if (Math.abs(dy) > Math.abs(dx) || Math.abs(dx) < 60) return;
-        if (dx < 0 && !$nextBtn.disabled) advance();             // swipe left → next
-        if (dx > 0 && mode === 'quiz' && !answered) $skipBtn.click(); // swipe right → skip
-      }, { passive: true });
+        if (Math.abs(dy) > Math.abs(dx) || Math.abs(dx) < 55) return;
+
+        if ($fcScreen.style.display !== 'none') {
+          if (dx < 0) $fcNext.click(); else $fcPrev.click();
+          return;
+        }
+        if ($qScreen.style.display !== 'none') {
+          if (dx < 0 && !$nextBtn.disabled) advance();
+          if (dx > 0 && !answered) $skipBtn.click();
+        }
+      }, {passive:true});
     })();
 
-    // ── Score screen ──────────────────────────────────────
-    function showScore() {
-      $qScreen.style.display = 'none';
-      $scoreScreen.classList.add('visible');
-      $progress.style.width = '100%';
-      $progressLabel.textContent = '';
-
-      const answered_count = score.correct + score.wrong;
-      const pct = answered_count > 0 ? Math.round(score.correct / answered_count * 100) : 0;
-
-      $scoreDisp.textContent = score.correct + ' / ' + answered_count;
-
-      let labelParts = [pct + '% correct'];
-      if (score.skipped > 0) labelParts.push(score.skipped + ' skipped');
-      if (weakIds.size > 0) labelParts.push(weakIds.size + ' weak total');
-      $scoreLabel.textContent = labelParts.join('  ·  ');
-
-      // per-section breakdown
-      let breakdown = '';
-      SECTIONS.slice(2).forEach(sec => {
-        const s = sectionScores[sec.slug];
-        if (s && s.total > 0) {
-          const secPct = Math.round(s.correct / s.total * 100);
-          breakdown += sec.label + ':  ' + s.correct + '/' + s.total + '  (' + secPct + '%)\n';
-        }
-      });
-      $scoreBreak.style.whiteSpace = 'pre';
-      $scoreBreak.textContent = breakdown || '';
-
-      if (missedThisRound.length > 0) {
-        $retryMissed.style.display = 'inline-block';
-        $retryMissed.textContent = 'retry missed (' + missedThisRound.length + ')';
-      } else {
-        $retryMissed.style.display = 'none';
-      }
-
-      buildFilter(); // refresh weak count in filter
-    }
-
-    $restartBtn.addEventListener('click', () => startQuiz());
-    $retryMissed.addEventListener('click', () => {
-      startQuiz(missedThisRound.sort(() => Math.random() - 0.5));
-    });
-    $clearWeak.addEventListener('click', () => {
-      weakIds.clear();
-      saveWeak();
-      updateWeakCount();
-      buildFilter();
-      if (activeSection === 'weak') { activeSection = 'all'; startQuiz(); }
-    });
-
-    // ── Lightbox ──────────────────────────────────────────
+    // ══════════════════════════════════════════════════
+    // LIGHTBOX
+    // ══════════════════════════════════════════════════
     function openLightbox(src) {
-      $lightboxImg.src = src;
+      $lbImg.src = src;
       $lightbox.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
@@ -924,20 +1238,103 @@
       $lightbox.classList.remove('open');
       document.body.style.overflow = '';
     }
-    $lightbox.addEventListener('click', e => {
-      if (e.target === $lightbox || e.target === $lightboxClose) closeLightbox();
+    $lightbox.addEventListener('click', e=>{ if(e.target===$lightbox||e.target===$lbClose) closeLightbox(); });
+    document.addEventListener('click', e=>{
+      if (e.target.tagName === 'IMG' && (
+        e.target.id==='q-img'||e.target.id==='a-img'||
+        e.target.id==='t-img'||e.target.id==='t-a-img'||
+        e.target.classList.contains('fc-image')
+      )) {
+        if (e.target.src) openLightbox(e.target.src);
+      }
     });
-    $qImg.addEventListener('click', () => { if ($qImg.src) openLightbox($qImg.src); });
-    $aImg.addEventListener('click', () => { if ($aImg.src) openLightbox($aImg.src); });
 
-    // ── Helpers ───────────────────────────────────────────
-    function sectionLabel(slug) {
-      const s = SECTIONS.find(x => x.slug === slug);
+    // ══════════════════════════════════════════════════
+    // VOCAB TAGGING + TOOLTIPS
+    // ══════════════════════════════════════════════════
+    function tagVocab(html) {
+      // Longest-first matching (vocab already sorted by length desc)
+      // We work on plain text, then return HTML
+      // Simple approach: replace matches with placeholder, then restore
+      let text = html;
+      const placeholders = [];
+
+      vocab.forEach((v, idx) => {
+        const re = new RegExp(escapeRe(v.vi), 'g');
+        text = text.replace(re, () => {
+          const ph = '\x00V' + idx + '\x00';
+          placeholders.push({ph, html:
+            '<span class="vocab-term">' + escHtml(v.vi) +
+            '<span class="vocab-tip">' + escHtml(v.en) + '</span></span>'
+          });
+          return ph;
+        });
+      });
+
+      // Restore
+      placeholders.forEach(({ph, html: h}) => { text = text.split(ph).join(h); });
+      return text;
+    }
+
+    function setupMobileTips(container) {
+      container.querySelectorAll('.vocab-term').forEach(el => {
+        el.addEventListener('touchstart', e => {
+          e.preventDefault();
+          // Close others
+          container.querySelectorAll('.vocab-term.tip-open').forEach(o => o.classList.remove('tip-open'));
+          el.classList.add('tip-open');
+        }, {passive:false});
+      });
+      document.addEventListener('touchstart', e => {
+        if (!e.target.closest('.vocab-term')) {
+          container.querySelectorAll('.vocab-term.tip-open').forEach(o=>o.classList.remove('tip-open'));
+        }
+      }, {passive:true});
+    }
+
+    // ══════════════════════════════════════════════════
+    // ANSWER NORMALIZATION
+    // ══════════════════════════════════════════════════
+    function normalizeVi(s) {
+      if (!s) return '';
+      s = s.toLowerCase().trim();
+      const map = {
+        'đ':'d','ă':'a','â':'a','ê':'e','ô':'o','ơ':'o','ư':'u',
+        'à':'a','á':'a','ả':'a','ã':'a','ạ':'a',
+        'ắ':'a','ặ':'a','ẳ':'a','ẵ':'a','ằ':'a',
+        'ấ':'a','ầ':'a','ẩ':'a','ẫ':'a','ậ':'a',
+        'è':'e','é':'e','ẻ':'e','ẽ':'e','ẹ':'e',
+        'ế':'e','ề':'e','ể':'e','ễ':'e','ệ':'e',
+        'ì':'i','í':'i','ỉ':'i','ĩ':'i','ị':'i',
+        'ò':'o','ó':'o','ỏ':'o','õ':'o','ọ':'o',
+        'ố':'o','ồ':'o','ổ':'o','ỗ':'o','ộ':'o',
+        'ớ':'o','ờ':'o','ở':'o','ỡ':'o','ợ':'o',
+        'ù':'u','ú':'u','ủ':'u','ũ':'u','ụ':'u',
+        'ứ':'u','ừ':'u','ử':'u','ữ':'u','ự':'u',
+        'ỳ':'y','ý':'y','ỷ':'y','ỹ':'y','ỵ':'y',
+      };
+      s = s.split('').map(c => map[c] || c).join('');
+      return s.replace(/\s+/g,' ').trim();
+    }
+
+    function partialMatch(input, correct) {
+      if (!input || !correct) return false;
+      if (input.length < 3) return false;
+      return correct.includes(input) || input.includes(correct);
+    }
+
+    // ══════════════════════════════════════════════════
+    // HELPERS
+    // ══════════════════════════════════════════════════
+    function secLabel(slug) {
+      const s = SECTIONS.find(x=>x.slug===slug);
       return s ? s.label : slug;
     }
-    function escHtml(str) {
-      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    function shuffle(arr) { return arr.slice().sort(()=>Math.random()-0.5); }
+    function escHtml(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
+    function escapeRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
 
   })();
   </script>
