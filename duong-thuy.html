@@ -1278,18 +1278,26 @@
 
     function setupMobileTips(container) {
       container.querySelectorAll('.vocab-term').forEach(el => {
+        // Click/tap: toggle tooltip (works on desktop + mobile)
+        el.addEventListener('click', e => {
+          e.stopPropagation();
+          const isOpen = el.classList.contains('tip-open');
+          container.querySelectorAll('.vocab-term.tip-open').forEach(o => o.classList.remove('tip-open'));
+          if (!isOpen) el.classList.add('tip-open');
+        });
+        // Mobile touchstart: prevent ghost click delay
         el.addEventListener('touchstart', e => {
           e.preventDefault();
-          // Close others
           container.querySelectorAll('.vocab-term.tip-open').forEach(o => o.classList.remove('tip-open'));
           el.classList.add('tip-open');
         }, {passive:false});
       });
-      document.addEventListener('touchstart', e => {
+      // Click outside to close
+      document.addEventListener('click', e => {
         if (!e.target.closest('.vocab-term')) {
           container.querySelectorAll('.vocab-term.tip-open').forEach(o=>o.classList.remove('tip-open'));
         }
-      }, {passive:true});
+      });
     }
 
     // ══════════════════════════════════════════════════
