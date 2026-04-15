@@ -1349,6 +1349,48 @@
       "en": "cargo preservation / storage care",
       "category": "cargo",
       "normalized_vi": "bao quan hang hoa"
+    },
+    {
+      "vi": "va chạm",
+      "en": "collision / impact",
+      "category": "safety",
+      "normalized_vi": "va cham"
+    },
+    {
+      "vi": "thủng",
+      "en": "hull breach / puncture",
+      "category": "safety",
+      "normalized_vi": "thung"
+    },
+    {
+      "vi": "mòn tự nhiên",
+      "en": "natural wear / erosion",
+      "category": "safety",
+      "normalized_vi": "mon tu nhien"
+    },
+    {
+      "vi": "sông",
+      "en": "river",
+      "category": "channel",
+      "normalized_vi": "song"
+    },
+    {
+      "vi": "ổ gãy",
+      "en": "fracture site",
+      "category": "safety",
+      "normalized_vi": "o gay"
+    },
+    {
+      "vi": "đuôi nheo",
+      "en": "pennant / swallowtail flag",
+      "category": "signals",
+      "normalized_vi": "duoi nheo"
+    },
+    {
+      "vi": "sóng",
+      "en": "wave / swell",
+      "category": "channel",
+      "normalized_vi": "song"
     }
   ]
 }

@@ -461,13 +461,13 @@
       <div class="flashcard-wrap" id="fc-wrap">
         <div class="flashcard" id="flashcard">
           <div class="fc-front">
-            <div class="fc-label">câu hỏi / question</div>
+            <div class="fc-label" id="fc-front-label">câu hỏi / question</div>
             <div class="fc-main" id="fc-front-text"></div>
             <img class="fc-image" id="fc-front-img" src="" alt="" style="display:none" />
             <div class="fc-tap-hint">nhấn để lật / tap to flip</div>
           </div>
           <div class="fc-back">
-            <div class="fc-label">đáp án / answer</div>
+            <div class="fc-label" id="fc-back-label">đáp án / answer</div>
             <div class="fc-main" id="fc-back-text"></div>
             <div class="fc-sub"  id="fc-back-en"></div>
             <img class="fc-image" id="fc-back-img" src="" alt="" style="display:none" />
@@ -577,18 +577,20 @@
     const $tCheckBtn   = document.getElementById('t-check-btn');
     const $tSkipBtn    = document.getElementById('t-skip-btn');
 
-    const $fcWrap    = document.getElementById('fc-wrap');
-    const $fcCard    = document.getElementById('flashcard');
-    const $fcFront   = document.getElementById('fc-front-text');
-    const $fcFrontImg= document.getElementById('fc-front-img');
-    const $fcBack    = document.getElementById('fc-back-text');
-    const $fcBackEn  = document.getElementById('fc-back-en');
-    const $fcBackImg = document.getElementById('fc-back-img');
-    const $fcPrev    = document.getElementById('fc-prev');
-    const $fcNext    = document.getElementById('fc-next');
-    const $fcCounter = document.getElementById('fc-counter');
-    const $fcProgress= document.getElementById('fc-progress');
-    const $fcLabel   = document.getElementById('fc-label');
+    const $fcWrap      = document.getElementById('fc-wrap');
+    const $fcCard      = document.getElementById('flashcard');
+    const $fcFront     = document.getElementById('fc-front-text');
+    const $fcFrontImg  = document.getElementById('fc-front-img');
+    const $fcFrontLabel= document.getElementById('fc-front-label');
+    const $fcBack      = document.getElementById('fc-back-text');
+    const $fcBackEn    = document.getElementById('fc-back-en');
+    const $fcBackImg   = document.getElementById('fc-back-img');
+    const $fcBackLabel = document.getElementById('fc-back-label');
+    const $fcPrev      = document.getElementById('fc-prev');
+    const $fcNext      = document.getElementById('fc-next');
+    const $fcCounter   = document.getElementById('fc-counter');
+    const $fcProgress  = document.getElementById('fc-progress');
+    const $fcLabel     = document.getElementById('fc-label');
 
     const $endIcon   = document.getElementById('end-icon');
     const $endScore  = document.getElementById('end-score');
@@ -1136,13 +1138,17 @@
       $fcCounter.textContent = '';
 
       if (card._isVocab) {
-        // Vocab card
+        // Vocab card: Vietnamese on front, English on back
+        $fcFrontLabel.textContent = 'tiếng Việt / Vietnamese';
+        $fcBackLabel.textContent  = 'tiếng Anh / English';
         $fcFront.textContent = card.vi;
         $fcFrontImg.style.display = 'none';
         $fcBack.textContent = card.en;
-        $fcBackEn.textContent = '(' + card.cat + ')';
+        $fcBackEn.textContent = card.cat.replace(/-/g, ' ');
         $fcBackImg.style.display = 'none';
       } else {
+        $fcFrontLabel.textContent = 'câu hỏi / question';
+        $fcBackLabel.textContent  = 'đáp án / answer';
         const q = card;
         const t = q.translation || {};
         $fcFront.textContent = q.question_vi;
@@ -1254,17 +1260,16 @@
     // ══════════════════════════════════════════════════
     function tagVocab(html) {
       // Longest-first matching (vocab already sorted by length desc)
-      // We work on plain text, then return HTML
-      // Simple approach: replace matches with placeholder, then restore
+      // Case-insensitive: preserves original text casing in display
       let text = html;
       const placeholders = [];
 
       vocab.forEach((v, idx) => {
-        const re = new RegExp(escapeRe(v.vi), 'g');
-        text = text.replace(re, () => {
+        const re = new RegExp(escapeRe(v.vi), 'gi');
+        text = text.replace(re, (match) => {
           const ph = '\x00V' + idx + '\x00';
           placeholders.push({ph, html:
-            '<span class="vocab-term">' + escHtml(v.vi) +
+            '<span class="vocab-term">' + escHtml(match) +
             '<span class="vocab-tip">' + escHtml(v.en) + '</span></span>'
           });
           return ph;
