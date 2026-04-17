@@ -16,22 +16,42 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://walther.website/text.html</loc>
-    <priority>0.8</priority>
+    <loc>https://walther.website/exhibitions.html</loc>
+    <priority>0.9</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://walther.website/exhibitions.html</loc>
+    <loc>https://walther.website/about.html</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://walther.website/video.html</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://walther.website/text.html</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://walther.website/writing.html</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://walther.website/about.html</loc>
+    <loc>https://walther.website/alaska.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://walther.website/vietnam.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://walther.website/store.html</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>

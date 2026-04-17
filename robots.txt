@@ -4,5 +4,9 @@ Allow: /
 # Keep links page private (only accessible via direct link)
 Disallow: /links.html
 
+# Manhattan Art Comic test pages — not for indexing
+Disallow: /tmac.html
+Disallow: /tmac/
+
 # Sitemap location
 Sitemap: https://walther.website/sitemap.xml
