@@ -41,21 +41,6 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://walther.website/alaska.html</loc>
-    <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://walther.website/vietnam.html</loc>
-    <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://walther.website/store.html</loc>
-    <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
     <loc>https://walther.website/contact.html</loc>
     <priority>0.6</priority>
     <changefreq>monthly</changefreq>
