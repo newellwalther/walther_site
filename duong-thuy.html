@@ -13,7 +13,7 @@
     #quiz-app {
       max-width: 680px;
       margin: 0 auto;
-      padding: 40px 20px 100px;
+      padding: 70px 20px 100px;
       text-align: left;
     }
     .quiz-header {
@@ -236,11 +236,41 @@
     .fc-back { transform: rotateY(180deg); background: #fafafa; }
     .fc-label { font-size: 0.65rem; color: #bbb; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
     .fc-main  { font-size: 1.05rem; line-height: 1.6; color: #111; }
-    .fc-sub   { font-size: 0.8rem; color: #888; font-style: italic; margin-top: 8px; line-height: 1.5; }
+    .fc-sub   { font-size: 0.8rem; color: #888; font-style: italic; margin-top: 8px; line-height: 1.5; white-space: pre-line; }
     .fc-image { max-width: 100%; max-height: 180px; object-fit: contain; margin-top: 12px; border: 1px solid #f0f0f0; }
     .fc-tap-hint { font-size: 0.68rem; color: #ccc; margin-top: 12px; letter-spacing: 0.03em; }
     .fc-nav { display: flex; gap: 12px; align-items: center; }
     .fc-counter { font-size: 0.7rem; color: #bbb; }
+
+    /* ═══════════════════════════════════════════════════
+       STUDY SHEET
+    ═══════════════════════════════════════════════════ */
+    .study-controls {
+      display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+      margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #f0f0f0;
+    }
+    .study-select {
+      font-family: Georgia, serif; font-size: 0.78rem; padding: 6px 12px;
+      border: 1px solid #e0e0e0; background: #fff; cursor: pointer;
+    }
+    .study-checkbox {
+      font-size: 0.75rem; color: #888; display: flex; align-items: center; gap: 6px; cursor: pointer;
+    }
+    .study-checkbox input { cursor: pointer; }
+    .study-list { display: flex; flex-direction: column; gap: 20px; }
+    .study-card {
+      border: 1px solid #e8e8e8; padding: 16px; background: #fafafa;
+    }
+    .study-q-num { font-size: 0.65rem; color: #bbb; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+    .study-q { font-size: 0.95rem; line-height: 1.6; margin-bottom: 6px; color: #111; }
+    .study-q-en { font-size: 0.8rem; color: #888; font-style: italic; margin-bottom: 12px; }
+    .study-q-en.hidden { display: none; }
+    .study-answers { display: flex; flex-direction: column; gap: 4px; }
+    .study-ans { font-size: 0.85rem; line-height: 1.5; padding: 6px 10px; background: #fff; border-left: 2px solid #e0e0e0; }
+    .study-ans.correct { border-left-color: #66bb6a; background: #f0fff4; }
+    .study-ans-en { font-size: 0.72rem; color: #888; font-style: italic; margin-top: 2px; }
+    .study-ans-en.hidden { display: none; }
+    .study-img { max-width: 100%; max-height: 200px; margin-top: 10px; border: 1px solid #f0f0f0; }
 
     /* ═══════════════════════════════════════════════════
        END SCREEN
@@ -326,7 +356,7 @@
        MOBILE
     ═══════════════════════════════════════════════════ */
     @media (max-width: 480px) {
-      #quiz-app { padding: 28px 14px 80px; }
+      #quiz-app { padding: 60px 14px 80px; }
       .quiz-header h1 { font-size: 1.15rem; }
       .q-text { font-size: 0.96rem; }
       .choice-btn { font-size: 0.84rem; padding: 10px 12px; }
@@ -373,6 +403,7 @@
       <button class="nav-tab" data-mode="section">theo mục / by section</button>
       <button class="nav-tab" data-mode="flashcard">thẻ học / flashcards</button>
       <button class="nav-tab" data-mode="typing">điền từ / fill in</button>
+      <button class="nav-tab" data-mode="study">tài liệu / study sheet</button>
     </nav>
 
     <!-- Section selector (by-section mode) -->
@@ -482,8 +513,20 @@
       </div>
     </div>
 
+    <!-- ── STUDY SCREEN ── -->
+    <div id="study-screen" style="display:none">
+      <div class="study-controls">
+        <select id="study-section" class="study-select">
+          <option value="all">tất cả / all sections</option>
+        </select>
+        <label class="study-checkbox">
+          <input type="checkbox" id="study-show-en" checked /> hiện tiếng Anh / show English
+        </label>
+      </div>
+      <div id="study-list" class="study-list"></div>
+    </div>
+
     <!-- ── END SCREEN ── -->
-    <div id="end-screen">
       <div id="end-icon"></div>
       <div class="end-score" id="end-score"></div>
       <div class="end-label" id="end-label"></div>
@@ -542,6 +585,7 @@
     const $qScreen   = document.getElementById('question-screen');
     const $tScreen   = document.getElementById('typing-screen');
     const $fcScreen  = document.getElementById('flashcard-screen');
+    const $studyScreen = document.getElementById('study-screen');
     const $endScreen = document.getElementById('end-screen');
 
     const $qMeta     = document.getElementById('q-meta');
@@ -681,7 +725,7 @@
     // SCREEN SWITCHING
     // ══════════════════════════════════════════════════
     function showScreen(el) {
-      [$qScreen,$tScreen,$fcScreen,$endScreen].forEach(s=>{
+      [$qScreen,$tScreen,$fcScreen,$studyScreen,$endScreen].forEach(s=>{
         s.style.display='none'; s.classList.remove('visible');
       });
       if (el) { el.style.display = 'block'; el.classList.add('visible'); }
@@ -706,7 +750,7 @@
       $endScreen.classList.remove('visible');
       $sectionSelector.style.display = (mode === 'section') ? 'flex' : 'none';
       $fcFilter.style.display = (mode === 'flashcard') ? 'flex' : 'none';
-      $progressWrap.style.display = (mode === 'flashcard') ? 'none' : 'block';
+      $progressWrap.style.display = (mode === 'flashcard' || mode === 'study') ? 'none' : 'block';
 
       if (mode === 'flashcard') {
         $progressWrap.style.display = 'none';
@@ -714,6 +758,9 @@
       } else if (mode === 'typing') {
         $progressWrap.style.display = 'block';
         startTyping();
+      } else if (mode === 'study') {
+        $progressWrap.style.display = 'none';
+        showStudySheet();
       } else {
         startQuiz();
       }
@@ -892,10 +939,12 @@
       if (ok) secScores[q.section].c++;
     }
 
-    // Translation button
+    // Translation button — shows question translation AND answer translations
     $transBtnEl.addEventListener('click', () => {
       const visible = $qTrans.classList.contains('visible');
       $qTrans.classList.toggle('visible');
+      // Also toggle English translations on answer choices
+      $choices.querySelectorAll('.choice-en').forEach(el => el.classList.toggle('visible', !visible));
       $transBtnEl.textContent = visible ? 'dịch / show translation' : 'ẩn / hide translation';
     });
 
@@ -1100,6 +1149,74 @@
     $tSkipBtn.addEventListener('click', () => { if (!answered) { score.skipped++; ci++; showTypingQ(); } });
 
     // ══════════════════════════════════════════════════
+    // STUDY SHEET
+    // ══════════════════════════════════════════════════
+    const $studySection = document.getElementById('study-section');
+    const $studyShowEn  = document.getElementById('study-show-en');
+    const $studyList    = document.getElementById('study-list');
+
+    function showStudySheet() {
+      showScreen($studyScreen);
+      // Populate section dropdown
+      $studySection.innerHTML = '<option value="all">tất cả / all sections</option>';
+      SECTIONS.slice(1).forEach(sec => {
+        const opt = document.createElement('option');
+        opt.value = sec.slug;
+        opt.textContent = sec.label + ' / ' + sec.en;
+        $studySection.appendChild(opt);
+      });
+      renderStudyList();
+    }
+
+    function renderStudyList() {
+      const sec = $studySection.value;
+      const showEn = $studyShowEn.checked;
+      const questions = sec === 'all' ? allQ : allQ.filter(q => q.section === sec);
+
+      $studyList.innerHTML = '';
+      questions.forEach((q, idx) => {
+        const t = q.translation || {};
+        const card = document.createElement('div');
+        card.className = 'study-card';
+
+        let html = '<div class="study-q-num">' + secLabel(q.section) + ' — Q' + q.id + '</div>';
+        html += '<div class="study-q">' + escHtml(q.question_vi) + '</div>';
+        if (t.question_en) {
+          html += '<div class="study-q-en' + (showEn ? '' : ' hidden') + '">' + escHtml(t.question_en) + '</div>';
+        }
+
+        // Question image
+        if (q.image && q.image.question_img) {
+          html += '<img class="study-img" src="' + IMG + encodeURIComponent(q.image.question_img) + '" alt="" />';
+        }
+
+        html += '<div class="study-answers">';
+        q.answers_vi.forEach((ans, i) => {
+          const isCorrect = i === q.correct_index;
+          const enAns = t.answers_en ? t.answers_en[i] : '';
+          html += '<div class="study-ans' + (isCorrect ? ' correct' : '') + '">';
+          html += '<span>' + ['A','B','C','D'][i] + '. ' + escHtml(ans) + '</span>';
+          if (enAns) {
+            html += '<div class="study-ans-en' + (showEn ? '' : ' hidden') + '">' + escHtml(enAns) + '</div>';
+          }
+          html += '</div>';
+        });
+        html += '</div>';
+
+        // Answer image
+        if (q.image && q.image.answer_img) {
+          html += '<img class="study-img" src="' + IMG + encodeURIComponent(q.image.answer_img) + '" alt="answer" style="margin-top:12px" />';
+        }
+
+        card.innerHTML = html;
+        $studyList.appendChild(card);
+      });
+    }
+
+    $studySection.addEventListener('change', renderStudyList);
+    $studyShowEn.addEventListener('change', renderStudyList);
+
+    // ══════════════════════════════════════════════════
     // FLASHCARDS
     // ══════════════════════════════════════════════════
     document.getElementById('fc-filter').querySelectorAll('.fc-cat-btn').forEach(btn => {
@@ -1138,13 +1255,19 @@
       $fcCounter.textContent = '';
 
       if (card._isVocab) {
-        // Vocab card: Vietnamese on front, English on back
+        // Vocab card: Vietnamese on front, English + breakdown on back
         $fcFrontLabel.textContent = 'tiếng Việt / Vietnamese';
         $fcBackLabel.textContent  = 'tiếng Anh / English';
         $fcFront.textContent = card.vi;
         $fcFrontImg.style.display = 'none';
         $fcBack.textContent = card.en;
-        $fcBackEn.textContent = card.cat.replace(/-/g, ' ');
+        // Build breakdown display if available
+        let backText = card.cat.replace(/-/g, ' ');
+        if (card.breakdown && card.breakdown.length > 0) {
+          backText += '\n\n— word breakdown —\n';
+          backText += card.breakdown.map(w => w.vi + ' = ' + w.en).join('\n');
+        }
+        $fcBackEn.textContent = backText;
         $fcBackImg.style.display = 'none';
       } else {
         $fcFrontLabel.textContent = 'câu hỏi / question';
