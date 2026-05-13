@@ -132,6 +132,31 @@
     .vocab-term:hover .vocab-tip,
     .vocab-term.tip-open .vocab-tip { display: block; }
 
+    /* Unique question phrase highlight */
+    .unique-phrase {
+      color: #c00;
+      font-weight: 500;
+      cursor: help;
+      position: relative;
+    }
+    .unique-phrase::after {
+      content: attr(data-tip);
+      display: none;
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #c00;
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      white-space: nowrap;
+      z-index: 100;
+      pointer-events: none;
+      font-style: normal;
+    }
+    .unique-phrase:hover::after { display: block; }
+
     /* Images */
     .q-image-wrap { margin-bottom: 20px; }
     .q-image-wrap img, .a-image-wrap img {
@@ -569,7 +594,7 @@
     // ══════════════════════════════════════════════════
     // STATE
     // ══════════════════════════════════════════════════
-    let allQ = [], vocab = [], queue = [], fcDeck = [];
+    let allQ = [], vocab = [], uniqueHighlights = {}, queue = [], fcDeck = [];
     let ci = 0, fcIndex = 0;
     let answered = false, transitioning = false;
     let score = {correct:0, wrong:0, skipped:0};
@@ -657,9 +682,11 @@
     Promise.all([
       fetch('duong_thuy/questions.json').then(r=>r.json()),
       fetch('duong_thuy/vocab.json').then(r=>r.json()),
-    ]).then(([qData, vData]) => {
+      fetch('duong_thuy/question-highlights.json').then(r=>r.json()),
+    ]).then(([qData, vData, hData]) => {
       allQ  = qData.questions;
       vocab = vData.vocab.sort((a,b) => b.vi.length - a.vi.length); // longest first
+      uniqueHighlights = hData;
       buildSectionSelector();
       buildMainNav();
       updateWeakBadge();
@@ -839,8 +866,8 @@
       // Meta
       $qMeta.textContent = secLabel(q.section).toUpperCase() + (weakIds.has(q.id) ? '  ★' : '');
 
-      // Question text with vocab highlighting
-      $qText.innerHTML = tagVocab(escHtml(q.question_vi));
+      // Question text with vocab + unique-phrase highlighting
+      $qText.innerHTML = tagUnique(q.id, q.question_vi);
 
       // Translation (hidden)
       const t = q.translation || {};
@@ -1067,7 +1094,7 @@
       $progress.style.width = (ci / queue.length * 100) + '%';
       $progressLabel.textContent = (ci+1) + ' / ' + queue.length;
       $tMeta.textContent = secLabel(q.section).toUpperCase();
-      $tText.textContent = q.question_vi;
+      $tText.innerHTML = tagUnique(q.id, q.question_vi);
 
       if (q.image && q.image.question_img) {
         $tImg.src = IMG + encodeURIComponent(q.image.question_img);
@@ -1181,7 +1208,7 @@
         card.className = 'study-card';
 
         let html = '<div class="study-q-num">' + secLabel(q.section) + ' — Q' + q.id + '</div>';
-        html += '<div class="study-q">' + escHtml(q.question_vi) + '</div>';
+        html += '<div class="study-q">' + tagUnique(q.id, q.question_vi) + '</div>';
         if (t.question_en) {
           html += '<div class="study-q-en' + (showEn ? '' : ' hidden') + '">' + escHtml(t.question_en) + '</div>';
         }
@@ -1275,7 +1302,7 @@
         $fcBackLabel.textContent  = 'đáp án / answer';
         const q = card;
         const t = q.translation || {};
-        $fcFront.textContent = q.question_vi;
+        $fcFront.innerHTML = tagUnique(q.id, q.question_vi);
         if (q.image && q.image.question_img) {
           $fcFrontImg.src = IMG + encodeURIComponent(q.image.question_img);
           $fcFrontImg.style.display = 'block';
@@ -1403,6 +1430,22 @@
       // Restore
       placeholders.forEach(({ph, html: h}) => { text = text.split(ph).join(h); });
       return text;
+    }
+
+    // tagUnique: wraps the per-question key phrase in a red .unique-phrase span.
+    // Must be called with raw (un-escaped) question text; handles escaping internally.
+    function tagUnique(qid, rawText) {
+      const h = uniqueHighlights[String(qid)];
+      if (!h) return tagVocab(escHtml(rawText));
+      const idx = rawText.indexOf(h.phrase);
+      if (idx === -1) return tagVocab(escHtml(rawText));
+      // Insert placeholder before HTML-escaping so vocab regex never touches the phrase
+      const ph = '\x01U\x01';
+      const withPh = rawText.slice(0, idx) + ph + rawText.slice(idx + h.phrase.length);
+      let html = tagVocab(escHtml(withPh));
+      const span = '<span class="unique-phrase" data-tip="' + escHtml(h.translation) + '">' +
+        escHtml(h.phrase) + '</span>';
+      return html.split(ph).join(span);
     }
 
     function setupMobileTips(container) {

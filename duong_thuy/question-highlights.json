@@ -1,0 +1,602 @@
+{
+  "1": {
+    "phrase": "tai nạn thường xảy ra",
+    "translation": "common accidents"
+  },
+  "2": {
+    "phrase": "được sử dụng và vận hành thiết bị",
+    "translation": "permitted to operate equipment"
+  },
+  "3": {
+    "phrase": "Tam giác cháy",
+    "translation": "fire triangle"
+  },
+  "4": {
+    "phrase": "khí và hơi phát cháy",
+    "translation": "gas and vapor fires"
+  },
+  "5": {
+    "phrase": "không gây phản ứng với CO2",
+    "translation": "no reaction with CO2"
+  },
+  "6": {
+    "phrase": "Bình bọt",
+    "translation": "foam extinguisher"
+  },
+  "7": {
+    "phrase": "Trang thiết bị cứu hỏa",
+    "translation": "firefighting equipment"
+  },
+  "8": {
+    "phrase": "phương tiện thuỷ bị thủng",
+    "translation": "hull breach"
+  },
+  "9": {
+    "phrase": "trang bị cứu thủng",
+    "translation": "hull-breach repair gear"
+  },
+  "10": {
+    "phrase": "người đuối nước lên bờ",
+    "translation": "rescuing a drowning victim"
+  },
+  "11": {
+    "phrase": "Nạn nhân ngưng thở, tim còn đập",
+    "translation": "breathing stopped, pulse present"
+  },
+  "12": {
+    "phrase": "Vị trí ấn tim",
+    "translation": "chest compression position"
+  },
+  "13": {
+    "phrase": "Hô hấp nhân tạo",
+    "translation": "artificial respiration"
+  },
+  "14": {
+    "phrase": "nghi ngờ nạn nhân bị gãy xương",
+    "translation": "suspected fracture"
+  },
+  "15": {
+    "phrase": "vết thương phần mềm có dị vật",
+    "translation": "wound with embedded foreign object"
+  },
+  "16": {
+    "phrase": "Phương pháp cầm máu",
+    "translation": "method for stopping bleeding"
+  },
+  "17": {
+    "phrase": "vết thương bỏng",
+    "translation": "burn wound"
+  },
+  "18": {
+    "phrase": "Nguyên tắc cột dây",
+    "translation": "rule for tying splints"
+  },
+  "19": {
+    "phrase": "Nguyên tắc tải thương",
+    "translation": "patient transport principles"
+  },
+  "20": {
+    "phrase": "gọi xe cấp cứu",
+    "translation": "calling an ambulance"
+  },
+  "21": {
+    "phrase": "Nhược điểm của dây thực vật",
+    "translation": "disadvantage of natural fiber rope"
+  },
+  "22": {
+    "phrase": "Ưu điểm của dây cáp",
+    "translation": "advantage of wire rope"
+  },
+  "23": {
+    "phrase": "Neo Hải quân",
+    "translation": "Navy anchor"
+  },
+  "24": {
+    "phrase": "Nút sống có tác dụng",
+    "translation": "sheet bend — uses"
+  },
+  "25": {
+    "phrase": "Nút lèo đơn",
+    "translation": "single sheet bend"
+  },
+  "26": {
+    "phrase": "Nút hai khóa ngược",
+    "translation": "clove hitch"
+  },
+  "27": {
+    "phrase": "Nút số 8",
+    "translation": "figure-8 knot"
+  },
+  "28": {
+    "phrase": "Nút dẹt dễ mở",
+    "translation": "slip reef knot"
+  },
+  "29": {
+    "phrase": "Nút sống là",
+    "translation": "sheet bend knot"
+  },
+  "30": {
+    "phrase": "Nút câu",
+    "translation": "cleat hitch"
+  },
+  "31": {
+    "phrase": "Nút móc đơn",
+    "translation": "timber hitch"
+  },
+  "32": {
+    "phrase": "cọc bích đơn có ngáng",
+    "translation": "bollard with crossbar"
+  },
+  "33": {
+    "phrase": "Nút đa ghi",
+    "translation": "chain/daisy knot"
+  },
+  "34": {
+    "phrase": "Nút 1 vòng chết 2 khóa",
+    "translation": "round turn and two half hitches"
+  },
+  "35": {
+    "phrase": "Nút ghế đơn",
+    "translation": "single bowline"
+  },
+  "36": {
+    "phrase": "Nút ghế kép",
+    "translation": "double bowline"
+  },
+  "37": {
+    "phrase": "Nút cầu thùng đứng",
+    "translation": "barrel hitch (vertical)"
+  },
+  "38": {
+    "phrase": "Nút neo thuận",
+    "translation": "anchor bend"
+  },
+  "39": {
+    "phrase": "Nút xổ dùi",
+    "translation": "marlinspike hitch"
+  },
+  "40": {
+    "phrase": "cọc bích đơn không ngáng",
+    "translation": "bollard without crossbar"
+  },
+  "41": {
+    "phrase": "khu vực thượng lưu",
+    "translation": "upper reaches"
+  },
+  "42": {
+    "phrase": "đoạn sông cong",
+    "translation": "curved river section"
+  },
+  "43": {
+    "phrase": "Dòng chảy phân luồng",
+    "translation": "divided channel flow"
+  },
+  "44": {
+    "phrase": "Dòng chảy vận",
+    "translation": "transverse currents"
+  },
+  "45": {
+    "phrase": "qua cầu xuống hạ lưu",
+    "translation": "flow through bridge to downstream"
+  },
+  "46": {
+    "phrase": "Sông, kênh ở Việt Nam",
+    "translation": "rivers and canals in Vietnam"
+  },
+  "47": {
+    "phrase": "mật độ sông, kênh lớn nhất",
+    "translation": "highest river/canal density"
+  },
+  "48": {
+    "phrase": "dài nhất",
+    "translation": "longest river in Vietnam"
+  },
+  "49": {
+    "phrase": "lưu lượng nước nhiều nhất",
+    "translation": "highest water volume"
+  },
+  "50": {
+    "phrase": "lưu vực rộng lớn nhất",
+    "translation": "largest drainage basin"
+  },
+  "51": {
+    "phrase": "có người ngã xuống nước, ban đêm",
+    "translation": "person overboard, at night"
+  },
+  "52": {
+    "phrase": "Phương tiện chữa cháy",
+    "translation": "fire vessel"
+  },
+  "53": {
+    "phrase": "Phương tiện của quân đội",
+    "translation": "military vessel"
+  },
+  "54": {
+    "phrase": "Phương tiện của công an",
+    "translation": "police vessel"
+  },
+  "55": {
+    "phrase": "phải giảm tốc độ",
+    "translation": "must reduce speed"
+  },
+  "56": {
+    "phrase": "không được bám, buộc vào",
+    "translation": "must not latch or tie to"
+  },
+  "57": {
+    "phrase": "nước đứng, hai phương tiện đi đối hướng",
+    "translation": "slack water, two vessels approaching"
+  },
+  "58": {
+    "phrase": "phương tiện nhiệm vụ đặc biệt",
+    "translation": "special duty vessel"
+  },
+  "59": {
+    "phrase": "Ba tiếng còi dài",
+    "translation": "three long whistle blasts"
+  },
+  "60": {
+    "phrase": "Bốn tiếng còi dài",
+    "translation": "four long whistle blasts"
+  },
+  "61": {
+    "phrase": "muốn vượt một phương tiện khác",
+    "translation": "wishing to overtake"
+  },
+  "62": {
+    "phrase": "chở hàng nguy hiểm",
+    "translation": "carrying dangerous goods"
+  },
+  "63": {
+    "phrase": "có động cơ chở khách",
+    "translation": "motorized passenger vessel"
+  },
+  "64": {
+    "phrase": "chở khách khi hành trình, ban ngày treo",
+    "translation": "passenger vessel, daytime"
+  },
+  "65": {
+    "phrase": "chiều dài lớn nhất từ 45 mét trở xuống",
+    "translation": "vessel up to 45 meters"
+  },
+  "66": {
+    "phrase": "bị mắc cạn trên luồng",
+    "translation": "vessel aground on channel"
+  },
+  "67": {
+    "phrase": "được ưu tiên đi trước",
+    "translation": "has priority of passage"
+  },
+  "68": {
+    "phrase": "ưu tiên đi trước",
+    "translation": "priority of passage"
+  },
+  "69": {
+    "phrase": "đi đối hướng nhau có nguy cơ va chạm",
+    "translation": "vessels approaching, risk collision"
+  },
+  "70": {
+    "phrase": "phải giảm tốc độ của phương tiện",
+    "translation": "must reduce speed near"
+  },
+  "71": {
+    "phrase": "kéo đoàn dài dưới 100 mét",
+    "translation": "towing convoy under 100 meters"
+  },
+  "72": {
+    "phrase": "kéo đoàn dài từ 100 mét trở lên, ban đêm thắp",
+    "translation": "towing convoy 100m+, at night"
+  },
+  "73": {
+    "phrase": "kéo đoàn dài từ 100 mét trở lên, ban ngày treo",
+    "translation": "towing convoy 100m+, daytime"
+  },
+  "74": {
+    "phrase": "lai áp mạn, ban đêm thắp",
+    "translation": "pushing alongside, at night"
+  },
+  "75": {
+    "phrase": "áp mạn, ban ngày treo",
+    "translation": "pushing alongside, daytime"
+  },
+  "76": {
+    "phrase": "yêu cầu cảnh sát, thanh tra",
+    "translation": "requesting police/inspector assistance"
+  },
+  "77": {
+    "phrase": "cảnh sát, thanh tra giao thông đường thủy hỗ trợ, ban đêm",
+    "translation": "requesting waterway police, at night"
+  },
+  "78": {
+    "phrase": "thử máy, thử tốc độ",
+    "translation": "engine and speed trials"
+  },
+  "79": {
+    "phrase": "Cờ chữ B có màu",
+    "translation": "Flag B (Bravo) color"
+  },
+  "80": {
+    "phrase": "Cảnh sát giao thông đường thủy",
+    "translation": "waterway traffic police"
+  },
+  "81": {
+    "phrase": "người, súc vật bị dịch bệnh",
+    "translation": "persons/animals with infectious disease"
+  },
+  "82": {
+    "phrase": "trọng tải toàn phần trên 15 tấn",
+    "translation": "over 15 tons"
+  },
+  "83": {
+    "phrase": "Phương tiện bị nạn yêu cầu cấp cứu",
+    "translation": "vessel in distress, emergency assistance"
+  },
+  "84": {
+    "phrase": "Phương tiện cứu nạn khi làm nhiệm vụ khẩn cấp",
+    "translation": "rescue vessel on urgent duty"
+  },
+  "85": {
+    "phrase": "bị mất chủ động còn trôi",
+    "translation": "lost propulsion, adrift"
+  },
+  "86": {
+    "phrase": "giới hạn bên phải của luồng",
+    "translation": "right-hand limit of channel"
+  },
+  "87": {
+    "phrase": "giới hạn bên trái của luồng",
+    "translation": "left-hand limit of channel"
+  },
+  "88": {
+    "phrase": "luồng tàu sông đi cạnh luồng tàu biển",
+    "translation": "river channel alongside sea lane"
+  },
+  "89": {
+    "phrase": "luồng tàu sông đi cạnh luồng tàu biển",
+    "translation": "river channel alongside sea lane"
+  },
+  "90": {
+    "phrase": "chỉ nơi phân luồng, ngã ba",
+    "translation": "channel junction / three-way split"
+  },
+  "91": {
+    "phrase": "vật chướng ngại đơn lẻ",
+    "translation": "isolated obstacle"
+  },
+  "92": {
+    "phrase": "khoang thông thuyền",
+    "translation": "navigation span"
+  },
+  "93": {
+    "phrase": "khoang thông thuyền của công trình",
+    "translation": "navigation span of overhead structure"
+  },
+  "94": {
+    "phrase": "vùng nước phía bên trái của luồng",
+    "translation": "water area, left side of channel"
+  },
+  "95": {
+    "phrase": "cửa luồng ra vào cảng, bến",
+    "translation": "port or landing channel entrance"
+  },
+  "96": {
+    "phrase": "Báo hiệu chập tiêu tim luồng",
+    "translation": "transit/range mark, channel centerline"
+  },
+  "97": {
+    "phrase": "chỉ vị trí tim luồng",
+    "translation": "channel centerline mark"
+  },
+  "98": {
+    "phrase": "luồng chạy tàu chuyển hướng",
+    "translation": "channel direction change"
+  },
+  "99": {
+    "phrase": "cấm thả neo, cấm kéo rê neo",
+    "translation": "no anchoring, no dragging anchor"
+  },
+  "100": {
+    "phrase": "cấm đỗ",
+    "translation": "no mooring/parking"
+  },
+  "101": {
+    "phrase": "luồng cách bờ",
+    "translation": "channel distance from bank"
+  },
+  "102": {
+    "phrase": "chiều dài đoàn lai dắt bị hạn chế",
+    "translation": "maximum tow convoy length"
+  },
+  "103": {
+    "phrase": "chiều sâu luồng bị hạn chế",
+    "translation": "channel depth restriction"
+  },
+  "104": {
+    "phrase": "số hàng tối đa được phép neo đậu",
+    "translation": "maximum rows for mooring"
+  },
+  "105": {
+    "phrase": "tĩnh không trực tiếp",
+    "translation": "direct overhead clearance"
+  },
+  "106": {
+    "phrase": "chú ý nguy hiểm",
+    "translation": "attention hazard"
+  },
+  "107": {
+    "phrase": "cấm rẽ trái",
+    "translation": "no left turn"
+  },
+  "108": {
+    "phrase": "điểm kết thúc một tình huống",
+    "translation": "end of regulated situation"
+  },
+  "109": {
+    "phrase": "hoạt động thể thao giải trí",
+    "translation": "sports and recreational activities"
+  },
+  "110": {
+    "phrase": "Đoạn, Trạm quản lý đường thủy nội địa",
+    "translation": "inland waterway management station"
+  },
+  "111": {
+    "phrase": "cấm phương tiện thô sơ",
+    "translation": "no non-motorized vessels"
+  },
+  "112": {
+    "phrase": "cấm vượt",
+    "translation": "no overtaking"
+  },
+  "113": {
+    "phrase": "hạn chế tạo sóng",
+    "translation": "restricted wake creation"
+  },
+  "114": {
+    "phrase": "cấm tàu thuyền chạy buồm",
+    "translation": "no sailing vessels"
+  },
+  "115": {
+    "phrase": "cấm đi lại với tốc độ cao",
+    "translation": "no high-speed travel"
+  },
+  "116": {
+    "phrase": "được phép neo đậu",
+    "translation": "mooring permitted"
+  },
+  "117": {
+    "phrase": "chiều rộng vùng nước được phép neo đậu",
+    "translation": "width of mooring area"
+  },
+  "118": {
+    "phrase": "đường dây điện qua sông",
+    "translation": "overhead power line across river"
+  },
+  "119": {
+    "phrase": "bến phà, bến khách ngang sông",
+    "translation": "river-crossing ferry terminal"
+  },
+  "120": {
+    "phrase": "mốc cây số đường thủy nội địa",
+    "translation": "inland waterway kilometer marker"
+  },
+  "121": {
+    "phrase": "công trình ngầm vượt sông",
+    "translation": "underwater crossing structure"
+  },
+  "122": {
+    "phrase": "giao nhau của nhiều sông kênh",
+    "translation": "intersection of rivers and canals"
+  },
+  "123": {
+    "phrase": "khu vực tiếp giáp",
+    "translation": "adjoining/border area"
+  },
+  "124": {
+    "phrase": "cống, đập, âu thuyền",
+    "translation": "sluice gate, dam, or canal lock"
+  },
+  "125": {
+    "phrase": "chiều rộng luồng bị hạn chế",
+    "translation": "restricted channel width"
+  },
+  "126": {
+    "phrase": "quán tính",
+    "translation": "vessel inertia"
+  },
+  "127": {
+    "phrase": "hút nước giữa phương tiện thuỷ và bờ",
+    "translation": "suction between vessel and bank"
+  },
+  "128": {
+    "phrase": "cập cầu, cập phao, thả neo",
+    "translation": "docking at pier, buoy, or anchor"
+  },
+  "129": {
+    "phrase": "có người ngã xuống nước",
+    "translation": "person overboard"
+  },
+  "130": {
+    "phrase": "chạy xuôi nước mà có người ngã xuống nước",
+    "translation": "downstream, person overboard"
+  },
+  "131": {
+    "phrase": "chạy ngược nước mà có người ngã xuống nước",
+    "translation": "upstream, person overboard"
+  },
+  "132": {
+    "phrase": "bánh lái để 0°",
+    "translation": "rudder at 0°"
+  },
+  "133": {
+    "phrase": "bẻ bánh lái sang trái",
+    "translation": "helm to port (left)"
+  },
+  "134": {
+    "phrase": "đang chạy lùi, nếu bẻ bánh lái sang trái",
+    "translation": "reversing, helm to port"
+  },
+  "135": {
+    "phrase": "đang chạy lùi, bánh lái để 0°",
+    "translation": "reversing, rudder at 0°"
+  },
+  "136": {
+    "phrase": "ảnh hưởng của gió, nước ngang",
+    "translation": "crosswind or cross-current"
+  },
+  "137": {
+    "phrase": "ảnh hưởng của sóng",
+    "translation": "wave conditions"
+  },
+  "138": {
+    "phrase": "người ngã xuống nước",
+    "translation": "person overboard rescue"
+  },
+  "139": {
+    "phrase": "gặp dòng chảy vận",
+    "translation": "navigating transverse currents"
+  },
+  "140": {
+    "phrase": "gặp xoáy mạnh",
+    "translation": "encountering a strong whirlpool"
+  },
+  "141": {
+    "phrase": "bảo quản hàng hóa",
+    "translation": "storing/preserving cargo"
+  },
+  "142": {
+    "phrase": "lượng giảm tự nhiên",
+    "translation": "natural weight loss (shrinkage)"
+  },
+  "143": {
+    "phrase": "vận chuyển hàng phân hóa học",
+    "translation": "transporting chemical fertilizer"
+  },
+  "144": {
+    "phrase": "Nghĩa vụ của hành khách",
+    "translation": "passenger obligations"
+  },
+  "145": {
+    "phrase": "trách nhiệm bồi thường đối với hàng hóa",
+    "translation": "carrier liability for cargo"
+  },
+  "146": {
+    "phrase": "hàng hóa thông thường không đúng với kê khai",
+    "translation": "cargo mismatch with declaration"
+  },
+  "147": {
+    "phrase": "lập biên bản hiện trường",
+    "translation": "on-scene incident report"
+  },
+  "148": {
+    "phrase": "chuyển tải hàng hóa qua nơi luồng bị ách tắc",
+    "translation": "transshipment past blocked waterway"
+  },
+  "149": {
+    "phrase": "bị trưng dụng do lệnh",
+    "translation": "vessel requisitioned by authority"
+  },
+  "150": {
+    "phrase": "Ngành vận tải thủy nội địa",
+    "translation": "inland waterway transport sector"
+  }
+}
