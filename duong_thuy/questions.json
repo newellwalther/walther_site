@@ -1161,7 +1161,7 @@
         "question_en": "The mark indicating the right-hand limit of the navigation channel is:",
         "answers_en": ["Buoy 1", "Buoy 2", "Buoy 3", "Buoy 4"]
       },
-      "explanation_en": "The right-bank limit buoy is red (solid red square shape) — consistent with IALA Region B where red marks the right side going upstream."
+      "explanation_en": "Phao 2 is a red square-shaped buoy marking the right-bank limit of the navigation channel. In Vietnam's IALA Region B system, red marks the starboard (right) side when traveling upstream. Keep Phao 2 on your right — crossing beyond it puts you outside the safe channel into shallow or restricted water."
     },
     {
       "id": 87,
@@ -1177,7 +1177,7 @@
         "question_en": "The mark indicating the left-hand limit of the navigation channel is:",
         "answers_en": ["Buoy 1", "Buoy 2", "Buoy 3", "Buoy 4"]
       },
-      "explanation_en": "The left-bank limit buoy is green (triangular shape) — marking the left (port) side of the channel when traveling upstream."
+      "explanation_en": "Phao 1 is a green triangular-shaped buoy marking the left-bank limit of the navigation channel. In Vietnam's IALA Region B system, green marks the port (left) side when traveling upstream. Keep Phao 1 on your left — crossing beyond it puts you outside the safe channel."
     },
     {
       "id": 88,
@@ -1193,7 +1193,7 @@
         "question_en": "The mark indicating the right-hand limit of the river channel running alongside a sea channel is:",
         "answers_en": ["Buoy 1", "Buoy 2", "Buoy 3", "Buoy 4"]
       },
-      "explanation_en": "Where river and sea channels run parallel, the right-bank river channel limit uses a special red-topped composite buoy to distinguish it from sea channel marks."
+      "explanation_en": "Phao 3 is a composite buoy (red body with a green band) marking the right bank of a river navigation channel that runs alongside a sea channel. The dual-color design distinguishes it from standard sea-channel marks in the same area. Keep it to your right when traveling upstream through this combined-waterway zone."
     },
     {
       "id": 89,
@@ -1209,7 +1209,7 @@
         "question_en": "The mark indicating the left-hand limit of the river channel running alongside a sea channel is:",
         "answers_en": ["Buoy 1", "Buoy 2", "Buoy 3", "Buoy 4"]
       },
-      "explanation_en": "The left-bank river channel limit adjacent to a sea channel uses a green-topped composite buoy, distinguishing it from the sea channel's green marks."
+      "explanation_en": "This composite buoy (green body with a red band) marks the left bank of a river navigation channel running alongside a sea channel. The dual-color pattern distinguishes river channel marks from sea channel lateral marks in the same area. Keep it to your left when traveling upstream through this combined-waterway zone."
     },
     {
       "id": 90,
@@ -1225,7 +1225,7 @@
         "question_en": "The mark indicating a channel junction or three-way split is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "A junction/bifurcation mark indicates where one channel splits into two — critical information for navigators choosing a route."
+      "explanation_en": "The channel junction/bifurcation mark (biển phân luồng/ngã ba) is typically a spherical buoy with red and green horizontal bands, placed at the point where one waterway divides into two. The dominant color indicates the preferred (main) channel side. Reduce speed approaching junctions — current patterns shift and oncoming traffic may be hidden around the bend."
     },
     {
       "id": 91,
@@ -1241,7 +1241,7 @@
         "question_en": "The mark indicating an isolated hazard/obstacle on a wide waterway is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "An isolated danger mark indicates a single obstacle surrounded by navigable water — vessels can pass on any side but must stay clear of the mark."
+      "explanation_en": "The isolated danger mark (biển chướng ngại đơn lẻ) has black and red horizontal bands with two black spheres as a topmark. It is placed directly over a single hazard — a rock, wreck, or shoal — surrounded by navigable water on all sides. Vessels may pass on any side but must keep a safe distance, as the mark sits on top of the danger itself."
     },
     {
       "id": 92,
@@ -1257,7 +1257,7 @@
         "question_en": "The mark indicating the navigation span of an overhead crossing structure, allowing non-motorized vessels only, is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "This sign marks the clearance opening under a bridge or overhead structure — indicating only non-motorized (unpowered) vessels may use this span."
+      "explanation_en": "This rectangular bridge-span sign marks the opening under a bridge or elevated crossing reserved exclusively for non-motorized vessels such as rowboats, sampans, and kayaks. It typically features an oar or paddle symbol on a blue/white background. Motorized vessels must use a different designated span — entering this opening under power is prohibited."
     },
     {
       "id": 93,
@@ -1273,7 +1273,7 @@
         "question_en": "The mark indicating the navigation span of an overhead crossing structure, allowing both motorized and non-motorized vessels, is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "This sign marks the main navigation span under a bridge — both powered and unpowered vessels may use this opening, which has adequate clearance for all."
+      "explanation_en": "This bridge-span sign (blue/white rectangular panel with vessel symbols) marks the main navigation opening suitable for all vessels — both motorized and non-motorized. The span has been surveyed for adequate vertical and horizontal clearance for standard commercial traffic. Always compare your vessel's air draft to the posted clearance height before entering."
     },
     {
       "id": 94,
@@ -1289,7 +1289,7 @@
         "question_en": "The mark indicating the water area boundary on the left side of the channel is:",
         "answers_en": ["Buoy 1", "Buoy 2", "Buoy 3", "Buoy 4"]
       },
-      "explanation_en": "The left-side water area boundary buoy marks the edge of navigable water on the port (left) side — beyond this mark water may be too shallow or restricted."
+      "explanation_en": "This green buoy (Phao 1 variant) marks the outer boundary of the permitted water area on the left (port) side of the channel. Unlike a simple bank-limit buoy, it defines the edge of the authorized water zone — beyond it the area may be restricted, shoal, or designated for other use. Keep it to your left when proceeding upstream."
     },
     {
       "id": 95,
@@ -1305,7 +1305,7 @@
         "question_en": "The mark indicating the entrance/exit of a port or landing channel, placed on the right side, is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "This sign marks the right-side boundary of a port/dock entrance channel — essential for safely entering and exiting berths."
+      "explanation_en": "This red rectangular sign marks the right-side boundary of a port or landing dock entrance channel (cửa luồng ra vào cảng/bến). It helps vessels align correctly when entering or leaving a berth or harbor. Approach slowly and watch for the matching left-side mark — port entrances often have cross-currents and restricted visibility."
     },
     {
       "id": 96,
@@ -1321,7 +1321,7 @@
         "question_en": "The transit/range mark (for channel centerline alignment) placed on the right bank is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "Transit marks (chập tiêu) are aligned pairs of signs — when they appear vertically aligned, the vessel is on the correct channel centerline."
+      "explanation_en": "Chập tiêu are a pair of triangular daymarks mounted on poles at different heights on the right bank. When the two marks appear vertically aligned (one directly above the other from the vessel's perspective), the vessel is precisely on the channel centerline. Watch for these on bends and channel transitions where staying centered is critical to avoiding shoals."
     },
     {
       "id": 97,
@@ -1337,7 +1337,7 @@
         "question_en": "The mark indicating the centerline of the navigation channel is:",
         "answers_en": ["Buoy 1", "Buoy 2", "Buoy 3", "Buoy 4"]
       },
-      "explanation_en": "The channel centerline buoy marks the exact middle of the navigation lane — helping vessels maintain optimal positioning in the channel."
+      "explanation_en": "The channel centerline buoy (red-and-white vertically striped with a spherical topmark) is placed on the mid-channel line of wide waterways. It confirms the vessel is in the center of the safe navigation lane. In broad channels where bank buoys are distant, this buoy is especially useful for maintaining an accurate track at night or in poor visibility."
     },
     {
       "id": 98,
@@ -1353,7 +1353,7 @@
         "question_en": "The mark indicating the navigation channel shifts direction from right bank to left bank is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "This course-change sign warns mariners that the deep-water channel crosses from the right bank to the left bank — requiring a course alteration."
+      "explanation_en": "This yellow diamond-shaped direction sign with an arrow indicates the deep-water navigation channel is crossing from the right-bank side to the left-bank side. Vessels must follow the indicated course change to remain within the safe channel. Failing to alter course risks grounding in the shallow water left behind as the deep water shifts banks."
     },
     {
       "id": 99,
@@ -1369,7 +1369,7 @@
         "question_en": "The sign prohibiting anchoring, dragging anchor, cable, or chain is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "No-anchoring signs protect underwater cables, pipelines, or sensitive seabed infrastructure from damage by anchors or drag chains."
+      "explanation_en": "This circular prohibition sign (white background, red border with diagonal slash, anchor symbol) prohibits anchoring, dragging anchor chains, cables, or drag wires in this zone. It protects buried underwater infrastructure — power cables, pipelines, or tunnel roofing — on the riverbed. Violation risks serious damage and significant legal liability under Vietnamese maritime law."
     },
     {
       "id": 100,
@@ -1385,7 +1385,7 @@
         "question_en": "The sign prohibiting mooring/parking is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "No-mooring signs indicate areas where vessels must not tie up — typically near active ferry crossings, navigation marks, or restricted zones."
+      "explanation_en": "This circular prohibition sign (white background, red border with diagonal slash, vessel/mooring symbol) prohibits vessels from mooring or parking in this area. Common locations include active ferry terminals, channel marking zones, construction areas, and military or port-security restricted zones. Vessels needing to stop must proceed to the nearest designated mooring area."
     },
     {
       "id": 101,
@@ -1401,7 +1401,7 @@
         "question_en": "The sign indicating the distance of the channel from the bank is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "This informational sign tells mariners how far the navigable channel lies from the bank — preventing grounding by hugging the shore too closely."
+      "explanation_en": "This blue rectangular information sign displays a number (in meters) indicating the distance the navigable channel lies from the bank. It appears where the channel does not run along the bank as mariners might expect — the deep water is set back from the shore. Use the posted distance to estimate your correct track, especially at night or in reduced visibility."
     },
     {
       "id": 102,
@@ -1417,7 +1417,7 @@
         "question_en": "The sign indicating a maximum tow/convoy length restriction is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "This sign shows the maximum permitted length for towing convoys — longer convoys cannot safely navigate the channel, bridge, or lock ahead."
+      "explanation_en": "This rectangular restriction sign (white background, red border, length value in meters) displays the maximum allowed tow-convoy length for the section ahead. Narrow reaches, sharp bends, and bridge approaches often require shorter convoys for safe maneuvering. Convoys exceeding the posted length must split up or wait for conditions that allow safe passage."
     },
     {
       "id": 103,
@@ -1433,7 +1433,7 @@
         "question_en": "The sign indicating a channel depth restriction is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "The depth restriction sign displays the maximum allowable draft — vessels with deeper keels must not enter this section of the channel."
+      "explanation_en": "This rectangular restriction sign (white background, red border, depth value in meters) shows the maximum permitted vessel draft for the channel ahead. Seasonal low water, siltation, or shoaling reduces depths in this section below normal levels. Vessels must calculate their loaded draft with a safety margin — grounding causes delays, structural damage, and channel blockage."
     },
     {
       "id": 104,
@@ -1449,7 +1449,7 @@
         "question_en": "The sign indicating the maximum number of rows permitted for mooring is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "This sign limits how many vessels deep (rows) can moor side-by-side — preventing excessive clustering that blocks traffic or endangers the outer vessels."
+      "explanation_en": "This blue information sign displays the maximum number of rows (tiers) of vessels that may moor side-by-side at this bank. Stacking too many vessels deep obstructs the navigation channel and makes it difficult for outer-row vessels to get underway safely in an emergency. Comply with the posted number even during busy periods or when directed by other captains."
     },
     {
       "id": 105,
@@ -1465,7 +1465,7 @@
         "question_en": "The sign indicating direct/minimum overhead clearance is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "The overhead clearance sign shows the vertical clearance available — vessels with tall masts, wheelhouses, or loads must compare their air draft to this value."
+      "explanation_en": "This rectangular restriction sign (white background, red border, clearance value in meters) shows the minimum vertical clearance at the reference water level for a bridge, cable, or overhead structure ahead. Compare your vessel's air draft (mast or wheelhouse height above the waterline) to this value. Tall loads, raised antennae, or superstructures that exceed the clearance must not enter."
     },
     {
       "id": 106,
@@ -1481,7 +1481,7 @@
         "question_en": "The sign directing attention to a hazard is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "The hazard warning sign alerts mariners to a nearby danger requiring extra caution — such as rocks, shoals, or strong currents."
+      "explanation_en": "The hazard attention sign (yellow diamond with a black exclamation mark or danger symbol) warns of a nearby hazard not otherwise specifically marked — such as a submerged rock, sandbar, strong eddy, or fishing gear. It does not indicate which side to pass on. Reduce speed and navigate with heightened vigilance through the entire marked zone."
     },
     {
       "id": 107,
@@ -1497,7 +1497,7 @@
         "question_en": "The sign prohibiting a left turn is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "A no-left-turn sign prevents vessels from turning into a restricted area, tributary, or dangerous zone on the left (port) side."
+      "explanation_en": "This circular prohibition sign (white background, red border with diagonal slash, left-curved-arrow symbol) prohibits vessels from turning left (port) at this point. It typically guards a restricted tributary, shallow zone, or area dangerous to navigation. Vessels wishing to access the waterway on the left must use the designated alternate access route further along."
     },
     {
       "id": 108,
@@ -1513,7 +1513,7 @@
         "question_en": "The sign indicating the end of a regulated situation is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "The 'end of restriction' sign marks where a regulated zone (speed limit, no-wake, restricted passage) ends — normal rules resume beyond this point."
+      "explanation_en": "The end-of-restriction sign (white rectangular panel with a horizontal cancellation bar through the prior restriction symbol) signals the conclusion of a specific regulated zone — such as a no-wake, speed-limit, or no-overtaking area. Standard navigation rules resume immediately beyond this mark. Stay alert — a new regulated zone may follow shortly after."
     },
     {
       "id": 109,
@@ -1529,7 +1529,7 @@
         "question_en": "The sign indicating an area authorized for sports and recreational activities is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "This sign designates a permitted zone for water sports and recreation — mariners should be alert to swimmers, kayakers, and other recreational users."
+      "explanation_en": "This blue information sign (white symbols depicting recreational activities) designates an authorized area for water sports such as kayaking, rowing, swimming, or water-skiing. Commercial and transit vessels must reduce speed and give way to recreational users in this zone. Be especially alert for swimmers who may not be visible from the helm at low freeboard."
     },
     {
       "id": 110,
@@ -1545,7 +1545,7 @@
         "question_en": "The sign indicating the location of an inland waterway management section or station is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "This information sign marks the location of a waterway authority office or management station — mariners can report incidents or seek assistance here."
+      "explanation_en": "This blue rectangular information sign marks the location of an Inland Waterway Authority management station (Trạm/Đoạn quản lý đường thủy nội địa). Vessels can contact this station to report incidents, obtain current navigation information, or receive permits. VHF radio contact is typically available at these stations for vessels unable to stop."
     },
     {
       "id": 111,
@@ -1561,7 +1561,7 @@
         "question_en": "The sign prohibiting non-motorized vessels is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "This prohibition sign bars non-motorized vessels (rowboats, sampans, rafts) from the channel — typically in areas with fast commercial traffic where slow vessels are a hazard."
+      "explanation_en": "This circular prohibition sign (white background, red border with diagonal slash, oar or paddleboat symbol) bars non-motorized vessels — rowboats, sampans, kayaks, and rafts — from this section of the waterway. These vessels are excluded due to high commercial traffic speeds or navigational complexity where slow craft create collision risks. Unpowered boats must use alternate routes or portage around this section."
     },
     {
       "id": 112,
@@ -1577,7 +1577,7 @@
         "question_en": "The sign prohibiting overtaking is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "No-overtaking signs appear in narrow channels, near bridges, or in visibility-restricted areas where overtaking creates an unacceptable collision risk."
+      "explanation_en": "This circular prohibition sign (two overlapping vessel silhouettes with a diagonal slash) prohibits any vessel from passing or overtaking another in this section. It appears at narrow bends, bridge approaches, and areas with restricted sight lines where a head-on collision with oncoming traffic would be inevitable. Maintain your position in line until the matching end-of-restriction sign is passed."
     },
     {
       "id": 113,
@@ -1593,7 +1593,7 @@
         "question_en": "The sign restricting wake creation is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "No-wake zones require vessels to slow to minimum steerage — wakes can damage moored boats, erode banks, and endanger swimmers or small craft."
+      "explanation_en": "This sign (wave pattern with a restriction symbol) limits vessel speed to minimize wake creation in protected areas. Reduce throttle to bare steerage — the minimum speed at which the vessel maintains directional control with the least wash. Wake damage is most serious near moored vessels, soft-soil embankments, and shallow bays where even small waves cause repeated erosion and structural stress."
     },
     {
       "id": 114,
@@ -1609,7 +1609,7 @@
         "question_en": "The sign prohibiting sailing vessels is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "Sailing prohibited signs appear in narrow channels where the unpredictable nature of sail maneuvers creates collision risks with commercial traffic."
+      "explanation_en": "This circular prohibition sign (white background, red border with diagonal slash, sailboat symbol) prohibits vessels under sail from operating in this section. Sailing is excluded where channel width and traffic density make tacking and uncontrolled maneuvering unsafe for other waterway users. Vessels with both sail and engine must proceed under power only through the entire marked zone."
     },
     {
       "id": 115,
@@ -1625,7 +1625,7 @@
         "question_en": "The sign prohibiting high-speed travel is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "Speed restriction signs limit vessel speed — protecting embankments from erosion, nearby structures, and other waterway users from dangerous wakes."
+      "explanation_en": "This circular red restriction sign (displaying a number or speed symbol indicating the maximum km/h or knots) prohibits high-speed navigation through this section. Exceeding the limit damages riverbank infrastructure, endangers moored and passing vessels, and creates dangerous wakes for small craft. The restriction applies to all vessel types regardless of size or propulsion."
     },
     {
       "id": 116,
@@ -1641,7 +1641,7 @@
         "question_en": "The sign indicating mooring is permitted is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "The mooring-permitted sign (blue with a P) designates an official mooring area where vessels may tie up — with adequate depth and infrastructure."
+      "explanation_en": "This blue square information sign (white anchor symbol) designates an area where vessels are permitted to moor or anchor. In Vietnam's waterway system, blue signs indicate allowed or informational content — the opposite of red prohibition signs. Moorings in this zone have been assessed for adequate depth, clear swinging room, and safe boarding access."
     },
     {
       "id": 117,
@@ -1657,7 +1657,7 @@
         "question_en": "The sign indicating the width of the water area permitted for mooring is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "This sign specifies the beam width available in the mooring zone — helping captains determine if their vessel fits without obstructing the channel."
+      "explanation_en": "This blue information sign displays the maximum permitted width (in meters) of the mooring water area — indicating how far from the bank vessels may moor without encroaching on the navigation channel. Check your vessel's beam and the swinging radius of any anchor against the posted number, especially when mooring multiple vessels abreast."
     },
     {
       "id": 118,
@@ -1673,7 +1673,7 @@
         "question_en": "The sign warning that an overhead power line crosses the river ahead is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "Power line crossing signs are critical — tall masts or antennas contacting overhead lines cause electrocution and vessel fires. Check air draft before proceeding."
+      "explanation_en": "This warning sign (yellow or red with a power-line symbol) alerts mariners that high-voltage electrical cables cross the river ahead. This is one of the most safety-critical waterway signs — contact with overhead lines causes immediate electrocution and vessel fires. Measure your vessel's air draft and compare it with the posted clearance; lower all antennae, masts, and raised equipment before passing underneath."
     },
     {
       "id": 119,
@@ -1689,7 +1689,7 @@
         "question_en": "The sign indicating a river-crossing ferry or passenger terminal ahead is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "Ferry crossing signs warn vessels of regular cross-river traffic — ferries have right of way in their crossing lanes and mariners must give way."
+      "explanation_en": "This blue information sign (ferry or boat symbol with crossing arrows) warns that a regular passenger ferry or river-crossing service operates across the channel ahead. Ferries cross perpendicular to the navigation channel and have priority in their designated crossing lanes. Slow down early, watch for the ferry's approach from either bank, and do not attempt to race through the crossing lane."
     },
     {
       "id": 120,
@@ -1705,7 +1705,7 @@
         "question_en": "The sign indicating an inland waterway kilometer marker is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "Kilometer markers measure distance along a waterway route — used for navigation, reporting positions to authorities, and estimating travel times."
+      "explanation_en": "The waterway kilometer marker (mốc cây số đường thủy nội địa) is a blue-and-white rectangular sign displaying the cumulative distance in kilometers from the waterway's origin or a designated reference point. These markers are essential for precise position reporting to vessel traffic services, calculating elapsed travel distance, and guiding emergency response teams to incident locations."
     },
     {
       "id": 121,
@@ -1721,7 +1721,7 @@
         "question_en": "The sign indicating an underwater crossing structure (tunnel, pipe, cable) beneath the river is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "Underwater crossing signs warn against anchoring in this area — anchor chains or dragging tackle can damage submerged pipelines, cables, or tunnel roofs."
+      "explanation_en": "This warning sign (yellow or blue, featuring a crossed-out anchor combined with a pipeline or cable symbol) warns of a buried or submerged crossing structure beneath the riverbed — such as a water main, gas pipeline, data cable, or vehicle tunnel. Anchoring, dredging, and dragging operations are strictly prohibited. The area is typically reinforced by a posted no-anchoring prohibition sign."
     },
     {
       "id": 122,
@@ -1737,7 +1737,7 @@
         "question_en": "The sign indicating the intersection of multiple rivers or canals is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "A multi-waterway intersection sign alerts mariners to a complex junction where traffic converges from several directions — requiring extra caution and reduced speed."
+      "explanation_en": "This information sign (depicting converging waterway lines from multiple directions) marks a complex intersection where three or more rivers or canals meet. Traffic approaches from multiple headings with conflicting currents and vessel movements. Reduce speed well before the intersection, sound the appropriate whistle signals, and maintain a sharp lookout in all directions before crossing."
     },
     {
       "id": 123,
@@ -1753,7 +1753,7 @@
         "question_en": "The sign indicating an adjoining/border area is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "An adjoining area sign marks the boundary between different administrative waterway zones — regulations may change and different authorities may apply."
+      "explanation_en": "This information sign designates a transitional boundary zone (khu vực tiếp giáp) where two different administrative waterway regions or jurisdictions share a common border area. Speed limits, pilotage requirements, vessel-class restrictions, or reporting obligations may differ on either side of this boundary. Verify which local rules apply before proceeding through the adjoining zone."
     },
     {
       "id": 124,
@@ -1769,7 +1769,7 @@
         "question_en": "The sign warning of a sluice gate, dam, or canal lock ahead is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "This sign warns of a structure requiring vessels to stop or proceed with caution — locks require lock-through procedures; dams may be impassable."
+      "explanation_en": "This warning sign (blue or yellow, depicting a lock gate, dam wall, or sluice symbol) alerts vessels that a sluice gate (cống), dam (đập), or canal lock (âu thuyền) lies ahead on the waterway. Vessels must stop at the designated waiting area and await the operator's signal before proceeding. Locks require specific locking-through procedures; approaching an open dam gate uncontrolled is extremely dangerous."
     },
     {
       "id": 125,
@@ -1785,7 +1785,7 @@
         "question_en": "The sign indicating a restricted channel width is:",
         "answers_en": ["Sign 1", "Sign 2", "Sign 3", "Sign 4"]
       },
-      "explanation_en": "A channel width restriction sign shows the maximum beam permitted — wide vessels may need to wait for the channel to clear before proceeding."
+      "explanation_en": "This rectangular restriction sign (white background, red border, width value in meters) shows the maximum permitted vessel beam for the restricted channel section ahead — such as under a bridge, through a narrow cut, or past a construction zone. Wide vessels must not enter until the channel is clear, as two-way passing is impossible in the restricted section. The sign is posted well in advance to allow time to slow and assess."
     },
     {
       "id": 126,

@@ -237,6 +237,7 @@
     .fc-label { font-size: 0.65rem; color: #bbb; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
     .fc-main  { font-size: 1.05rem; line-height: 1.6; color: #111; }
     .fc-sub   { font-size: 0.8rem; color: #888; font-style: italic; margin-top: 8px; line-height: 1.5; white-space: pre-line; }
+    .fc-expl  { font-size: 0.78rem; color: #777; margin-top: 10px; line-height: 1.55; border-top: 1px solid #ebebeb; padding-top: 8px; }
     .fc-image { max-width: 100%; max-height: 180px; object-fit: contain; margin-top: 12px; border: 1px solid #f0f0f0; }
     .fc-tap-hint { font-size: 0.68rem; color: #ccc; margin-top: 12px; letter-spacing: 0.03em; }
     .fc-nav { display: flex; gap: 12px; align-items: center; }
@@ -502,6 +503,7 @@
             <div class="fc-main" id="fc-back-text"></div>
             <div class="fc-sub"  id="fc-back-en"></div>
             <img class="fc-image" id="fc-back-img" src="" alt="" style="display:none" />
+            <div class="fc-expl" id="fc-back-expl" style="display:none"></div>
           </div>
         </div>
       </div>
@@ -631,6 +633,7 @@
     const $fcBackEn    = document.getElementById('fc-back-en');
     const $fcBackImg   = document.getElementById('fc-back-img');
     const $fcBackLabel = document.getElementById('fc-back-label');
+    const $fcBackExpl  = document.getElementById('fc-back-expl');
     const $fcPrev      = document.getElementById('fc-prev');
     const $fcNext      = document.getElementById('fc-next');
     const $fcCounter   = document.getElementById('fc-counter');
@@ -1270,6 +1273,7 @@
         }
         $fcBackEn.textContent = backText;
         $fcBackImg.style.display = 'none';
+        $fcBackExpl.style.display = 'none';
       } else {
         $fcFrontLabel.textContent = 'câu hỏi / question';
         $fcBackLabel.textContent  = 'đáp án / answer';
@@ -1289,6 +1293,12 @@
           $fcBackImg.style.display = 'block';
         } else {
           $fcBackImg.style.display = 'none';
+        }
+        if (q.explanation_en) {
+          $fcBackExpl.textContent = q.explanation_en;
+          $fcBackExpl.style.display = 'block';
+        } else {
+          $fcBackExpl.style.display = 'none';
         }
       }
     }
