@@ -132,6 +132,26 @@
     .vocab-term:hover .vocab-tip,
     .vocab-term.tip-open .vocab-tip { display: block; }
 
+    /* Unique-phrase highlight + tooltip */
+    .uniq-phrase {
+      color: #c0392b;
+      cursor: pointer;
+      border-bottom: 1px dotted #c0392b;
+    }
+    #uniq-tooltip {
+      position: fixed;
+      background: #1a1a1a;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.82em;
+      pointer-events: none;
+      display: none;
+      z-index: 9999;
+      max-width: 200px;
+      text-align: center;
+    }
+
     /* Images */
     .q-image-wrap { margin-bottom: 20px; }
     .q-image-wrap img, .a-image-wrap img {
@@ -382,6 +402,9 @@
     </ul>
   </div>
 
+  <!-- Unique-phrase translation tooltip -->
+  <div id="uniq-tooltip"></div>
+
   <!-- Lightbox -->
   <div id="lightbox" role="dialog">
     <button id="lb-close">×</button>
@@ -569,7 +592,7 @@
     // ══════════════════════════════════════════════════
     // STATE
     // ══════════════════════════════════════════════════
-    let allQ = [], vocab = [], queue = [], fcDeck = [];
+    let allQ = [], vocab = [], queue = [], fcDeck = [], highlights = {};
     let ci = 0, fcIndex = 0;
     let answered = false, transitioning = false;
     let score = {correct:0, wrong:0, skipped:0};
@@ -657,9 +680,11 @@
     Promise.all([
       fetch('duong_thuy/questions.json').then(r=>r.json()),
       fetch('duong_thuy/vocab.json').then(r=>r.json()),
-    ]).then(([qData, vData]) => {
+      fetch('duong_thuy/question-highlights.json').then(r=>r.json()).catch(()=>({})),
+    ]).then(([qData, vData, hData]) => {
       allQ  = qData.questions;
       vocab = vData.vocab.sort((a,b) => b.vi.length - a.vi.length); // longest first
+      highlights = hData;
       buildSectionSelector();
       buildMainNav();
       updateWeakBadge();
@@ -839,8 +864,8 @@
       // Meta
       $qMeta.textContent = secLabel(q.section).toUpperCase() + (weakIds.has(q.id) ? '  ★' : '');
 
-      // Question text with vocab highlighting
-      $qText.innerHTML = tagVocab(escHtml(q.question_vi));
+      // Question text: unique phrase first (plain text), then vocab on top
+      $qText.innerHTML = tagVocab(tagUnique(escHtml(q.question_vi), q.id));
 
       // Translation (hidden)
       const t = q.translation || {};
@@ -1428,6 +1453,65 @@
         }
       });
     }
+
+    // ══════════════════════════════════════════════════
+    // UNIQUE PHRASE HIGHLIGHT + TOOLTIP
+    // ══════════════════════════════════════════════════
+    function tagUnique(html, qId) {
+      const key = 'q' + qId;
+      const entries = highlights[key];
+      if (!entries || !entries.length) return html;
+
+      let text = html;
+      const placeholders = [];
+
+      entries.forEach((entry, idx) => {
+        const phrase = entry.phrase;
+        const trans  = entry.translation || '';
+        // Case-insensitive match, but preserve original casing in display
+        const re = new RegExp(escapeRe(escHtml(phrase)), 'gi');
+        text = text.replace(re, match => {
+          const ph = '\x00U' + idx + '\x00';
+          placeholders.push({ ph, html:
+            '<span class="uniq-phrase" data-trans="' + escHtml(trans) + '">' + match + '</span>'
+          });
+          return ph;
+        });
+      });
+
+      placeholders.forEach(({ph, html: h}) => { text = text.split(ph).join(h); });
+      return text;
+    }
+
+    // Tooltip singleton
+    const $uniqTooltip = document.getElementById('uniq-tooltip');
+
+    document.addEventListener('click', e => {
+      const span = e.target.closest('.uniq-phrase');
+      if (span) {
+        e.stopPropagation();
+        const trans = span.dataset.trans;
+        if (!trans) return;
+        $uniqTooltip.textContent = trans;
+        $uniqTooltip.style.display = 'block';
+
+        const rect = span.getBoundingClientRect();
+        const ttW = 200, ttH = 36;
+        let left = rect.left + rect.width / 2 - ttW / 2;
+        let top  = rect.top - ttH - 8;
+        if (top < 8)   top  = rect.bottom + 8;
+        if (left < 8)  left = 8;
+        if (left + ttW > window.innerWidth - 8) left = window.innerWidth - ttW - 8;
+        $uniqTooltip.style.left = left + 'px';
+        $uniqTooltip.style.top  = top  + 'px';
+      } else {
+        $uniqTooltip.style.display = 'none';
+      }
+    });
+
+    document.addEventListener('touchstart', e => {
+      if (!e.target.closest('.uniq-phrase')) $uniqTooltip.style.display = 'none';
+    }, { passive: true });
 
     // ══════════════════════════════════════════════════
     // ANSWER NORMALIZATION
