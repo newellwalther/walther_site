@@ -570,6 +570,7 @@
     // STATE
     // ══════════════════════════════════════════════════
     let allQ = [], vocab = [], queue = [], fcDeck = [];
+    let qHighlights = {};
     let ci = 0, fcIndex = 0;
     let answered = false, transitioning = false;
     let score = {correct:0, wrong:0, skipped:0};
@@ -657,9 +658,11 @@
     Promise.all([
       fetch('duong_thuy/questions.json').then(r=>r.json()),
       fetch('duong_thuy/vocab.json').then(r=>r.json()),
-    ]).then(([qData, vData]) => {
+      fetch('duong_thuy/question-highlights.json').then(r=>r.json()).catch(()=>({})),
+    ]).then(([qData, vData, hData]) => {
       allQ  = qData.questions;
       vocab = vData.vocab.sort((a,b) => b.vi.length - a.vi.length); // longest first
+      qHighlights = hData;
       buildSectionSelector();
       buildMainNav();
       updateWeakBadge();
@@ -839,8 +842,8 @@
       // Meta
       $qMeta.textContent = secLabel(q.section).toUpperCase() + (weakIds.has(q.id) ? '  ★' : '');
 
-      // Question text with vocab highlighting
-      $qText.innerHTML = tagVocab(escHtml(q.question_vi));
+      // Question text with vocab highlighting + unique-phrase highlight
+      $qText.innerHTML = highlightUnique(tagVocab(escHtml(q.question_vi)), q.id);
 
       // Translation (hidden)
       const t = q.translation || {};
@@ -1067,7 +1070,7 @@
       $progress.style.width = (ci / queue.length * 100) + '%';
       $progressLabel.textContent = (ci+1) + ' / ' + queue.length;
       $tMeta.textContent = secLabel(q.section).toUpperCase();
-      $tText.textContent = q.question_vi;
+      $tText.innerHTML = highlightUnique(escHtml(q.question_vi), q.id);
 
       if (q.image && q.image.question_img) {
         $tImg.src = IMG + encodeURIComponent(q.image.question_img);
@@ -1181,7 +1184,7 @@
         card.className = 'study-card';
 
         let html = '<div class="study-q-num">' + secLabel(q.section) + ' — Q' + q.id + '</div>';
-        html += '<div class="study-q">' + escHtml(q.question_vi) + '</div>';
+        html += '<div class="study-q">' + highlightUnique(escHtml(q.question_vi), q.id) + '</div>';
         if (t.question_en) {
           html += '<div class="study-q-en' + (showEn ? '' : ' hidden') + '">' + escHtml(t.question_en) + '</div>';
         }
@@ -1275,7 +1278,7 @@
         $fcBackLabel.textContent  = 'đáp án / answer';
         const q = card;
         const t = q.translation || {};
-        $fcFront.textContent = q.question_vi;
+        $fcFront.innerHTML = highlightUnique(escHtml(q.question_vi), q.id);
         if (q.image && q.image.question_img) {
           $fcFrontImg.src = IMG + encodeURIComponent(q.image.question_img);
           $fcFrontImg.style.display = 'block';
@@ -1382,6 +1385,25 @@
     // ══════════════════════════════════════════════════
     // VOCAB TAGGING + TOOLTIPS
     // ══════════════════════════════════════════════════
+    function highlightUnique(html, questionId) {
+      const phrases = qHighlights[questionId];
+      if (!phrases || phrases.length === 0) return html;
+      let text = html;
+      const saved = [];
+      // Protect existing HTML tags so regex doesn't match across them
+      text = text.replace(/<[^>]+>/g, tag => {
+        const ph = '\x01T' + saved.length + '\x01';
+        saved.push(tag);
+        return ph;
+      });
+      phrases.forEach(phrase => {
+        const re = new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'gi');
+        text = text.replace(re, m => '<span style="color:#e53e3e;font-weight:600">' + m + '</span>');
+      });
+      saved.forEach((tag, i) => { text = text.split('\x01T' + i + '\x01').join(tag); });
+      return text;
+    }
+
     function tagVocab(html) {
       // Longest-first matching (vocab already sorted by length desc)
       // Case-insensitive: preserves original text casing in display
