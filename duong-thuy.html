@@ -161,10 +161,8 @@
     .q-image-wrap { margin-bottom: 20px; }
     .q-image-wrap img, .a-image-wrap img {
       max-width: 100%; max-height: 280px; object-fit: contain; display: block;
-      border: 1px solid #f0f0f0; cursor: zoom-in;
-      transition: opacity 0.15s, transform 0.15s; border-radius: 2px;
+      border: 1px solid #f0f0f0; border-radius: 2px;
     }
-    .q-image-wrap img:hover, .a-image-wrap img:hover { opacity: 0.85; transform: scale(1.01); }
     .a-image-wrap { margin-top: 14px; display: none; animation: fadeUp 0.2s ease; }
     .a-image-wrap.visible { display: block; }
     .a-image-wrap img { max-height: 200px; }
@@ -262,6 +260,7 @@
     .fc-label { font-size: 0.65rem; color: #bbb; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
     .fc-main  { font-size: 1.05rem; line-height: 1.6; color: #111; }
     .fc-sub   { font-size: 0.8rem; color: #888; font-style: italic; margin-top: 8px; line-height: 1.5; white-space: pre-line; }
+    .fc-etymology { font-size: 0.72rem; color: #aaa; margin-top: 10px; line-height: 1.55; border-top: 1px solid #e8e8e8; padding-top: 8px; }
     .fc-image { max-width: 100%; max-height: 180px; object-fit: contain; margin-top: 12px; border: 1px solid #f0f0f0; }
     .fc-tap-hint { font-size: 0.68rem; color: #ccc; margin-top: 12px; letter-spacing: 0.03em; }
     .fc-nav { display: flex; gap: 12px; align-items: center; }
@@ -346,29 +345,6 @@
     .top-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
 
     /* ═══════════════════════════════════════════════════
-       LIGHTBOX
-    ═══════════════════════════════════════════════════ */
-    #lightbox {
-      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92);
-      z-index: 9999; align-items: center; justify-content: center; cursor: zoom-out;
-      animation: lbFade 0.18s ease;
-    }
-    @keyframes lbFade { from{opacity:0} to{opacity:1} }
-    #lightbox.open { display: flex; }
-    #lightbox img {
-      max-width: 92vw; max-height: 88vh; object-fit: contain;
-      box-shadow: 0 8px 60px rgba(0,0,0,0.6);
-      animation: lbPop 0.2s cubic-bezier(0.34,1.4,0.64,1);
-    }
-    @keyframes lbPop { from{transform:scale(0.88)} to{transform:scale(1)} }
-    #lb-close {
-      position: absolute; top: 20px; right: 24px; color: rgba(255,255,255,0.6);
-      font-size: 1.8rem; background: none; border: none; cursor: pointer; font-family: Georgia, serif;
-      transition: color 0.15s;
-    }
-    #lb-close:hover { color: #fff; }
-
-    /* ═══════════════════════════════════════════════════
        REVIEW MODE indicator
     ═══════════════════════════════════════════════════ */
     .mode-badge {
@@ -405,12 +381,6 @@
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
-  </div>
-
-  <!-- Lightbox -->
-  <div id="lightbox" role="dialog">
-    <button id="lb-close">×</button>
-    <img id="lb-img" src="" alt="" />
   </div>
 
   <div id="quiz-app">
@@ -526,6 +496,7 @@
             <div class="fc-label" id="fc-back-label">đáp án / answer</div>
             <div class="fc-main" id="fc-back-text"></div>
             <div class="fc-sub"  id="fc-back-en"></div>
+            <div class="fc-etymology" id="fc-etymology"></div>
             <img class="fc-image" id="fc-back-img" src="" alt="" style="display:none" />
           </div>
         </div>
@@ -654,6 +625,7 @@
     const $fcFrontLabel= document.getElementById('fc-front-label');
     const $fcBack      = document.getElementById('fc-back-text');
     const $fcBackEn    = document.getElementById('fc-back-en');
+    const $fcEtymology = document.getElementById('fc-etymology');
     const $fcBackImg   = document.getElementById('fc-back-img');
     const $fcBackLabel = document.getElementById('fc-back-label');
     const $fcPrev      = document.getElementById('fc-prev');
@@ -671,10 +643,6 @@
     const $endReview = document.getElementById('end-review');
     const $endWeak   = document.getElementById('end-weak');
     const $endClearWeak = document.getElementById('end-clear-weak');
-
-    const $lightbox  = document.getElementById('lightbox');
-    const $lbImg     = document.getElementById('lb-img');
-    const $lbClose   = document.getElementById('lb-close');
 
     // ══════════════════════════════════════════════════
     // LOAD DATA
@@ -1296,6 +1264,7 @@
           backText += card.breakdown.map(w => w.vi + ' = ' + w.en).join('\n');
         }
         $fcBackEn.textContent = backText;
+        $fcEtymology.textContent = '';
         $fcBackImg.style.display = 'none';
       } else {
         $fcFrontLabel.textContent = 'câu hỏi / question';
@@ -1311,6 +1280,7 @@
         }
         $fcBack.textContent = q.answers_vi[q.correct_index];
         $fcBackEn.textContent = t.answers_en ? t.answers_en[q.correct_index] + (t.question_en ? '\n' + t.question_en : '') : '';
+        $fcEtymology.textContent = q.etymology || '';
         if (q.image && q.image.answer_img) {
           $fcBackImg.src = IMG + encodeURIComponent(q.image.answer_img);
           $fcBackImg.style.display = 'block';
@@ -1328,8 +1298,6 @@
     // KEYBOARD
     // ══════════════════════════════════════════════════
     document.addEventListener('keydown', e => {
-      if ($lightbox.classList.contains('open')) { closeLightbox(); return; }
-
       // Flashcard
       if ($fcScreen.style.display !== 'none') {
         if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); $fcNext.click(); }
@@ -1382,29 +1350,6 @@
         }
       }, {passive:true});
     })();
-
-    // ══════════════════════════════════════════════════
-    // LIGHTBOX
-    // ══════════════════════════════════════════════════
-    function openLightbox(src) {
-      $lbImg.src = src;
-      $lightbox.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeLightbox() {
-      $lightbox.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-    $lightbox.addEventListener('click', e=>{ if(e.target===$lightbox||e.target===$lbClose) closeLightbox(); });
-    document.addEventListener('click', e=>{
-      if (e.target.tagName === 'IMG' && (
-        e.target.id==='q-img'||e.target.id==='a-img'||
-        e.target.id==='t-img'||e.target.id==='t-a-img'||
-        e.target.classList.contains('fc-image')
-      )) {
-        if (e.target.src) openLightbox(e.target.src);
-      }
-    });
 
     // ══════════════════════════════════════════════════
     // VOCAB TAGGING + TOOLTIPS
