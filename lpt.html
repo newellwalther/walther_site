@@ -1257,14 +1257,10 @@
         $fcFront.textContent = card.vi;
         $fcFrontImg.style.display = 'none';
         $fcBack.textContent = card.en;
-        // Build breakdown display if available
-        let backText = card.cat.replace(/-/g, ' ');
-        if (card.breakdown && card.breakdown.length > 0) {
-          backText += '\n\n— word breakdown —\n';
-          backText += card.breakdown.map(w => w.vi + ' = ' + w.en).join('\n');
-        }
-        $fcBackEn.textContent = backText;
-        $fcEtymology.textContent = '';
+        $fcBackEn.textContent = card.cat.replace(/-/g, ' ');
+        $fcEtymology.textContent = card.breakdown && card.breakdown.length > 0
+          ? card.breakdown.map(w => w.vi + ' = ' + w.en).join(' · ')
+          : '';
         $fcBackImg.style.display = 'none';
       } else {
         $fcFrontLabel.textContent = 'câu hỏi / question';
