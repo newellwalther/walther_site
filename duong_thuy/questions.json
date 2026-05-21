@@ -274,7 +274,9 @@
           "All are wrong."
         ]
       },
-      "explanation_en": "CPR compressions are applied to the lower half of the sternum, which compresses the heart against the spine effectively."
+      "explanation_en": "CPR compressions are applied to the lower half of the sternum, which compresses the heart against the spine effectively.",
+      "trap": true,
+      "confusable": "F"
     },
     {
       "id": 13,
@@ -389,7 +391,9 @@
           "All are wrong."
         ]
       },
-      "explanation_en": "Burn wounds need loose net bandaging to allow air circulation, reduce infection risk, and prevent fabric from sticking to the wound."
+      "explanation_en": "Burn wounds need loose net bandaging to allow air circulation, reduce infection risk, and prevent fabric from sticking to the wound.",
+      "trap": true,
+      "confusable": "F"
     },
     {
       "id": 18,
@@ -458,7 +462,9 @@
           "All three."
         ]
       },
-      "explanation_en": "The nature of the accident (type and severity) is the critical information so dispatchers can send appropriate resources and brief the medical team."
+      "explanation_en": "The nature of the accident (type and severity) is the critical information so dispatchers can send appropriate resources and brief the medical team.",
+      "trap": true,
+      "confusable": "F"
     },
     {
       "id": 21,
@@ -1023,7 +1029,9 @@
           "Shallows in the middle of the river."
         ]
       },
-      "explanation_en": "On a river bend, water flows fastest on the outside (concave/bay bank), eroding it deep. On the inside (convex/doi bank), slower water deposits sediment, creating shallows."
+      "explanation_en": "On a river bend, water flows fastest on the outside (concave/bay bank), eroding it deep. On the inside (convex/doi bank), slower water deposits sediment, creating shallows.",
+      "trap": true,
+      "confusable": "F"
     },
     {
       "id": 43,
@@ -1046,7 +1054,9 @@
           "There are sandbars on both banks."
         ]
       },
-      "explanation_en": "A mid-river island or sandbar splits the current into two separate channels — causing divided (bifurcated) flow on each side."
+      "explanation_en": "A mid-river island or sandbar splits the current into two separate channels — causing divided (bifurcated) flow on each side.",
+      "trap": true,
+      "confusable": "F"
     },
     {
       "id": 44,
@@ -1345,7 +1355,9 @@
           "All three vessels above"
         ]
       },
-      "explanation_en": "Attaching to dangerous goods vessels is prohibited — an accident or spillage could cause catastrophic fire, explosion, or chemical hazard."
+      "explanation_en": "Attaching to dangerous goods vessels is prohibited — an accident or spillage could cause catastrophic fire, explosion, or chemical hazard.",
+      "trap": true,
+      "confusable": "F"
     },
     {
       "id": 57,
@@ -1414,7 +1426,8 @@
           "Changing course to starboard (right)"
         ]
       },
-      "explanation_en": "Three long blasts is the signal for approaching/departing a dock or exchanging greetings between vessels on inland waterways."
+      "explanation_en": "Three long blasts is the signal for approaching/departing a dock or exchanging greetings between vessels on inland waterways.",
+      "confusable": "C"
     },
     {
       "id": 60,
@@ -1437,7 +1450,8 @@
           "Calling other vessels for assistance"
         ]
       },
-      "explanation_en": "Four long blasts is the signal requesting the opening of a movable bridge, sluice gate, or canal lock to allow passage."
+      "explanation_en": "Four long blasts is the signal requesting the opening of a movable bridge, sluice gate, or canal lock to allow passage.",
+      "confusable": "C"
     },
     {
       "id": 61,
@@ -1690,7 +1704,8 @@
           "4 shapes, each consisting of 2 black circles in a star-fruit pattern"
         ]
       },
-      "explanation_en": "A Class A tug towing under 100m shows 2 black ball shapes during the day — indicating a towing operation of limited length."
+      "explanation_en": "A Class A tug towing under 100m shows 2 black ball shapes during the day — indicating a towing operation of limited length.",
+      "confusable": "A"
     },
     {
       "id": 72,
@@ -1713,7 +1728,8 @@
           "4 white masthead lights, 2 sidelights, 1 white stern light"
         ]
       },
-      "explanation_en": "A Class A tug towing 100m or more shows 3 masthead lights at night — the additional masthead lights indicate the greater length and hazard of the tow."
+      "explanation_en": "A Class A tug towing 100m or more shows 3 masthead lights at night — the additional masthead lights indicate the greater length and hazard of the tow.",
+      "confusable": "A"
     },
     {
       "id": 73,
@@ -1736,7 +1752,8 @@
           "4 shapes of 2 black circles in star-fruit pattern"
         ]
       },
-      "explanation_en": "Three shapes during the day for a 100m+ tow matches the three masthead lights shown at night — signaling a long and potentially hazardous convoy."
+      "explanation_en": "Three shapes during the day for a 100m+ tow matches the three masthead lights shown at night — signaling a long and potentially hazardous convoy.",
+      "confusable": "A"
     },
     {
       "id": 74,
@@ -2038,7 +2055,8 @@
           "Buoy 4"
         ]
       },
-      "explanation_en": "The right-bank limit buoy is red (solid red square shape) — consistent with IALA Region B where red marks the right side going upstream."
+      "explanation_en": "The right-bank limit buoy is red (solid red square shape) — consistent with IALA Region B where red marks the right side going upstream.",
+      "confusable": "B"
     },
     {
       "id": 87,
@@ -2064,7 +2082,8 @@
           "Buoy 4"
         ]
       },
-      "explanation_en": "The left-bank limit buoy is green (triangular shape) — marking the left (port) side of the channel when traveling upstream."
+      "explanation_en": "The left-bank limit buoy is green (triangular shape) — marking the left (port) side of the channel when traveling upstream.",
+      "confusable": "B"
     },
     {
       "id": 88,
@@ -2090,7 +2109,8 @@
           "Buoy 4"
         ]
       },
-      "explanation_en": "Where river and sea channels run parallel, the right-bank river channel limit uses a special red-topped composite buoy to distinguish it from sea channel marks."
+      "explanation_en": "Where river and sea channels run parallel, the right-bank river channel limit uses a special red-topped composite buoy to distinguish it from sea channel marks.",
+      "confusable": "B"
     },
     {
       "id": 89,
@@ -2116,7 +2136,8 @@
           "Buoy 4"
         ]
       },
-      "explanation_en": "The left-bank river channel limit adjacent to a sea channel uses a green-topped composite buoy, distinguishing it from the sea channel's green marks."
+      "explanation_en": "The left-bank river channel limit adjacent to a sea channel uses a green-topped composite buoy, distinguishing it from the sea channel's green marks.",
+      "confusable": "B"
     },
     {
       "id": 90,
@@ -3167,7 +3188,8 @@
           "All three methods are acceptable."
         ]
       },
-      "explanation_en": "Going downstream, a 180° figure-8 turn (Williamson turn) allows the vessel to reverse direction and approach the victim from the correct angle while accounting for current drift."
+      "explanation_en": "Going downstream, a 180° figure-8 turn (Williamson turn) allows the vessel to reverse direction and approach the victim from the correct angle while accounting for current drift.",
+      "confusable": "D"
     },
     {
       "id": 131,
@@ -3190,7 +3212,8 @@
           "All three methods are acceptable."
         ]
       },
-      "explanation_en": "Going upstream, a 270° C-maneuver (Anderson turn) is used — the vessel swings wide, loops back, and approaches the victim from downstream into the current."
+      "explanation_en": "Going upstream, a 270° C-maneuver (Anderson turn) is used — the vessel swings wide, loops back, and approaches the victim from downstream into the current.",
+      "confusable": "D"
     },
     {
       "id": 132,
@@ -3213,7 +3236,8 @@
           "Sometimes right, sometimes left."
         ]
       },
-      "explanation_en": "A rudder at 0° (amidships/neutral) produces no turning force — the vessel maintains its current heading with no lateral deflection from the rudder."
+      "explanation_en": "A rudder at 0° (amidships/neutral) produces no turning force — the vessel maintains its current heading with no lateral deflection from the rudder.",
+      "confusable": "E"
     },
     {
       "id": 133,
@@ -3236,7 +3260,8 @@
           "Sometimes right, sometimes left."
         ]
       },
-      "explanation_en": "Turning the helm left on a forward-moving vessel deflects water flow to the right off the rudder, pushing the stern right and the bow left — the vessel turns left."
+      "explanation_en": "Turning the helm left on a forward-moving vessel deflects water flow to the right off the rudder, pushing the stern right and the bow left — the vessel turns left.",
+      "confusable": "E"
     },
     {
       "id": 134,
@@ -3259,7 +3284,8 @@
           "Sometimes right, sometimes left."
         ]
       },
-      "explanation_en": "When reversing, the helm effect is reversed — putting the helm left pushes the stern left, which swings the bow to the right (starboard)."
+      "explanation_en": "When reversing, the helm effect is reversed — putting the helm left pushes the stern left, which swings the bow to the right (starboard).",
+      "confusable": "E"
     },
     {
       "id": 135,
@@ -3282,7 +3308,8 @@
           "Sometimes right, sometimes left."
         ]
       },
-      "explanation_en": "A centered rudder (0°) produces no turning effect regardless of direction of travel — the vessel continues straight astern."
+      "explanation_en": "A centered rudder (0°) produces no turning effect regardless of direction of travel — the vessel continues straight astern.",
+      "confusable": "E"
     },
     {
       "id": 136,
@@ -3420,7 +3447,9 @@
           "All three characteristics above."
         ]
       },
-      "explanation_en": "The nature of the cargo (flammable, perishable, hazardous, hygroscopic) is the primary consideration — it determines all storage requirements including ventilation, temperature, and segregation."
+      "explanation_en": "The nature of the cargo (flammable, perishable, hazardous, hygroscopic) is the primary consideration — it determines all storage requirements including ventilation, temperature, and segregation.",
+      "trap": true,
+      "confusable": "F"
     },
     {
       "id": 142,

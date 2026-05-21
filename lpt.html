@@ -261,7 +261,9 @@
     .fc-main  { font-size: 1.05rem; line-height: 1.6; color: #111; }
     .fc-sub   { font-size: 0.8rem; color: #888; font-style: italic; margin-top: 8px; line-height: 1.5; white-space: pre-line; }
     .fc-etymology { font-size: 0.72rem; color: #aaa; margin-top: 10px; line-height: 1.55; border-top: 1px solid #e8e8e8; padding-top: 8px; }
+    .fc-trap { font-size: 0.7rem; color: #b8860b; background: #fffbeb; border: 1px solid #f0d060; padding: 5px 10px; margin-top: 10px; line-height: 1.5; }
     .fc-image { max-width: 100%; max-height: 180px; object-fit: contain; margin-top: 12px; border: 1px solid #f0f0f0; }
+    .trap-note { font-size: 0.72rem; color: #b8860b; background: #fffbeb; border-left: 2px solid #f0d060; padding: 5px 10px; margin-top: 8px; }
     .fc-tap-hint { font-size: 0.68rem; color: #ccc; margin-top: 12px; letter-spacing: 0.03em; }
     .fc-nav { display: flex; gap: 12px; align-items: center; }
     .fc-counter { font-size: 0.7rem; color: #bbb; }
@@ -410,6 +412,7 @@
       <button class="fc-cat-btn" data-cat="knots">nút dây / knots</button>
       <button class="fc-cat-btn" data-cat="signals">báo hiệu / signals</button>
       <button class="fc-cat-btn" data-cat="vocab">từ vựng / vocab</button>
+      <button class="fc-cat-btn" data-cat="confusable">dễ nhầm / confusable</button>
     </div>
 
     <!-- Top row (weak badge) -->
@@ -497,6 +500,7 @@
             <div class="fc-main" id="fc-back-text"></div>
             <div class="fc-sub"  id="fc-back-en"></div>
             <div class="fc-etymology" id="fc-etymology"></div>
+            <div class="fc-trap" id="fc-trap" style="display:none">⚠ common trap — "all of the above" is wrong here</div>
             <img class="fc-image" id="fc-back-img" src="" alt="" style="display:none" />
           </div>
         </div>
@@ -626,6 +630,7 @@
     const $fcBack      = document.getElementById('fc-back-text');
     const $fcBackEn    = document.getElementById('fc-back-en');
     const $fcEtymology = document.getElementById('fc-etymology');
+    const $fcTrap      = document.getElementById('fc-trap');
     const $fcBackImg   = document.getElementById('fc-back-img');
     const $fcBackLabel = document.getElementById('fc-back-label');
     const $fcPrev      = document.getElementById('fc-prev');
@@ -780,6 +785,19 @@
         });
         $sectionSelector.appendChild(btn);
       });
+      // Confusable pairs drill button
+      const nc = allQ.filter(q=>q.confusable).length;
+      const cb = document.createElement('button');
+      cb.className = 'sec-btn' + (curSection === 'confusable' ? ' active' : '');
+      cb.textContent = 'dễ nhầm / confusable (' + nc + ')';
+      cb.style.borderColor = '#f0d060';
+      cb.addEventListener('click', () => {
+        curSection = 'confusable';
+        $sectionSelector.querySelectorAll('.sec-btn').forEach(b=>b.classList.remove('active'));
+        cb.classList.add('active');
+        startQuiz();
+      });
+      $sectionSelector.appendChild(cb);
     }
 
     // ══════════════════════════════════════════════════
@@ -800,7 +818,9 @@
       } else if (curMode === 'all') {
         queue = shuffle(allQ);
       } else if (curMode === 'section') {
-        queue = shuffle(allQ.filter(q=>q.section===curSection));
+        queue = curSection === 'confusable'
+          ? shuffle(allQ.filter(q=>q.confusable))
+          : shuffle(allQ.filter(q=>q.section===curSection));
       }
 
       $endScreen.style.display = 'none';
@@ -922,8 +942,9 @@
 
       if (q.image && q.image.answer_img) $aImgWrap.classList.add('visible');
 
-      if (q.explanation_en) {
-        $feedback.textContent = q.explanation_en;
+      if (q.explanation_en || q.trap) {
+        $feedback.innerHTML = (q.explanation_en ? escHtml(q.explanation_en) : '') +
+          (q.trap ? '<div class="trap-note">⚠ common trap — "all of the above" is wrong here</div>' : '');
         $feedback.classList.add('visible');
       }
 
@@ -1043,9 +1064,9 @@
     // TYPING MODE
     // ══════════════════════════════════════════════════
     function startTyping() {
-      // Use knot questions (Q27-40) + signal questions (Q86-125)
-      const typingPool = shuffle(allQ.filter(q => q.image));
-      queue = typingPool;
+      const imageQs = allQ.filter(q => q.image);
+      const vocabCards = vocab.map(v => ({_isVocab:true, vi:v.vi, en:v.en, cat:v.category}));
+      queue = shuffle([...imageQs, ...vocabCards]);
       ci = 0;
       score = {correct:0, wrong:0, skipped:0};
       missed = [];
@@ -1061,23 +1082,30 @@
 
       $progress.style.width = (ci / queue.length * 100) + '%';
       $progressLabel.textContent = (ci+1) + ' / ' + queue.length;
-      $tMeta.textContent = secLabel(q.section).toUpperCase();
-      $tText.innerHTML = tagUnique(q.id, q.question_vi);
-
-      if (q.image && q.image.question_img) {
-        $tImg.src = IMG + encodeURIComponent(q.image.question_img);
-        $tImgWrap.style.display = 'block';
-      } else {
+      if (q._isVocab) {
+        $tMeta.textContent = q.cat.replace(/-/g, ' ').toUpperCase();
+        $tText.textContent = q.vi;
         $tImgWrap.style.display = 'none';
+        $tAImgWrap.classList.remove('visible');
+        $tAImg.src = '';
+        $typingHint.textContent = 'Type the English meaning';
+      } else {
+        $tMeta.textContent = secLabel(q.section).toUpperCase();
+        $tText.innerHTML = tagUnique(q.id, q.question_vi);
+        if (q.image && q.image.question_img) {
+          $tImg.src = IMG + encodeURIComponent(q.image.question_img);
+          $tImgWrap.style.display = 'block';
+        } else {
+          $tImgWrap.style.display = 'none';
+        }
+        $tAImgWrap.classList.remove('visible');
+        $tAImg.src = q.image && q.image.answer_img ? IMG + encodeURIComponent(q.image.answer_img) : '';
+        $typingHint.textContent = 'Gõ tên nút / biển báo (tiếng Việt hoặc tiếng Anh)';
       }
-
-      $tAImgWrap.classList.remove('visible');
-      $tAImg.src = q.image && q.image.answer_img ? IMG + encodeURIComponent(q.image.answer_img) : '';
       $tFeedback.textContent = '';
       $tFeedback.classList.remove('visible');
       $typingInput.value = '';
       $typingInput.className = 'typing-input';
-      $typingHint.textContent = 'Gõ tên nút / biển báo (tiếng Việt hoặc tiếng Anh)';
       $tNextBtn.disabled = true;
       $tCheckBtn.disabled = false;
       $typingInput.focus();
@@ -1093,42 +1121,45 @@
       answered = true;
       $tCheckBtn.disabled = true;
 
-      const correct = q.answers_vi[q.correct_index];
-      const correctNorm = normalizeVi(correct);
-      const correctEnNorm = q.translation && q.translation.answers_en
-        ? normalizeVi(q.translation.answers_en[q.correct_index])
-        : '';
-
-      // Match: user input matches Vietnamese OR English, full or partial (min 3 chars)
-      const isMatch = partialMatch(userNorm, correctNorm) || (correctEnNorm && partialMatch(userNorm, correctEnNorm));
+      let correct, correctNorm, isMatch;
+      if (q._isVocab) {
+        correct = q.en;
+        correctNorm = normalizeVi(correct);
+        isMatch = partialMatch(userNorm, correctNorm);
+      } else {
+        correct = q.answers_vi[q.correct_index];
+        correctNorm = normalizeVi(correct);
+        const correctEnNorm = q.translation && q.translation.answers_en
+          ? normalizeVi(q.translation.answers_en[q.correct_index])
+          : '';
+        isMatch = partialMatch(userNorm, correctNorm) || (correctEnNorm && partialMatch(userNorm, correctEnNorm));
+      }
 
       if (isMatch) {
         $typingInput.classList.add('correct-input');
         $tFeedback.textContent = '✓ Đúng! — ' + correct;
-        if (q.translation && q.translation.answers_en) {
+        if (!q._isVocab && q.translation && q.translation.answers_en) {
           $tFeedback.textContent += ' / ' + q.translation.answers_en[q.correct_index];
         }
         $tFeedback.classList.add('visible');
         score.correct++;
         playDing();
-        if (weakIds.has(q.id)) { weakIds.delete(q.id); saveWeak(); updateWeakBadge(); }
+        if (!q._isVocab && weakIds.has(q.id)) { weakIds.delete(q.id); saveWeak(); updateWeakBadge(); }
       } else {
         $typingInput.classList.add('wrong-input');
         $tFeedback.textContent = '✗ Đáp án đúng: ' + correct;
-        if (q.translation && q.translation.answers_en) {
+        if (!q._isVocab && q.translation && q.translation.answers_en) {
           $tFeedback.textContent += ' / ' + q.translation.answers_en[q.correct_index];
         }
         $tFeedback.classList.add('visible');
         score.wrong++;
-        missed.push(q);
+        if (!q._isVocab) missed.push(q);
         playBuzz();
-        weakIds.add(q.id);
-        saveWeak();
-        updateWeakBadge();
-        if (q.image && q.image.answer_img) $tAImgWrap.classList.add('visible');
+        if (!q._isVocab) { weakIds.add(q.id); saveWeak(); updateWeakBadge(); }
+        if (!q._isVocab && q.image && q.image.answer_img) $tAImgWrap.classList.add('visible');
       }
 
-      if (q.explanation_en) {
+      if (!q._isVocab && q.explanation_en) {
         $tFeedback.textContent += '\n' + q.explanation_en;
       }
 
@@ -1230,8 +1261,9 @@
       } else if (fcCat === 'signals') {
         fcDeck = allQ.filter(q => q.id >= 86 && q.id <= 125);
       } else if (fcCat === 'vocab') {
-        // Vocab cards: vi → en
-        fcDeck = vocab.map(v => ({_isVocab:true, vi:v.vi, en:v.en, cat:v.category}));
+        fcDeck = vocab.map(v => ({_isVocab:true, vi:v.vi, en:v.en, cat:v.category, breakdown:v.breakdown}));
+      } else if (fcCat === 'confusable') {
+        fcDeck = allQ.filter(q => q.confusable);
       } else {
         fcDeck = allQ.slice();
       }
@@ -1258,9 +1290,14 @@
         $fcFrontImg.style.display = 'none';
         $fcBack.textContent = card.en;
         $fcBackEn.textContent = card.cat.replace(/-/g, ' ');
-        $fcEtymology.textContent = card.breakdown && card.breakdown.length > 0
-          ? card.breakdown.map(w => w.vi + ' = ' + w.en).join(' · ')
-          : '';
+        if (card.breakdown && card.breakdown.length > 0) {
+          $fcEtymology.textContent = card.breakdown.map(w => w.vi + ' = ' + w.en).join(' · ');
+          $fcEtymology.style.display = '';
+        } else {
+          $fcEtymology.textContent = '';
+          $fcEtymology.style.display = 'none';
+        }
+        $fcTrap.style.display = 'none';
         $fcBackImg.style.display = 'none';
       } else {
         $fcFrontLabel.textContent = 'câu hỏi / question';
@@ -1276,7 +1313,14 @@
         }
         $fcBack.textContent = q.answers_vi[q.correct_index];
         $fcBackEn.textContent = t.answers_en ? t.answers_en[q.correct_index] + (t.question_en ? '\n' + t.question_en : '') : '';
-        $fcEtymology.textContent = q.etymology || '';
+        if (q.etymology) {
+          $fcEtymology.textContent = q.etymology;
+          $fcEtymology.style.display = '';
+        } else {
+          $fcEtymology.textContent = '';
+          $fcEtymology.style.display = 'none';
+        }
+        $fcTrap.style.display = q.trap ? '' : 'none';
         if (q.image && q.image.answer_img) {
           $fcBackImg.src = IMG + encodeURIComponent(q.image.answer_img);
           $fcBackImg.style.display = 'block';

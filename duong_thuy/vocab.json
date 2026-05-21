@@ -5,9 +5,18 @@
       "en": "inland waterway vessel",
       "category": "general",
       "breakdown": [
-        {"vi": "phương tiện", "en": "vehicle/means"},
-        {"vi": "thuỷ", "en": "water"},
-        {"vi": "nội địa", "en": "inland/domestic"}
+        {
+          "vi": "phương tiện",
+          "en": "vehicle/means"
+        },
+        {
+          "vi": "thuỷ",
+          "en": "water"
+        },
+        {
+          "vi": "nội địa",
+          "en": "inland/domestic"
+        }
       ]
     },
     {
@@ -15,8 +24,14 @@
       "en": "non-motorized vessel",
       "category": "general",
       "breakdown": [
-        {"vi": "phương tiện", "en": "vehicle"},
-        {"vi": "thô sơ", "en": "primitive/basic"}
+        {
+          "vi": "phương tiện",
+          "en": "vehicle"
+        },
+        {
+          "vi": "thô sơ",
+          "en": "primitive/basic"
+        }
       ]
     },
     {
@@ -24,9 +39,18 @@
       "en": "motorized vessel",
       "category": "general",
       "breakdown": [
-        {"vi": "phương tiện", "en": "vehicle"},
-        {"vi": "có", "en": "have"},
-        {"vi": "động cơ", "en": "engine/motor"}
+        {
+          "vi": "phương tiện",
+          "en": "vehicle"
+        },
+        {
+          "vi": "có",
+          "en": "have"
+        },
+        {
+          "vi": "động cơ",
+          "en": "engine/motor"
+        }
       ]
     },
     {
@@ -34,8 +58,14 @@
       "en": "captain / master",
       "category": "general",
       "breakdown": [
-        {"vi": "thuyền", "en": "boat"},
-        {"vi": "trưởng", "en": "chief/leader"}
+        {
+          "vi": "thuyền",
+          "en": "boat"
+        },
+        {
+          "vi": "trưởng",
+          "en": "chief/leader"
+        }
       ]
     },
     {
@@ -43,9 +73,18 @@
       "en": "vessel operator",
       "category": "general",
       "breakdown": [
-        {"vi": "người", "en": "person"},
-        {"vi": "lái", "en": "drive/steer"},
-        {"vi": "phương tiện", "en": "vehicle"}
+        {
+          "vi": "người",
+          "en": "person"
+        },
+        {
+          "vi": "lái",
+          "en": "drive/steer"
+        },
+        {
+          "vi": "phương tiện",
+          "en": "vehicle"
+        }
       ]
     },
     {
@@ -53,8 +92,14 @@
       "en": "crew member",
       "category": "general",
       "breakdown": [
-        {"vi": "thuyền", "en": "boat"},
-        {"vi": "viên", "en": "member"}
+        {
+          "vi": "thuyền",
+          "en": "boat"
+        },
+        {
+          "vi": "viên",
+          "en": "member"
+        }
       ]
     },
     {
@@ -62,8 +107,14 @@
       "en": "voyage / underway",
       "category": "general",
       "breakdown": [
-        {"vi": "hành", "en": "travel/go"},
-        {"vi": "trình", "en": "journey/process"}
+        {
+          "vi": "hành",
+          "en": "travel/go"
+        },
+        {
+          "vi": "trình",
+          "en": "journey/process"
+        }
       ]
     },
     {
@@ -71,8 +122,14 @@
       "en": "crew complement",
       "category": "general",
       "breakdown": [
-        {"vi": "định", "en": "determine/fix"},
-        {"vi": "biên", "en": "limit/personnel"}
+        {
+          "vi": "định",
+          "en": "determine/fix"
+        },
+        {
+          "vi": "biên",
+          "en": "limit/personnel"
+        }
       ]
     },
     {
@@ -80,8 +137,14 @@
       "en": "crew list",
       "category": "general",
       "breakdown": [
-        {"vi": "danh bạ", "en": "list/directory"},
-        {"vi": "thuyền viên", "en": "crew member"}
+        {
+          "vi": "danh bạ",
+          "en": "list/directory"
+        },
+        {
+          "vi": "thuyền viên",
+          "en": "crew member"
+        }
       ]
     },
     {
@@ -89,9 +152,18 @@
       "en": "inland waterway",
       "category": "general",
       "breakdown": [
-        {"vi": "đường", "en": "road/way"},
-        {"vi": "thủy", "en": "water"},
-        {"vi": "nội địa", "en": "inland"}
+        {
+          "vi": "đường",
+          "en": "road/way"
+        },
+        {
+          "vi": "thủy",
+          "en": "water"
+        },
+        {
+          "vi": "nội địa",
+          "en": "inland"
+        }
       ]
     },
     {
@@ -99,9 +171,18 @@
       "en": "navigation channel",
       "category": "channel",
       "breakdown": [
-        {"vi": "luồng", "en": "channel"},
-        {"vi": "tàu", "en": "ship"},
-        {"vi": "chạy", "en": "run/travel"}
+        {
+          "vi": "luồng",
+          "en": "channel"
+        },
+        {
+          "vi": "tàu",
+          "en": "ship"
+        },
+        {
+          "vi": "chạy",
+          "en": "run/travel"
+        }
       ]
     },
     {
@@ -114,8 +195,14 @@
       "en": "channel centerline",
       "category": "channel",
       "breakdown": [
-        {"vi": "tim", "en": "heart/center"},
-        {"vi": "luồng", "en": "channel"}
+        {
+          "vi": "tim",
+          "en": "heart/center"
+        },
+        {
+          "vi": "luồng",
+          "en": "channel"
+        }
       ]
     },
     {
@@ -123,8 +210,14 @@
       "en": "upstream",
       "category": "channel",
       "breakdown": [
-        {"vi": "thượng", "en": "upper/above"},
-        {"vi": "lưu", "en": "flow/stream"}
+        {
+          "vi": "thượng",
+          "en": "upper/above"
+        },
+        {
+          "vi": "lưu",
+          "en": "flow/stream"
+        }
       ]
     },
     {
@@ -132,8 +225,14 @@
       "en": "downstream",
       "category": "channel",
       "breakdown": [
-        {"vi": "hạ", "en": "lower/down"},
-        {"vi": "lưu", "en": "flow/stream"}
+        {
+          "vi": "hạ",
+          "en": "lower/down"
+        },
+        {
+          "vi": "lưu",
+          "en": "flow/stream"
+        }
       ]
     },
     {
@@ -141,8 +240,14 @@
       "en": "current speed / flow velocity",
       "category": "channel",
       "breakdown": [
-        {"vi": "lưu", "en": "flow"},
-        {"vi": "tốc", "en": "speed"}
+        {
+          "vi": "lưu",
+          "en": "flow"
+        },
+        {
+          "vi": "tốc",
+          "en": "speed"
+        }
       ]
     },
     {
@@ -150,8 +255,14 @@
       "en": "shoal / shallow",
       "category": "channel",
       "breakdown": [
-        {"vi": "bãi", "en": "flat area/bank"},
-        {"vi": "cạn", "en": "shallow"}
+        {
+          "vi": "bãi",
+          "en": "flat area/bank"
+        },
+        {
+          "vi": "cạn",
+          "en": "shallow"
+        }
       ]
     },
     {
@@ -159,8 +270,14 @@
       "en": "rapids / rocky rapid",
       "category": "channel",
       "breakdown": [
-        {"vi": "ghềnh", "en": "rapids"},
-        {"vi": "đá", "en": "rock/stone"}
+        {
+          "vi": "ghềnh",
+          "en": "rapids"
+        },
+        {
+          "vi": "đá",
+          "en": "rock/stone"
+        }
       ]
     },
     {
@@ -168,8 +285,14 @@
       "en": "convex bank / point bar",
       "category": "channel",
       "breakdown": [
-        {"vi": "bờ", "en": "bank/shore"},
-        {"vi": "doi", "en": "protruding/convex"}
+        {
+          "vi": "bờ",
+          "en": "bank/shore"
+        },
+        {
+          "vi": "doi",
+          "en": "protruding/convex"
+        }
       ]
     },
     {
@@ -177,8 +300,14 @@
       "en": "concave bank / cut bank",
       "category": "channel",
       "breakdown": [
-        {"vi": "bờ", "en": "bank/shore"},
-        {"vi": "vịnh", "en": "bay/concave"}
+        {
+          "vi": "bờ",
+          "en": "bank/shore"
+        },
+        {
+          "vi": "vịnh",
+          "en": "bay/concave"
+        }
       ]
     },
     {
@@ -191,9 +320,18 @@
       "en": "divergent current",
       "category": "channel",
       "breakdown": [
-        {"vi": "dòng chảy", "en": "current/flow"},
-        {"vi": "phân", "en": "divide/split"},
-        {"vi": "luồng", "en": "channel"}
+        {
+          "vi": "dòng chảy",
+          "en": "current/flow"
+        },
+        {
+          "vi": "phân",
+          "en": "divide/split"
+        },
+        {
+          "vi": "luồng",
+          "en": "channel"
+        }
       ]
     },
     {
@@ -201,8 +339,14 @@
       "en": "eddy current",
       "category": "channel",
       "breakdown": [
-        {"vi": "dòng chảy", "en": "current"},
-        {"vi": "vận", "en": "circular/revolve"}
+        {
+          "vi": "dòng chảy",
+          "en": "current"
+        },
+        {
+          "vi": "vận",
+          "en": "circular/revolve"
+        }
       ]
     },
     {
@@ -210,9 +354,18 @@
       "en": "convergent current",
       "category": "channel",
       "breakdown": [
-        {"vi": "dòng chảy", "en": "current"},
-        {"vi": "phủ", "en": "cover/converge"},
-        {"vi": "luồng", "en": "channel"}
+        {
+          "vi": "dòng chảy",
+          "en": "current"
+        },
+        {
+          "vi": "phủ",
+          "en": "cover/converge"
+        },
+        {
+          "vi": "luồng",
+          "en": "channel"
+        }
       ]
     },
     {
@@ -220,8 +373,14 @@
       "en": "whirlpool / swirling current",
       "category": "channel",
       "breakdown": [
-        {"vi": "dòng chảy", "en": "current"},
-        {"vi": "xoáy", "en": "swirl/whirl"}
+        {
+          "vi": "dòng chảy",
+          "en": "current"
+        },
+        {
+          "vi": "xoáy",
+          "en": "swirl/whirl"
+        }
       ]
     },
     {
@@ -229,8 +388,14 @@
       "en": "against the current / upstream current",
       "category": "channel",
       "breakdown": [
-        {"vi": "nước", "en": "water"},
-        {"vi": "ngược", "en": "reverse/against"}
+        {
+          "vi": "nước",
+          "en": "water"
+        },
+        {
+          "vi": "ngược",
+          "en": "reverse/against"
+        }
       ]
     },
     {
@@ -238,8 +403,14 @@
       "en": "with the current / downstream",
       "category": "channel",
       "breakdown": [
-        {"vi": "nước", "en": "water"},
-        {"vi": "xuôi", "en": "with/downstream"}
+        {
+          "vi": "nước",
+          "en": "water"
+        },
+        {
+          "vi": "xuôi",
+          "en": "with/downstream"
+        }
       ]
     },
     {
@@ -247,9 +418,18 @@
       "en": "slick water / smooth channel line",
       "category": "channel",
       "breakdown": [
-        {"vi": "dải", "en": "strip/band"},
-        {"vi": "bọt", "en": "foam/bubble"},
-        {"vi": "nước", "en": "water"}
+        {
+          "vi": "dải",
+          "en": "strip/band"
+        },
+        {
+          "vi": "bọt",
+          "en": "foam/bubble"
+        },
+        {
+          "vi": "nước",
+          "en": "water"
+        }
       ]
     },
     {
@@ -257,9 +437,18 @@
       "en": "slack water / favorable channel",
       "category": "channel",
       "breakdown": [
-        {"vi": "đường", "en": "path/way"},
-        {"vi": "ngắn", "en": "short"},
-        {"vi": "nước", "en": "water"}
+        {
+          "vi": "đường",
+          "en": "path/way"
+        },
+        {
+          "vi": "ngắn",
+          "en": "short"
+        },
+        {
+          "vi": "nước",
+          "en": "water"
+        }
       ]
     },
     {
@@ -267,8 +456,14 @@
       "en": "navy / admiralty anchor",
       "category": "seamanship",
       "breakdown": [
-        {"vi": "neo", "en": "anchor"},
-        {"vi": "Hải quân", "en": "navy"}
+        {
+          "vi": "neo",
+          "en": "anchor"
+        },
+        {
+          "vi": "Hải quân",
+          "en": "navy"
+        }
       ]
     },
     {
@@ -276,8 +471,14 @@
       "en": "anchor fluke",
       "category": "seamanship",
       "breakdown": [
-        {"vi": "cánh", "en": "wing/arm"},
-        {"vi": "neo", "en": "anchor"}
+        {
+          "vi": "cánh",
+          "en": "wing/arm"
+        },
+        {
+          "vi": "neo",
+          "en": "anchor"
+        }
       ]
     },
     {
@@ -290,8 +491,14 @@
       "en": "to anchor / drop anchor",
       "category": "seamanship",
       "breakdown": [
-        {"vi": "thả", "en": "drop/release"},
-        {"vi": "neo", "en": "anchor"}
+        {
+          "vi": "thả",
+          "en": "drop/release"
+        },
+        {
+          "vi": "neo",
+          "en": "anchor"
+        }
       ]
     },
     {
@@ -299,8 +506,14 @@
       "en": "bollard / cleat",
       "category": "seamanship",
       "breakdown": [
-        {"vi": "cọc", "en": "post/stake"},
-        {"vi": "bích", "en": "wall/side"}
+        {
+          "vi": "cọc",
+          "en": "post/stake"
+        },
+        {
+          "vi": "bích",
+          "en": "wall/side"
+        }
       ]
     },
     {
@@ -308,8 +521,14 @@
       "en": "natural fiber rope",
       "category": "seamanship",
       "breakdown": [
-        {"vi": "dây", "en": "rope/line"},
-        {"vi": "thực vật", "en": "plant/vegetable"}
+        {
+          "vi": "dây",
+          "en": "rope/line"
+        },
+        {
+          "vi": "thực vật",
+          "en": "plant/vegetable"
+        }
       ]
     },
     {
@@ -317,8 +536,14 @@
       "en": "wire rope / cable",
       "category": "seamanship",
       "breakdown": [
-        {"vi": "dây", "en": "rope"},
-        {"vi": "cáp", "en": "cable/wire"}
+        {
+          "vi": "dây",
+          "en": "rope"
+        },
+        {
+          "vi": "cáp",
+          "en": "cable/wire"
+        }
       ]
     },
     {
@@ -326,8 +551,14 @@
       "en": "reef knot",
       "category": "knots",
       "breakdown": [
-        {"vi": "nút", "en": "knot"},
-        {"vi": "sống", "en": "living/alive"}
+        {
+          "vi": "nút",
+          "en": "knot"
+        },
+        {
+          "vi": "sống",
+          "en": "living/alive"
+        }
       ]
     },
     {
@@ -335,9 +566,18 @@
       "en": "bowline",
       "category": "knots",
       "breakdown": [
-        {"vi": "nút", "en": "knot"},
-        {"vi": "lèo", "en": "bowline/halyard"},
-        {"vi": "đơn", "en": "single"}
+        {
+          "vi": "nút",
+          "en": "knot"
+        },
+        {
+          "vi": "lèo",
+          "en": "bowline/halyard"
+        },
+        {
+          "vi": "đơn",
+          "en": "single"
+        }
       ]
     },
     {
@@ -345,10 +585,22 @@
       "en": "cleat hitch / reversed cleat hitch",
       "category": "knots",
       "breakdown": [
-        {"vi": "nút", "en": "knot"},
-        {"vi": "hai", "en": "two"},
-        {"vi": "khóa", "en": "lock"},
-        {"vi": "ngược", "en": "reversed"}
+        {
+          "vi": "nút",
+          "en": "knot"
+        },
+        {
+          "vi": "hai",
+          "en": "two"
+        },
+        {
+          "vi": "khóa",
+          "en": "lock"
+        },
+        {
+          "vi": "ngược",
+          "en": "reversed"
+        }
       ]
     },
     {
@@ -356,8 +608,14 @@
       "en": "figure-eight knot",
       "category": "knots",
       "breakdown": [
-        {"vi": "nút", "en": "knot"},
-        {"vi": "số 8", "en": "number 8"}
+        {
+          "vi": "nút",
+          "en": "knot"
+        },
+        {
+          "vi": "số 8",
+          "en": "number 8"
+        }
       ]
     },
     {
@@ -365,8 +623,14 @@
       "en": "flat knot / square knot",
       "category": "knots",
       "breakdown": [
-        {"vi": "nút", "en": "knot"},
-        {"vi": "dẹt", "en": "flat"}
+        {
+          "vi": "nút",
+          "en": "knot"
+        },
+        {
+          "vi": "dẹt",
+          "en": "flat"
+        }
       ]
     },
     {
@@ -374,8 +638,14 @@
       "en": "fisherman's knot",
       "category": "knots",
       "breakdown": [
-        {"vi": "nút", "en": "knot"},
-        {"vi": "câu", "en": "fish/fishing"}
+        {
+          "vi": "nút",
+          "en": "knot"
+        },
+        {
+          "vi": "câu",
+          "en": "fish/fishing"
+        }
       ]
     },
     {
@@ -383,9 +653,18 @@
       "en": "single hitch",
       "category": "knots",
       "breakdown": [
-        {"vi": "nút", "en": "knot"},
-        {"vi": "móc", "en": "hook"},
-        {"vi": "đơn", "en": "single"}
+        {
+          "vi": "nút",
+          "en": "knot"
+        },
+        {
+          "vi": "móc",
+          "en": "hook"
+        },
+        {
+          "vi": "đơn",
+          "en": "single"
+        }
       ]
     },
     {
@@ -393,8 +672,14 @@
       "en": "dagget / mooring hitch",
       "category": "knots",
       "breakdown": [
-        {"vi": "nút", "en": "knot"},
-        {"vi": "đa ghi", "en": "dagget (loanword)"}
+        {
+          "vi": "nút",
+          "en": "knot"
+        },
+        {
+          "vi": "đa ghi",
+          "en": "dagget (loanword)"
+        }
       ]
     },
     {
@@ -402,9 +687,18 @@
       "en": "bowline (chair knot)",
       "category": "knots",
       "breakdown": [
-        {"vi": "nút", "en": "knot"},
-        {"vi": "ghế", "en": "chair/seat"},
-        {"vi": "đơn", "en": "single"}
+        {
+          "vi": "nút",
+          "en": "knot"
+        },
+        {
+          "vi": "ghế",
+          "en": "chair/seat"
+        },
+        {
+          "vi": "đơn",
+          "en": "single"
+        }
       ]
     },
     {
@@ -412,9 +706,18 @@
       "en": "double bowline",
       "category": "knots",
       "breakdown": [
-        {"vi": "nút", "en": "knot"},
-        {"vi": "ghế", "en": "chair"},
-        {"vi": "kép", "en": "double"}
+        {
+          "vi": "nút",
+          "en": "knot"
+        },
+        {
+          "vi": "ghế",
+          "en": "chair"
+        },
+        {
+          "vi": "kép",
+          "en": "double"
+        }
       ]
     },
     {
@@ -422,10 +725,22 @@
       "en": "barrel hitch (vertical)",
       "category": "knots",
       "breakdown": [
-        {"vi": "nút", "en": "knot"},
-        {"vi": "cầu", "en": "lift/hoist"},
-        {"vi": "thùng", "en": "barrel"},
-        {"vi": "đứng", "en": "standing/vertical"}
+        {
+          "vi": "nút",
+          "en": "knot"
+        },
+        {
+          "vi": "cầu",
+          "en": "lift/hoist"
+        },
+        {
+          "vi": "thùng",
+          "en": "barrel"
+        },
+        {
+          "vi": "đứng",
+          "en": "standing/vertical"
+        }
       ]
     },
     {
@@ -433,9 +748,18 @@
       "en": "anchor bend / fisherman's bend",
       "category": "knots",
       "breakdown": [
-        {"vi": "nút", "en": "knot"},
-        {"vi": "neo", "en": "anchor"},
-        {"vi": "thuận", "en": "smooth/proper"}
+        {
+          "vi": "nút",
+          "en": "knot"
+        },
+        {
+          "vi": "neo",
+          "en": "anchor"
+        },
+        {
+          "vi": "thuận",
+          "en": "smooth/proper"
+        }
       ]
     },
     {
@@ -443,9 +767,18 @@
       "en": "marlinspike hitch",
       "category": "knots",
       "breakdown": [
-        {"vi": "nút", "en": "knot"},
-        {"vi": "xổ", "en": "release"},
-        {"vi": "dùi", "en": "spike/awl"}
+        {
+          "vi": "nút",
+          "en": "knot"
+        },
+        {
+          "vi": "xổ",
+          "en": "release"
+        },
+        {
+          "vi": "dùi",
+          "en": "spike/awl"
+        }
       ]
     },
     {
@@ -453,9 +786,18 @@
       "en": "belaying / securing a line",
       "category": "knots",
       "breakdown": [
-        {"vi": "nút", "en": "knot"},
-        {"vi": "cô", "en": "secure/tie off"},
-        {"vi": "dây", "en": "rope"}
+        {
+          "vi": "nút",
+          "en": "knot"
+        },
+        {
+          "vi": "cô",
+          "en": "secure/tie off"
+        },
+        {
+          "vi": "dây",
+          "en": "rope"
+        }
       ]
     },
     {
@@ -463,9 +805,18 @@
       "en": "round turn and two half hitches",
       "category": "knots",
       "breakdown": [
-        {"vi": "nút", "en": "knot"},
-        {"vi": "1 vòng chết", "en": "1 dead turn"},
-        {"vi": "2 khóa", "en": "2 locks/hitches"}
+        {
+          "vi": "nút",
+          "en": "knot"
+        },
+        {
+          "vi": "1 vòng chết",
+          "en": "1 dead turn"
+        },
+        {
+          "vi": "2 khóa",
+          "en": "2 locks/hitches"
+        }
       ]
     },
     {
@@ -473,8 +824,14 @@
       "en": "navigation mark / signal",
       "category": "signals",
       "breakdown": [
-        {"vi": "báo", "en": "report/signal"},
-        {"vi": "hiệu", "en": "sign/mark"}
+        {
+          "vi": "báo",
+          "en": "report/signal"
+        },
+        {
+          "vi": "hiệu",
+          "en": "sign/mark"
+        }
       ]
     },
     {
@@ -487,8 +844,14 @@
       "en": "navigation sign / board",
       "category": "signals",
       "breakdown": [
-        {"vi": "biển", "en": "sign/board"},
-        {"vi": "báo", "en": "signal/notify"}
+        {
+          "vi": "biển",
+          "en": "sign/board"
+        },
+        {
+          "vi": "báo",
+          "en": "signal/notify"
+        }
       ]
     },
     {
@@ -496,8 +859,14 @@
       "en": "leading mark / range",
       "category": "signals",
       "breakdown": [
-        {"vi": "chập", "en": "align/overlap"},
-        {"vi": "tiêu", "en": "marker/beacon"}
+        {
+          "vi": "chập",
+          "en": "align/overlap"
+        },
+        {
+          "vi": "tiêu",
+          "en": "marker/beacon"
+        }
       ]
     },
     {
@@ -505,8 +874,14 @@
       "en": "obstacle / obstruction",
       "category": "signals",
       "breakdown": [
-        {"vi": "vật", "en": "object/thing"},
-        {"vi": "chướng ngại", "en": "obstacle/barrier"}
+        {
+          "vi": "vật",
+          "en": "object/thing"
+        },
+        {
+          "vi": "chướng ngại",
+          "en": "obstacle/barrier"
+        }
       ]
     },
     {
@@ -514,9 +889,18 @@
       "en": "navigation span (bridge)",
       "category": "signals",
       "breakdown": [
-        {"vi": "khoang", "en": "span/space"},
-        {"vi": "thông", "en": "through/pass"},
-        {"vi": "thuyền", "en": "boat"}
+        {
+          "vi": "khoang",
+          "en": "span/space"
+        },
+        {
+          "vi": "thông",
+          "en": "through/pass"
+        },
+        {
+          "vi": "thuyền",
+          "en": "boat"
+        }
       ]
     },
     {
@@ -524,8 +908,14 @@
       "en": "air draft / vertical clearance",
       "category": "signals",
       "breakdown": [
-        {"vi": "tĩnh", "en": "static/still"},
-        {"vi": "không", "en": "air/empty"}
+        {
+          "vi": "tĩnh",
+          "en": "static/still"
+        },
+        {
+          "vi": "không",
+          "en": "air/empty"
+        }
       ]
     },
     {
@@ -538,8 +928,14 @@
       "en": "navigation lock",
       "category": "signals",
       "breakdown": [
-        {"vi": "âu", "en": "lock/basin"},
-        {"vi": "thuyền", "en": "boat"}
+        {
+          "vi": "âu",
+          "en": "lock/basin"
+        },
+        {
+          "vi": "thuyền",
+          "en": "boat"
+        }
       ]
     },
     {
@@ -547,8 +943,14 @@
       "en": "ferry terminal",
       "category": "signals",
       "breakdown": [
-        {"vi": "bến", "en": "pier/terminal"},
-        {"vi": "phà", "en": "ferry"}
+        {
+          "vi": "bến",
+          "en": "pier/terminal"
+        },
+        {
+          "vi": "phà",
+          "en": "ferry"
+        }
       ]
     },
     {
@@ -556,8 +958,14 @@
       "en": "anchoring / mooring",
       "category": "signals",
       "breakdown": [
-        {"vi": "neo", "en": "anchor"},
-        {"vi": "đậu", "en": "park/moor"}
+        {
+          "vi": "neo",
+          "en": "anchor"
+        },
+        {
+          "vi": "đậu",
+          "en": "park/moor"
+        }
       ]
     },
     {
@@ -565,9 +973,18 @@
       "en": "inland waterway port / berth",
       "category": "general",
       "breakdown": [
-        {"vi": "cảng", "en": "port"},
-        {"vi": "bến", "en": "berth/pier"},
-        {"vi": "thủy nội địa", "en": "inland waterway"}
+        {
+          "vi": "cảng",
+          "en": "port"
+        },
+        {
+          "vi": "bến",
+          "en": "berth/pier"
+        },
+        {
+          "vi": "thủy nội địa",
+          "en": "inland waterway"
+        }
       ]
     },
     {
@@ -575,8 +992,14 @@
       "en": "ship lock / dock",
       "category": "general",
       "breakdown": [
-        {"vi": "âu", "en": "lock/basin"},
-        {"vi": "tàu", "en": "ship"}
+        {
+          "vi": "âu",
+          "en": "lock/basin"
+        },
+        {
+          "vi": "tàu",
+          "en": "ship"
+        }
       ]
     },
     {
@@ -584,8 +1007,14 @@
       "en": "rudder",
       "category": "maneuvering",
       "breakdown": [
-        {"vi": "bánh", "en": "wheel"},
-        {"vi": "lái", "en": "steer"}
+        {
+          "vi": "bánh",
+          "en": "wheel"
+        },
+        {
+          "vi": "lái",
+          "en": "steer"
+        }
       ]
     },
     {
@@ -593,8 +1022,14 @@
       "en": "inertia (vessel momentum)",
       "category": "maneuvering",
       "breakdown": [
-        {"vi": "quán", "en": "habitual/continuing"},
-        {"vi": "tính", "en": "nature/property"}
+        {
+          "vi": "quán",
+          "en": "habitual/continuing"
+        },
+        {
+          "vi": "tính",
+          "en": "nature/property"
+        }
       ]
     },
     {
@@ -602,8 +1037,14 @@
       "en": "to steer / put the helm over",
       "category": "maneuvering",
       "breakdown": [
-        {"vi": "bẻ", "en": "turn/bend"},
-        {"vi": "lái", "en": "steer/helm"}
+        {
+          "vi": "bẻ",
+          "en": "turn/bend"
+        },
+        {
+          "vi": "lái",
+          "en": "steer/helm"
+        }
       ]
     },
     {
@@ -611,8 +1052,14 @@
       "en": "to berth / come alongside",
       "category": "maneuvering",
       "breakdown": [
-        {"vi": "cập", "en": "come alongside"},
-        {"vi": "cầu", "en": "pier/wharf"}
+        {
+          "vi": "cập",
+          "en": "come alongside"
+        },
+        {
+          "vi": "cầu",
+          "en": "pier/wharf"
+        }
       ]
     },
     {
@@ -625,9 +1072,18 @@
       "en": "lee side",
       "category": "maneuvering",
       "breakdown": [
-        {"vi": "mạn", "en": "side"},
-        {"vi": "dưới", "en": "below/under"},
-        {"vi": "sóng", "en": "wave"}
+        {
+          "vi": "mạn",
+          "en": "side"
+        },
+        {
+          "vi": "dưới",
+          "en": "below/under"
+        },
+        {
+          "vi": "sóng",
+          "en": "wave"
+        }
       ]
     },
     {
@@ -635,9 +1091,18 @@
       "en": "windward side",
       "category": "maneuvering",
       "breakdown": [
-        {"vi": "mạn", "en": "side"},
-        {"vi": "trên", "en": "above/on"},
-        {"vi": "sóng", "en": "wave"}
+        {
+          "vi": "mạn",
+          "en": "side"
+        },
+        {
+          "vi": "trên",
+          "en": "above/on"
+        },
+        {
+          "vi": "sóng",
+          "en": "wave"
+        }
       ]
     },
     {
@@ -645,8 +1110,14 @@
       "en": "bow",
       "category": "maneuvering",
       "breakdown": [
-        {"vi": "mũi", "en": "nose/tip"},
-        {"vi": "tàu", "en": "ship"}
+        {
+          "vi": "mũi",
+          "en": "nose/tip"
+        },
+        {
+          "vi": "tàu",
+          "en": "ship"
+        }
       ]
     },
     {
@@ -654,8 +1125,14 @@
       "en": "stern / to steer",
       "category": "maneuvering",
       "breakdown": [
-        {"vi": "lái", "en": "steer/stern"},
-        {"vi": "tàu", "en": "ship"}
+        {
+          "vi": "lái",
+          "en": "steer/stern"
+        },
+        {
+          "vi": "tàu",
+          "en": "ship"
+        }
       ]
     },
     {
@@ -663,8 +1140,14 @@
       "en": "going astern / reversing",
       "category": "maneuvering",
       "breakdown": [
-        {"vi": "chạy", "en": "run/go"},
-        {"vi": "lùi", "en": "reverse/back"}
+        {
+          "vi": "chạy",
+          "en": "run/go"
+        },
+        {
+          "vi": "lùi",
+          "en": "reverse/back"
+        }
       ]
     },
     {
@@ -672,8 +1155,14 @@
       "en": "going ahead",
       "category": "maneuvering",
       "breakdown": [
-        {"vi": "chạy", "en": "run/go"},
-        {"vi": "tới", "en": "forward/ahead"}
+        {
+          "vi": "chạy",
+          "en": "run/go"
+        },
+        {
+          "vi": "tới",
+          "en": "forward/ahead"
+        }
       ]
     },
     {
@@ -681,9 +1170,18 @@
       "en": "push alongside",
       "category": "maneuvering",
       "breakdown": [
-        {"vi": "lai", "en": "tow/push"},
-        {"vi": "áp", "en": "press/against"},
-        {"vi": "mạn", "en": "side"}
+        {
+          "vi": "lai",
+          "en": "tow/push"
+        },
+        {
+          "vi": "áp",
+          "en": "press/against"
+        },
+        {
+          "vi": "mạn",
+          "en": "side"
+        }
       ]
     },
     {
@@ -691,8 +1189,14 @@
       "en": "towing (a convoy)",
       "category": "maneuvering",
       "breakdown": [
-        {"vi": "kéo", "en": "pull/tow"},
-        {"vi": "đoàn", "en": "group/convoy"}
+        {
+          "vi": "kéo",
+          "en": "pull/tow"
+        },
+        {
+          "vi": "đoàn",
+          "en": "group/convoy"
+        }
       ]
     },
     {
@@ -700,8 +1204,14 @@
       "en": "grounded / aground",
       "category": "maneuvering",
       "breakdown": [
-        {"vi": "mắc", "en": "stuck/caught"},
-        {"vi": "cạn", "en": "shallow"}
+        {
+          "vi": "mắc",
+          "en": "stuck/caught"
+        },
+        {
+          "vi": "cạn",
+          "en": "shallow"
+        }
       ]
     },
     {
@@ -709,8 +1219,14 @@
       "en": "leeway / drift angle",
       "category": "maneuvering",
       "breakdown": [
-        {"vi": "độ", "en": "degree/angle"},
-        {"vi": "đạt", "en": "drift/achieve"}
+        {
+          "vi": "độ",
+          "en": "degree/angle"
+        },
+        {
+          "vi": "đạt",
+          "en": "drift/achieve"
+        }
       ]
     },
     {
@@ -718,8 +1234,14 @@
       "en": "sidelights",
       "category": "lights-flags",
       "breakdown": [
-        {"vi": "đèn", "en": "light"},
-        {"vi": "mạn", "en": "side"}
+        {
+          "vi": "đèn",
+          "en": "light"
+        },
+        {
+          "vi": "mạn",
+          "en": "side"
+        }
       ]
     },
     {
@@ -727,8 +1249,14 @@
       "en": "stern light",
       "category": "lights-flags",
       "breakdown": [
-        {"vi": "đèn", "en": "light"},
-        {"vi": "lái", "en": "stern"}
+        {
+          "vi": "đèn",
+          "en": "light"
+        },
+        {
+          "vi": "lái",
+          "en": "stern"
+        }
       ]
     },
     {
@@ -736,10 +1264,22 @@
       "en": "masthead light",
       "category": "lights-flags",
       "breakdown": [
-        {"vi": "đèn", "en": "light"},
-        {"vi": "trắng", "en": "white"},
-        {"vi": "cột", "en": "mast/pole"},
-        {"vi": "mũi", "en": "bow"}
+        {
+          "vi": "đèn",
+          "en": "light"
+        },
+        {
+          "vi": "trắng",
+          "en": "white"
+        },
+        {
+          "vi": "cột",
+          "en": "mast/pole"
+        },
+        {
+          "vi": "mũi",
+          "en": "bow"
+        }
       ]
     },
     {
@@ -747,8 +1287,14 @@
       "en": "flashing light",
       "category": "lights-flags",
       "breakdown": [
-        {"vi": "đèn", "en": "light"},
-        {"vi": "nhấp nháy", "en": "flashing/blinking"}
+        {
+          "vi": "đèn",
+          "en": "light"
+        },
+        {
+          "vi": "nhấp nháy",
+          "en": "flashing/blinking"
+        }
       ]
     },
     {
@@ -761,8 +1307,14 @@
       "en": "sound signal",
       "category": "lights-flags",
       "breakdown": [
-        {"vi": "âm", "en": "sound"},
-        {"vi": "hiệu", "en": "signal"}
+        {
+          "vi": "âm",
+          "en": "sound"
+        },
+        {
+          "vi": "hiệu",
+          "en": "signal"
+        }
       ]
     },
     {
@@ -770,8 +1322,14 @@
       "en": "pennant flag",
       "category": "lights-flags",
       "breakdown": [
-        {"vi": "cờ", "en": "flag"},
-        {"vi": "đuôi nheo", "en": "swallowtail"}
+        {
+          "vi": "cờ",
+          "en": "flag"
+        },
+        {
+          "vi": "đuôi nheo",
+          "en": "swallowtail"
+        }
       ]
     },
     {
@@ -779,8 +1337,14 @@
       "en": "dangerous goods / hazardous cargo",
       "category": "cargo",
       "breakdown": [
-        {"vi": "hàng", "en": "goods/cargo"},
-        {"vi": "nguy hiểm", "en": "dangerous"}
+        {
+          "vi": "hàng",
+          "en": "goods/cargo"
+        },
+        {
+          "vi": "nguy hiểm",
+          "en": "dangerous"
+        }
       ]
     },
     {
@@ -788,8 +1352,14 @@
       "en": "transshipment",
       "category": "cargo",
       "breakdown": [
-        {"vi": "chuyển", "en": "transfer"},
-        {"vi": "tải", "en": "load/cargo"}
+        {
+          "vi": "chuyển",
+          "en": "transfer"
+        },
+        {
+          "vi": "tải",
+          "en": "load/cargo"
+        }
       ]
     },
     {
@@ -797,9 +1367,18 @@
       "en": "natural wastage / shrinkage",
       "category": "cargo",
       "breakdown": [
-        {"vi": "lượng", "en": "amount"},
-        {"vi": "giảm", "en": "reduce"},
-        {"vi": "tự nhiên", "en": "natural"}
+        {
+          "vi": "lượng",
+          "en": "amount"
+        },
+        {
+          "vi": "giảm",
+          "en": "reduce"
+        },
+        {
+          "vi": "tự nhiên",
+          "en": "natural"
+        }
       ]
     },
     {
@@ -807,9 +1386,18 @@
       "en": "transport operator / carrier",
       "category": "cargo",
       "breakdown": [
-        {"vi": "người", "en": "person"},
-        {"vi": "kinh doanh", "en": "business"},
-        {"vi": "vận tải", "en": "transport"}
+        {
+          "vi": "người",
+          "en": "person"
+        },
+        {
+          "vi": "kinh doanh",
+          "en": "business"
+        },
+        {
+          "vi": "vận tải",
+          "en": "transport"
+        }
       ]
     },
     {
@@ -817,9 +1405,18 @@
       "en": "charterer / shipper",
       "category": "cargo",
       "breakdown": [
-        {"vi": "người", "en": "person"},
-        {"vi": "thuê", "en": "hire/rent"},
-        {"vi": "vận tải", "en": "transport"}
+        {
+          "vi": "người",
+          "en": "person"
+        },
+        {
+          "vi": "thuê",
+          "en": "hire/rent"
+        },
+        {
+          "vi": "vận tải",
+          "en": "transport"
+        }
       ]
     },
     {
@@ -827,8 +1424,14 @@
       "en": "on-scene incident report",
       "category": "cargo",
       "breakdown": [
-        {"vi": "biên bản", "en": "report/record"},
-        {"vi": "hiện trường", "en": "scene/site"}
+        {
+          "vi": "biên bản",
+          "en": "report/record"
+        },
+        {
+          "vi": "hiện trường",
+          "en": "scene/site"
+        }
       ]
     },
     {
@@ -836,8 +1439,14 @@
       "en": "requisition (by authority)",
       "category": "cargo",
       "breakdown": [
-        {"vi": "trưng", "en": "display/requisition"},
-        {"vi": "dụng", "en": "use"}
+        {
+          "vi": "trưng",
+          "en": "display/requisition"
+        },
+        {
+          "vi": "dụng",
+          "en": "use"
+        }
       ]
     },
     {
@@ -845,8 +1454,14 @@
       "en": "damage control / plugging",
       "category": "safety",
       "breakdown": [
-        {"vi": "cứu", "en": "save/rescue"},
-        {"vi": "thủng", "en": "hole/puncture"}
+        {
+          "vi": "cứu",
+          "en": "save/rescue"
+        },
+        {
+          "vi": "thủng",
+          "en": "hole/puncture"
+        }
       ]
     },
     {
@@ -854,8 +1469,14 @@
       "en": "firefighting",
       "category": "safety",
       "breakdown": [
-        {"vi": "cứu", "en": "save"},
-        {"vi": "hỏa", "en": "fire"}
+        {
+          "vi": "cứu",
+          "en": "save"
+        },
+        {
+          "vi": "hỏa",
+          "en": "fire"
+        }
       ]
     },
     {
@@ -863,8 +1484,14 @@
       "en": "lifesaving",
       "category": "safety",
       "breakdown": [
-        {"vi": "cứu", "en": "save"},
-        {"vi": "sinh", "en": "life"}
+        {
+          "vi": "cứu",
+          "en": "save"
+        },
+        {
+          "vi": "sinh",
+          "en": "life"
+        }
       ]
     },
     {
@@ -872,8 +1499,14 @@
       "en": "rescue / salvage",
       "category": "safety",
       "breakdown": [
-        {"vi": "cứu", "en": "save"},
-        {"vi": "nạn", "en": "disaster/victim"}
+        {
+          "vi": "cứu",
+          "en": "save"
+        },
+        {
+          "vi": "nạn",
+          "en": "disaster/victim"
+        }
       ]
     },
     {
@@ -881,8 +1514,14 @@
       "en": "life buoy / life ring",
       "category": "safety",
       "breakdown": [
-        {"vi": "phao", "en": "buoy/float"},
-        {"vi": "cứu sinh", "en": "lifesaving"}
+        {
+          "vi": "phao",
+          "en": "buoy/float"
+        },
+        {
+          "vi": "cứu sinh",
+          "en": "lifesaving"
+        }
       ]
     },
     {
@@ -890,8 +1529,14 @@
       "en": "lifeboat",
       "category": "safety",
       "breakdown": [
-        {"vi": "xuồng", "en": "boat/dinghy"},
-        {"vi": "cứu sinh", "en": "lifesaving"}
+        {
+          "vi": "xuồng",
+          "en": "boat/dinghy"
+        },
+        {
+          "vi": "cứu sinh",
+          "en": "lifesaving"
+        }
       ]
     },
     {
@@ -899,9 +1544,18 @@
       "en": "fire extinguisher",
       "category": "safety",
       "breakdown": [
-        {"vi": "bình", "en": "container/tank"},
-        {"vi": "chữa", "en": "cure/fix"},
-        {"vi": "cháy", "en": "fire/burn"}
+        {
+          "vi": "bình",
+          "en": "container/tank"
+        },
+        {
+          "vi": "chữa",
+          "en": "cure/fix"
+        },
+        {
+          "vi": "cháy",
+          "en": "fire/burn"
+        }
       ]
     },
     {
@@ -909,8 +1563,14 @@
       "en": "foam extinguisher",
       "category": "safety",
       "breakdown": [
-        {"vi": "bình", "en": "container"},
-        {"vi": "bọt", "en": "foam"}
+        {
+          "vi": "bình",
+          "en": "container"
+        },
+        {
+          "vi": "bọt",
+          "en": "foam"
+        }
       ]
     },
     {
@@ -918,8 +1578,14 @@
       "en": "dry powder extinguisher",
       "category": "safety",
       "breakdown": [
-        {"vi": "bình", "en": "container"},
-        {"vi": "bột", "en": "powder"}
+        {
+          "vi": "bình",
+          "en": "container"
+        },
+        {
+          "vi": "bột",
+          "en": "powder"
+        }
       ]
     },
     {
@@ -927,8 +1593,14 @@
       "en": "CO₂ extinguisher",
       "category": "safety",
       "breakdown": [
-        {"vi": "bình", "en": "container"},
-        {"vi": "CO2", "en": "carbon dioxide"}
+        {
+          "vi": "bình",
+          "en": "container"
+        },
+        {
+          "vi": "CO2",
+          "en": "carbon dioxide"
+        }
       ]
     },
     {
@@ -936,8 +1608,14 @@
       "en": "fire triangle",
       "category": "safety",
       "breakdown": [
-        {"vi": "tam giác", "en": "triangle"},
-        {"vi": "cháy", "en": "fire"}
+        {
+          "vi": "tam giác",
+          "en": "triangle"
+        },
+        {
+          "vi": "cháy",
+          "en": "fire"
+        }
       ]
     },
     {
@@ -945,8 +1623,14 @@
       "en": "artificial respiration / CPR",
       "category": "safety",
       "breakdown": [
-        {"vi": "hô hấp", "en": "respiration"},
-        {"vi": "nhân tạo", "en": "artificial"}
+        {
+          "vi": "hô hấp",
+          "en": "respiration"
+        },
+        {
+          "vi": "nhân tạo",
+          "en": "artificial"
+        }
       ]
     },
     {
@@ -954,10 +1638,22 @@
       "en": "pressure bandage to stop bleeding",
       "category": "safety",
       "breakdown": [
-        {"vi": "băng", "en": "bandage"},
-        {"vi": "ép", "en": "press"},
-        {"vi": "cầm", "en": "stop/hold"},
-        {"vi": "máu", "en": "blood"}
+        {
+          "vi": "băng",
+          "en": "bandage"
+        },
+        {
+          "vi": "ép",
+          "en": "press"
+        },
+        {
+          "vi": "cầm",
+          "en": "stop/hold"
+        },
+        {
+          "vi": "máu",
+          "en": "blood"
+        }
       ]
     },
     {
@@ -965,8 +1661,14 @@
       "en": "wooden wedge (damage control)",
       "category": "safety",
       "breakdown": [
-        {"vi": "nêm", "en": "wedge"},
-        {"vi": "gỗ", "en": "wood"}
+        {
+          "vi": "nêm",
+          "en": "wedge"
+        },
+        {
+          "vi": "gỗ",
+          "en": "wood"
+        }
       ]
     },
     {
@@ -974,8 +1676,14 @@
       "en": "water pump",
       "category": "safety",
       "breakdown": [
-        {"vi": "bơm", "en": "pump"},
-        {"vi": "nước", "en": "water"}
+        {
+          "vi": "bơm",
+          "en": "pump"
+        },
+        {
+          "vi": "nước",
+          "en": "water"
+        }
       ]
     },
     {
@@ -988,8 +1696,14 @@
       "en": "drowning",
       "category": "safety",
       "breakdown": [
-        {"vi": "chết", "en": "die"},
-        {"vi": "đuối", "en": "drowning"}
+        {
+          "vi": "chết",
+          "en": "die"
+        },
+        {
+          "vi": "đuối",
+          "en": "drowning"
+        }
       ]
     },
     {
@@ -997,8 +1711,14 @@
       "en": "electric shock",
       "category": "safety",
       "breakdown": [
-        {"vi": "điện", "en": "electric"},
-        {"vi": "giật", "en": "shock/jolt"}
+        {
+          "vi": "điện",
+          "en": "electric"
+        },
+        {
+          "vi": "giật",
+          "en": "shock/jolt"
+        }
       ]
     },
     {
@@ -1006,8 +1726,14 @@
       "en": "heat source / ignition source",
       "category": "safety",
       "breakdown": [
-        {"vi": "nguồn", "en": "source"},
-        {"vi": "nhiệt", "en": "heat"}
+        {
+          "vi": "nguồn",
+          "en": "source"
+        },
+        {
+          "vi": "nhiệt",
+          "en": "heat"
+        }
       ]
     },
     {
@@ -1015,8 +1741,14 @@
       "en": "combustible material / fuel",
       "category": "safety",
       "breakdown": [
-        {"vi": "chất", "en": "substance"},
-        {"vi": "cháy", "en": "burn/fire"}
+        {
+          "vi": "chất",
+          "en": "substance"
+        },
+        {
+          "vi": "cháy",
+          "en": "burn/fire"
+        }
       ]
     },
     {
@@ -1024,9 +1756,18 @@
       "en": "inland waterway transport",
       "category": "general",
       "breakdown": [
-        {"vi": "vận tải", "en": "transport"},
-        {"vi": "thủy", "en": "water"},
-        {"vi": "nội địa", "en": "inland"}
+        {
+          "vi": "vận tải",
+          "en": "transport"
+        },
+        {
+          "vi": "thủy",
+          "en": "water"
+        },
+        {
+          "vi": "nội địa",
+          "en": "inland"
+        }
       ]
     },
     {
@@ -1034,8 +1775,14 @@
       "en": "rescue vessel",
       "category": "general",
       "breakdown": [
-        {"vi": "phương tiện", "en": "vehicle"},
-        {"vi": "cứu nạn", "en": "rescue"}
+        {
+          "vi": "phương tiện",
+          "en": "vehicle"
+        },
+        {
+          "vi": "cứu nạn",
+          "en": "rescue"
+        }
       ]
     },
     {
@@ -1043,8 +1790,14 @@
       "en": "firefighting vessel",
       "category": "general",
       "breakdown": [
-        {"vi": "phương tiện", "en": "vehicle"},
-        {"vi": "chữa cháy", "en": "firefighting"}
+        {
+          "vi": "phương tiện",
+          "en": "vehicle"
+        },
+        {
+          "vi": "chữa cháy",
+          "en": "firefighting"
+        }
       ]
     },
     {
@@ -1052,9 +1805,18 @@
       "en": "force majeure",
       "category": "general",
       "breakdown": [
-        {"vi": "bất", "en": "not"},
-        {"vi": "khả", "en": "able"},
-        {"vi": "kháng", "en": "resist"}
+        {
+          "vi": "bất",
+          "en": "not"
+        },
+        {
+          "vi": "khả",
+          "en": "able"
+        },
+        {
+          "vi": "kháng",
+          "en": "resist"
+        }
       ]
     },
     {
@@ -1062,8 +1824,14 @@
       "en": "fracture / broken bone",
       "category": "safety",
       "breakdown": [
-        {"vi": "gãy", "en": "break"},
-        {"vi": "xương", "en": "bone"}
+        {
+          "vi": "gãy",
+          "en": "break"
+        },
+        {
+          "vi": "xương",
+          "en": "bone"
+        }
       ]
     },
     {
@@ -1071,8 +1839,14 @@
       "en": "sternum / breastbone",
       "category": "safety",
       "breakdown": [
-        {"vi": "xương", "en": "bone"},
-        {"vi": "ức", "en": "chest/breast"}
+        {
+          "vi": "xương",
+          "en": "bone"
+        },
+        {
+          "vi": "ức",
+          "en": "chest/breast"
+        }
       ]
     },
     {
@@ -1080,8 +1854,14 @@
       "en": "cardiac arrest",
       "category": "safety",
       "breakdown": [
-        {"vi": "ngưng", "en": "stop"},
-        {"vi": "tim", "en": "heart"}
+        {
+          "vi": "ngưng",
+          "en": "stop"
+        },
+        {
+          "vi": "tim",
+          "en": "heart"
+        }
       ]
     },
     {
@@ -1089,8 +1869,14 @@
       "en": "respiratory arrest",
       "category": "safety",
       "breakdown": [
-        {"vi": "ngưng", "en": "stop"},
-        {"vi": "thở", "en": "breathe"}
+        {
+          "vi": "ngưng",
+          "en": "stop"
+        },
+        {
+          "vi": "thở",
+          "en": "breathe"
+        }
       ]
     },
     {
@@ -1098,10 +1884,22 @@
       "en": "external chest compression / CPR",
       "category": "safety",
       "breakdown": [
-        {"vi": "ép", "en": "press/compress"},
-        {"vi": "tim", "en": "heart"},
-        {"vi": "ngoài", "en": "outside"},
-        {"vi": "lồng ngực", "en": "chest cavity"}
+        {
+          "vi": "ép",
+          "en": "press/compress"
+        },
+        {
+          "vi": "tim",
+          "en": "heart"
+        },
+        {
+          "vi": "ngoài",
+          "en": "outside"
+        },
+        {
+          "vi": "lồng ngực",
+          "en": "chest cavity"
+        }
       ]
     },
     {
@@ -1109,8 +1907,14 @@
       "en": "suffocation / asphyxia",
       "category": "safety",
       "breakdown": [
-        {"vi": "ngạt", "en": "suffocate"},
-        {"vi": "thở", "en": "breathe"}
+        {
+          "vi": "ngạt",
+          "en": "suffocate"
+        },
+        {
+          "vi": "thở",
+          "en": "breathe"
+        }
       ]
     },
     {
@@ -1123,8 +1927,14 @@
       "en": "toxic gas / poisonous gas",
       "category": "safety",
       "breakdown": [
-        {"vi": "khí", "en": "gas"},
-        {"vi": "độc", "en": "toxic/poison"}
+        {
+          "vi": "khí",
+          "en": "gas"
+        },
+        {
+          "vi": "độc",
+          "en": "toxic/poison"
+        }
       ]
     },
     {
@@ -1132,9 +1942,18 @@
       "en": "inhaling toxic gas",
       "category": "safety",
       "breakdown": [
-        {"vi": "hít", "en": "inhale"},
-        {"vi": "phải", "en": "must/encounter"},
-        {"vi": "khí độc", "en": "toxic gas"}
+        {
+          "vi": "hít",
+          "en": "inhale"
+        },
+        {
+          "vi": "phải",
+          "en": "must/encounter"
+        },
+        {
+          "vi": "khí độc",
+          "en": "toxic gas"
+        }
       ]
     },
     {
@@ -1147,8 +1966,14 @@
       "en": "foreign body / embedded object",
       "category": "safety",
       "breakdown": [
-        {"vi": "dị", "en": "foreign/strange"},
-        {"vi": "vật", "en": "object"}
+        {
+          "vi": "dị",
+          "en": "foreign/strange"
+        },
+        {
+          "vi": "vật",
+          "en": "object"
+        }
       ]
     },
     {
@@ -1156,8 +1981,14 @@
       "en": "soft tissue wound",
       "category": "safety",
       "breakdown": [
-        {"vi": "vết thương", "en": "wound"},
-        {"vi": "phần mềm", "en": "soft part"}
+        {
+          "vi": "vết thương",
+          "en": "wound"
+        },
+        {
+          "vi": "phần mềm",
+          "en": "soft part"
+        }
       ]
     },
     {
@@ -1170,8 +2001,14 @@
       "en": "mesh bandage (for burns)",
       "category": "safety",
       "breakdown": [
-        {"vi": "băng", "en": "bandage"},
-        {"vi": "lưới", "en": "mesh/net"}
+        {
+          "vi": "băng",
+          "en": "bandage"
+        },
+        {
+          "vi": "lưới",
+          "en": "mesh/net"
+        }
       ]
     },
     {
@@ -1179,8 +2016,14 @@
       "en": "casualty transport / evacuation",
       "category": "safety",
       "breakdown": [
-        {"vi": "tải", "en": "carry/transport"},
-        {"vi": "thương", "en": "wounded"}
+        {
+          "vi": "tải",
+          "en": "carry/transport"
+        },
+        {
+          "vi": "thương",
+          "en": "wounded"
+        }
       ]
     },
     {
@@ -1188,8 +2031,14 @@
       "en": "victim / casualty",
       "category": "safety",
       "breakdown": [
-        {"vi": "nạn", "en": "disaster"},
-        {"vi": "nhân", "en": "person"}
+        {
+          "vi": "nạn",
+          "en": "disaster"
+        },
+        {
+          "vi": "nhân",
+          "en": "person"
+        }
       ]
     },
     {
@@ -1197,8 +2046,14 @@
       "en": "first aider / rescuer",
       "category": "safety",
       "breakdown": [
-        {"vi": "cấp cứu", "en": "first aid"},
-        {"vi": "viên", "en": "person/member"}
+        {
+          "vi": "cấp cứu",
+          "en": "first aid"
+        },
+        {
+          "vi": "viên",
+          "en": "person/member"
+        }
       ]
     },
     {
@@ -1206,8 +2061,14 @@
       "en": "cotton and gauze (wound dressing)",
       "category": "safety",
       "breakdown": [
-        {"vi": "gòn", "en": "cotton"},
-        {"vi": "gạc", "en": "gauze"}
+        {
+          "vi": "gòn",
+          "en": "cotton"
+        },
+        {
+          "vi": "gạc",
+          "en": "gauze"
+        }
       ]
     },
     {
@@ -1215,8 +2076,14 @@
       "en": "hemostatic wedge / compress",
       "category": "safety",
       "breakdown": [
-        {"vi": "con", "en": "small item"},
-        {"vi": "chèn", "en": "wedge/pad"}
+        {
+          "vi": "con",
+          "en": "small item"
+        },
+        {
+          "vi": "chèn",
+          "en": "wedge/pad"
+        }
       ]
     },
     {
@@ -1224,8 +2091,14 @@
       "en": "drowning / near-drowning",
       "category": "safety",
       "breakdown": [
-        {"vi": "đuối", "en": "exhausted"},
-        {"vi": "nước", "en": "water"}
+        {
+          "vi": "đuối",
+          "en": "exhausted"
+        },
+        {
+          "vi": "nước",
+          "en": "water"
+        }
       ]
     },
     {
@@ -1233,8 +2106,14 @@
       "en": "breathing / respiration",
       "category": "safety",
       "breakdown": [
-        {"vi": "hít", "en": "inhale"},
-        {"vi": "thở", "en": "exhale/breathe"}
+        {
+          "vi": "hít",
+          "en": "inhale"
+        },
+        {
+          "vi": "thở",
+          "en": "exhale/breathe"
+        }
       ]
     },
     {
@@ -1242,8 +2121,14 @@
       "en": "petroleum / fuel oil",
       "category": "safety",
       "breakdown": [
-        {"vi": "xăng", "en": "gasoline"},
-        {"vi": "dầu", "en": "oil"}
+        {
+          "vi": "xăng",
+          "en": "gasoline"
+        },
+        {
+          "vi": "dầu",
+          "en": "oil"
+        }
       ]
     },
     {
@@ -1251,8 +2136,14 @@
       "en": "combustible metal",
       "category": "safety",
       "breakdown": [
-        {"vi": "kim loại", "en": "metal"},
-        {"vi": "cháy được", "en": "can burn"}
+        {
+          "vi": "kim loại",
+          "en": "metal"
+        },
+        {
+          "vi": "cháy được",
+          "en": "can burn"
+        }
       ]
     },
     {
@@ -1260,8 +2151,14 @@
       "en": "electrical equipment",
       "category": "safety",
       "breakdown": [
-        {"vi": "thiết bị", "en": "equipment"},
-        {"vi": "điện", "en": "electric"}
+        {
+          "vi": "thiết bị",
+          "en": "equipment"
+        },
+        {
+          "vi": "điện",
+          "en": "electric"
+        }
       ]
     },
     {
@@ -1269,8 +2166,14 @@
       "en": "occupational safety",
       "category": "safety",
       "breakdown": [
-        {"vi": "an toàn", "en": "safety"},
-        {"vi": "lao động", "en": "labor/work"}
+        {
+          "vi": "an toàn",
+          "en": "safety"
+        },
+        {
+          "vi": "lao động",
+          "en": "labor/work"
+        }
       ]
     },
     {
@@ -1283,8 +2186,14 @@
       "en": "rope diameter / size",
       "category": "seamanship",
       "breakdown": [
-        {"vi": "cỡ", "en": "size"},
-        {"vi": "dây", "en": "rope"}
+        {
+          "vi": "cỡ",
+          "en": "size"
+        },
+        {
+          "vi": "dây",
+          "en": "rope"
+        }
       ]
     },
     {
@@ -1292,8 +2201,14 @@
       "en": "cargo hoisting / crane lift",
       "category": "seamanship",
       "breakdown": [
-        {"vi": "cẩu", "en": "crane/hoist"},
-        {"vi": "hàng", "en": "cargo"}
+        {
+          "vi": "cẩu",
+          "en": "crane/hoist"
+        },
+        {
+          "vi": "hàng",
+          "en": "cargo"
+        }
       ]
     },
     {
@@ -1301,8 +2216,14 @@
       "en": "to secure / make fast an anchor",
       "category": "seamanship",
       "breakdown": [
-        {"vi": "buộc", "en": "tie/secure"},
-        {"vi": "neo", "en": "anchor"}
+        {
+          "vi": "buộc",
+          "en": "tie/secure"
+        },
+        {
+          "vi": "neo",
+          "en": "anchor"
+        }
       ]
     },
     {
@@ -1310,8 +2231,14 @@
       "en": "post / pile (for belaying)",
       "category": "seamanship",
       "breakdown": [
-        {"vi": "cột", "en": "pillar/mast"},
-        {"vi": "cọc", "en": "stake/pile"}
+        {
+          "vi": "cột",
+          "en": "pillar/mast"
+        },
+        {
+          "vi": "cọc",
+          "en": "stake/pile"
+        }
       ]
     },
     {
@@ -1319,8 +2246,14 @@
       "en": "to splice / join ropes",
       "category": "seamanship",
       "breakdown": [
-        {"vi": "nối", "en": "connect/join"},
-        {"vi": "dây", "en": "rope"}
+        {
+          "vi": "nối",
+          "en": "connect/join"
+        },
+        {
+          "vi": "dây",
+          "en": "rope"
+        }
       ]
     },
     {
@@ -1328,8 +2261,14 @@
       "en": "rope maintenance / preservation",
       "category": "seamanship",
       "breakdown": [
-        {"vi": "bảo quản", "en": "maintain/preserve"},
-        {"vi": "dây", "en": "rope"}
+        {
+          "vi": "bảo quản",
+          "en": "maintain/preserve"
+        },
+        {
+          "vi": "dây",
+          "en": "rope"
+        }
       ]
     },
     {
@@ -1337,8 +2276,14 @@
       "en": "anchor line / mooring rope",
       "category": "seamanship",
       "breakdown": [
-        {"vi": "dây", "en": "rope"},
-        {"vi": "neo", "en": "anchor"}
+        {
+          "vi": "dây",
+          "en": "rope"
+        },
+        {
+          "vi": "neo",
+          "en": "anchor"
+        }
       ]
     },
     {
@@ -1346,9 +2291,18 @@
       "en": "river bend / meander section",
       "category": "channel",
       "breakdown": [
-        {"vi": "đoạn", "en": "section"},
-        {"vi": "sông", "en": "river"},
-        {"vi": "cong", "en": "curved"}
+        {
+          "vi": "đoạn",
+          "en": "section"
+        },
+        {
+          "vi": "sông",
+          "en": "river"
+        },
+        {
+          "vi": "cong",
+          "en": "curved"
+        }
       ]
     },
     {
@@ -1356,9 +2310,18 @@
       "en": "straight river section",
       "category": "channel",
       "breakdown": [
-        {"vi": "đoạn", "en": "section"},
-        {"vi": "sông", "en": "river"},
-        {"vi": "thẳng", "en": "straight"}
+        {
+          "vi": "đoạn",
+          "en": "section"
+        },
+        {
+          "vi": "sông",
+          "en": "river"
+        },
+        {
+          "vi": "thẳng",
+          "en": "straight"
+        }
       ]
     },
     {
@@ -1366,8 +2329,14 @@
       "en": "bridge pier / bridge support",
       "category": "channel",
       "breakdown": [
-        {"vi": "trụ", "en": "pillar/pier"},
-        {"vi": "cầu", "en": "bridge"}
+        {
+          "vi": "trụ",
+          "en": "pillar/pier"
+        },
+        {
+          "vi": "cầu",
+          "en": "bridge"
+        }
       ]
     },
     {
@@ -1375,8 +2344,14 @@
       "en": "river system / river network",
       "category": "channel",
       "breakdown": [
-        {"vi": "hệ thống", "en": "system"},
-        {"vi": "sông", "en": "river"}
+        {
+          "vi": "hệ thống",
+          "en": "system"
+        },
+        {
+          "vi": "sông",
+          "en": "river"
+        }
       ]
     },
     {
@@ -1384,8 +2359,14 @@
       "en": "watershed / drainage basin",
       "category": "channel",
       "breakdown": [
-        {"vi": "lưu", "en": "flow"},
-        {"vi": "vực", "en": "area/basin"}
+        {
+          "vi": "lưu",
+          "en": "flow"
+        },
+        {
+          "vi": "vực",
+          "en": "area/basin"
+        }
       ]
     },
     {
@@ -1393,8 +2374,14 @@
       "en": "water discharge / flow rate",
       "category": "channel",
       "breakdown": [
-        {"vi": "lưu lượng", "en": "flow rate"},
-        {"vi": "nước", "en": "water"}
+        {
+          "vi": "lưu lượng",
+          "en": "flow rate"
+        },
+        {
+          "vi": "nước",
+          "en": "water"
+        }
       ]
     },
     {
@@ -1402,8 +2389,14 @@
       "en": "gradient / slope (of riverbed)",
       "category": "channel",
       "breakdown": [
-        {"vi": "độ", "en": "degree"},
-        {"vi": "dốc", "en": "slope/steep"}
+        {
+          "vi": "độ",
+          "en": "degree"
+        },
+        {
+          "vi": "dốc",
+          "en": "slope/steep"
+        }
       ]
     },
     {
@@ -1411,8 +2404,14 @@
       "en": "river junction / three-way confluence",
       "category": "channel",
       "breakdown": [
-        {"vi": "ngã", "en": "way/direction"},
-        {"vi": "ba", "en": "three"}
+        {
+          "vi": "ngã",
+          "en": "way/direction"
+        },
+        {
+          "vi": "ba",
+          "en": "three"
+        }
       ]
     },
     {
@@ -1425,8 +2424,14 @@
       "en": "mid-river / center of river",
       "category": "channel",
       "breakdown": [
-        {"vi": "giữa", "en": "middle"},
-        {"vi": "sông", "en": "river"}
+        {
+          "vi": "giữa",
+          "en": "middle"
+        },
+        {
+          "vi": "sông",
+          "en": "river"
+        }
       ]
     },
     {
@@ -1434,8 +2439,14 @@
       "en": "tide / tidal movement",
       "category": "channel",
       "breakdown": [
-        {"vi": "thủy", "en": "water"},
-        {"vi": "triều", "en": "tide"}
+        {
+          "vi": "thủy",
+          "en": "water"
+        },
+        {
+          "vi": "triều",
+          "en": "tide"
+        }
       ]
     },
     {
@@ -1443,8 +2454,14 @@
       "en": "high water / flood tide",
       "category": "channel",
       "breakdown": [
-        {"vi": "nước", "en": "water"},
-        {"vi": "lớn", "en": "big/high"}
+        {
+          "vi": "nước",
+          "en": "water"
+        },
+        {
+          "vi": "lớn",
+          "en": "big/high"
+        }
       ]
     },
     {
@@ -1452,8 +2469,14 @@
       "en": "low water / ebb tide",
       "category": "channel",
       "breakdown": [
-        {"vi": "nước", "en": "water"},
-        {"vi": "ròng", "en": "ebb/recede"}
+        {
+          "vi": "nước",
+          "en": "water"
+        },
+        {
+          "vi": "ròng",
+          "en": "ebb/recede"
+        }
       ]
     },
     {
@@ -1461,8 +2484,14 @@
       "en": "slack water / still water",
       "category": "channel",
       "breakdown": [
-        {"vi": "nước", "en": "water"},
-        {"vi": "đứng", "en": "standing/still"}
+        {
+          "vi": "nước",
+          "en": "water"
+        },
+        {
+          "vi": "đứng",
+          "en": "standing/still"
+        }
       ]
     },
     {
@@ -1470,9 +2499,18 @@
       "en": "long blast (whistle)",
       "category": "lights-flags",
       "breakdown": [
-        {"vi": "tiếng", "en": "sound"},
-        {"vi": "còi", "en": "whistle"},
-        {"vi": "dài", "en": "long"}
+        {
+          "vi": "tiếng",
+          "en": "sound"
+        },
+        {
+          "vi": "còi",
+          "en": "whistle"
+        },
+        {
+          "vi": "dài",
+          "en": "long"
+        }
       ]
     },
     {
@@ -1480,9 +2518,18 @@
       "en": "short blast (whistle)",
       "category": "lights-flags",
       "breakdown": [
-        {"vi": "tiếng", "en": "sound"},
-        {"vi": "còi", "en": "whistle"},
-        {"vi": "ngắn", "en": "short"}
+        {
+          "vi": "tiếng",
+          "en": "sound"
+        },
+        {
+          "vi": "còi",
+          "en": "whistle"
+        },
+        {
+          "vi": "ngắn",
+          "en": "short"
+        }
       ]
     },
     {
@@ -1490,8 +2537,14 @@
       "en": "port side (left)",
       "category": "general",
       "breakdown": [
-        {"vi": "mạn", "en": "side"},
-        {"vi": "trái", "en": "left"}
+        {
+          "vi": "mạn",
+          "en": "side"
+        },
+        {
+          "vi": "trái",
+          "en": "left"
+        }
       ]
     },
     {
@@ -1499,8 +2552,14 @@
       "en": "starboard side (right)",
       "category": "general",
       "breakdown": [
-        {"vi": "mạn", "en": "side"},
-        {"vi": "phải", "en": "right"}
+        {
+          "vi": "mạn",
+          "en": "side"
+        },
+        {
+          "vi": "phải",
+          "en": "right"
+        }
       ]
     },
     {
@@ -1508,8 +2567,14 @@
       "en": "speed",
       "category": "general",
       "breakdown": [
-        {"vi": "tốc", "en": "speed"},
-        {"vi": "độ", "en": "degree/level"}
+        {
+          "vi": "tốc",
+          "en": "speed"
+        },
+        {
+          "vi": "độ",
+          "en": "degree/level"
+        }
       ]
     },
     {
@@ -1517,8 +2582,14 @@
       "en": "reduce speed / slow down",
       "category": "maneuvering",
       "breakdown": [
-        {"vi": "giảm", "en": "reduce"},
-        {"vi": "tốc độ", "en": "speed"}
+        {
+          "vi": "giảm",
+          "en": "reduce"
+        },
+        {
+          "vi": "tốc độ",
+          "en": "speed"
+        }
       ]
     },
     {
@@ -1526,8 +2597,14 @@
       "en": "increase speed",
       "category": "maneuvering",
       "breakdown": [
-        {"vi": "tăng", "en": "increase"},
-        {"vi": "tốc độ", "en": "speed"}
+        {
+          "vi": "tăng",
+          "en": "increase"
+        },
+        {
+          "vi": "tốc độ",
+          "en": "speed"
+        }
       ]
     },
     {
@@ -1535,8 +2612,14 @@
       "en": "give way / yield",
       "category": "general",
       "breakdown": [
-        {"vi": "nhường", "en": "yield/give"},
-        {"vi": "đường", "en": "way/road"}
+        {
+          "vi": "nhường",
+          "en": "yield/give"
+        },
+        {
+          "vi": "đường",
+          "en": "way/road"
+        }
       ]
     },
     {
@@ -1548,6 +2631,224 @@
       "vi": "sóng",
       "en": "wave / swell",
       "category": "channel"
+    },
+    {
+      "vi": "ban ngày",
+      "en": "daytime",
+      "category": "general",
+      "breakdown": [
+        {
+          "vi": "ban",
+          "en": "half/period"
+        },
+        {
+          "vi": "ngày",
+          "en": "day"
+        }
+      ]
+    },
+    {
+      "vi": "ban đêm",
+      "en": "nighttime",
+      "category": "general",
+      "breakdown": [
+        {
+          "vi": "ban",
+          "en": "half/period"
+        },
+        {
+          "vi": "đêm",
+          "en": "night"
+        }
+      ]
+    },
+    {
+      "vi": "đèn xanh",
+      "en": "green light",
+      "category": "lights-flags",
+      "breakdown": [
+        {
+          "vi": "đèn",
+          "en": "light/lamp"
+        },
+        {
+          "vi": "xanh",
+          "en": "green/blue"
+        }
+      ]
+    },
+    {
+      "vi": "đèn đỏ",
+      "en": "red light",
+      "category": "lights-flags",
+      "breakdown": [
+        {
+          "vi": "đèn",
+          "en": "light/lamp"
+        },
+        {
+          "vi": "đỏ",
+          "en": "red"
+        }
+      ]
+    },
+    {
+      "vi": "đèn vàng",
+      "en": "yellow light",
+      "category": "lights-flags",
+      "breakdown": [
+        {
+          "vi": "đèn",
+          "en": "light/lamp"
+        },
+        {
+          "vi": "vàng",
+          "en": "yellow/gold"
+        }
+      ]
+    },
+    {
+      "vi": "ưu tiên",
+      "en": "priority / right of way",
+      "category": "general",
+      "breakdown": [
+        {
+          "vi": "ưu",
+          "en": "superior/priority"
+        },
+        {
+          "vi": "tiên",
+          "en": "first/ahead"
+        }
+      ]
+    },
+    {
+      "vi": "loại A",
+      "en": "Type A vessel (motorized)",
+      "category": "general",
+      "breakdown": [
+        {
+          "vi": "loại",
+          "en": "type/category"
+        },
+        {
+          "vi": "A",
+          "en": "A (motorized class)"
+        }
+      ]
+    },
+    {
+      "vi": "hình tròn",
+      "en": "circle / round shape",
+      "category": "signals",
+      "breakdown": [
+        {
+          "vi": "hình",
+          "en": "shape"
+        },
+        {
+          "vi": "tròn",
+          "en": "round"
+        }
+      ]
+    },
+    {
+      "vi": "hình vuông",
+      "en": "square shape",
+      "category": "signals",
+      "breakdown": [
+        {
+          "vi": "hình",
+          "en": "shape"
+        },
+        {
+          "vi": "vuông",
+          "en": "square"
+        }
+      ]
+    },
+    {
+      "vi": "hình thoi",
+      "en": "diamond shape / rhombus",
+      "category": "signals",
+      "breakdown": [
+        {
+          "vi": "hình",
+          "en": "shape"
+        },
+        {
+          "vi": "thoi",
+          "en": "diamond/rhombus"
+        }
+      ]
+    },
+    {
+      "vi": "hình tam giác",
+      "en": "triangle",
+      "category": "signals",
+      "breakdown": [
+        {
+          "vi": "hình",
+          "en": "shape"
+        },
+        {
+          "vi": "tam",
+          "en": "three"
+        },
+        {
+          "vi": "giác",
+          "en": "angle"
+        }
+      ]
+    },
+    {
+      "vi": "phao cờ",
+      "en": "flag buoy",
+      "category": "signals",
+      "breakdown": [
+        {
+          "vi": "phao",
+          "en": "buoy"
+        },
+        {
+          "vi": "cờ",
+          "en": "flag"
+        }
+      ]
+    },
+    {
+      "vi": "phao đèn",
+      "en": "light buoy",
+      "category": "signals",
+      "breakdown": [
+        {
+          "vi": "phao",
+          "en": "buoy"
+        },
+        {
+          "vi": "đèn",
+          "en": "light"
+        }
+      ]
+    },
+    {
+      "vi": "phao phản quang",
+      "en": "reflective buoy",
+      "category": "signals",
+      "breakdown": [
+        {
+          "vi": "phao",
+          "en": "buoy"
+        },
+        {
+          "vi": "phản",
+          "en": "reflect"
+        },
+        {
+          "vi": "quang",
+          "en": "light"
+        }
+      ]
     }
   ]
 }
