@@ -225,7 +225,33 @@ a user — not a functional bug.
   animation: on click, letters detach and fall/bounce with simple physics
   (separate desktop/mobile animation paths), can form a random anagram of
   the title, plays small synthesized sound effects via the Web Audio API.
-  Purely decorative; reviewed for bugs, found none.
+  Purely decorative; reviewed for bugs, found none. Fully documented in its
+  own history doc, `EASTER-EGG-COMPLETE-HISTORY.md` (untracked).
+
+**This is not the only easter egg on the site — there are at least three,
+on three different pages, using two different mechanisms. A first pass at
+this doc only caught the homepage one by searching for the literal word
+"easter" in code comments, which missed the other two entirely (neither is
+labeled as one in `about.html`; `contact.html` is labeled but in a comment
+a plain keyword search initially skipped). Confirmed by re-searching for
+the actual *pattern* — click handlers that visually transform a
+heading — rather than trusting comment text alone:**
+- **`index.html`** — the elaborate one described above (`easter-egg.js`,
+  letters fall/bounce/anagram).
+- **`about.html`** — click the `<h1>ABOUT A.N.WALTHER</h1>` title: every
+  letter flips 180° with a per-letter staggered delay (`transform:
+  rotate(180deg)`, inline `<script>` at the bottom of the page, not in
+  `easter-egg.js`). Click again to flip back.
+- **`contact.html`** — same idea on its own title (`#contact-title`),
+  simpler version with no stagger, explicitly commented `// Easter egg:
+  Click title to rotate letters 180°`.
+
+**If a future session finds an odd-looking inline `<script>` at the bottom
+of a page that flips/rotates a heading on click, it is very likely one of
+these — leave it alone, don't "clean it up" as leftover debug code.** Given
+two of these three weren't comment-labeled, don't assume a comment-text
+search has found all of them — search for the actual click-handler pattern
+too before concluding a page has none.
 - **`counter.js`** — fetches a visit count from the separate Worker
   (`walther-counter.newell-pdx.workers.dev`) and renders it as an
   odometer-style digit display on the homepage.

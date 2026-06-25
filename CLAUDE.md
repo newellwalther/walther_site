@@ -81,6 +81,14 @@ trigger automatically, rather than assuming a quiet commit is low-stakes.
   `ARCHITECTURE.md` §3/§9). Same rule.
 - **The WhatsApp link interception in `menu.js`** — deliberate, not a bug.
   Don't "fix" it so `wa.me` links navigate normally.
+- **The site's easter eggs** — there are at least three (`ARCHITECTURE.md`
+  §6): the elaborate homepage title-letter physics animation
+  (`easter-egg.js`), and simpler 180°-letter-flip click handlers on
+  `about.html`'s and `contact.html`'s own page titles (inline `<script>`
+  tags, not in any shared JS file). Two of the three aren't even labeled
+  as easter eggs in a comment — if you find an odd inline script at the
+  bottom of a page that flips/rotates a heading on click, it's one of
+  these. Leave it alone.
 - **`drawings.html`'s different R2 bucket** — deliberate, see above. Don't
   "fix" it to match `paintings.html`.
 - **The in-progress Vietnamese language-test feature** — `lpt.html`,
