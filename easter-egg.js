@@ -529,12 +529,48 @@
   }
 
   // ==============================
+  // REDUCED MOTION
+  // ==============================
+
+  function prefersReducedMotion() {
+    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
+  // No falling/bouncing/sound: swap the title straight to a random anagram,
+  // reusing the same letter-span markup the page itself renders on load.
+  function showAnagramInstantly() {
+    const title = getTitle();
+    if (!title) return;
+    const anagram = selectRandomAnagram();
+    const words = anagram.split(' ').filter(w => w.length > 0);
+    let html = '';
+    words.forEach((word, wi) => {
+      word.split('').forEach(ch => {
+        html += `<span class="title-letter" data-char="${ch}">${ch}</span>`;
+      });
+      if (wi < words.length - 1) html += '<span class="title-space">&nbsp;&nbsp;</span>';
+    });
+    title.innerHTML = html;
+    title.querySelectorAll('.title-letter').forEach(el => {
+      el.style.cursor = 'default';
+      el.style.pointerEvents = 'none';
+    });
+  }
+
+  // ==============================
   // TRIGGER ANIMATION
   // ==============================
 
   function triggerAnimation() {
     if (hasTriggered) return;
     hasTriggered = true;
+
+    if (prefersReducedMotion()) {
+      // skip physics: place the letters directly into their final anagram positions
+      // using the same end-state layout the animation converges to, no falling/bouncing/sound
+      showAnagramInstantly();
+      return;
+    }
 
     initAudio();
     const anagramData = mapLettersToAnagram(selectRandomAnagram());
@@ -612,6 +648,18 @@
   }
 
   function setupDesktopLetterClicks() {
+    if (prefersReducedMotion()) {
+      const title = getTitle();
+      if (!title) return;
+      title.style.cursor = 'pointer';
+      title.addEventListener('click', () => {
+        if (hasTriggered) return;
+        hasTriggered = true;
+        showAnagramInstantly();
+      }, { once: true });
+      return;
+    }
+
     initAudio();
     const anagramData = mapLettersToAnagram(selectRandomAnagram());
     const destinations = calculateDestinations(anagramData);
