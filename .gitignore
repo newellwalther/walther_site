@@ -3,3 +3,8 @@ id_*
 ssh-keygen*
 TMAC SITE /node_modules/
 TMAC SITE /
+
+.DS_Store
+node_modules/
+thumbs-out/
+images/childhood/
