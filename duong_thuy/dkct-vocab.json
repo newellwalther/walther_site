@@ -1,0 +1,262 @@
+{
+  "vocab": [
+    {
+      "vi": "đặc tính khai thác",
+      "en": "operational characteristics",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "đặc tính hoạt động",
+      "en": "operating characteristics",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "tàu cánh ngầm",
+      "en": "hydrofoil boat",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "nghiêng ngang",
+      "en": "heel (sideways tilt)",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "cánh ngầm",
+      "en": "hydrofoil",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "quay trở",
+      "en": "turning / maneuvering",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "chiều dài thân tàu",
+      "en": "length of the hull",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "một bên mạn",
+      "en": "one side of the vessel",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "bẻ lái",
+      "en": "put the helm over",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "mạn",
+      "en": "side of the vessel",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "phương tiện cao tốc",
+      "en": "high-speed craft",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "tuyến hình",
+      "en": "hull form / lines",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "mặt phẳng ngang",
+      "en": "horizontal plane",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "chân vịt",
+      "en": "propeller",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "chênh áp",
+      "en": "pressure differential",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "hệ thống lái",
+      "en": "steering system",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "định vị toàn cầu",
+      "en": "global positioning (GPS)",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "quán tính",
+      "en": "inertia",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "cập phao",
+      "en": "mooring to a buoy",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "cập bến",
+      "en": "berthing / coming alongside",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "thả neo",
+      "en": "anchoring / dropping anchor",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "ăn lái",
+      "en": "steering response",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "tầm nhìn hạn chế",
+      "en": "restricted visibility",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "dây chéo mũi",
+      "en": "bow spring line",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "hướng đậu",
+      "en": "berthing heading",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "dây chéo",
+      "en": "spring line",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "rời bến",
+      "en": "getting underway / leaving berth",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "dây dọc mũi",
+      "en": "head line (bow)",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "dây dọc",
+      "en": "fore-and-aft line",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "mũi tàu",
+      "en": "bow",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "người ngã xuống nước",
+      "en": "man overboard",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "ném phao",
+      "en": "throw a lifebuoy",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "bánh lái",
+      "en": "rudder",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "dây chùng",
+      "en": "slack line",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "trớn lùi",
+      "en": "sternway",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "mở dây",
+      "en": "cast off the line",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "dây dọc lái",
+      "en": "stern line",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "luồng hẹp",
+      "en": "narrow channel",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "trừ hao độ dạt",
+      "en": "compensate for drift / leeway",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "đầu nước",
+      "en": "into the current",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "đầu gió",
+      "en": "into the wind (weather side)",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "hướng sóng",
+      "en": "wave direction",
+      "category": "general",
+      "breakdown": []
+    },
+    {
+      "vi": "dây chéo lái",
+      "en": "stern spring line",
+      "category": "general",
+      "breakdown": []
+    }
+  ]
+}

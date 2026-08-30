@@ -1,0 +1,964 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question_vi": "Phương tiện cao tốc có mấy đặc tính khai thác ?",
+      "answers_vi": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "correct_index": 0,
+      "section": "cau-truc",
+      "image": null,
+      "translation": {
+        "question_en": "How many operational characteristics does a high-speed craft have?",
+        "answers_en": [
+          "3",
+          "4",
+          "5",
+          "6"
+        ]
+      },
+      "explanation_vi": "Theo giáo trình, phương tiện cao tốc được xác định có 3 đặc tính khai thác cơ bản.",
+      "explanation_en": "The training syllabus defines high-speed craft as having 3 basic operational characteristics."
+    },
+    {
+      "id": 2,
+      "question_vi": "Phương tiện cao tốc có mấy đặc tính hoạt động?",
+      "answers_vi": [
+        "3",
+        "5",
+        "7",
+        "9"
+      ],
+      "correct_index": 2,
+      "section": "cau-truc",
+      "image": null,
+      "translation": {
+        "question_en": "How many operating characteristics does a high-speed craft have?",
+        "answers_en": [
+          "3",
+          "5",
+          "7",
+          "9"
+        ]
+      },
+      "explanation_vi": "Giáo trình liệt kê 7 đặc tính hoạt động của phương tiện cao tốc.",
+      "explanation_en": "The syllabus lists 7 operating characteristics for high-speed craft."
+    },
+    {
+      "id": 3,
+      "question_vi": "Khi quay trở, tàu cánh ngầm có thể bị nghiêng ngang đến mấy độ?",
+      "answers_vi": [
+        "3°",
+        "4°",
+        "5°",
+        "6°"
+      ],
+      "correct_index": 0,
+      "section": "cau-truc",
+      "image": null,
+      "translation": {
+        "question_en": "When turning, how far can a hydrofoil boat heel sideways?",
+        "answers_en": [
+          "3°",
+          "4°",
+          "5°",
+          "6°"
+        ]
+      },
+      "explanation_vi": "Khi quay trở ở tốc độ cao, lực ly tâm làm tàu cánh ngầm nghiêng ngang; mức nghiêng tối đa cho phép theo tài liệu kỹ thuật là 30°.",
+      "explanation_en": "When turning at high speed, centrifugal force heels a hydrofoil craft; the technical reference caps the allowable heel at 30°."
+    },
+    {
+      "id": 4,
+      "question_vi": "Đường kính vòng quay trở của phương tiện thủy cao tốc, khi bẻ lái hết sang một bên mạn bằng bao nhiêu lần chiều dài thân tàu ?",
+      "answers_vi": [
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "correct_index": 1,
+      "section": "cau-truc",
+      "image": null,
+      "translation": {
+        "question_en": "The turning-circle diameter of a high-speed craft, with the rudder put hard over to one side, equals how many times the hull's length?",
+        "answers_en": [
+          "5",
+          "6",
+          "7",
+          "8"
+        ]
+      },
+      "explanation_vi": "Đường kính vòng quay trở tối đa của phương tiện cao tốc khi bẻ hết lái được quy định bằng 6 lần chiều dài thân tàu.",
+      "explanation_en": "The maximum turning-circle diameter with the rudder hard over is specified as 6 times the vessel's hull length."
+    },
+    {
+      "id": 5,
+      "question_vi": "Cánh ngầm của phương tiện cao tốc có tuyến hình gì?",
+      "answers_vi": [
+        "Mặt phẳng.",
+        "Khối hộp.",
+        "Lưu tuyến.",
+        "Hình bến."
+      ],
+      "correct_index": 2,
+      "section": "cau-truc",
+      "image": null,
+      "translation": {
+        "question_en": "What hull form do the hydrofoils of a high-speed craft have?",
+        "answers_en": [
+          "Flat / planar.",
+          "Boxy / rectangular.",
+          "Streamlined.",
+          "\"Berth-shaped\" (nonsense distractor)."
+        ]
+      },
+      "explanation_vi": "Cánh ngầm được thiết kế theo tuyến hình lưu tuyến (dạng thủy động học) để giảm lực cản và tạo lực nâng khi tàu di chuyển.",
+      "explanation_en": "Hydrofoils are shaped with a streamlined (hydrodynamic) profile to reduce drag and generate lift as the craft moves."
+    },
+    {
+      "id": 6,
+      "question_vi": "Trục chân vịt của tàu cánh ngầm được đặt nghiêng so với mặt phẳng ngang bao nhiêu độ?",
+      "answers_vi": [
+        "9°",
+        "11°",
+        "13°",
+        "15°"
+      ],
+      "correct_index": 2,
+      "section": "cau-truc",
+      "image": null,
+      "translation": {
+        "question_en": "How many degrees from the horizontal plane is the propeller shaft of a hydrofoil boat set?",
+        "answers_en": [
+          "9°",
+          "11°",
+          "13°",
+          "15°"
+        ]
+      },
+      "explanation_vi": "Trục chân vịt của tàu cánh ngầm được lắp nghiêng khoảng 13° so với mặt phẳng ngang theo thiết kế kỹ thuật của phương tiện.",
+      "explanation_en": "The propeller shaft of a hydrofoil craft is fitted at an incline of about 13° from the horizontal, per the vessel's technical design."
+    },
+    {
+      "id": 7,
+      "question_vi": "Tàu cánh ngầm khi chạy, thân được nâng lên trên cánh là do nguyên nhân nào?",
+      "answers_vi": [
+        "Tốc độ cao.",
+        "Sự chênh áp trên và dưới cánh.",
+        "Có cơ cấu đẩy từ dưới lên.",
+        "Do không khí nhẹ hơn nước."
+      ],
+      "correct_index": 1,
+      "section": "cau-truc",
+      "image": null,
+      "translation": {
+        "question_en": "When a hydrofoil boat is underway, the hull rises up on the foils because of what?",
+        "answers_en": [
+          "High speed.",
+          "The pressure difference between the top and bottom of the foil.",
+          "A mechanism pushing it up from below.",
+          "Because air is lighter than water."
+        ]
+      },
+      "explanation_vi": "Khi tàu chạy đủ tốc độ, chênh lệch áp suất giữa mặt trên và mặt dưới của cánh ngầm tạo ra lực nâng, đẩy thân tàu lên khỏi mặt nước — nguyên lý tương tự cánh máy bay.",
+      "explanation_en": "At sufficient speed, the pressure difference between the upper and lower surfaces of the foil generates lift that raises the hull out of the water — the same principle as an aircraft wing."
+    },
+    {
+      "id": 8,
+      "question_vi": "Hệ thống lái mà khi tàu chạy tới, bẻ lái về bên nào mũi ngã sang bên đó gọi là hệ thống lái",
+      "answers_vi": [
+        "Thuận.",
+        "Nghịch.",
+        "Gián tiếp.",
+        "Chân vịt."
+      ],
+      "correct_index": 0,
+      "section": "cau-truc",
+      "image": null,
+      "translation": {
+        "question_en": "A steering system where, going ahead, putting the helm over to one side swings the bow to that same side, is called what kind of steering system?",
+        "answers_en": [
+          "Direct.",
+          "Reverse.",
+          "Indirect.",
+          "Propeller."
+        ]
+      },
+      "explanation_vi": "Hệ thống lái thuận là hệ thống mà hướng bẻ lái và hướng ngả mũi tàu trùng nhau khi tàu chạy tới — bẻ lái phải thì mũi ngả phải.",
+      "explanation_en": "A \"direct\" steering system is one where the direction the rudder is put over matches the direction the bow swings when going ahead — helm to starboard, bow swings to starboard."
+    },
+    {
+      "id": 9,
+      "question_vi": "Ăng ten của Radar có chức năng nào?",
+      "answers_vi": [
+        "Nhận tín hiệu từ máy thu và phát sóng vào không gian.",
+        "Nhận sóng phản xạ.",
+        "Đưa sóng phản xạ về máy thu.",
+        "Tất cả các đáp án trên."
+      ],
+      "correct_index": 3,
+      "section": "cau-truc",
+      "image": null,
+      "translation": {
+        "question_en": "What function does a radar's antenna serve?",
+        "answers_en": [
+          "Receiving the signal from the receiver and transmitting it into space.",
+          "Receiving the reflected wave.",
+          "Feeding the reflected wave back to the receiver.",
+          "All of the above."
+        ]
+      },
+      "explanation_vi": "Ăng-ten radar đảm nhiệm cả ba chức năng: phát sóng vào không gian, thu nhận sóng phản xạ, và đưa tín hiệu phản xạ về máy thu để xử lý.",
+      "explanation_en": "The radar antenna performs all three functions: transmitting the pulse into space, receiving the reflected echo, and feeding that echo back to the receiver for processing."
+    },
+    {
+      "id": 10,
+      "question_vi": "Hệ thống định vị toàn cầu GPS có mấy khâu?",
+      "answers_vi": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "correct_index": 2,
+      "section": "cau-truc",
+      "image": null,
+      "translation": {
+        "question_en": "How many segments does the GPS (Global Positioning System) have?",
+        "answers_en": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ]
+      },
+      "explanation_vi": "Hệ thống GPS gồm 3 khâu: khâu vũ trụ (vệ tinh), khâu điều khiển (trạm mặt đất) và khâu sử dụng (thiết bị thu).",
+      "explanation_en": "GPS is made up of 3 segments: the space segment (satellites), the control segment (ground stations), and the user segment (receiver equipment)."
+    },
+    {
+      "id": 11,
+      "question_vi": "Các đại lượng đặc trưng cho quán tính là",
+      "answers_vi": [
+        "Quãng đường và thời gian.",
+        "Quãng đường và vận tốc.",
+        "Quãng đường và khối lượng.",
+        "Vận tốc và khối lượng."
+      ],
+      "correct_index": 0,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "What quantities characterize a vessel's inertia?",
+        "answers_en": [
+          "Distance and time.",
+          "Distance and speed.",
+          "Distance and mass.",
+          "Speed and mass."
+        ]
+      },
+      "explanation_vi": "Quán tính của tàu được thể hiện qua quãng đường và thời gian cần thiết để tàu dừng hẳn hoặc đạt tốc độ mong muốn sau khi thay đổi máy/lái.",
+      "explanation_en": "A vessel's inertia is expressed through the distance and time needed for it to stop, or reach a new speed, after a change of engine or helm."
+    },
+    {
+      "id": 12,
+      "question_vi": "Khi điều động tàu cập bến, cập phao, thả neo thì thường lựa chọn",
+      "answers_vi": [
+        "Nước ngược nhẹ.",
+        "Nước xuôi.",
+        "Nước ngược mạnh.",
+        "Nước nào cũng được."
+      ],
+      "correct_index": 0,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "When berthing, mooring to a buoy, or anchoring, what current condition is usually chosen?",
+        "answers_en": [
+          "A gentle counter-current.",
+          "A following current.",
+          "A strong counter-current.",
+          "Any current is fine."
+        ]
+      },
+      "explanation_vi": "Nước ngược nhẹ giúp tàu giữ được trớn tới chậm, dễ kiểm soát tốc độ và hướng khi tiếp cận bến, phao hoặc vị trí thả neo.",
+      "explanation_en": "A gentle counter-current lets the vessel hold slow headway, making speed and heading easier to control while approaching a berth, buoy, or anchoring position."
+    },
+    {
+      "id": 13,
+      "question_vi": "Tàu chạy ngược nước thì",
+      "answers_vi": [
+        "Tốc độ giảm, ăn lái tốt.",
+        "Tốc độ giảm, ăn lái giảm.",
+        "Tốc độ không đổi, ăn lái tốt.",
+        "Tốc độ không đổi, ăn lái giảm."
+      ],
+      "correct_index": 0,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "When a vessel runs against the current, what happens?",
+        "answers_en": [
+          "Speed decreases, steering response is good.",
+          "Speed decreases, steering response worsens.",
+          "Speed unchanged, steering response is good.",
+          "Speed unchanged, steering response worsens."
+        ]
+      },
+      "explanation_vi": "Chạy ngược dòng làm tốc độ thực giảm, nhưng dòng nước chảy qua bánh lái mạnh hơn nên tàu ăn lái tốt hơn.",
+      "explanation_en": "Running against the current reduces speed over ground, but more water flows past the rudder, so the vessel steers better."
+    },
+    {
+      "id": 14,
+      "question_vi": "Tàu chạy xuôi nước thì",
+      "answers_vi": [
+        "Tốc độ tăng, ăn lái tốt.",
+        "Tốc độ tăng, ăn lái giảm.",
+        "Tốc độ không đổi, ăn lái tốt.",
+        "Tốc độ không đổi, ăn lái giảm."
+      ],
+      "correct_index": 1,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "When a vessel runs with the current, what happens?",
+        "answers_en": [
+          "Speed increases, steering response is good.",
+          "Speed increases, steering response worsens.",
+          "Speed unchanged, steering response is good.",
+          "Speed unchanged, steering response worsens."
+        ]
+      },
+      "explanation_vi": "Chạy xuôi dòng làm tốc độ tăng lên nhưng dòng chảy tương đối qua bánh lái yếu đi, khiến tàu ăn lái kém hơn.",
+      "explanation_en": "Running with the current increases speed but reduces the relative flow over the rudder, so steering response is worse."
+    },
+    {
+      "id": 15,
+      "question_vi": "Khi tàu chạy trong sông hẹp và tầm nhìn hạn chế thì",
+      "answers_vi": [
+        "Không cần thay đổi tốc độ.",
+        "Phải giảm tốc độ.",
+        "Phải tăng tốc độ.",
+        "Chạy thế nào cũng được."
+      ],
+      "correct_index": 1,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "When a vessel is running in a narrow river with restricted visibility, what should be done?",
+        "answers_en": [
+          "No need to change speed.",
+          "Speed must be reduced.",
+          "Speed must be increased.",
+          "Any manner of running is fine."
+        ]
+      },
+      "explanation_vi": "Trong luồng, sông hẹp và tầm nhìn hạn chế, giảm tốc độ giúp tăng thời gian phản ứng và giảm nguy cơ va chạm.",
+      "explanation_en": "In a narrow river or channel with restricted visibility, slowing down gives more reaction time and lowers the risk of collision."
+    },
+    {
+      "id": 16,
+      "question_vi": "Điều động tàu rời bến đi theo hướng đậu, có nước chảy từ lái về mũi, muốn ra lái trước phải",
+      "answers_vi": [
+        "Để lại dây dọc lái, bẻ lái ra ngoài.",
+        "Để lại dây chéo mũi, bẻ lái ra ngoài.",
+        "Để lại dây ngang mũi, bẻ lái ra ngoài.",
+        "Để lại dây chéo, bẻ lái vào trong."
+      ],
+      "correct_index": 1,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "Getting underway in the direction of the berth, with current flowing from stern to bow, to swing the stern out first you should:",
+        "answers_en": [
+          "Leave the stern line made fast, put the helm outward.",
+          "Leave the bow spring made fast, put the helm outward.",
+          "Leave the bow breast line made fast, put the helm outward.",
+          "Leave the spring line made fast, put the helm inward."
+        ]
+      },
+      "explanation_vi": "Giữ dây chéo mũi làm điểm tựa để dòng nước đẩy lái tàu ra ngoài khi bẻ lái ra ngoài, cho phần lái tách bến trước theo đúng hướng cần rời.",
+      "explanation_en": "Keeping the bow spring as a pivot lets the current swing the stern out when the helm is put outward, so the stern clears the berth first in the intended direction."
+    },
+    {
+      "id": 17,
+      "question_vi": "Điều động tàu cập bến ngược nước, khi mũi tàu vào sát bến phải",
+      "answers_vi": [
+        "Bắt dây ngang mũi, bẻ lái ra ngoài.",
+        "Bắt dây dọc mũi, bẻ lái ra ngoài.",
+        "Bắt dây dọc mũi, bẻ lái vào trong.",
+        "Bắt dây chéo mũi, bẻ lái ra ngoài."
+      ],
+      "correct_index": 1,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "Berthing against the current, once the bow is close alongside, you should:",
+        "answers_en": [
+          "Make fast the bow breast line, put the helm outward.",
+          "Make fast the head line, put the helm outward.",
+          "Make fast the head line, put the helm inward.",
+          "Make fast the bow spring, put the helm outward."
+        ]
+      },
+      "explanation_vi": "Bắt dây dọc mũi trước để giữ mũi tàu, sau đó bẻ lái ra ngoài kết hợp dòng nước ngược đẩy lái áp sát vào bến.",
+      "explanation_en": "Making fast the head line at the bow first secures the bow; putting the helm outward then lets the current against the hull bring the stern in against the berth."
+    },
+    {
+      "id": 18,
+      "question_vi": "Khi có người ngã xuống nước, người điều khiển tàu phải",
+      "answers_vi": [
+        "Phải lập tức dừng máy, bẻ lái về phía người ngã, ném phao cho người ngã, theo dõi người.",
+        "Phải  lập tức bẻ lái về phía người ngã, ném phao cho người ngã.",
+        "Nhanh chóng  lái tàu về phía người ngã, ném nhiều phao cho người ngã.",
+        "Dừng ngay tàu, cử người bơi giỏi xuống cứu người bị nạn."
+      ],
+      "correct_index": 0,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "When someone falls overboard, what must the person at the helm do?",
+        "answers_en": [
+          "Immediately stop the engine, put the helm toward the person, throw them a lifebuoy, and keep watching them.",
+          "Immediately put the helm toward the person and throw them a lifebuoy.",
+          "Quickly steer toward the person and throw them several lifebuoys.",
+          "Stop the vessel at once and send a strong swimmer in to rescue them."
+        ]
+      },
+      "explanation_vi": "Đây là quy trình chuẩn: dừng máy ngay để tránh chân vịt gây nguy hiểm, bẻ lái về phía nạn nhân để đưa lái tàu ra xa người, ném phao cứu sinh và không rời mắt khỏi nạn nhân.",
+      "explanation_en": "This is the standard drill: stop the engine immediately so the propeller doesn't endanger the person, put the helm toward the victim to swing the stern away from them, throw a lifebuoy, and keep the person in sight at all times."
+    },
+    {
+      "id": 19,
+      "question_vi": "Tàu đang chạy xuôi nước mà có người ngã xuống nước thì điều động theo phương pháp nào?",
+      "answers_vi": [
+        "Điều động tàu quay trở 270° (chữ C) để cứu người.",
+        "Điều động tàu quay trở 180° (số 8) để cứu người.",
+        "Điều động tàu quay trở ngay lâp tức để cứu người.",
+        "Cả 3 cách trên đều được."
+      ],
+      "correct_index": 1,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "A vessel is running with the current when someone falls overboard — which maneuvering method should be used?",
+        "answers_en": [
+          "Make a 270° turn (\"C\" method) to recover the person.",
+          "Make a 180° turn (\"figure-8\" method) to recover the person.",
+          "Turn the vessel around immediately to recover the person.",
+          "Any of the above three methods works."
+        ]
+      },
+      "explanation_vi": "Khi đang chạy xuôi nước, phương pháp quay trở 180° (kiểu số 8) đưa tàu quay lại đúng đường nước cũ để tiếp cận nạn nhân an toàn và hiệu quả hơn.",
+      "explanation_en": "Running with the current, the 180° (\"figure-8\") turn brings the vessel back along its own wake to approach the victim more safely and efficiently."
+    },
+    {
+      "id": 20,
+      "question_vi": "Tàu đang chạy ngược nước mà có người ngã xuống nước thì điều động theo phương pháp nào?",
+      "answers_vi": [
+        "Điều động tàu quay trở 270° (chữ C) để cứu người.",
+        "Điều động tàu quay trở 180° (số 8) để cứu người.",
+        "Điều động tàu quay trở ngay lâp tức để cứu người.",
+        "Cả 3 cách trên đều được."
+      ],
+      "correct_index": 0,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "A vessel is running against the current when someone falls overboard — which maneuvering method should be used?",
+        "answers_en": [
+          "Make a 270° turn (\"C\" method) to recover the person.",
+          "Make a 180° turn (\"figure-8\" method) to recover the person.",
+          "Turn the vessel around immediately to recover the person.",
+          "Any of the above three methods works."
+        ]
+      },
+      "explanation_vi": "Khi đang chạy ngược nước, phương pháp quay 270° (chữ C) phù hợp hơn để tàu tiếp cận nạn nhân từ phía thuận dòng, kiểm soát tốc độ tốt hơn.",
+      "explanation_en": "Running against the current, the 270° (\"C\") turn is better suited, bringing the vessel back to approach the victim from downstream with more controlled speed."
+    },
+    {
+      "id": 21,
+      "question_vi": "Khi tàu đang chạy tới, nếu bẻ bánh lái sang phải thì hướng mũi tàu sẽ",
+      "answers_vi": [
+        "Ngả sang phải.",
+        "Ngả sang trái.",
+        "Không thay đổi.",
+        "Khi ngả phải, khi ngả trái."
+      ],
+      "correct_index": 0,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "When the vessel is going ahead and the rudder is put to starboard, which way does the bow swing?",
+        "answers_en": [
+          "Swings to starboard.",
+          "Swings to port.",
+          "Does not change.",
+          "Sometimes starboard, sometimes port."
+        ]
+      },
+      "explanation_vi": "Khi tàu chạy tới, bánh lái đẩy dòng nước lệch hướng khiến đuôi tàu bị đẩy ngược lại, làm mũi tàu ngả về phía bẻ lái.",
+      "explanation_en": "Going ahead, the rudder deflects the water flow so the stern is pushed the other way, causing the bow to swing in the direction the helm is put over."
+    },
+    {
+      "id": 22,
+      "question_vi": "Khi tàu đang chạy tới, nếu bẻ bánh lái sang trái thì hướng mũi tàu sẽ",
+      "answers_vi": [
+        "Ngả sang phải.",
+        "Ngả sang trái.",
+        "Không thay đổi.",
+        "Khi ngả phải, khi ngả trái."
+      ],
+      "correct_index": 1,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "When the vessel is going ahead and the rudder is put to port, which way does the bow swing?",
+        "answers_en": [
+          "Swings to starboard.",
+          "Swings to port.",
+          "Does not change.",
+          "Sometimes starboard, sometimes port."
+        ]
+      },
+      "explanation_vi": "Tương tự nguyên lý trên, bẻ lái trái khi chạy tới làm mũi tàu ngả sang trái.",
+      "explanation_en": "By the same principle, putting the helm to port while going ahead swings the bow to port."
+    },
+    {
+      "id": 23,
+      "question_vi": "Khi tàu đang chạy lùi, nếu bẻ bánh lái sang trái thì hướng mũi tàu sẽ",
+      "answers_vi": [
+        "Ngả sang phải.",
+        "Ngả sang trái.",
+        "Không thay đổi.",
+        "Khi ngả phải, khi ngả trái."
+      ],
+      "correct_index": 0,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "When the vessel is going astern and the rudder is put to port, which way does the bow swing?",
+        "answers_en": [
+          "Swings to starboard.",
+          "Swings to port.",
+          "Does not change.",
+          "Sometimes starboard, sometimes port."
+        ]
+      },
+      "explanation_vi": "Khi chạy lùi, dòng nước qua bánh lái đảo chiều so với khi chạy tới nên hiệu ứng lái bị đảo ngược: bẻ lái trái làm mũi ngả phải.",
+      "explanation_en": "Going astern, the flow over the rudder is reversed compared to going ahead, so the steering effect is reversed too: helm to port swings the bow to starboard."
+    },
+    {
+      "id": 24,
+      "question_vi": "Khi tàu đang chạy lùi, nếu bẻ bánh  lái sang phải thì hướng mũi tàu sẽ",
+      "answers_vi": [
+        "Ngả sang phải.",
+        "Ngả sang trái.",
+        "Không thay đổi.",
+        "Khi ngả phải, khi ngả trái."
+      ],
+      "correct_index": 1,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "When the vessel is going astern and the rudder is put to starboard, which way does the bow swing?",
+        "answers_en": [
+          "Swings to starboard.",
+          "Swings to port.",
+          "Does not change.",
+          "Sometimes starboard, sometimes port."
+        ]
+      },
+      "explanation_vi": "Cùng nguyên lý đảo chiều khi chạy lùi, bẻ lái phải làm mũi ngả trái.",
+      "explanation_en": "By the same reversed-steering principle when going astern, helm to starboard swings the bow to port."
+    },
+    {
+      "id": 25,
+      "question_vi": "Điều động tàu rời bến đi theo hướng đậu, có nước chảy từ lái về mũi, muốn ra lái trước phải",
+      "answers_vi": [
+        "Để lại dây dọc lái, bẻ lái ra ngoài.",
+        "Để lại dây chéo mũi, bẻ lái ra ngoài.",
+        "Để lại dây ngang mũi, bẻ lái ra ngoài.",
+        "Để lại dây chéo, bẻ lái vào trong."
+      ],
+      "correct_index": 1,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "Getting underway in the direction of the berth, with current flowing from stern to bow, to swing the stern out first you should:",
+        "answers_en": [
+          "Leave the stern line made fast, put the helm outward.",
+          "Leave the bow spring made fast, put the helm outward.",
+          "Leave the bow breast line made fast, put the helm outward.",
+          "Leave the spring line made fast, put the helm inward."
+        ]
+      },
+      "explanation_vi": "Giữ dây chéo mũi làm điểm tựa để dòng nước đẩy lái tàu ra ngoài khi bẻ lái ra ngoài, cho phần lái tách bến trước theo đúng hướng cần rời.",
+      "explanation_en": "Keeping the bow spring as a pivot lets the current swing the stern out when the helm is put outward, so the stern clears the berth first in the intended direction."
+    },
+    {
+      "id": 26,
+      "question_vi": "Điều động tàu rời bến đi theo hướng đậu, có nước chảy từ lái về mũi, khi lái tàu ngả được góc khoảng 30° thì",
+      "answers_vi": [
+        "Bẻ lái ra ngoài bến, cho máy lùi nhẹ, tàu có trớn lùi, dây chùng, mở dây",
+        "Bẻ lái vào trong bến, cho máy lùi nhẹ, tàu có trớn lùi, dây chùng, mở dây.",
+        "Bánh lái để 0°, cho máy lùi nhẹ, tàu có trớn lùi, dây chùng, mở dây.",
+        "Bẻ lái ra ngoài bến, mở dây"
+      ],
+      "correct_index": 1,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "Getting underway in the direction of the berth, with current flowing from stern to bow, once the stern has swung out to about 30°, you should:",
+        "answers_en": [
+          "Put the helm outward from the berth, go slow astern; once the vessel has sternway and the line goes slack, cast off.",
+          "Put the helm inward toward the berth, go slow astern; once the vessel has sternway and the line goes slack, cast off.",
+          "Leave the rudder at 0°, go slow astern; once the vessel has sternway and the line goes slack, cast off.",
+          "Put the helm outward from the berth and cast off."
+        ]
+      },
+      "explanation_vi": "Khi lái đã ngả đủ góc khoảng 30°, bẻ lái vào trong bến và lùi nhẹ giúp dây chùng lại an toàn để mở dây, hoàn tất động tác rời bến có kiểm soát.",
+      "explanation_en": "Once the stern has swung out to about 30°, putting the helm inward and going slow astern slackens the line safely so it can be cast off, completing a controlled departure."
+    },
+    {
+      "id": 27,
+      "question_vi": "Điều động tàu rời bến đi theo hướng đậu, có gió ngoài bến thổi vào muốn ra lái trước thì",
+      "answers_vi": [
+        "Để lại dây chéo mũi, bẻ lái ra ngoài, cho máy tới.",
+        "Để lại dây chéo mũi, bẻ lái vào trong, cho máy tới.",
+        "Để lại dây dọc mũi, bẻ lái ra ngoài, cho máy lùi.",
+        "Để lại dây ngang mũi, bẻ lái ra ngoài, cho máy tới."
+      ],
+      "correct_index": 1,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "Getting underway in the direction of the berth, with wind blowing onto the berth from outside, to swing the stern out first you should:",
+        "answers_en": [
+          "Leave the bow spring made fast, put the helm outward, go ahead.",
+          "Leave the bow spring made fast, put the helm inward, go ahead.",
+          "Leave the head line made fast, put the helm outward, go astern.",
+          "Leave the bow breast line made fast, put the helm outward, go ahead."
+        ]
+      },
+      "explanation_vi": "Giữ dây chéo mũi làm điểm tựa, bẻ lái vào trong và cho máy tới giúp thắng được lực gió đẩy tàu vào bến trong khi đưa lái tàu ra ngoài an toàn.",
+      "explanation_en": "Keeping the bow spring as a pivot, helm inward with the engine going ahead counters the wind pushing the vessel onto the berth while safely swinging the stern out."
+    },
+    {
+      "id": 28,
+      "question_vi": "Điều động tàu cập bến nước đứng, sóng gió yên, mũi tàu đã vào sát bến, sau khi bắt được dây chéo mũi, để đưa lái tàu vào sát bến thì",
+      "answers_vi": [
+        "Bẻ lái ra ngoài, cho máy tới.",
+        "Bẻ lái vào trong, cho máy tới.",
+        "Để lái 0°, cho máy tới.",
+        "Bẻ lái ra ngoài, cho máy lùi."
+      ],
+      "correct_index": 0,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "Berthing in still water with no wind or waves, the bow already close alongside and the bow spring made fast — to bring the stern in against the berth you should:",
+        "answers_en": [
+          "Put the helm outward, go ahead.",
+          "Put the helm inward, go ahead.",
+          "Leave the rudder at 0°, go ahead.",
+          "Put the helm outward, go astern."
+        ]
+      },
+      "explanation_vi": "Bẻ lái ra ngoài kết hợp máy tới, với dây chéo mũi làm điểm tựa, kéo phần lái tàu áp sát vào bến.",
+      "explanation_en": "Helm outward with the engine going ahead, pivoting on the bow spring, draws the stern in against the berth."
+    },
+    {
+      "id": 29,
+      "question_vi": "Điều động tàu cập bến ngược nước, khi mũi tàu vào sát bến phải",
+      "answers_vi": [
+        "Bắt dây ngang mũi, bẻ lái ra ngoài.",
+        "Bắt dây dọc mũi, bẻ lái ra ngoài.",
+        "Bắt dây dọc mũi, bẻ lái vào trong.",
+        "Bắt dây chéo mũi, bẻ lái ra ngoài."
+      ],
+      "correct_index": 1,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "Berthing against the current, once the bow is close alongside, you should:",
+        "answers_en": [
+          "Make fast the bow breast line, put the helm outward.",
+          "Make fast the head line, put the helm outward.",
+          "Make fast the head line, put the helm inward.",
+          "Make fast the bow spring, put the helm outward."
+        ]
+      },
+      "explanation_vi": "Bắt dây dọc mũi trước để giữ mũi tàu, sau đó bẻ lái ra ngoài kết hợp dòng nước ngược đẩy lái áp sát vào bến.",
+      "explanation_en": "Making fast the head line at the bow first secures the bow; helm outward then lets the current against the hull bring the stern in against the berth."
+    },
+    {
+      "id": 30,
+      "question_vi": "Điều động tàu cập bến xuôi nước, khi lái tàu vào sát bến phải",
+      "answers_vi": [
+        "Bắt dây ngang lái, bẻ lái ra ngoài.",
+        "Bắt dây dọc lái, bẻ lái ra ngoài.",
+        "Bắt dây dọc lái, bẻ lái vào trong.",
+        "Bắt dây ngang lái, bẻ lái vào trong."
+      ],
+      "correct_index": 1,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "Berthing with the current, once the stern is close alongside, you should:",
+        "answers_en": [
+          "Make fast the stern breast line, put the helm outward.",
+          "Make fast the stern line, put the helm outward.",
+          "Make fast the stern line, put the helm inward.",
+          "Make fast the stern breast line, put the helm inward."
+        ]
+      },
+      "explanation_vi": "Bắt dây dọc lái trước để giữ phần lái, sau đó bẻ lái ra ngoài giúp mũi tàu áp vào bến theo dòng nước xuôi.",
+      "explanation_en": "Making fast the stern line first secures the stern; helm outward then lets the following current bring the bow in against the berth."
+    },
+    {
+      "id": 31,
+      "question_vi": "Điều động tàu cập bến, gió trong bến thổi ra, khi bắt được dây chéo mũi thì",
+      "answers_vi": [
+        "Để lái thẳng, cho máy tới để đưa lái tàu vào",
+        "Bẻ lái vào trong, cho máy tới để đưa lái tàu vào",
+        "Bẻ lái ra ngoài, cho máy tới để đưa lái tàu vào",
+        "Bẻ lái vào trong, cho máy lùi để đưa lái tàu vào"
+      ],
+      "correct_index": 2,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "Berthing with wind blowing off the berth, once the bow spring is made fast, you should:",
+        "answers_en": [
+          "Keep the rudder amidships, go ahead to bring the stern in.",
+          "Put the helm inward, go ahead to bring the stern in.",
+          "Put the helm outward, go ahead to bring the stern in.",
+          "Put the helm inward, go astern to bring the stern in."
+        ]
+      },
+      "explanation_vi": "Bẻ lái ra ngoài và cho máy tới, dựa vào dây chéo mũi làm điểm tựa, để thắng lực gió thổi tàu ra xa bến và đưa lái vào sát bến.",
+      "explanation_en": "Helm outward with the engine going ahead, pivoting on the bow spring, overcomes the wind pushing the vessel off the berth and brings the stern alongside."
+    },
+    {
+      "id": 32,
+      "question_vi": "Khi có gió lớn từ ngoài bến thổi vào thì sử dụng phương pháp điều động cập an toàn nhất là",
+      "answers_vi": [
+        "Cập kết hợp sào hỗ trợ.",
+        "Cập với góc lớn.",
+        "Cập bằng neo.",
+        "Cập với góc nhỏ."
+      ],
+      "correct_index": 2,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "With strong wind blowing onto the berth from outside, what is the safest berthing method to use?",
+        "answers_en": [
+          "Berth with a push-pole for support.",
+          "Berth at a wide angle.",
+          "Berth using the anchor.",
+          "Berth at a shallow angle."
+        ]
+      },
+      "explanation_vi": "Khi gió lớn thổi thẳng vào bến, thả neo để hãm trớn và kiểm soát tốc độ tiếp cận là phương pháp an toàn nhất, tránh bị gió đẩy va mạnh vào bến.",
+      "explanation_en": "When strong wind blows straight onto the berth, letting go the anchor to check the vessel's way and control approach speed is the safest method, preventing the wind from driving it hard against the berth."
+    },
+    {
+      "id": 33,
+      "question_vi": "Phương tiện cao tốc chạy trong luồng hẹp phải",
+      "answers_vi": [
+        "Tăng tốc độ, tăng cường quan sát.",
+        "Giảm tốc độ, tăng cường quan sát.",
+        "Tăng tốc độ, chạy về bên phải.",
+        "Tăng tốc độ, chạy về bên trái."
+      ],
+      "correct_index": 1,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "In a narrow channel, a high-speed craft must:",
+        "answers_en": [
+          "Increase speed, keep a closer lookout.",
+          "Reduce speed, keep a closer lookout.",
+          "Increase speed, keep to starboard.",
+          "Increase speed, keep to port."
+        ]
+      },
+      "explanation_vi": "Trong luồng hẹp, giảm tốc độ và tăng cường quan sát giúp có đủ thời gian xử lý tình huống và tránh va chạm với phương tiện khác.",
+      "explanation_en": "In a narrow channel, reducing speed and keeping a closer lookout gives more time to react and avoid collisions with other traffic."
+    },
+    {
+      "id": 34,
+      "question_vi": "Điều khiển tàu đi đường có ảnh hưởng của gió, nước ngang, để trừ hao độ dạt người điều khiển cần",
+      "answers_vi": [
+        "Tăng tốc độ.",
+        "Giảm tốc độ.",
+        "Giữ nguyên tốc đô.",
+        "Bẻ lái về phía đầu gió, đầu nước."
+      ],
+      "correct_index": 3,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "Steering a course affected by wind and cross-current, to compensate for leeway the helmsman should:",
+        "answers_en": [
+          "Increase speed.",
+          "Reduce speed.",
+          "Hold the same speed.",
+          "Put the helm toward the wind/current (weather side)."
+        ]
+      },
+      "explanation_vi": "Bẻ mũi tàu hướng về phía gió, nước tác động (đầu gió, đầu nước) để bù trừ độ dạt ngang, giữ được đường đi mong muốn qua đáy.",
+      "explanation_en": "Angling the bow up into the wind or current compensates for sideways drift, keeping the vessel on its intended track over the ground."
+    },
+    {
+      "id": 35,
+      "question_vi": "Điều khiển tàu đi đường có ảnh hưởng của sóng, để giảm được ảnh hưởng của sóng hướng đi người điều khiển cần chọn là",
+      "answers_vi": [
+        "Ngược với hướng sóng.",
+        "Ngang với hướng sóng.",
+        "Vát, chếch với hướng sóng.",
+        "Chạy Xuôi với hướng sóng."
+      ],
+      "correct_index": 2,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "Steering a course affected by waves, to reduce their effect the helmsman should choose a heading that is:",
+        "answers_en": [
+          "Head-on into the waves.",
+          "Beam-on to the waves.",
+          "Oblique / quartering to the waves.",
+          "Running with the waves astern."
+        ]
+      },
+      "explanation_vi": "Cho tàu chạy chếch góc với hướng sóng, thay vì đối đầu hoặc ngang sóng, giúp giảm chòng chành và tránh sóng đập trực diện hoặc lắc ngang mạnh.",
+      "explanation_en": "Steering at an oblique (quartering) angle to the waves, rather than head-on or beam-on, reduces pitching and avoids heavy slamming or violent rolling."
+    },
+    {
+      "id": 36,
+      "question_vi": "Nguyên tắc điều động tàu cập bến?",
+      "answers_vi": [
+        "Nước ngược nhẹ.",
+        "Nước xuôi.",
+        "Nước ngược mạnh.",
+        "Nước nào cũng được."
+      ],
+      "correct_index": 0,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "What is the general rule for berthing?",
+        "answers_en": [
+          "A gentle counter-current.",
+          "A following current.",
+          "A strong counter-current.",
+          "Any current is fine."
+        ]
+      },
+      "explanation_vi": "Nguyên tắc chung khi cập bến là chọn thời điểm, hướng có nước ngược nhẹ để kiểm soát tốc độ tiếp cận tốt hơn.",
+      "explanation_en": "The general rule for berthing is to choose a time or heading with a gentle counter-current, for better control of approach speed."
+    },
+    {
+      "id": 37,
+      "question_vi": "Điều động tàu chạy trên đoạn sông dài thì thường lựa chọn",
+      "answers_vi": [
+        "Nước ngược.",
+        "Nước xuôi.",
+        "Nước ngược mạnh.",
+        "Nước nào cũng được."
+      ],
+      "correct_index": 1,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "On a long stretch of river, what current is usually chosen?",
+        "answers_en": [
+          "Against the current.",
+          "A following current.",
+          "A strong counter-current.",
+          "Any current is fine."
+        ]
+      },
+      "explanation_vi": "Trên đoạn sông dài, chạy xuôi nước giúp tiết kiệm thời gian và nhiên liệu vì tận dụng được dòng chảy hỗ trợ.",
+      "explanation_en": "On a long river stretch, running with the current saves time and fuel by taking advantage of the flow."
+    },
+    {
+      "id": 38,
+      "question_vi": "Tàu chạy ngược nước, gió ngược thì",
+      "answers_vi": [
+        "Tốc độ giảm, ăn lái tốt.",
+        "Tốc độ giảm, ăn lái giảm.",
+        "Tốc độ không đổi, ăn lái tốt.",
+        "Tốc độ không đổi, ăn lái giảm."
+      ],
+      "correct_index": 0,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "When a vessel runs against both current and wind, what happens?",
+        "answers_en": [
+          "Speed decreases, steering response is good.",
+          "Speed decreases, steering response worsens.",
+          "Speed unchanged, steering response is good.",
+          "Speed unchanged, steering response worsens."
+        ]
+      },
+      "explanation_vi": "Cả dòng nước và gió ngược đều làm giảm tốc độ thực của tàu, nhưng dòng nước chảy mạnh qua bánh lái vẫn giữ cho tàu ăn lái tốt.",
+      "explanation_en": "Both the counter-current and headwind reduce the vessel's speed over ground, but the stronger flow over the rudder still keeps steering response good."
+    },
+    {
+      "id": 39,
+      "question_vi": "Tàu chạy xuôi nước, xuôi gió thì",
+      "answers_vi": [
+        "Tốc độ tăng, ăn lái tốt.",
+        "Tốc độ tăng, ăn lái giảm.",
+        "Tốc độ không đổi, ăn lái tốt.",
+        "Tốc độ không đổi, ăn lái giảm."
+      ],
+      "correct_index": 1,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "When a vessel runs with both current and wind, what happens?",
+        "answers_en": [
+          "Speed increases, steering response is good.",
+          "Speed increases, steering response worsens.",
+          "Speed unchanged, steering response is good.",
+          "Speed unchanged, steering response worsens."
+        ]
+      },
+      "explanation_vi": "Nước và gió cùng chiều đẩy làm tốc độ tăng lên nhưng dòng chảy tương đối qua bánh lái yếu đi, ăn lái giảm.",
+      "explanation_en": "With both current and wind astern, speed increases but the relative flow over the rudder weakens, so steering response is reduced."
+    },
+    {
+      "id": 40,
+      "question_vi": "Điều động tàu rời bến đi theo hướng đậu khi có nước chảy từ mũi về lái, muốn ra mũi trước phải",
+      "answers_vi": [
+        "Để lại dây dọc mũi, bẻ lái ra ngoài",
+        "Để lại dây chéo lái, bẻ lái ra ngoài",
+        "Để lại dây ngang lái, bẻ lái ra ngoài",
+        "Để lại dây chéo lái, bẻ lái vào trong"
+      ],
+      "correct_index": 1,
+      "section": "dieu-dong",
+      "image": null,
+      "translation": {
+        "question_en": "Getting underway in the direction of the berth, with current flowing from bow to stern, to swing the bow out first you should:",
+        "answers_en": [
+          "Leave the head line made fast, put the helm outward.",
+          "Leave the stern spring made fast, put the helm outward.",
+          "Leave the stern breast line made fast, put the helm outward.",
+          "Leave the stern spring made fast, put the helm inward."
+        ]
+      },
+      "explanation_vi": "Giữ dây chéo lái làm điểm tựa để dòng nước đẩy mũi tàu ra ngoài khi bẻ lái ra ngoài, cho phần mũi tách bến trước theo đúng hướng cần rời.",
+      "explanation_en": "Keeping the stern spring as a pivot lets the current swing the bow out when the helm is put outward, so the bow clears the berth first in the intended direction."
+    }
+  ]
+}

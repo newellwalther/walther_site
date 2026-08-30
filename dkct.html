@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="vi-VN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thi Thử Chứng Chỉ ĐKCT — Vietnam High-Speed Craft Operator Certificate Practice Test</title>
+  <meta name="description" content="Ôn thi chứng chỉ điều khiển phương tiện cao tốc (ĐKCT) miễn phí — 40 câu lý thuyết trắc nghiệm, có dịch tiếng Anh, từ vựng, hover xem nghĩa. Free ĐKCT practice test for Vietnam's high-speed craft operator certificate (40 MCQs), built for English speakers and Vietnamese learners alike." />
+  <meta name="keywords" content="ĐKCT test Vietnam, chứng chỉ điều khiển phương tiện cao tốc, high-speed craft operator certificate Vietnam, DKCT practice test, thi ĐKCT, bằng lái tàu cao tốc, đường thủy nội địa, Vietnam boat certificate English" />
+  <meta name="content-language" content="vi-VN, en" />
+  <link rel="canonical" href="https://walther.website/dkct" />
+  <meta property="og:title" content="Thi Thử Chứng Chỉ ĐKCT — Vietnam High-Speed Craft Operator Certificate Practice Test" />
+  <meta property="og:description" content="Ôn thi chứng chỉ điều khiển phương tiện cao tốc (ĐKCT) miễn phí — 40 câu lý thuyết trắc nghiệm, có dịch tiếng Anh, từ vựng, hover xem nghĩa. Free practice test for Vietnam's high-speed craft operator certificate." />
+  <meta property="og:url" content="https://walther.website/dkct" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="vi_VN" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☯️</text></svg>" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ═══════════════════════════════════════════════════
+       BASE
+    ═══════════════════════════════════════════════════ */
+    #quiz-app {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 70px 20px 100px;
+      text-align: left;
+    }
+    .quiz-header {
+      margin-bottom: 36px;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 20px;
+    }
+    .quiz-header h1 { font-size: 1.4rem; font-weight: normal; letter-spacing: 0.02em; margin-bottom: 4px; color: #111; }
+    .quiz-header p  { font-size: 0.78rem; color: #aaa; margin: 0; letter-spacing: 0.03em; }
+
+    /* ═══════════════════════════════════════════════════
+       MAIN NAV
+    ═══════════════════════════════════════════════════ */
+    .main-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 16px;
+    }
+    .nav-tab {
+      font-family: Georgia, serif;
+      font-size: 0.7rem;
+      padding: 5px 14px;
+      border: 1px solid #e0e0e0;
+      background: #fff;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      color: #888;
+      transition: all 0.12s;
+    }
+    .nav-tab.active { background: #111; color: #fff; border-color: #111; }
+    .nav-tab:hover:not(.active) { background: #f5f5f5; color: #444; border-color: #ccc; }
+
+    /* ═══════════════════════════════════════════════════
+       SECTION SELECTOR (for by-section mode)
+    ═══════════════════════════════════════════════════ */
+    .section-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 28px;
+    }
+    .sec-btn {
+      font-family: Georgia, serif;
+      font-size: 0.68rem;
+      padding: 4px 11px;
+      border: 1px solid #e8e8e8;
+      background: #fff;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      color: #888;
+      transition: all 0.12s;
+    }
+    .sec-btn.active { background: #111; color: #fff; border-color: #111; }
+    .sec-btn:hover:not(.active) { background: #f5f5f5; border-color: #ccc; color: #444; }
+
+    /* ═══════════════════════════════════════════════════
+       PROGRESS
+    ═══════════════════════════════════════════════════ */
+    .progress-wrap { height: 1px; background: #ebebeb; margin-bottom: 32px; position: relative; }
+    .progress-fill { height: 100%; background: #111; transition: width 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .progress-label { position: absolute; right: 0; top: 6px; font-size: 0.65rem; color: #ccc; letter-spacing: 0.04em; }
+
+    /* ═══════════════════════════════════════════════════
+       QUESTION CARD
+    ═══════════════════════════════════════════════════ */
+    #question-screen { animation: fadeUp 0.22s ease; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .q-meta { font-size: 0.68rem; color: #bbb; letter-spacing: 0.08em; margin-bottom: 14px; text-transform: uppercase; }
+    .q-text { font-size: 1.06rem; line-height: 1.65; margin-bottom: 6px; color: #111; }
+    .q-translation { font-size: 0.78rem; color: #aaa; margin-bottom: 4px; font-style: italic; line-height: 1.5; display: none; }
+    .q-translation.visible { display: block; }
+
+    /* Translation button */
+    .translate-btn {
+      font-family: Georgia, serif;
+      font-size: 0.68rem;
+      color: #bbb;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      letter-spacing: 0.03em;
+      margin-bottom: 20px;
+      display: block;
+      transition: color 0.12s;
+    }
+    .translate-btn:hover { color: #666; }
+
+    /* Vocab tooltip */
+    .vocab-term {
+      border-bottom: 1px dotted #bbb;
+      cursor: help;
+      position: relative;
+    }
+    .vocab-term .vocab-tip {
+      display: none;
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #111;
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      white-space: nowrap;
+      z-index: 100;
+      pointer-events: none;
+      font-style: normal;
+    }
+    .vocab-term:hover .vocab-tip,
+    .vocab-term.tip-open .vocab-tip { display: block; }
+
+    /* Unique question phrase highlight */
+    .unique-phrase {
+      color: #c00;
+      font-weight: 500;
+      cursor: help;
+      position: relative;
+    }
+    .unique-phrase::after {
+      content: attr(data-tip);
+      display: none;
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #c00;
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      white-space: nowrap;
+      z-index: 100;
+      pointer-events: none;
+      font-style: normal;
+    }
+    .unique-phrase:hover::after { display: block; }
+
+    /* Images */
+    .q-image-wrap { margin-bottom: 20px; }
+    .q-image-wrap img, .a-image-wrap img {
+      max-width: 100%; max-height: 280px; object-fit: contain; display: block;
+      border: 1px solid #f0f0f0; border-radius: 2px;
+    }
+    .a-image-wrap { margin-top: 14px; display: none; animation: fadeUp 0.2s ease; }
+    .a-image-wrap.visible { display: block; }
+    .a-image-wrap img { max-height: 200px; }
+    .a-image-label { font-size: 0.65rem; color: #bbb; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+
+    /* Choices */
+    .choices { display: flex; flex-direction: column; gap: 6px; margin-bottom: 24px; }
+    .choice-btn {
+      font-family: Georgia, serif; font-size: 0.88rem; text-align: left;
+      padding: 12px 16px; border: 1px solid #e8e8e8; background: #fff;
+      cursor: pointer; line-height: 1.55; transition: background 0.1s, border-color 0.1s, transform 0.08s;
+      display: flex; flex-direction: column;
+    }
+    .choice-btn:hover:not(:disabled) { background: #f8f8f8; border-color: #ccc; }
+    .choice-btn:active:not(:disabled) { transform: scale(0.997); }
+    .choice-btn.correct { background: #f0fff4; border-color: #66bb6a; animation: pop 0.22s ease; }
+    .choice-btn.wrong   { background: #fff5f5; border-color: #ef9a9a; }
+    .choice-btn.reveal  { background: #f0fff4; border-color: #66bb6a; }
+    .choice-btn:disabled { cursor: default; }
+    @keyframes pop { 0%{transform:scale(1)} 40%{transform:scale(1.013)} 100%{transform:scale(1)} }
+    .choice-header { display: flex; align-items: baseline; gap: 10px; }
+    .choice-letter { font-size: 0.68rem; color: #ccc; width: 14px; flex-shrink: 0; }
+    .choice-btn.correct .choice-letter, .choice-btn.reveal .choice-letter { color: #4caf50; }
+    .choice-btn.wrong   .choice-letter { color: #ef5350; }
+    .choice-vi { color: #111; }
+    .choice-en { font-size: 0.72rem; color: #bbb; font-style: italic; margin-top: 2px; padding-left: 24px; display: none; }
+    .choice-en.visible { display: block; }
+
+    /* Feedback */
+    .feedback {
+      font-size: 0.82rem; line-height: 1.7; padding: 12px 16px;
+      border-left: 2px solid #ddd; background: #fafafa; color: #555;
+      margin-bottom: 22px; display: none; animation: fadeUp 0.2s ease;
+    }
+    .feedback.visible { display: block; }
+    .feedback-en { display: none; margin-top: 6px; font-style: italic; color: #888; }
+    .feedback-en.visible { display: block; }
+
+    /* Nav row */
+    .nav-row { display: flex; gap: 12px; align-items: center; }
+    .go-btn {
+      font-family: Georgia, serif; font-size: 0.78rem; padding: 10px 22px;
+      border: 1px solid #111; background: #111; color: #fff;
+      cursor: pointer; letter-spacing: 0.05em; transition: background 0.12s;
+    }
+    .go-btn:hover:not(:disabled) { background: #333; border-color: #333; }
+    .go-btn:disabled { opacity: 0.28; cursor: default; }
+    .skip-link {
+      font-size: 0.73rem; color: #ccc; cursor: pointer; background: none;
+      border: none; font-family: Georgia, serif; padding: 0;
+      letter-spacing: 0.03em; transition: color 0.12s;
+    }
+    .skip-link:hover { color: #888; }
+
+    /* ═══════════════════════════════════════════════════
+       TYPING MODE
+    ═══════════════════════════════════════════════════ */
+    .typing-input-wrap { margin-bottom: 20px; }
+    .typing-input {
+      font-family: Georgia, serif; font-size: 1rem;
+      width: 100%; padding: 12px 14px; border: 1px solid #e0e0e0;
+      outline: none; letter-spacing: 0.01em;
+      transition: border-color 0.15s;
+    }
+    .typing-input:focus { border-color: #bbb; }
+    .typing-input.correct-input { border-color: #66bb6a; background: #f0fff4; }
+    .typing-input.wrong-input   { border-color: #ef9a9a; background: #fff5f5; }
+    .typing-hint { font-size: 0.72rem; color: #bbb; margin-top: 6px; letter-spacing: 0.02em; }
+
+    /* ═══════════════════════════════════════════════════
+       FLASHCARD
+    ═══════════════════════════════════════════════════ */
+    .flashcard-filter { display: flex; gap: 5px; margin-bottom: 24px; flex-wrap: wrap; }
+    .fc-cat-btn {
+      font-family: Georgia, serif; font-size: 0.68rem; padding: 4px 11px;
+      border: 1px solid #e8e8e8; background: #fff; cursor: pointer;
+      letter-spacing: 0.03em; color: #888; transition: all 0.12s;
+    }
+    .fc-cat-btn.active { background: #111; color: #fff; border-color: #111; }
+    .fc-cat-btn:hover:not(.active) { background: #f5f5f5; border-color: #ccc; }
+
+    .flashcard-wrap { perspective: 1000px; margin-bottom: 28px; cursor: pointer; }
+    .flashcard {
+      width: 100%; min-height: 200px; position: relative;
+      transform-style: preserve-3d; transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+    }
+    .flashcard.flipped { transform: rotateY(180deg); }
+    .fc-front, .fc-back {
+      position: absolute; inset: 0; backface-visibility: hidden;
+      border: 1px solid #e8e8e8; padding: 28px 24px;
+      display: flex; flex-direction: column; justify-content: center;
+      min-height: 200px;
+    }
+    .fc-back { transform: rotateY(180deg); background: #fafafa; }
+    .fc-label { font-size: 0.65rem; color: #bbb; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
+    .fc-main  { font-size: 1.05rem; line-height: 1.6; color: #111; }
+    .fc-sub   { font-size: 0.8rem; color: #888; font-style: italic; margin-top: 8px; line-height: 1.5; white-space: pre-line; }
+    .fc-etymology { font-size: 0.72rem; color: #aaa; margin-top: 10px; line-height: 1.55; border-top: 1px solid #e8e8e8; padding-top: 8px; }
+    .fc-trap { font-size: 0.7rem; color: #b8860b; background: #fffbeb; border: 1px solid #f0d060; padding: 5px 10px; margin-top: 10px; line-height: 1.5; }
+    .fc-image { max-width: 100%; max-height: 180px; object-fit: contain; margin-top: 12px; border: 1px solid #f0f0f0; }
+    .trap-note { font-size: 0.72rem; color: #b8860b; background: #fffbeb; border-left: 2px solid #f0d060; padding: 5px 10px; margin-top: 8px; }
+    .fc-tap-hint { font-size: 0.68rem; color: #ccc; margin-top: 12px; letter-spacing: 0.03em; }
+    .fc-nav { display: flex; gap: 12px; align-items: center; }
+    .fc-counter { font-size: 0.7rem; color: #bbb; }
+
+    /* ═══════════════════════════════════════════════════
+       STUDY SHEET
+    ═══════════════════════════════════════════════════ */
+    .study-controls {
+      display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+      margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #f0f0f0;
+    }
+    .study-select {
+      font-family: Georgia, serif; font-size: 0.78rem; padding: 6px 12px;
+      border: 1px solid #e0e0e0; background: #fff; cursor: pointer;
+    }
+    .study-checkbox {
+      font-size: 0.75rem; color: #888; display: flex; align-items: center; gap: 6px; cursor: pointer;
+    }
+    .study-checkbox input { cursor: pointer; }
+    .study-list { display: flex; flex-direction: column; gap: 20px; }
+    .study-card {
+      border: 1px solid #e8e8e8; padding: 16px; background: #fafafa;
+    }
+    .study-q-num { font-size: 0.65rem; color: #bbb; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+    .study-q { font-size: 0.95rem; line-height: 1.6; margin-bottom: 6px; color: #111; }
+    .study-q-en { font-size: 0.8rem; color: #888; font-style: italic; margin-bottom: 12px; }
+    .study-q-en.hidden { display: none; }
+    .study-answers { display: flex; flex-direction: column; gap: 4px; }
+    .study-ans { font-size: 0.85rem; line-height: 1.5; padding: 6px 10px; background: #fff; border-left: 2px solid #e0e0e0; }
+    .study-ans.correct { border-left-color: #66bb6a; background: #f0fff4; }
+    .study-ans-en { font-size: 0.72rem; color: #888; font-style: italic; margin-top: 2px; }
+    .study-ans-en.hidden { display: none; }
+    .study-img { max-width: 100%; max-height: 200px; margin-top: 10px; border: 1px solid #f0f0f0; }
+
+    /* ═══════════════════════════════════════════════════
+       END SCREEN
+    ═══════════════════════════════════════════════════ */
+    #end-screen { display: none; }
+    #end-screen.visible { display: block; animation: fadeUp 0.3s ease; }
+
+    /* Trophy animation */
+    .trophy-wrap { font-size: 4rem; margin-bottom: 12px; display: inline-block; }
+    .trophy-wrap.spin { animation: spin 0.9s cubic-bezier(0.4,0,0.2,1) infinite alternate; }
+    @keyframes spin {
+      0%   { transform: rotate(-18deg) scale(1); }
+      100% { transform: rotate(18deg) scale(1.08); }
+    }
+
+    /* Sinking ship animation */
+    .ship-wrap { font-size: 3.5rem; margin-bottom: 12px; display: inline-block; }
+    .ship-wrap.sink {
+      animation: sink 2.5s ease-in-out infinite;
+    }
+    @keyframes sink {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+      60%  { transform: translateY(12px) rotate(-8deg); opacity: 0.7; }
+      100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    }
+
+    .end-score { font-size: 3.2rem; font-weight: normal; margin-bottom: 6px; color: #111; letter-spacing: -0.02em; }
+    .end-label { font-size: 0.85rem; color: #999; margin-bottom: 8px; }
+    .end-result { font-size: 1rem; font-weight: normal; margin-bottom: 32px; }
+    .end-result.pass { color: #2e7d32; }
+    .end-result.fail { color: #c0392b; }
+    .end-breakdown { font-size: 0.75rem; color: #aaa; line-height: 2.2; margin-bottom: 32px; border-left: 1px solid #f0f0f0; padding-left: 14px; white-space: pre; }
+    .end-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .end-btn {
+      font-family: Georgia, serif; font-size: 0.78rem; padding: 10px 22px;
+      border: 1px solid #111; cursor: pointer; letter-spacing: 0.04em; transition: all 0.12s;
+    }
+    .end-btn.primary   { background: #111; color: #fff; }
+    .end-btn.primary:hover { background: #333; border-color: #333; }
+    .end-btn.secondary { background: #fff; color: #111; }
+    .end-btn.secondary:hover { background: #f5f5f5; }
+    .end-btn.danger    { border-color: #ef9a9a; color: #c0392b; background: #fff; }
+    .end-btn.danger:hover { background: #fff5f5; border-color: #e57373; }
+
+    /* Weak count badge */
+    .weak-badge { font-size: 0.7rem; color: #ccc; margin-left: auto; letter-spacing: 0.02em; }
+    .weak-badge span { color: #e57373; }
+    .top-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+
+    /* ═══════════════════════════════════════════════════
+       REVIEW MODE indicator
+    ═══════════════════════════════════════════════════ */
+    .mode-badge {
+      display: inline-block; font-size: 0.65rem; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 2px 8px; border: 1px solid #e57373;
+      color: #c0392b; margin-bottom: 16px;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       INFO SECTION
+    ═══════════════════════════════════════════════════ */
+    .info-section {
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid #f0f0f0;
+    }
+    .info-section h2 {
+      font-size: 0.95rem;
+      font-weight: normal;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+      color: #111;
+    }
+    .info-section p {
+      font-size: 0.85rem;
+      line-height: 1.75;
+      color: #555;
+      margin-bottom: 12px;
+    }
+    .info-section p:last-child { margin-bottom: 0; }
+    .info-section .info-en {
+      font-size: 0.78rem;
+      color: #999;
+      font-style: italic;
+      line-height: 1.65;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       MOBILE
+    ═══════════════════════════════════════════════════ */
+    @media (max-width: 480px) {
+      #quiz-app { padding: 60px 14px 80px; }
+      .quiz-header h1 { font-size: 1.15rem; }
+      .q-text { font-size: 0.96rem; }
+      .choice-btn { font-size: 0.84rem; padding: 10px 12px; }
+      .end-score { font-size: 2.6rem; }
+      .fc-main { font-size: 0.96rem; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "ĐKCT là gì? Chứng chỉ điều khiển phương tiện cao tốc là gì?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ĐKCT (chứng chỉ điều khiển phương tiện cao tốc) là chứng chỉ chuyên môn bắt buộc tại Việt Nam, cấp thêm cho người điều khiển phương tiện thủy nội địa cao tốc, ngoài giấy phép/bằng lái phương tiện thủy nội địa cơ bản."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Đề thi ĐKCT có bao nhiêu câu?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Đề thi sát hạch lý thuyết ĐKCT gồm 40 câu hỏi trắc nghiệm, chia làm hai phần: cấu trúc và thiết bị, và điều động tàu."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this ĐKCT practice test useful for English speakers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. This site is built for English-speaking expats and travelers in Vietnam who need to pass the high-speed craft operator certificate exam (ĐKCT) but can't study from Vietnamese-only materials. Every question includes an English translation, vocabulary notes, and a bilingual explanation of the correct answer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Trang này có dùng được cho người Việt muốn luyện thi không?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Có. Người Việt có thể dùng trang này để luyện đề trắc nghiệm trực tuyến, ôn theo từng chuyên đề, học bằng thẻ ghi nhớ (flashcard), và luyện gõ từ vựng — hoàn toàn miễn phí."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Site nav -->
+  <div class="menu">
+    <button class="menu-trigger" aria-label="Open site menu">MENU</button>
+    <ul class="dropdown" role="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="paintings.html">Paintings</a></li>
+      <li><a href="drawings.html">Drawings</a></li>
+      <li><a href="text.html">Text-Based Work</a></li>
+      <li><a href="exhibitions.html">Exhibitions / CV</a></li>
+      <li><a href="video.html">Video</a></li>
+      <li><a href="https://19933.biz/manhattanartcomic.html" target="_blank">🔗 Manhattan Art Comic</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <div id="quiz-app">
+
+    <!-- Header -->
+    <div class="quiz-header">
+      <h1>Thi thử chứng chỉ điều khiển phương tiện cao tốc (ĐKCT)</h1>
+      <p>Vietnam High-Speed Craft Operator Certificate Practice Test — 40 câu lý thuyết trắc nghiệm</p>
+    </div>
+
+    <!-- Main nav -->
+    <nav class="main-nav" id="main-nav">
+      <button class="nav-tab active" data-mode="practice">thực hành / practice test</button>
+      <button class="nav-tab" data-mode="all">tất cả / test all</button>
+      <button class="nav-tab" data-mode="section">theo mục / by section</button>
+      <button class="nav-tab" data-mode="flashcard">thẻ học / flashcards</button>
+      <button class="nav-tab" data-mode="typing">điền từ / fill in</button>
+      <button class="nav-tab" data-mode="study">tài liệu / study sheet</button>
+    </nav>
+
+    <!-- Section selector (by-section mode) -->
+    <div id="section-selector" class="section-selector" style="display:none"></div>
+
+    <!-- Flashcard category filter -->
+    <div id="fc-filter" class="flashcard-filter" style="display:none">
+      <button class="fc-cat-btn active" data-cat="all">tất cả / all</button>
+      <button class="fc-cat-btn" data-cat="vocab">từ vựng / vocab</button>
+    </div>
+
+    <!-- Top row (weak badge) -->
+    <div class="top-row">
+      <div class="weak-badge" id="weak-badge"></div>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-wrap" id="progress-wrap" style="display:none">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+      <div class="progress-label" id="progress-label"></div>
+    </div>
+
+    <!-- ── QUIZ SCREEN ── -->
+    <div id="question-screen" style="display:none">
+      <div class="mode-badge" id="mode-badge" style="display:none"></div>
+      <div class="q-meta" id="q-meta"></div>
+      <div class="q-text" id="q-text"></div>
+      <div class="q-translation" id="q-translation"></div>
+      <button class="translate-btn" id="translate-btn">dịch / show translation</button>
+
+      <div class="q-image-wrap" id="q-image-wrap" style="display:none">
+        <img id="q-img" src="" alt="question image" />
+      </div>
+
+      <div class="choices" id="choices"></div>
+
+      <div class="a-image-wrap" id="a-image-wrap">
+        <div class="a-image-label">correct answer / đáp án đúng</div>
+        <img id="a-img" src="" alt="answer image" />
+      </div>
+
+      <div class="feedback" id="feedback"></div>
+
+      <div class="nav-row">
+        <button class="go-btn" id="next-btn" disabled>tiếp theo →</button>
+        <button class="skip-link" id="skip-btn" style="display:none">bỏ qua / skip</button>
+      </div>
+    </div>
+
+    <!-- ── TYPING SCREEN ── -->
+    <div id="typing-screen" style="display:none">
+      <div class="q-meta" id="t-meta"></div>
+      <div class="q-image-wrap" id="t-image-wrap" style="display:none">
+        <img id="t-img" src="" alt="question image" />
+      </div>
+      <div class="q-text" id="t-text" style="margin-bottom:16px"></div>
+
+      <div class="typing-input-wrap">
+        <input type="text" class="typing-input" id="typing-input"
+          placeholder="Gõ câu trả lời bằng tiếng Việt… (hoặc tiếng Anh)" autocomplete="off" spellcheck="false" />
+        <div class="typing-hint" id="typing-hint"></div>
+      </div>
+
+      <div class="feedback" id="t-feedback"></div>
+      <div class="a-image-wrap" id="t-a-image-wrap">
+        <div class="a-image-label">correct answer / đáp án đúng</div>
+        <img id="t-a-img" src="" alt="answer image" />
+      </div>
+
+      <div class="nav-row" style="margin-top:4px">
+        <button class="go-btn" id="t-next-btn" disabled>tiếp theo →</button>
+        <button class="go-btn" id="t-check-btn" style="background:#fff;color:#111">kiểm tra / check</button>
+        <button class="skip-link" id="t-skip-btn">bỏ qua</button>
+      </div>
+    </div>
+
+    <!-- ── FLASHCARD SCREEN ── -->
+    <div id="flashcard-screen" style="display:none">
+      <div class="progress-wrap" style="display:block;margin-bottom:20px">
+        <div class="progress-fill" id="fc-progress" style="width:0%"></div>
+        <div class="progress-label" id="fc-label"></div>
+      </div>
+
+      <div class="flashcard-wrap" id="fc-wrap">
+        <div class="flashcard" id="flashcard">
+          <div class="fc-front">
+            <div class="fc-label" id="fc-front-label">câu hỏi / question</div>
+            <div class="fc-main" id="fc-front-text"></div>
+            <img class="fc-image" id="fc-front-img" src="" alt="" style="display:none" />
+            <div class="fc-tap-hint">nhấn để lật / tap to flip</div>
+          </div>
+          <div class="fc-back">
+            <div class="fc-label" id="fc-back-label">đáp án / answer</div>
+            <div class="fc-main" id="fc-back-text"></div>
+            <div class="fc-sub"  id="fc-back-en"></div>
+            <div class="fc-etymology" id="fc-etymology"></div>
+            <div class="fc-trap" id="fc-trap" style="display:none">⚠ common trap — "all of the above" is wrong here</div>
+            <img class="fc-image" id="fc-back-img" src="" alt="" style="display:none" />
+          </div>
+        </div>
+      </div>
+
+      <div class="fc-nav">
+        <button class="go-btn" id="fc-prev" style="padding:8px 16px;font-size:0.75rem">← trước</button>
+        <button class="go-btn" id="fc-next" style="padding:8px 16px;font-size:0.75rem">sau →</button>
+        <div class="fc-counter" id="fc-counter"></div>
+      </div>
+    </div>
+
+    <!-- ── STUDY SCREEN ── -->
+    <div id="study-screen" style="display:none">
+      <div class="study-controls">
+        <select id="study-section" class="study-select">
+          <option value="all">tất cả / all sections</option>
+        </select>
+        <label class="study-checkbox">
+          <input type="checkbox" id="study-show-en" checked /> hiện tiếng Anh / show English
+        </label>
+      </div>
+      <div id="study-list" class="study-list"></div>
+    </div>
+
+    <!-- ── END SCREEN ── -->
+    <div id="end-screen">
+      <div id="end-icon"></div>
+      <div class="end-score" id="end-score"></div>
+      <div class="end-label" id="end-label"></div>
+      <div class="end-result" id="end-result"></div>
+      <div class="end-breakdown" id="end-breakdown"></div>
+      <div class="end-actions">
+        <button class="end-btn primary"   id="end-restart">thử lại / try again</button>
+        <button class="end-btn danger"    id="end-review"  style="display:none">ôn sai / review missed</button>
+        <button class="end-btn secondary" id="end-weak"    style="display:none">ôn yếu / drill weak</button>
+        <button class="end-btn secondary" id="end-clear-weak">xóa danh sách yếu</button>
+      </div>
+    </div>
+
+    <!-- ── INFO SECTION ── -->
+    <div class="info-section">
+      <h2>Về trang luyện thi này</h2>
+      <p>
+        Đây là công cụ luyện thi miễn phí cho kỳ thi sát hạch lý thuyết <strong>chứng chỉ điều khiển phương tiện cao tốc</strong>
+        (ĐKCT) — chứng chỉ chuyên môn bắt buộc tại Việt Nam đối với người điều khiển phương tiện thủy nội địa cao tốc. Đề thi
+        gồm <strong>40 câu trắc nghiệm</strong>, chia làm hai phần: <strong>cấu trúc và thiết bị</strong> và
+        <strong>điều động tàu</strong>.
+      </p>
+      <p>
+        Trang web này đặc biệt hữu ích cho <strong>người nước ngoài nói tiếng Anh đang sống hoặc du lịch tại Việt Nam</strong>
+        — những người muốn thi đậu nhưng khó ôn tập vì tài liệu chính thức chỉ có tiếng Việt. Mỗi câu hỏi đều có bản dịch
+        tiếng Anh, chú thích từ vựng và giải thích lý do đáp án đúng. Người Việt cũng có thể dùng trang này để luyện trắc
+        nghiệm, học bằng thẻ ghi nhớ và ôn từ vựng trên máy tính hoặc điện thoại.
+      </p>
+      <p class="info-en">
+        Free practice test for Vietnam's high-speed craft operator certificate (ĐKCT), a specialized certificate
+        required in addition to a base inland waterway license for anyone operating high-speed craft. Built for
+        English-speaking expats and travelers who can't study from Vietnamese-only materials — also useful for
+        Vietnamese speakers. The real exam has 40 multiple-choice questions covering structure/equipment and vessel
+        maneuvering.
+      </p>
+    </div>
+
+  </div><!-- #quiz-app -->
+
+  <script src="menu.js"></script>
+  <script>
+  (function(){
+    'use strict';
+
+    // ══════════════════════════════════════════════════
+    // CONSTANTS
+    // ══════════════════════════════════════════════════
+    const IMG     = 'duong_thuy/images/';
+    const LS_WEAK = 'dkct-weak-v1';
+
+    const SECTIONS = [
+      {slug:'all',        label:'tất cả',                  en:'all'},
+      {slug:'cau-truc',   label:'cấu trúc và thiết bị',    en:'structure & equipment'},
+      {slug:'dieu-dong',  label:'điều động tàu',           en:'vessel maneuvering'},
+    ];
+
+    // ══════════════════════════════════════════════════
+    // STATE
+    // ══════════════════════════════════════════════════
+    let allQ = [], vocab = [], uniqueHighlights = {}, queue = [], fcDeck = [];
+    let ci = 0, fcIndex = 0;
+    let answered = false, transitioning = false;
+    let score = {correct:0, wrong:0, skipped:0};
+    let secScores = {}, missed = [];
+    let curMode = 'practice';  // practice | all | section | flashcard | typing
+    let curSection = 'all';
+    let fcCat = 'all';
+    let reviewMode = false; // true = reviewing missed answers
+    let weakIds = loadWeak();
+
+    // ══════════════════════════════════════════════════
+    // DOM
+    // ══════════════════════════════════════════════════
+    const $qScreen   = document.getElementById('question-screen');
+    const $tScreen   = document.getElementById('typing-screen');
+    const $fcScreen  = document.getElementById('flashcard-screen');
+    const $studyScreen = document.getElementById('study-screen');
+    const $endScreen = document.getElementById('end-screen');
+
+    const $qMeta     = document.getElementById('q-meta');
+    const $qText     = document.getElementById('q-text');
+    const $qTrans    = document.getElementById('q-translation');
+    const $transBtnEl= document.getElementById('translate-btn');
+    const $qImgWrap  = document.getElementById('q-image-wrap');
+    const $qImg      = document.getElementById('q-img');
+    const $choices   = document.getElementById('choices');
+    const $aImgWrap  = document.getElementById('a-image-wrap');
+    const $aImg      = document.getElementById('a-img');
+    const $feedback  = document.getElementById('feedback');
+    const $nextBtn   = document.getElementById('next-btn');
+    const $skipBtn   = document.getElementById('skip-btn');
+    const $modeBadge = document.getElementById('mode-badge');
+    const $progressWrap = document.getElementById('progress-wrap');
+    const $progress  = document.getElementById('progress-fill');
+    const $progressLabel = document.getElementById('progress-label');
+    const $weakBadge = document.getElementById('weak-badge');
+    const $sectionSelector = document.getElementById('section-selector');
+    const $fcFilter  = document.getElementById('fc-filter');
+
+    const $tMeta     = document.getElementById('t-meta');
+    const $tImgWrap  = document.getElementById('t-image-wrap');
+    const $tImg      = document.getElementById('t-img');
+    const $tText     = document.getElementById('t-text');
+    const $typingInput = document.getElementById('typing-input');
+    const $typingHint  = document.getElementById('typing-hint');
+    const $tFeedback   = document.getElementById('t-feedback');
+    const $tAImgWrap   = document.getElementById('t-a-image-wrap');
+    const $tAImg       = document.getElementById('t-a-img');
+    const $tNextBtn    = document.getElementById('t-next-btn');
+    const $tCheckBtn   = document.getElementById('t-check-btn');
+    const $tSkipBtn    = document.getElementById('t-skip-btn');
+
+    const $fcWrap      = document.getElementById('fc-wrap');
+    const $fcCard      = document.getElementById('flashcard');
+    const $fcFront     = document.getElementById('fc-front-text');
+    const $fcFrontImg  = document.getElementById('fc-front-img');
+    const $fcFrontLabel= document.getElementById('fc-front-label');
+    const $fcBack      = document.getElementById('fc-back-text');
+    const $fcBackEn    = document.getElementById('fc-back-en');
+    const $fcEtymology = document.getElementById('fc-etymology');
+    const $fcTrap      = document.getElementById('fc-trap');
+    const $fcBackImg   = document.getElementById('fc-back-img');
+    const $fcBackLabel = document.getElementById('fc-back-label');
+    const $fcPrev      = document.getElementById('fc-prev');
+    const $fcNext      = document.getElementById('fc-next');
+    const $fcCounter   = document.getElementById('fc-counter');
+    const $fcProgress  = document.getElementById('fc-progress');
+    const $fcLabel     = document.getElementById('fc-label');
+
+    const $endIcon   = document.getElementById('end-icon');
+    const $endScore  = document.getElementById('end-score');
+    const $endLabel  = document.getElementById('end-label');
+    const $endResult = document.getElementById('end-result');
+    const $endBreak  = document.getElementById('end-breakdown');
+    const $endRestart= document.getElementById('end-restart');
+    const $endReview = document.getElementById('end-review');
+    const $endWeak   = document.getElementById('end-weak');
+    const $endClearWeak = document.getElementById('end-clear-weak');
+
+    // ══════════════════════════════════════════════════
+    // LOAD DATA
+    // ══════════════════════════════════════════════════
+    Promise.all([
+      fetch('duong_thuy/dkct-questions.json').then(r=>r.json()),
+      fetch('duong_thuy/dkct-vocab.json').then(r=>r.json()),
+      fetch('duong_thuy/dkct-question-highlights.json').then(r=>r.json()),
+    ]).then(([qData, vData, hData]) => {
+      allQ  = qData.questions;
+      vocab = vData.vocab.sort((a,b) => b.vi.length - a.vi.length); // longest first
+      uniqueHighlights = hData;
+      buildSectionSelector();
+      buildMainNav();
+      updateWeakBadge();
+      switchMode('practice');
+    }).catch(()=>{
+      $qText.textContent = 'Error loading data. Run from a local server.';
+      showScreen($qScreen);
+    });
+
+    // ══════════════════════════════════════════════════
+    // SOUND (Web Audio API — no files needed)
+    // ══════════════════════════════════════════════════
+    let audioCtx = null;
+    function getAudio() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      return audioCtx;
+    }
+    function playDing() {
+      try {
+        const ctx = getAudio();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(880, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(660, ctx.currentTime + 0.25);
+        gain.gain.setValueAtTime(0.35, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.4);
+      } catch(_){}
+    }
+    function playBuzz() {
+      try {
+        const ctx = getAudio();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(180, ctx.currentTime);
+        gain.gain.setValueAtTime(0.18, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.35);
+      } catch(_){}
+    }
+
+    // ══════════════════════════════════════════════════
+    // WEAK LIST
+    // ══════════════════════════════════════════════════
+    function loadWeak() {
+      try { const r = localStorage.getItem(LS_WEAK); return r ? new Set(JSON.parse(r)) : new Set(); }
+      catch(_){ return new Set(); }
+    }
+    function saveWeak() {
+      try { localStorage.setItem(LS_WEAK, JSON.stringify([...weakIds])); } catch(_){}
+    }
+    function updateWeakBadge() {
+      const n = weakIds.size;
+      $weakBadge.innerHTML = n > 0 ? 'yếu / weak: <span>' + n + '</span>' : '';
+    }
+
+    // ══════════════════════════════════════════════════
+    // SCREEN SWITCHING
+    // ══════════════════════════════════════════════════
+    function showScreen(el) {
+      [$qScreen,$tScreen,$fcScreen,$studyScreen,$endScreen].forEach(s=>{
+        s.style.display='none'; s.classList.remove('visible');
+      });
+      if (el) { el.style.display = 'block'; el.classList.add('visible'); }
+    }
+
+    // ══════════════════════════════════════════════════
+    // MAIN NAV
+    // ══════════════════════════════════════════════════
+    function buildMainNav() {
+      document.getElementById('main-nav').querySelectorAll('.nav-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          switchMode(btn.dataset.mode);
+        });
+      });
+    }
+
+    function switchMode(mode) {
+      curMode = mode;
+      $endScreen.style.display = 'none';
+      $endScreen.classList.remove('visible');
+      $sectionSelector.style.display = (mode === 'section') ? 'flex' : 'none';
+      $fcFilter.style.display = (mode === 'flashcard') ? 'flex' : 'none';
+      $progressWrap.style.display = (mode === 'flashcard' || mode === 'study') ? 'none' : 'block';
+
+      if (mode === 'flashcard') {
+        $progressWrap.style.display = 'none';
+        buildFlashcardDeck();
+      } else if (mode === 'typing') {
+        $progressWrap.style.display = 'block';
+        startTyping();
+      } else if (mode === 'study') {
+        $progressWrap.style.display = 'none';
+        showStudySheet();
+      } else {
+        startQuiz();
+      }
+    }
+
+    // ══════════════════════════════════════════════════
+    // SECTION SELECTOR
+    // ══════════════════════════════════════════════════
+    function buildSectionSelector() {
+      $sectionSelector.innerHTML = '';
+      SECTIONS.slice(1).forEach(sec => {
+        const n = allQ.filter(q=>q.section===sec.slug).length;
+        const btn = document.createElement('button');
+        btn.className = 'sec-btn' + (curSection === sec.slug ? ' active' : '');
+        btn.textContent = sec.label + ' (' + n + ')';
+        btn.addEventListener('click', () => {
+          curSection = sec.slug;
+          $sectionSelector.querySelectorAll('.sec-btn').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          startQuiz();
+        });
+        $sectionSelector.appendChild(btn);
+      });
+    }
+
+    // ══════════════════════════════════════════════════
+    // START QUIZ (practice / all / section / review)
+    // ══════════════════════════════════════════════════
+    function startQuiz(customQueue, isReview) {
+      reviewMode = !!isReview;
+      missed = [];
+      score = {correct:0, wrong:0, skipped:0};
+      secScores = {};
+      ci = 0;
+      answered = false;
+
+      if (customQueue) {
+        queue = customQueue;
+      } else if (curMode === 'practice') {
+        queue = shuffle(allQ).slice(0, 40); // full 40-question exam bank
+      } else if (curMode === 'all') {
+        queue = shuffle(allQ);
+      } else if (curMode === 'section') {
+        queue = shuffle(allQ.filter(q=>q.section===curSection));
+      }
+
+      $endScreen.style.display = 'none';
+      $endScreen.classList.remove('visible');
+      $progressWrap.style.display = 'block';
+      showScreen($qScreen);
+      showQuestion();
+    }
+
+    // ══════════════════════════════════════════════════
+    // SHOW QUESTION
+    // ══════════════════════════════════════════════════
+    function showQuestion() {
+      if (ci >= queue.length) { showEnd(); return; }
+      const q = queue[ci];
+      answered = false;
+
+      // Progress
+      const pct = ci / queue.length * 100;
+      $progress.style.width = pct + '%';
+      $progressLabel.textContent = (ci+1) + ' / ' + queue.length;
+
+      // Badge
+      if (reviewMode) {
+        $modeBadge.style.display = 'inline-block';
+        $modeBadge.textContent = 'ôn sai / review';
+      } else {
+        $modeBadge.style.display = 'none';
+      }
+
+      // Meta
+      $qMeta.textContent = secLabel(q.section).toUpperCase() + (weakIds.has(q.id) ? '  ★' : '');
+
+      // Question text with vocab + unique-phrase highlighting
+      $qText.innerHTML = tagUnique(q.id, q.question_vi);
+
+      // Translation (hidden)
+      const t = q.translation || {};
+      $qTrans.textContent = t.question_en || '';
+      $qTrans.classList.remove('visible');
+      $transBtnEl.textContent = 'dịch / show translation';
+
+      // Question image
+      if (q.image && q.image.question_img) {
+        $qImg.src = IMG + encodeURIComponent(q.image.question_img);
+        $qImgWrap.style.display = 'block';
+      } else {
+        $qImgWrap.style.display = 'none';
+        $qImg.src = '';
+      }
+
+      // Answer image (hidden)
+      $aImgWrap.classList.remove('visible');
+      $aImg.src = q.image && q.image.answer_img ? IMG + encodeURIComponent(q.image.answer_img) : '';
+
+      // Feedback
+      $feedback.textContent = '';
+      $feedback.classList.remove('visible');
+
+      $nextBtn.disabled = true;
+      $skipBtn.style.display = reviewMode ? 'none' : 'inline';
+
+      // Build choices
+      $choices.innerHTML = '';
+      const letters = ['A','B','C','D'];
+      q.answers_vi.forEach((ans, i) => {
+        const enAns = t.answers_en ? t.answers_en[i] : '';
+        const btn = document.createElement('button');
+        btn.className = 'choice-btn';
+        btn.innerHTML =
+          '<div class="choice-header">' +
+            '<span class="choice-letter">' + letters[i] + '</span>' +
+            '<span class="choice-vi">' + escHtml(ans) + '</span>' +
+          '</div>' +
+          (enAns ? '<span class="choice-en">' + escHtml(enAns) + '</span>' : '');
+        btn.addEventListener('click', () => handleAnswer(i, q));
+        $choices.appendChild(btn);
+      });
+
+      // Trigger re-animation
+      $qScreen.style.animation = 'none';
+      $qScreen.offsetHeight;
+      $qScreen.style.animation = '';
+
+      // Mobile vocab tips
+      setupMobileTips($qScreen);
+    }
+
+    // ══════════════════════════════════════════════════
+    // HANDLE ANSWER
+    // ══════════════════════════════════════════════════
+    function handleAnswer(chosen, q) {
+      if (answered) return;
+      answered = true;
+      const btns = $choices.querySelectorAll('.choice-btn');
+      btns.forEach(b => b.disabled = true);
+
+      const correct = q.correct_index;
+      const ok = chosen === correct;
+
+      if (ok) {
+        btns[chosen].classList.add('correct');
+        score.correct++;
+        playDing();
+        if (weakIds.has(q.id)) { weakIds.delete(q.id); saveWeak(); updateWeakBadge(); }
+      } else {
+        btns[chosen].classList.add('wrong');
+        btns[correct].classList.add('reveal');
+        score.wrong++;
+        missed.push(q);
+        playBuzz();
+        weakIds.add(q.id);
+        saveWeak();
+        updateWeakBadge();
+      }
+
+      // Show translation on answers
+      $choices.querySelectorAll('.choice-en').forEach(el => el.classList.add('visible'));
+
+      if (q.image && q.image.answer_img) $aImgWrap.classList.add('visible');
+
+      // Reason why — Vietnamese first, English translation shown alongside it
+      // (matches how choice-en auto-reveals on submit, not gated behind the translate toggle)
+      if (q.explanation_vi || q.explanation_en) {
+        $feedback.innerHTML =
+          (q.explanation_vi ? escHtml(q.explanation_vi) : '') +
+          (q.explanation_en ? '<div class="feedback-en visible">' + escHtml(q.explanation_en) + '</div>' : '');
+        $feedback.classList.add('visible');
+      }
+
+      $nextBtn.disabled = false;
+      $skipBtn.style.display = 'none';
+
+      if (!secScores[q.section]) secScores[q.section] = {c:0, t:0};
+      secScores[q.section].t++;
+      if (ok) secScores[q.section].c++;
+    }
+
+    // Translation button — shows question translation AND answer translations
+    $transBtnEl.addEventListener('click', () => {
+      const visible = $qTrans.classList.contains('visible');
+      $qTrans.classList.toggle('visible');
+      // Also toggle English translations on answer choices
+      $choices.querySelectorAll('.choice-en').forEach(el => el.classList.toggle('visible', !visible));
+      $transBtnEl.textContent = visible ? 'dịch / show translation' : 'ẩn / hide translation';
+    });
+
+    // Next
+    $nextBtn.addEventListener('click', advance);
+    function advance() {
+      if (transitioning) return;
+      transitioning = true;
+      ci++;
+      showQuestion();
+      setTimeout(()=>{ transitioning=false; }, 280);
+    }
+
+    // Skip
+    $skipBtn.addEventListener('click', () => {
+      if (answered) return;
+      score.skipped++;
+      ci++;
+      showQuestion();
+    });
+
+    // ══════════════════════════════════════════════════
+    // END SCREEN
+    // ══════════════════════════════════════════════════
+    function showEnd() {
+      showScreen(null);
+      $progressWrap.style.display = 'none';
+      $progress.style.width = '100%';
+      $endScreen.style.display = 'block';
+      $endScreen.classList.add('visible');
+
+      const answeredCount = score.correct + score.wrong;
+      const pct = answeredCount > 0 ? Math.round(score.correct / answeredCount * 100) : 0;
+
+      // Pass/fail: 80% threshold across all modes
+      let passed = pct >= 80;
+
+      // Animate icon
+      if (passed) {
+        $endIcon.innerHTML = '<div class="trophy-wrap spin">🏆</div>';
+      } else {
+        $endIcon.innerHTML = '<div class="ship-wrap sink">🚢</div>';
+      }
+
+      $endScore.textContent = score.correct + ' / ' + answeredCount;
+      $endLabel.textContent = pct + '% correct' +
+        (score.skipped > 0 ? '  ·  ' + score.skipped + ' skipped' : '') +
+        (weakIds.size > 0  ? '  ·  ' + weakIds.size + ' weak' : '');
+
+      $endResult.textContent = passed ? 'ĐẠT / PASS' : 'CHƯA ĐẠT / FAIL';
+      $endResult.className = 'end-result ' + (passed ? 'pass' : 'fail');
+
+      // Section breakdown
+      let bd = '';
+      SECTIONS.slice(1).forEach(sec => {
+        const s = secScores[sec.slug];
+        if (s && s.t > 0) {
+          const p = Math.round(s.c/s.t*100);
+          bd += sec.label + ':  ' + s.c + '/' + s.t + '  (' + p + '%)\n';
+        }
+      });
+      $endBreak.textContent = bd;
+
+      // Action buttons
+      $endReview.style.display = missed.length > 0 ? 'inline-block' : 'none';
+      $endReview.textContent = 'ôn sai / review (' + missed.length + ')';
+      $endWeak.style.display = weakIds.size > 0 ? 'inline-block' : 'none';
+    }
+
+    $endRestart.addEventListener('click', () => {
+      reviewMode = false;
+      switchMode(curMode);
+    });
+    $endReview.addEventListener('click', () => {
+      startQuiz(shuffle(missed), true);
+    });
+    $endWeak.addEventListener('click', () => {
+      const weakQ = allQ.filter(q => weakIds.has(q.id));
+      if (weakQ.length > 0) startQuiz(shuffle(weakQ), false);
+    });
+    $endClearWeak.addEventListener('click', () => {
+      weakIds.clear();
+      saveWeak();
+      updateWeakBadge();
+      $endWeak.style.display = 'none';
+    });
+
+    // ══════════════════════════════════════════════════
+    // TYPING MODE
+    // ══════════════════════════════════════════════════
+    function startTyping() {
+      const imageQs = allQ.filter(q => q.image);
+      const vocabCards = vocab.map(v => ({_isVocab:true, vi:v.vi, en:v.en, cat:v.category}));
+      queue = shuffle([...imageQs, ...vocabCards]);
+      ci = 0;
+      score = {correct:0, wrong:0, skipped:0};
+      missed = [];
+      $endScreen.style.display = 'none';
+      showScreen($tScreen);
+      showTypingQ();
+    }
+
+    function showTypingQ() {
+      if (ci >= queue.length) { showEnd(); return; }
+      const q = queue[ci];
+      answered = false;
+
+      $progress.style.width = (ci / queue.length * 100) + '%';
+      $progressLabel.textContent = (ci+1) + ' / ' + queue.length;
+      if (q._isVocab) {
+        $tMeta.textContent = q.cat.replace(/-/g, ' ').toUpperCase();
+        $tText.textContent = q.vi;
+        $tImgWrap.style.display = 'none';
+        $tAImgWrap.classList.remove('visible');
+        $tAImg.src = '';
+        $typingHint.textContent = 'Type the English meaning';
+      } else {
+        $tMeta.textContent = secLabel(q.section).toUpperCase();
+        $tText.innerHTML = tagUnique(q.id, q.question_vi);
+        if (q.image && q.image.question_img) {
+          $tImg.src = IMG + encodeURIComponent(q.image.question_img);
+          $tImgWrap.style.display = 'block';
+        } else {
+          $tImgWrap.style.display = 'none';
+        }
+        $tAImgWrap.classList.remove('visible');
+        $tAImg.src = q.image && q.image.answer_img ? IMG + encodeURIComponent(q.image.answer_img) : '';
+        $typingHint.textContent = 'Gõ tên nút / biển báo (tiếng Việt hoặc tiếng Anh)';
+      }
+      $tFeedback.textContent = '';
+      $tFeedback.classList.remove('visible');
+      $typingInput.value = '';
+      $typingInput.className = 'typing-input';
+      $tNextBtn.disabled = true;
+      $tCheckBtn.disabled = false;
+      $typingInput.focus();
+    }
+
+    function checkTyping() {
+      if (answered) return;
+      const q = queue[ci];
+      const userRaw = $typingInput.value;
+      const userNorm = normalizeVi(userRaw);
+      if (!userNorm) return;
+
+      answered = true;
+      $tCheckBtn.disabled = true;
+
+      let correct, correctNorm, isMatch;
+      if (q._isVocab) {
+        correct = q.en;
+        correctNorm = normalizeVi(correct);
+        isMatch = partialMatch(userNorm, correctNorm);
+      } else {
+        correct = q.answers_vi[q.correct_index];
+        correctNorm = normalizeVi(correct);
+        const correctEnNorm = q.translation && q.translation.answers_en
+          ? normalizeVi(q.translation.answers_en[q.correct_index])
+          : '';
+        isMatch = partialMatch(userNorm, correctNorm) || (correctEnNorm && partialMatch(userNorm, correctEnNorm));
+      }
+
+      if (isMatch) {
+        $typingInput.classList.add('correct-input');
+        $tFeedback.textContent = '✓ Đúng! — ' + correct;
+        if (!q._isVocab && q.translation && q.translation.answers_en) {
+          $tFeedback.textContent += ' / ' + q.translation.answers_en[q.correct_index];
+        }
+        $tFeedback.classList.add('visible');
+        score.correct++;
+        playDing();
+        if (!q._isVocab && weakIds.has(q.id)) { weakIds.delete(q.id); saveWeak(); updateWeakBadge(); }
+      } else {
+        $typingInput.classList.add('wrong-input');
+        $tFeedback.textContent = '✗ Đáp án đúng: ' + correct;
+        if (!q._isVocab && q.translation && q.translation.answers_en) {
+          $tFeedback.textContent += ' / ' + q.translation.answers_en[q.correct_index];
+        }
+        $tFeedback.classList.add('visible');
+        score.wrong++;
+        if (!q._isVocab) missed.push(q);
+        playBuzz();
+        if (!q._isVocab) { weakIds.add(q.id); saveWeak(); updateWeakBadge(); }
+        if (!q._isVocab && q.image && q.image.answer_img) $tAImgWrap.classList.add('visible');
+      }
+
+      if (!q._isVocab && (q.explanation_vi || q.explanation_en)) {
+        $tFeedback.textContent += '\n' + (q.explanation_vi || '') +
+          (q.explanation_en ? ' / ' + q.explanation_en : '');
+      }
+
+      $typingHint.textContent = 'Bình thường hóa: "' + userNorm + '" vs "' + correctNorm + '"';
+      $tNextBtn.disabled = false;
+    }
+
+    $tCheckBtn.addEventListener('click', checkTyping);
+    $typingInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { if (!answered) checkTyping(); else if (!$tNextBtn.disabled) advanceTyping(); }
+    });
+    $tNextBtn.addEventListener('click', advanceTyping);
+    function advanceTyping() { ci++; showTypingQ(); }
+    $tSkipBtn.addEventListener('click', () => { if (!answered) { score.skipped++; ci++; showTypingQ(); } });
+
+    // ══════════════════════════════════════════════════
+    // STUDY SHEET
+    // ══════════════════════════════════════════════════
+    const $studySection = document.getElementById('study-section');
+    const $studyShowEn  = document.getElementById('study-show-en');
+    const $studyList    = document.getElementById('study-list');
+
+    function showStudySheet() {
+      showScreen($studyScreen);
+      // Populate section dropdown
+      $studySection.innerHTML = '<option value="all">tất cả / all sections</option>';
+      SECTIONS.slice(1).forEach(sec => {
+        const opt = document.createElement('option');
+        opt.value = sec.slug;
+        opt.textContent = sec.label + ' / ' + sec.en;
+        $studySection.appendChild(opt);
+      });
+      renderStudyList();
+    }
+
+    function renderStudyList() {
+      const sec = $studySection.value;
+      const showEn = $studyShowEn.checked;
+      const questions = sec === 'all' ? allQ : allQ.filter(q => q.section === sec);
+
+      $studyList.innerHTML = '';
+      questions.forEach((q, idx) => {
+        const t = q.translation || {};
+        const card = document.createElement('div');
+        card.className = 'study-card';
+
+        let html = '<div class="study-q-num">' + secLabel(q.section) + ' — Q' + q.id + '</div>';
+        html += '<div class="study-q">' + tagUnique(q.id, q.question_vi) + '</div>';
+        if (t.question_en) {
+          html += '<div class="study-q-en' + (showEn ? '' : ' hidden') + '">' + escHtml(t.question_en) + '</div>';
+        }
+
+        // Question image
+        if (q.image && q.image.question_img) {
+          html += '<img class="study-img" src="' + IMG + encodeURIComponent(q.image.question_img) + '" alt="" />';
+        }
+
+        html += '<div class="study-answers">';
+        q.answers_vi.forEach((ans, i) => {
+          const isCorrect = i === q.correct_index;
+          const enAns = t.answers_en ? t.answers_en[i] : '';
+          html += '<div class="study-ans' + (isCorrect ? ' correct' : '') + '">';
+          html += '<span>' + ['A','B','C','D'][i] + '. ' + escHtml(ans) + '</span>';
+          if (enAns) {
+            html += '<div class="study-ans-en' + (showEn ? '' : ' hidden') + '">' + escHtml(enAns) + '</div>';
+          }
+          html += '</div>';
+        });
+        html += '</div>';
+
+        // Answer image
+        if (q.image && q.image.answer_img) {
+          html += '<img class="study-img" src="' + IMG + encodeURIComponent(q.image.answer_img) + '" alt="answer" style="margin-top:12px" />';
+        }
+
+        card.innerHTML = html;
+        $studyList.appendChild(card);
+      });
+    }
+
+    $studySection.addEventListener('change', renderStudyList);
+    $studyShowEn.addEventListener('change', renderStudyList);
+
+    // ══════════════════════════════════════════════════
+    // FLASHCARDS
+    // ══════════════════════════════════════════════════
+    document.getElementById('fc-filter').querySelectorAll('.fc-cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.fc-cat-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        fcCat = btn.dataset.cat;
+        buildFlashcardDeck();
+      });
+    });
+
+    function buildFlashcardDeck() {
+      if (fcCat === 'vocab') {
+        fcDeck = vocab.map(v => ({_isVocab:true, vi:v.vi, en:v.en, cat:v.category, breakdown:v.breakdown}));
+      } else {
+        fcDeck = allQ.slice();
+      }
+      fcDeck = shuffle(fcDeck);
+      fcIndex = 0;
+      showScreen($fcScreen);
+      showFlashcard();
+    }
+
+    function showFlashcard() {
+      if (fcDeck.length === 0) return;
+      const card = fcDeck[fcIndex];
+      $fcCard.classList.remove('flipped');
+
+      $fcProgress.style.width = (fcIndex / fcDeck.length * 100) + '%';
+      $fcLabel.textContent = (fcIndex + 1) + ' / ' + fcDeck.length;
+      $fcCounter.textContent = '';
+
+      if (card._isVocab) {
+        // Vocab card: Vietnamese on front, English + breakdown on back
+        $fcFrontLabel.textContent = 'tiếng Việt / Vietnamese';
+        $fcBackLabel.textContent  = 'tiếng Anh / English';
+        $fcFront.textContent = card.vi;
+        $fcFrontImg.style.display = 'none';
+        $fcBack.textContent = card.en;
+        $fcBackEn.textContent = card.cat.replace(/-/g, ' ');
+        if (card.breakdown && card.breakdown.length > 0) {
+          $fcEtymology.textContent = card.breakdown.map(w => w.vi + ' = ' + w.en).join(' · ');
+          $fcEtymology.style.display = '';
+        } else {
+          $fcEtymology.textContent = '';
+          $fcEtymology.style.display = 'none';
+        }
+        $fcTrap.style.display = 'none';
+        $fcBackImg.style.display = 'none';
+      } else {
+        $fcFrontLabel.textContent = 'câu hỏi / question';
+        $fcBackLabel.textContent  = 'đáp án / answer';
+        const q = card;
+        const t = q.translation || {};
+        $fcFront.innerHTML = tagUnique(q.id, q.question_vi);
+        if (q.image && q.image.question_img) {
+          $fcFrontImg.src = IMG + encodeURIComponent(q.image.question_img);
+          $fcFrontImg.style.display = 'block';
+        } else {
+          $fcFrontImg.style.display = 'none';
+        }
+        $fcBack.textContent = q.answers_vi[q.correct_index];
+        $fcBackEn.textContent = t.answers_en ? t.answers_en[q.correct_index] + (t.question_en ? '\n' + t.question_en : '') : '';
+        if (q.etymology) {
+          $fcEtymology.textContent = q.etymology;
+          $fcEtymology.style.display = '';
+        } else {
+          $fcEtymology.textContent = '';
+          $fcEtymology.style.display = 'none';
+        }
+        $fcTrap.style.display = q.trap ? '' : 'none';
+        if (q.image && q.image.answer_img) {
+          $fcBackImg.src = IMG + encodeURIComponent(q.image.answer_img);
+          $fcBackImg.style.display = 'block';
+        } else {
+          $fcBackImg.style.display = 'none';
+        }
+      }
+    }
+
+    $fcWrap.addEventListener('click', () => $fcCard.classList.toggle('flipped'));
+    $fcNext.addEventListener('click', () => { fcIndex = Math.min(fcIndex+1, fcDeck.length-1); showFlashcard(); });
+    $fcPrev.addEventListener('click', () => { fcIndex = Math.max(fcIndex-1, 0); showFlashcard(); });
+
+    // ══════════════════════════════════════════════════
+    // KEYBOARD
+    // ══════════════════════════════════════════════════
+    document.addEventListener('keydown', e => {
+      // Flashcard
+      if ($fcScreen.style.display !== 'none') {
+        if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); $fcNext.click(); }
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); $fcPrev.click(); }
+        if (e.key === 'Enter' || e.key === 'f') $fcCard.classList.toggle('flipped');
+        return;
+      }
+
+      // Typing
+      if ($tScreen.style.display !== 'none') return;
+
+      // End screen
+      if ($endScreen.classList.contains('visible')) {
+        if (e.key === 'Enter') $endRestart.click();
+        return;
+      }
+
+      if (e.target.tagName === 'BUTTON') return;
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        if (!$nextBtn.disabled) advance();
+      }
+      if (e.key === 's' && !answered) $skipBtn.click();
+
+      const n = parseInt(e.key, 10);
+      if (n >= 1 && n <= 4 && !answered) {
+        const btns = $choices.querySelectorAll('.choice-btn');
+        if (btns[n-1] && !btns[n-1].disabled) btns[n-1].click();
+      }
+    });
+
+    // ══════════════════════════════════════════════════
+    // TOUCH SWIPE (quiz + flashcard)
+    // ══════════════════════════════════════════════════
+    (function(){
+      let tx=0, ty=0;
+      document.addEventListener('touchstart', e=>{ tx=e.touches[0].clientX; ty=e.touches[0].clientY; }, {passive:true});
+      document.addEventListener('touchend', e=>{
+        const dx = e.changedTouches[0].clientX - tx;
+        const dy = e.changedTouches[0].clientY - ty;
+        if (Math.abs(dy) > Math.abs(dx) || Math.abs(dx) < 55) return;
+
+        if ($fcScreen.style.display !== 'none') {
+          if (dx < 0) $fcNext.click(); else $fcPrev.click();
+          return;
+        }
+        if ($qScreen.style.display !== 'none') {
+          if (dx < 0 && !$nextBtn.disabled) advance();
+          if (dx > 0 && !answered) $skipBtn.click();
+        }
+      }, {passive:true});
+    })();
+
+    // ══════════════════════════════════════════════════
+    // VOCAB TAGGING + TOOLTIPS
+    // ══════════════════════════════════════════════════
+    function tagVocab(html) {
+      // Longest-first matching (vocab already sorted by length desc)
+      // Case-insensitive: preserves original text casing in display
+      let text = html;
+      const placeholders = [];
+
+      vocab.forEach((v, idx) => {
+        const re = new RegExp(escapeRe(v.vi), 'gi');
+        text = text.replace(re, (match) => {
+          const ph = '\x00V' + idx + '\x00';
+          placeholders.push({ph, html:
+            '<span class="vocab-term">' + escHtml(match) +
+            '<span class="vocab-tip">' + escHtml(v.en) + '</span></span>'
+          });
+          return ph;
+        });
+      });
+
+      // Restore
+      placeholders.forEach(({ph, html: h}) => { text = text.split(ph).join(h); });
+      return text;
+    }
+
+    // tagUnique: wraps each per-question key phrase in a red .unique-phrase span.
+    // dkct questions can carry several highlight phrases (unlike lpt's single phrase),
+    // so this loops the list, longest phrase first to avoid a short phrase mangling
+    // a longer one it's a substring of (e.g. "cánh ngầm" inside "tàu cánh ngầm").
+    // Must be called with raw (un-escaped) question text; handles escaping internally.
+    function tagUnique(qid, rawText) {
+      const list = uniqueHighlights[String(qid)];
+      if (!list || list.length === 0) return tagVocab(escHtml(rawText));
+
+      let text = rawText;
+      const placeholders = [];
+      list.slice().sort((a,b) => b.phrase.length - a.phrase.length).forEach((h, idx) => {
+        const pos = text.indexOf(h.phrase);
+        if (pos === -1) return;
+        const ph = '\x01U' + idx + '\x01';
+        text = text.slice(0, pos) + ph + text.slice(pos + h.phrase.length);
+        placeholders.push({ph, phrase: h.phrase, translation: h.translation});
+      });
+
+      let html = tagVocab(escHtml(text));
+      placeholders.forEach(({ph, phrase, translation}) => {
+        const span = '<span class="unique-phrase" data-tip="' + escHtml(translation) + '">' +
+          escHtml(phrase) + '</span>';
+        html = html.split(ph).join(span);
+      });
+      return html;
+    }
+
+    function setupMobileTips(container) {
+      container.querySelectorAll('.vocab-term').forEach(el => {
+        // Click/tap: toggle tooltip (works on desktop + mobile)
+        el.addEventListener('click', e => {
+          e.stopPropagation();
+          const isOpen = el.classList.contains('tip-open');
+          container.querySelectorAll('.vocab-term.tip-open').forEach(o => o.classList.remove('tip-open'));
+          if (!isOpen) el.classList.add('tip-open');
+        });
+        // Mobile touchstart: prevent ghost click delay
+        el.addEventListener('touchstart', e => {
+          e.preventDefault();
+          container.querySelectorAll('.vocab-term.tip-open').forEach(o => o.classList.remove('tip-open'));
+          el.classList.add('tip-open');
+        }, {passive:false});
+      });
+      // Click outside to close
+      document.addEventListener('click', e => {
+        if (!e.target.closest('.vocab-term')) {
+          container.querySelectorAll('.vocab-term.tip-open').forEach(o=>o.classList.remove('tip-open'));
+        }
+      });
+    }
+
+    // ══════════════════════════════════════════════════
+    // ANSWER NORMALIZATION
+    // ══════════════════════════════════════════════════
+    function normalizeVi(s) {
+      if (!s) return '';
+      s = s.toLowerCase().trim();
+      const map = {
+        'đ':'d','ă':'a','â':'a','ê':'e','ô':'o','ơ':'o','ư':'u',
+        'à':'a','á':'a','ả':'a','ã':'a','ạ':'a',
+        'ắ':'a','ặ':'a','ẳ':'a','ẵ':'a','ằ':'a',
+        'ấ':'a','ầ':'a','ẩ':'a','ẫ':'a','ậ':'a',
+        'è':'e','é':'e','ẻ':'e','ẽ':'e','ẹ':'e',
+        'ế':'e','ề':'e','ể':'e','ễ':'e','ệ':'e',
+        'ì':'i','í':'i','ỉ':'i','ĩ':'i','ị':'i',
+        'ò':'o','ó':'o','ỏ':'o','õ':'o','ọ':'o',
+        'ố':'o','ồ':'o','ổ':'o','ỗ':'o','ộ':'o',
+        'ớ':'o','ờ':'o','ở':'o','ỡ':'o','ợ':'o',
+        'ù':'u','ú':'u','ủ':'u','ũ':'u','ụ':'u',
+        'ứ':'u','ừ':'u','ử':'u','ữ':'u','ự':'u',
+        'ỳ':'y','ý':'y','ỷ':'y','ỹ':'y','ỵ':'y',
+      };
+      s = s.split('').map(c => map[c] || c).join('');
+      return s.replace(/\s+/g,' ').trim();
+    }
+
+    function partialMatch(input, correct) {
+      if (!input || !correct) return false;
+      if (input.length < 3) return false;
+      return correct.includes(input) || input.includes(correct);
+    }
+
+    // ══════════════════════════════════════════════════
+    // HELPERS
+    // ══════════════════════════════════════════════════
+    function secLabel(slug) {
+      const s = SECTIONS.find(x=>x.slug===slug);
+      return s ? s.label : slug;
+    }
+    function shuffle(arr) { return arr.slice().sort(()=>Math.random()-0.5); }
+    function escHtml(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+    function escapeRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
+
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+{
+  "1": [
+    {
+      "phrase": "đặc tính khai thác",
+      "translation": "operational characteristics"
+    }
+  ],
+  "2": [
+    {
+      "phrase": "đặc tính hoạt động",
+      "translation": "operating characteristics"
+    }
+  ],
+  "3": [
+    {
+      "phrase": "tàu cánh ngầm",
+      "translation": "hydrofoil boat"
+    },
+    {
+      "phrase": "nghiêng ngang",
+      "translation": "heel (sideways tilt)"
+    },
+    {
+      "phrase": "cánh ngầm",
+      "translation": "hydrofoil"
+    },
+    {
+      "phrase": "quay trở",
+      "translation": "turning / maneuvering"
+    }
+  ],
+  "4": [
+    {
+      "phrase": "chiều dài thân tàu",
+      "translation": "length of the hull"
+    },
+    {
+      "phrase": "một bên mạn",
+      "translation": "one side of the vessel"
+    },
+    {
+      "phrase": "quay trở",
+      "translation": "turning / maneuvering"
+    },
+    {
+      "phrase": "bẻ lái",
+      "translation": "put the helm over"
+    },
+    {
+      "phrase": "mạn",
+      "translation": "side of the vessel"
+    }
+  ],
+  "5": [
+    {
+      "phrase": "phương tiện cao tốc",
+      "translation": "high-speed craft"
+    },
+    {
+      "phrase": "tuyến hình",
+      "translation": "hull form / lines"
+    }
+  ],
+  "6": [
+    {
+      "phrase": "mặt phẳng ngang",
+      "translation": "horizontal plane"
+    },
+    {
+      "phrase": "tàu cánh ngầm",
+      "translation": "hydrofoil boat"
+    },
+    {
+      "phrase": "cánh ngầm",
+      "translation": "hydrofoil"
+    },
+    {
+      "phrase": "chân vịt",
+      "translation": "propeller"
+    }
+  ],
+  "7": [
+    {
+      "phrase": "cánh ngầm",
+      "translation": "hydrofoil"
+    }
+  ],
+  "8": [
+    {
+      "phrase": "hệ thống lái",
+      "translation": "steering system"
+    },
+    {
+      "phrase": "bẻ lái",
+      "translation": "put the helm over"
+    }
+  ],
+  "10": [
+    {
+      "phrase": "định vị toàn cầu",
+      "translation": "global positioning (GPS)"
+    }
+  ],
+  "11": [
+    {
+      "phrase": "quán tính",
+      "translation": "inertia"
+    }
+  ],
+  "12": [
+    {
+      "phrase": "cập phao",
+      "translation": "mooring to a buoy"
+    },
+    {
+      "phrase": "cập bến",
+      "translation": "berthing / coming alongside"
+    },
+    {
+      "phrase": "thả neo",
+      "translation": "anchoring / dropping anchor"
+    }
+  ],
+  "15": [
+    {
+      "phrase": "tầm nhìn hạn chế",
+      "translation": "restricted visibility"
+    }
+  ],
+  "16": [
+    {
+      "phrase": "hướng đậu",
+      "translation": "berthing heading"
+    },
+    {
+      "phrase": "rời bến",
+      "translation": "getting underway / leaving berth"
+    }
+  ],
+  "17": [
+    {
+      "phrase": "cập bến",
+      "translation": "berthing / coming alongside"
+    },
+    {
+      "phrase": "mũi tàu",
+      "translation": "bow"
+    }
+  ],
+  "18": [
+    {
+      "phrase": "người ngã xuống nước",
+      "translation": "man overboard"
+    }
+  ],
+  "19": [
+    {
+      "phrase": "người ngã xuống nước",
+      "translation": "man overboard"
+    }
+  ],
+  "20": [
+    {
+      "phrase": "người ngã xuống nước",
+      "translation": "man overboard"
+    }
+  ],
+  "21": [
+    {
+      "phrase": "bánh lái",
+      "translation": "rudder"
+    },
+    {
+      "phrase": "mũi tàu",
+      "translation": "bow"
+    }
+  ],
+  "22": [
+    {
+      "phrase": "bánh lái",
+      "translation": "rudder"
+    },
+    {
+      "phrase": "mũi tàu",
+      "translation": "bow"
+    }
+  ],
+  "23": [
+    {
+      "phrase": "bánh lái",
+      "translation": "rudder"
+    },
+    {
+      "phrase": "mũi tàu",
+      "translation": "bow"
+    }
+  ],
+  "24": [
+    {
+      "phrase": "mũi tàu",
+      "translation": "bow"
+    }
+  ],
+  "25": [
+    {
+      "phrase": "hướng đậu",
+      "translation": "berthing heading"
+    },
+    {
+      "phrase": "rời bến",
+      "translation": "getting underway / leaving berth"
+    }
+  ],
+  "26": [
+    {
+      "phrase": "hướng đậu",
+      "translation": "berthing heading"
+    },
+    {
+      "phrase": "rời bến",
+      "translation": "getting underway / leaving berth"
+    }
+  ],
+  "27": [
+    {
+      "phrase": "hướng đậu",
+      "translation": "berthing heading"
+    },
+    {
+      "phrase": "rời bến",
+      "translation": "getting underway / leaving berth"
+    }
+  ],
+  "28": [
+    {
+      "phrase": "dây chéo mũi",
+      "translation": "bow spring line"
+    },
+    {
+      "phrase": "dây chéo",
+      "translation": "spring line"
+    },
+    {
+      "phrase": "cập bến",
+      "translation": "berthing / coming alongside"
+    },
+    {
+      "phrase": "mũi tàu",
+      "translation": "bow"
+    }
+  ],
+  "29": [
+    {
+      "phrase": "cập bến",
+      "translation": "berthing / coming alongside"
+    },
+    {
+      "phrase": "mũi tàu",
+      "translation": "bow"
+    }
+  ],
+  "30": [
+    {
+      "phrase": "cập bến",
+      "translation": "berthing / coming alongside"
+    }
+  ],
+  "31": [
+    {
+      "phrase": "dây chéo mũi",
+      "translation": "bow spring line"
+    },
+    {
+      "phrase": "dây chéo",
+      "translation": "spring line"
+    },
+    {
+      "phrase": "cập bến",
+      "translation": "berthing / coming alongside"
+    }
+  ],
+  "33": [
+    {
+      "phrase": "luồng hẹp",
+      "translation": "narrow channel"
+    }
+  ],
+  "34": [
+    {
+      "phrase": "trừ hao độ dạt",
+      "translation": "compensate for drift / leeway"
+    }
+  ],
+  "36": [
+    {
+      "phrase": "cập bến",
+      "translation": "berthing / coming alongside"
+    }
+  ],
+  "40": [
+    {
+      "phrase": "hướng đậu",
+      "translation": "berthing heading"
+    },
+    {
+      "phrase": "rời bến",
+      "translation": "getting underway / leaving berth"
+    }
+  ]
+}
