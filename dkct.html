@@ -442,6 +442,9 @@
     .diagram-title { font-size: 0.75rem; color: #555; margin-bottom: 10px; }
     .diagram-svg-wrap { width: 100%; max-width: 420px; margin: 0 auto; }
     .diagram-svg-wrap svg { width: 100%; height: auto; display: block; background: #fff; }
+    .diagram-legend { margin-top: 8px; display: flex; flex-direction: column; gap: 3px; }
+    .legend-row { display: flex; align-items: center; gap: 6px; font-size: 0.68rem; color: #666; line-height: 1.4; }
+    .legend-swatch { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
     .diagram-caption { font-size: 0.8rem; color: #333; margin-top: 10px; min-height: 2.4em; line-height: 1.4; }
     .diagram-controls { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
     .diagram-btn {
@@ -688,7 +691,7 @@
     </div>
 
     <!-- ── INFO SECTION ── -->
-    <div class="info-section">
+    <div class="info-section" id="info-section" style="display:none">
       <h2>Về trang luyện thi này</h2>
       <p>
         Đây là công cụ luyện thi miễn phí cho kỳ thi sát hạch lý thuyết <strong>chứng chỉ điều khiển phương tiện cao tốc</strong>
@@ -775,6 +778,7 @@
     const $bdQuestion = document.getElementById('bd-question');
     const $bdAnswer   = document.getElementById('bd-answer');
     const $diagramContainer = document.getElementById('diagram-container');
+    const $infoSection = document.getElementById('info-section');
 
     const $tMeta     = document.getElementById('t-meta');
     const $tImgWrap  = document.getElementById('t-image-wrap');
@@ -831,9 +835,11 @@
       buildMainNav();
       updateWeakBadge();
       switchMode('practice');
+      $infoSection.style.display = 'block';
     }).catch(()=>{
       $qText.textContent = 'Error loading data. Run from a local server.';
       showScreen($qScreen);
+      $infoSection.style.display = 'block';
     });
 
     // Section list comes from the data itself (no more hardcoded slugs) —
@@ -1857,21 +1863,37 @@
           : {x: W / 2 + (line.to_dock_x || 0) * (W / 2 - 20), y: dockY};
         lineSvg += '<line x1="' + p1.x + '" y1="' + p1.y + '" x2="' + p2.x + '" y2="' + p2.y +
           '" stroke="#777" stroke-width="1.5" stroke-dasharray="4,3"/>';
+        // Small gray label at the line's midpoint, nudged perpendicular to
+        // the line so it doesn't sit on top of it.
+        const mx = (p1.x + p2.x) / 2, my = (p1.y + p2.y) / 2;
+        const ldx = p2.x - p1.x, ldy = p2.y - p1.y;
+        const llen = Math.hypot(ldx, ldy) || 1;
+        const perpX = -ldy / llen * 9, perpY = ldx / llen * 9;
+        lineSvg += svgText(mx + perpX, my + perpY, langText({vi: line.label_vi, en: line.label_en}),
+          {size: 7.5, color: '#777', anchor: 'middle'});
       });
       out += lineSvg;
 
+      const boat = labels.parts || {};
       out += '<g transform="translate(' + anchorX + ',' + anchorY + ') rotate(' + rotate + ')">' +
         '<path d="' + hullPath + '" fill="#f5f0e6" stroke="#333" stroke-width="1.5"/>' +
         rudderSvg(f, sternLocal) +
         (f.flow ? propWashSvg(sternLocal) : '') +
+        svgText(bowLocal + (bowLocal >= sternLocal ? 6 : -6), 4, langText(boat.bow, 'bow'),
+          {size: 7.5, color: '#888', anchor: bowLocal >= sternLocal ? 'start' : 'end'}) +
+        svgText(sternLocal + (sternLocal > bowLocal ? 6 : -6), 4, langText(boat.stern, 'stern'),
+          {size: 7.5, color: '#888', anchor: sternLocal > bowLocal ? 'start' : 'end'}) +
         '</g>';
 
+      // Arrows carry only the short generic term (current/wind) — the full
+      // scenario phrasing lives in the legend below the diagram instead, so
+      // it doesn't have to be squeezed onto a 34px arrow.
       if (d.current) {
-        const label = langText(d.current_label) || langText(labels.current_generic, 'current');
+        const label = langText(labels.current_generic, 'current');
         out += arrowSvg(d.current === 'right' ? 40 : 260, H - 30, d.current === 'right' ? 1 : -1, 0, '#3d7ea6', label);
       }
       if (d.wind) {
-        const label = langText(d.wind_label) || langText(labels.wind_generic, 'wind');
+        const label = langText(labels.wind_generic, 'wind');
         const dir = d.wind === 'onto_dock' ? -1 : 1;
         out += arrowSvg(260, dir === -1 ? H - 20 : dockY + 10, 0, dir, '#4a8a4a', label);
       }
@@ -1887,6 +1909,35 @@
       return out;
     }
 
+    // Full scenario phrasing (current_label/wind_label/line names/rudder
+    // state/anchor_label) lives here instead of crammed onto the diagram
+    // itself. One row per element actually present in this diagram/frame,
+    // each with a swatch matching its color on the SVG.
+    function frameRudderLabel(f, labels) {
+      const key = f.rudder_abs || f.rudder;
+      if (!key || !labels.rudder || !labels.rudder[key]) return null;
+      return labels.rudder[key];
+    }
+
+    function legendRow(color, text) {
+      if (!text) return '';
+      return '<div class="legend-row"><span class="legend-swatch" style="background:' + color + '"></span>' +
+        '<span>' + escHtml(text) + '</span></div>';
+    }
+
+    function buildLegendHTML(d, frameIdx, labels) {
+      const f = d.frames[frameIdx];
+      let html = '';
+      if (d.current) html += legendRow('#3d7ea6', langText(d.current_label));
+      if (d.wind) html += legendRow('#4a8a4a', langText(d.wind_label));
+      (d.lines || []).forEach(line => {
+        html += legendRow('#999', langText({vi: line.label_vi, en: line.label_en}));
+      });
+      html += legendRow('#c00', langText(frameRudderLabel(f, labels)));
+      if (d.anchor && d.anchor_label) html += legendRow('#333', langText(d.anchor_label));
+      return html;
+    }
+
     function renderDiagram(q) {
       $diagramContainer.innerHTML = '';
       if (!q.diagram) return;
@@ -1900,6 +1951,8 @@
       title.className = 'diagram-title';
       const svgWrap = document.createElement('div');
       svgWrap.className = 'diagram-svg-wrap';
+      const legend = document.createElement('div');
+      legend.className = 'diagram-legend';
       const caption = document.createElement('div');
       caption.className = 'diagram-caption';
       const controls = document.createElement('div');
@@ -1911,6 +1964,7 @@
         '<span class="diagram-step"></span>';
       wrap.appendChild(title);
       wrap.appendChild(svgWrap);
+      wrap.appendChild(legend);
       wrap.appendChild(caption);
       wrap.appendChild(controls);
       $diagramContainer.appendChild(wrap);
@@ -1919,6 +1973,7 @@
         title.textContent = langText({vi: d.title_vi, en: d.title_en});
         svgWrap.innerHTML = buildDiagramFrameSVG(d, diagramState.frameIdx, labels);
         const f = d.frames[diagramState.frameIdx];
+        legend.innerHTML = buildLegendHTML(d, diagramState.frameIdx, labels);
         caption.textContent = langText({vi: f.caption_vi, en: f.caption_en});
         controls.querySelector('.diagram-step').textContent =
           (diagramState.frameIdx + 1) + ' / ' + d.frames.length;
