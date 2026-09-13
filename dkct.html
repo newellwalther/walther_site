@@ -396,6 +396,68 @@
       line-height: 1.65;
     }
 
+    /* Term-phrase (general vocab within phrases[], role:"term") — same hover/
+       click-for-English as unique-phrase, styled less prominently since it's
+       not a discriminator */
+    .term-phrase {
+      color: #8a6d1a;
+      border-bottom: 1px dotted #c9a227;
+      cursor: help;
+      position: relative;
+    }
+    .term-phrase::after {
+      content: attr(data-tip);
+      display: none;
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #8a6d1a;
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      white-space: nowrap;
+      z-index: 100;
+      pointer-events: none;
+      font-style: normal;
+    }
+    .term-phrase:hover::after, .term-phrase.tip-open::after,
+    .unique-phrase.tip-open::after { display: block; }
+
+    /* ═══════════════════════════════════════════════════
+       WORD-BY-WORD BREAKDOWN
+    ═══════════════════════════════════════════════════ */
+    .bd-section { margin-top: 14px; }
+    .bd-title { font-size: 0.65rem; color: #bbb; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+    .bd-row { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+    .bd-item { font-size: 0.8rem; line-height: 1.5; max-width: 220px; }
+    .bd-word { color: #111; font-weight: 500; }
+    .bd-gloss { color: #888; }
+    .bd-syl { font-size: 0.7rem; color: #aaa; display: block; margin-top: 1px; }
+
+    /* ═══════════════════════════════════════════════════
+       DIAGRAMS
+    ═══════════════════════════════════════════════════ */
+    .diagram-wrap { margin-top: 16px; border: 1px solid #e8e8e8; padding: 14px; background: #fafafa; }
+    .diagram-title { font-size: 0.75rem; color: #555; margin-bottom: 10px; }
+    .diagram-svg-wrap { width: 100%; max-width: 420px; margin: 0 auto; }
+    .diagram-svg-wrap svg { width: 100%; height: auto; display: block; background: #fff; }
+    .diagram-caption { font-size: 0.8rem; color: #333; margin-top: 10px; min-height: 2.4em; line-height: 1.4; }
+    .diagram-controls { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+    .diagram-btn {
+      font-family: Georgia, serif; font-size: 0.72rem; padding: 5px 12px;
+      border: 1px solid #ccc; background: #fff; cursor: pointer;
+    }
+    .diagram-btn:hover { background: #f0f0f0; }
+    .diagram-step { font-size: 0.7rem; color: #999; }
+
+    /* Flashcard phrase-role badge */
+    .fc-role-badge {
+      display: inline-block; font-size: 0.62rem; letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 1px 7px; border: 1px solid #ccc; color: #888; margin-bottom: 8px;
+    }
+    .fc-role-badge.key { border-color: #c00; color: #c00; }
+
     /* ═══════════════════════════════════════════════════
        MOBILE
     ═══════════════════════════════════════════════════ */
@@ -492,6 +554,7 @@
     <div id="fc-filter" class="flashcard-filter" style="display:none">
       <button class="fc-cat-btn active" data-cat="all">tất cả / all</button>
       <button class="fc-cat-btn" data-cat="vocab">từ vựng / vocab</button>
+      <button class="fc-cat-btn" data-cat="phrases">cụm từ đặc trưng / phrases</button>
     </div>
 
     <!-- Top row (weak badge) -->
@@ -525,6 +588,10 @@
       </div>
 
       <div class="feedback" id="feedback"></div>
+
+      <div class="bd-section" id="bd-question" style="display:none"></div>
+      <div class="bd-section" id="bd-answer" style="display:none"></div>
+      <div id="diagram-container"></div>
 
       <div class="nav-row">
         <button class="go-btn" id="next-btn" disabled>tiếp theo →</button>
@@ -657,16 +724,15 @@
     const IMG     = 'duong_thuy/images/';
     const LS_WEAK = 'dkct-weak-v1';
 
-    const SECTIONS = [
-      {slug:'all',        label:'tất cả',                  en:'all'},
-      {slug:'cau-truc',   label:'cấu trúc và thiết bị',    en:'structure & equipment'},
-      {slug:'dieu-dong',  label:'điều động tàu',           en:'vessel maneuvering'},
-    ];
+    // Section labels come from the data itself (each question carries
+    // section_vi/section_en) — built once the exam data has loaded, see
+    // buildSections().
+    let SECTIONS = [{slug:'all', label:'tất cả', en:'all'}];
 
     // ══════════════════════════════════════════════════
     // STATE
     // ══════════════════════════════════════════════════
-    let allQ = [], vocab = [], uniqueHighlights = {}, queue = [], fcDeck = [];
+    let allQ = [], vocab = [], exam = {}, queue = [], fcDeck = [];
     let ci = 0, fcIndex = 0;
     let answered = false, transitioning = false;
     let score = {correct:0, wrong:0, skipped:0};
@@ -675,6 +741,7 @@
     let curSection = 'all';
     let fcCat = 'all';
     let reviewMode = false; // true = reviewing missed answers
+    let curShowEn = false;  // per-question translation toggle state; diagrams follow it
     let weakIds = loadWeak();
 
     // ══════════════════════════════════════════════════
@@ -705,6 +772,9 @@
     const $weakBadge = document.getElementById('weak-badge');
     const $sectionSelector = document.getElementById('section-selector');
     const $fcFilter  = document.getElementById('fc-filter');
+    const $bdQuestion = document.getElementById('bd-question');
+    const $bdAnswer   = document.getElementById('bd-answer');
+    const $diagramContainer = document.getElementById('diagram-container');
 
     const $tMeta     = document.getElementById('t-meta');
     const $tImgWrap  = document.getElementById('t-image-wrap');
@@ -752,11 +822,11 @@
     Promise.all([
       fetch('duong_thuy/dkct-questions.json').then(r=>r.json()),
       fetch('duong_thuy/dkct-vocab.json').then(r=>r.json()),
-      fetch('duong_thuy/dkct-question-highlights.json').then(r=>r.json()),
-    ]).then(([qData, vData, hData]) => {
+    ]).then(([qData, vData]) => {
       allQ  = qData.questions;
+      exam  = qData.exam || {};
       vocab = vData.vocab.sort((a,b) => b.vi.length - a.vi.length); // longest first
-      uniqueHighlights = hData;
+      buildSections();
       buildSectionSelector();
       buildMainNav();
       updateWeakBadge();
@@ -765,6 +835,19 @@
       $qText.textContent = 'Error loading data. Run from a local server.';
       showScreen($qScreen);
     });
+
+    // Section list comes from the data itself (no more hardcoded slugs) —
+    // dkct-question-highlights.json and its per-question unique-phrase list
+    // are gone too; that's now the phrases[] array embedded on each question.
+    function buildSections() {
+      SECTIONS = [{slug:'all', label:'tất cả', en:'all'}];
+      const seen = new Set();
+      allQ.forEach(q => {
+        if (seen.has(q.section)) return;
+        seen.add(q.section);
+        SECTIONS.push({slug: q.section, label: q.section_vi, en: q.section_en});
+      });
+    }
 
     // ══════════════════════════════════════════════════
     // SOUND (Web Audio API — no files needed)
@@ -827,6 +910,7 @@
         s.style.display='none'; s.classList.remove('visible');
       });
       if (el) { el.style.display = 'block'; el.classList.add('visible'); }
+      stopDiagramAnim();
     }
 
     // ══════════════════════════════════════════════════
@@ -898,7 +982,7 @@
       if (customQueue) {
         queue = customQueue;
       } else if (curMode === 'practice') {
-        queue = shuffle(allQ).slice(0, 40); // full 40-question exam bank
+        queue = buildPracticeQueue();
       } else if (curMode === 'all') {
         queue = shuffle(allQ);
       } else if (curMode === 'section') {
@@ -910,6 +994,23 @@
       $progressWrap.style.display = 'block';
       showScreen($qScreen);
       showQuestion();
+    }
+
+    // Draws exam.questions_per_test questions from the bank, never putting
+    // both members of a duplicate_of pair (Q16/Q25, Q17/Q29) in the same
+    // test — leaving 38 effectively-distinct questions across 40 slots.
+    function buildPracticeQueue() {
+      const n = exam.questions_per_test || 30;
+      const shuffled = shuffle(allQ);
+      const picked = [], usedIds = new Set();
+      shuffled.forEach(q => {
+        if (picked.length >= n) return;
+        const dups = q.duplicate_of || [];
+        if (dups.some(d => usedIds.has(d))) return;
+        picked.push(q);
+        usedIds.add(q.id);
+      });
+      return picked;
     }
 
     // ══════════════════════════════════════════════════
@@ -936,12 +1037,12 @@
       // Meta
       $qMeta.textContent = secLabel(q.section).toUpperCase() + (weakIds.has(q.id) ? '  ★' : '');
 
-      // Question text with vocab + unique-phrase highlighting
-      $qText.innerHTML = tagUnique(q.id, q.question_vi);
+      // Question text with vocab + phrase highlighting
+      $qText.innerHTML = tagUnique(q);
 
-      // Translation (hidden)
-      const t = q.translation || {};
-      $qTrans.textContent = t.question_en || '';
+      // Translation (hidden) — Vietnamese-first by default
+      curShowEn = false;
+      $qTrans.textContent = q.question_en || '';
       $qTrans.classList.remove('visible');
       $transBtnEl.textContent = 'dịch / show translation';
 
@@ -961,6 +1062,10 @@
       // Feedback
       $feedback.textContent = '';
       $feedback.classList.remove('visible');
+      $bdQuestion.style.display = 'none'; $bdQuestion.innerHTML = '';
+      $bdAnswer.style.display = 'none'; $bdAnswer.innerHTML = '';
+      $diagramContainer.innerHTML = '';
+      stopDiagramAnim();
 
       $nextBtn.disabled = true;
       $skipBtn.style.display = reviewMode ? 'none' : 'inline';
@@ -968,16 +1073,15 @@
       // Build choices
       $choices.innerHTML = '';
       const letters = ['A','B','C','D'];
-      q.answers_vi.forEach((ans, i) => {
-        const enAns = t.answers_en ? t.answers_en[i] : '';
+      q.options.forEach((opt, i) => {
         const btn = document.createElement('button');
         btn.className = 'choice-btn';
         btn.innerHTML =
           '<div class="choice-header">' +
             '<span class="choice-letter">' + letters[i] + '</span>' +
-            '<span class="choice-vi">' + escHtml(ans) + '</span>' +
+            '<span class="choice-vi">' + escHtml(opt.text_vi) + '</span>' +
           '</div>' +
-          (enAns ? '<span class="choice-en">' + escHtml(enAns) + '</span>' : '');
+          (opt.text_en ? '<span class="choice-en">' + escHtml(opt.text_en) + '</span>' : '');
         btn.addEventListener('click', () => handleAnswer(i, q));
         $choices.appendChild(btn);
       });
@@ -1000,7 +1104,7 @@
       const btns = $choices.querySelectorAll('.choice-btn');
       btns.forEach(b => b.disabled = true);
 
-      const correct = q.correct_index;
+      const correct = q.options.findIndex(o => o.correct);
       const ok = chosen === correct;
 
       if (ok) {
@@ -1022,16 +1126,21 @@
       // Show translation on answers
       $choices.querySelectorAll('.choice-en').forEach(el => el.classList.add('visible'));
 
-      if (q.image && q.image.answer_img) $aImgWrap.classList.add('visible');
-
       // Reason why — Vietnamese first, English translation shown alongside it
       // (matches how choice-en auto-reveals on submit, not gated behind the translate toggle)
-      if (q.explanation_vi || q.explanation_en) {
+      if (q.reason_vi || q.reason_en) {
         $feedback.innerHTML =
-          (q.explanation_vi ? escHtml(q.explanation_vi) : '') +
-          (q.explanation_en ? '<div class="feedback-en visible">' + escHtml(q.explanation_en) + '</div>' : '');
+          (q.reason_vi ? escHtml(q.reason_vi) : '') +
+          (q.reason_en ? '<div class="feedback-en visible">' + escHtml(q.reason_en) + '</div>' : '');
         $feedback.classList.add('visible');
       }
+
+      // Word-by-word breakdown of the question and the correct answer
+      renderBreakdownSection($bdQuestion, 'câu hỏi / question', q.breakdown_q);
+      renderBreakdownSection($bdAnswer, 'đáp án đúng / correct answer', q.breakdown_a);
+
+      // Diagram, if this question has one
+      renderDiagram(q);
 
       $nextBtn.disabled = false;
       $skipBtn.style.display = 'none';
@@ -1045,9 +1154,11 @@
     $transBtnEl.addEventListener('click', () => {
       const visible = $qTrans.classList.contains('visible');
       $qTrans.classList.toggle('visible');
+      curShowEn = !visible;
       // Also toggle English translations on answer choices
       $choices.querySelectorAll('.choice-en').forEach(el => el.classList.toggle('visible', !visible));
       $transBtnEl.textContent = visible ? 'dịch / show translation' : 'ẩn / hide translation';
+      if (diagramState && diagramState.redraw) diagramState.redraw();
     });
 
     // Next
@@ -1081,8 +1192,15 @@
       const answeredCount = score.correct + score.wrong;
       const pct = answeredCount > 0 ? Math.round(score.correct / answeredCount * 100) : 0;
 
-      // Pass/fail: 80% threshold across all modes
-      let passed = pct >= 80;
+      // Pass/fail: practice mode (exam.questions_per_test drawn from the
+      // bank) uses the exam's fixed pass_mark; "all"/"section" modes cover
+      // the full 40-question bank and fall back to an 80% threshold.
+      let passed = false;
+      if (curMode === 'practice' && !reviewMode) {
+        passed = score.correct >= (exam.pass_mark || 25);
+      } else {
+        passed = pct >= 80;
+      }
 
       // Animate icon
       if (passed) {
@@ -1096,7 +1214,15 @@
         (score.skipped > 0 ? '  ·  ' + score.skipped + ' skipped' : '') +
         (weakIds.size > 0  ? '  ·  ' + weakIds.size + ' weak' : '');
 
-      $endResult.textContent = passed ? 'ĐẠT / PASS' : 'CHƯA ĐẠT / FAIL';
+      if (curMode === 'practice' && !reviewMode) {
+        const passLabel = exam.pass_label_vi
+          ? exam.pass_label_vi + (exam.pass_label_en ? ' / ' + exam.pass_label_en : '')
+          : '';
+        $endResult.textContent = (passed ? 'ĐẠT' : 'CHƯA ĐẠT') + ' — ' + score.correct + '/' + queue.length +
+          (passLabel ? '  (' + passLabel + ')' : '');
+      } else {
+        $endResult.textContent = passed ? 'ĐẠT / PASS' : 'CHƯA ĐẠT / FAIL';
+      }
       $endResult.className = 'end-result ' + (passed ? 'pass' : 'fail');
 
       // Section breakdown
@@ -1165,7 +1291,7 @@
         $typingHint.textContent = 'Type the English meaning';
       } else {
         $tMeta.textContent = secLabel(q.section).toUpperCase();
-        $tText.innerHTML = tagUnique(q.id, q.question_vi);
+        $tText.innerHTML = tagUnique(q);
         if (q.image && q.image.question_img) {
           $tImg.src = IMG + encodeURIComponent(q.image.question_img);
           $tImgWrap.style.display = 'block';
@@ -1195,25 +1321,24 @@
       answered = true;
       $tCheckBtn.disabled = true;
 
-      let correct, correctNorm, isMatch;
+      let correct, correctNorm, isMatch, correctOpt = null;
       if (q._isVocab) {
         correct = q.en;
         correctNorm = normalizeVi(correct);
         isMatch = partialMatch(userNorm, correctNorm);
       } else {
-        correct = q.answers_vi[q.correct_index];
+        correctOpt = q.options.find(o => o.correct);
+        correct = correctOpt.text_vi;
         correctNorm = normalizeVi(correct);
-        const correctEnNorm = q.translation && q.translation.answers_en
-          ? normalizeVi(q.translation.answers_en[q.correct_index])
-          : '';
+        const correctEnNorm = correctOpt.text_en ? normalizeVi(correctOpt.text_en) : '';
         isMatch = partialMatch(userNorm, correctNorm) || (correctEnNorm && partialMatch(userNorm, correctEnNorm));
       }
 
       if (isMatch) {
         $typingInput.classList.add('correct-input');
         $tFeedback.textContent = '✓ Đúng! — ' + correct;
-        if (!q._isVocab && q.translation && q.translation.answers_en) {
-          $tFeedback.textContent += ' / ' + q.translation.answers_en[q.correct_index];
+        if (correctOpt && correctOpt.text_en) {
+          $tFeedback.textContent += ' / ' + correctOpt.text_en;
         }
         $tFeedback.classList.add('visible');
         score.correct++;
@@ -1222,8 +1347,8 @@
       } else {
         $typingInput.classList.add('wrong-input');
         $tFeedback.textContent = '✗ Đáp án đúng: ' + correct;
-        if (!q._isVocab && q.translation && q.translation.answers_en) {
-          $tFeedback.textContent += ' / ' + q.translation.answers_en[q.correct_index];
+        if (correctOpt && correctOpt.text_en) {
+          $tFeedback.textContent += ' / ' + correctOpt.text_en;
         }
         $tFeedback.classList.add('visible');
         score.wrong++;
@@ -1233,9 +1358,9 @@
         if (!q._isVocab && q.image && q.image.answer_img) $tAImgWrap.classList.add('visible');
       }
 
-      if (!q._isVocab && (q.explanation_vi || q.explanation_en)) {
-        $tFeedback.textContent += '\n' + (q.explanation_vi || '') +
-          (q.explanation_en ? ' / ' + q.explanation_en : '');
+      if (!q._isVocab && (q.reason_vi || q.reason_en)) {
+        $tFeedback.textContent += '\n' + (q.reason_vi || '') +
+          (q.reason_en ? ' / ' + q.reason_en : '');
       }
 
       $typingHint.textContent = 'Bình thường hóa: "' + userNorm + '" vs "' + correctNorm + '"';
@@ -1277,14 +1402,13 @@
 
       $studyList.innerHTML = '';
       questions.forEach((q, idx) => {
-        const t = q.translation || {};
         const card = document.createElement('div');
         card.className = 'study-card';
 
         let html = '<div class="study-q-num">' + secLabel(q.section) + ' — Q' + q.id + '</div>';
-        html += '<div class="study-q">' + tagUnique(q.id, q.question_vi) + '</div>';
-        if (t.question_en) {
-          html += '<div class="study-q-en' + (showEn ? '' : ' hidden') + '">' + escHtml(t.question_en) + '</div>';
+        html += '<div class="study-q">' + tagUnique(q) + '</div>';
+        if (q.question_en) {
+          html += '<div class="study-q-en' + (showEn ? '' : ' hidden') + '">' + escHtml(q.question_en) + '</div>';
         }
 
         // Question image
@@ -1293,13 +1417,11 @@
         }
 
         html += '<div class="study-answers">';
-        q.answers_vi.forEach((ans, i) => {
-          const isCorrect = i === q.correct_index;
-          const enAns = t.answers_en ? t.answers_en[i] : '';
-          html += '<div class="study-ans' + (isCorrect ? ' correct' : '') + '">';
-          html += '<span>' + ['A','B','C','D'][i] + '. ' + escHtml(ans) + '</span>';
-          if (enAns) {
-            html += '<div class="study-ans-en' + (showEn ? '' : ' hidden') + '">' + escHtml(enAns) + '</div>';
+        q.options.forEach((opt, i) => {
+          html += '<div class="study-ans' + (opt.correct ? ' correct' : '') + '">';
+          html += '<span>' + ['A','B','C','D'][i] + '. ' + escHtml(opt.text_vi) + '</span>';
+          if (opt.text_en) {
+            html += '<div class="study-ans-en' + (showEn ? '' : ' hidden') + '">' + escHtml(opt.text_en) + '</div>';
           }
           html += '</div>';
         });
@@ -1333,6 +1455,11 @@
     function buildFlashcardDeck() {
       if (fcCat === 'vocab') {
         fcDeck = vocab.map(v => ({_isVocab:true, vi:v.vi, en:v.en, cat:v.category, breakdown:v.breakdown}));
+      } else if (fcCat === 'phrases') {
+        fcDeck = [];
+        allQ.forEach(q => (q.phrases || []).forEach(p => {
+          fcDeck.push({_isPhrase:true, vi:p.vi, en:p.en, role:p.role, syl:p.syl, qid:q.id});
+        }));
       } else {
         fcDeck = allQ.slice();
       }
@@ -1368,28 +1495,49 @@
         }
         $fcTrap.style.display = 'none';
         $fcBackImg.style.display = 'none';
+      } else if (card._isPhrase) {
+        // Unique-phrase card: phrase (VI) on front, English + syllable
+        // breakdown on back. Key phrases (discriminators) get the same
+        // red badge/styling used for their in-question highlight.
+        $fcFrontLabel.textContent = 'cụm từ / phrase';
+        $fcBackLabel.textContent  = 'nghĩa / meaning';
+        $fcFront.innerHTML =
+          '<span class="fc-role-badge' + (card.role === 'key' ? ' key' : '') + '">' +
+          (card.role === 'key' ? 'từ khóa / key' : 'từ vựng / term') + '</span><br>' +
+          escHtml(card.vi);
+        $fcFrontImg.style.display = 'none';
+        $fcBack.textContent = card.en;
+        $fcBackEn.textContent = '';
+        if (card.syl && card.syl.length > 0) {
+          $fcEtymology.textContent = card.syl.map(s => s.s + ' (' + s.g + ')').join(' · ');
+          $fcEtymology.style.display = '';
+        } else {
+          $fcEtymology.textContent = '';
+          $fcEtymology.style.display = 'none';
+        }
+        $fcTrap.style.display = 'none';
+        $fcBackImg.style.display = 'none';
       } else {
         $fcFrontLabel.textContent = 'câu hỏi / question';
         $fcBackLabel.textContent  = 'đáp án / answer';
         const q = card;
-        const t = q.translation || {};
-        $fcFront.innerHTML = tagUnique(q.id, q.question_vi);
+        $fcFront.innerHTML = tagUnique(q);
         if (q.image && q.image.question_img) {
           $fcFrontImg.src = IMG + encodeURIComponent(q.image.question_img);
           $fcFrontImg.style.display = 'block';
         } else {
           $fcFrontImg.style.display = 'none';
         }
-        $fcBack.textContent = q.answers_vi[q.correct_index];
-        $fcBackEn.textContent = t.answers_en ? t.answers_en[q.correct_index] + (t.question_en ? '\n' + t.question_en : '') : '';
-        if (q.etymology) {
-          $fcEtymology.textContent = q.etymology;
-          $fcEtymology.style.display = '';
-        } else {
-          $fcEtymology.textContent = '';
-          $fcEtymology.style.display = 'none';
-        }
-        $fcTrap.style.display = q.trap ? '' : 'none';
+        // Back shows the word/syllable breakdown of the correct answer,
+        // not a flat translation — falls back to plain text when a
+        // question's answer has nothing to break down (e.g. a bare number).
+        const correctOpt = q.options.find(o => o.correct);
+        const bdHtml = breakdownItemsHTML(q.breakdown_a);
+        $fcBack.innerHTML = bdHtml || escHtml(correctOpt.text_vi);
+        $fcBackEn.textContent = correctOpt.text_en || '';
+        $fcEtymology.textContent = '';
+        $fcEtymology.style.display = 'none';
+        $fcTrap.style.display = 'none';
         if (q.image && q.image.answer_img) {
           $fcBackImg.src = IMG + encodeURIComponent(q.image.answer_img);
           $fcBackImg.style.display = 'block';
@@ -1486,56 +1634,318 @@
       return text;
     }
 
-    // tagUnique: wraps each per-question key phrase in a red .unique-phrase span.
-    // dkct questions can carry several highlight phrases (unlike lpt's single phrase),
-    // so this loops the list, longest phrase first to avoid a short phrase mangling
-    // a longer one it's a substring of (e.g. "cánh ngầm" inside "tàu cánh ngầm").
-    // Must be called with raw (un-escaped) question text; handles escaping internally.
-    function tagUnique(qid, rawText) {
-      const list = uniqueHighlights[String(qid)];
-      if (!list || list.length === 0) return tagVocab(escHtml(rawText));
+    // Whitespace-tolerant phrase match: the source text can carry irregular
+    // spacing (Q24 has a double space in "bẻ bánh  lái sang phải"), so build
+    // the search pattern from the phrase's words joined by \s+ rather than
+    // doing a literal indexOf, and return the *actual* matched substring
+    // (with its real whitespace) so the highlighted span reads exactly like
+    // the source.
+    function findPhraseMatch(text, phrase) {
+      const pattern = phrase.trim().split(/\s+/).map(escapeRe).join('\\s+');
+      const m = new RegExp(pattern).exec(text);
+      return m ? {index: m.index, length: m[0].length} : null;
+    }
+
+    // tagUnique: highlights each phrase in q.phrases within the question text.
+    // role "key" (discriminator — what sets this question apart from its
+    // near-twins) gets the prominent red .unique-phrase style; role "term"
+    // (general vocabulary) gets the lighter .term-phrase style. Longest
+    // phrase first so a short phrase can't mangle a longer one it's a
+    // substring of (e.g. "cánh ngầm" inside "tàu cánh ngầm").
+    function tagUnique(q) {
+      const rawText = q.question_vi;
+      const list = q.phrases || [];
+      if (list.length === 0) return tagVocab(escHtml(rawText));
 
       let text = rawText;
       const placeholders = [];
-      list.slice().sort((a,b) => b.phrase.length - a.phrase.length).forEach((h, idx) => {
-        const pos = text.indexOf(h.phrase);
-        if (pos === -1) return;
+      list.slice().sort((a,b) => b.vi.length - a.vi.length).forEach((p, idx) => {
+        const m = findPhraseMatch(text, p.vi);
+        if (!m) return;
         const ph = '\x01U' + idx + '\x01';
-        text = text.slice(0, pos) + ph + text.slice(pos + h.phrase.length);
-        placeholders.push({ph, phrase: h.phrase, translation: h.translation});
+        const matched = text.slice(m.index, m.index + m.length);
+        text = text.slice(0, m.index) + ph + text.slice(m.index + m.length);
+        placeholders.push({ph, matched, phrase: p});
       });
 
       let html = tagVocab(escHtml(text));
-      placeholders.forEach(({ph, phrase, translation}) => {
-        const span = '<span class="unique-phrase" data-tip="' + escHtml(translation) + '">' +
-          escHtml(phrase) + '</span>';
+      placeholders.forEach(({ph, matched, phrase}) => {
+        const cls = phrase.role === 'key' ? 'unique-phrase' : 'term-phrase';
+        const span = '<span class="' + cls + '" data-tip="' + escHtml(phrase.en) + '">' +
+          escHtml(matched) + '</span>';
         html = html.split(ph).join(span);
       });
       return html;
     }
 
+    const TIP_SEL = '.vocab-term, .unique-phrase, .term-phrase';
     function setupMobileTips(container) {
-      container.querySelectorAll('.vocab-term').forEach(el => {
+      container.querySelectorAll(TIP_SEL).forEach(el => {
         // Click/tap: toggle tooltip (works on desktop + mobile)
         el.addEventListener('click', e => {
           e.stopPropagation();
           const isOpen = el.classList.contains('tip-open');
-          container.querySelectorAll('.vocab-term.tip-open').forEach(o => o.classList.remove('tip-open'));
+          container.querySelectorAll(TIP_SEL + '.tip-open').forEach(o => o.classList.remove('tip-open'));
           if (!isOpen) el.classList.add('tip-open');
         });
         // Mobile touchstart: prevent ghost click delay
         el.addEventListener('touchstart', e => {
           e.preventDefault();
-          container.querySelectorAll('.vocab-term.tip-open').forEach(o => o.classList.remove('tip-open'));
+          container.querySelectorAll(TIP_SEL + '.tip-open').forEach(o => o.classList.remove('tip-open'));
           el.classList.add('tip-open');
         }, {passive:false});
       });
       // Click outside to close
       document.addEventListener('click', e => {
-        if (!e.target.closest('.vocab-term')) {
-          container.querySelectorAll('.vocab-term.tip-open').forEach(o=>o.classList.remove('tip-open'));
+        if (!e.target.closest(TIP_SEL)) {
+          container.querySelectorAll(TIP_SEL + '.tip-open').forEach(o=>o.classList.remove('tip-open'));
         }
       });
+    }
+
+    // ══════════════════════════════════════════════════
+    // WORD-BY-WORD BREAKDOWN
+    // ══════════════════════════════════════════════════
+    // Renders a breakdown_q/breakdown_a list as word items: the word with its
+    // gloss, and — for compounds — the per-syllable gloss beneath it.
+    function breakdownItemsHTML(list) {
+      if (!list || list.length === 0) return '';
+      return '<div class="bd-row">' + list.map(item => {
+        let html = '<div class="bd-item"><span class="bd-word">' + escHtml(item.w) + '</span>' +
+          ' = <span class="bd-gloss">' + escHtml(item.g) + '</span>';
+        if (item.syl && item.syl.length > 0) {
+          html += '<span class="bd-syl">from ' +
+            item.syl.map(s => escHtml(s.s) + ' (' + escHtml(s.g) + ')').join(' + ') +
+            '</span>';
+        }
+        html += '</div>';
+        return html;
+      }).join('') + '</div>';
+    }
+
+    function renderBreakdownSection(container, title, list) {
+      const inner = breakdownItemsHTML(list);
+      if (!inner) { container.style.display = 'none'; container.innerHTML = ''; return; }
+      container.innerHTML = '<div class="bd-title">' + escHtml(title) + '</div>' + inner;
+      container.style.display = 'block';
+    }
+
+    // ══════════════════════════════════════════════════
+    // DIAGRAMS (one generic renderer for all 15 dock/rudder diagrams)
+    // ══════════════════════════════════════════════════
+    // Coordinate convention (from the data spec): dock horizontal at top,
+    // water below, bow pointing right at heading 0, rotation in SVG degrees
+    // clockwise-positive about the named pivot. Open-water (rudder-response)
+    // diagrams have no dock and are drawn bow-up instead.
+    let diagramTimer = null;
+    let diagramState = null;
+
+    function stopDiagramAnim() {
+      if (diagramTimer) { clearInterval(diagramTimer); diagramTimer = null; }
+      diagramState = null;
+    }
+
+    function svgText(x, y, text, opts) {
+      opts = opts || {};
+      return '<text x="' + x + '" y="' + y + '" font-size="' + (opts.size || 9) +
+        '" fill="' + (opts.color || '#333') + '" text-anchor="' + (opts.anchor || 'start') +
+        '" font-family="Georgia, serif">' + escHtml(text) + '</text>';
+    }
+
+    function rudderSvg(f, sternLocal) {
+      const state = f.rudder_abs || f.rudder || 'amidships';
+      let angle = 0;
+      if (state === 'outward' || state === 'stbd') angle = 35;
+      else if (state === 'inward' || state === 'port') angle = -35;
+      const len = 16;
+      const rad = angle * Math.PI / 180;
+      const ex = sternLocal - len * Math.cos(rad);
+      const ey = len * Math.sin(rad);
+      return '<line x1="' + sternLocal + '" y1="0" x2="' + ex + '" y2="' + ey + '" stroke="#c00" stroke-width="2"/>';
+    }
+
+    function propWashSvg(sternLocal) {
+      let s = '';
+      for (let i = 0; i < 3; i++) {
+        const x = sternLocal - 10 - i * 8;
+        s += '<path d="M ' + x + ',-6 q 4,6 0,12" stroke="#3d7ea6" stroke-width="1.2" fill="none"/>';
+      }
+      return s;
+    }
+
+    function arrowSvg(x, y, dx, dy, color, label) {
+      const len = 34, headSize = 6;
+      const x2 = x + dx * len, y2 = y + dy * len;
+      const angle = Math.atan2(y2 - y, x2 - x);
+      const hx1 = x2 - headSize * Math.cos(angle - Math.PI / 6);
+      const hy1 = y2 - headSize * Math.sin(angle - Math.PI / 6);
+      const hx2 = x2 - headSize * Math.cos(angle + Math.PI / 6);
+      const hy2 = y2 - headSize * Math.sin(angle + Math.PI / 6);
+      return '<g><line x1="' + x + '" y1="' + y + '" x2="' + x2 + '" y2="' + y2 +
+        '" stroke="' + color + '" stroke-width="2"/>' +
+        '<polygon points="' + x2 + ',' + y2 + ' ' + hx1 + ',' + hy1 + ' ' + hx2 + ',' + hy2 +
+        '" fill="' + color + '"/>' +
+        svgText(x + dx * len / 2, y + dy * len / 2 - 6, label, {size: 8, color: color, anchor: 'middle'}) +
+        '</g>';
+    }
+
+    // A frame's line_state overrides the line's default state for that
+    // frame only (no carry-forward) — e.g. an approach diagram's line starts
+    // "cast_off" (not yet made fast) and falls back to the default "held"
+    // once the crew catches it a couple of frames later.
+    function effectiveLineState(d, lineIndex, frameIdx) {
+      const line = d.lines[lineIndex];
+      const f = d.frames[frameIdx];
+      return f.line_state || line.state || 'held';
+    }
+
+    function langText(pair, fallback) {
+      if (!pair) return fallback || '';
+      return curShowEn ? (pair.en || pair.vi || '') : (pair.vi || pair.en || '');
+    }
+
+    function buildDiagramFrameSVG(d, frameIdx, labels) {
+      const f = d.frames[frameIdx];
+      const W = 300, H = 220, dockY = 36;
+      const openWater = !!d.open_water;
+      let out = '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg">';
+      out += '<rect x="0" y="0" width="' + W + '" height="' + H + '" fill="#eef4f7"/>';
+
+      if (!openWater) {
+        out += '<rect x="0" y="0" width="' + W + '" height="' + dockY + '" fill="#cbb896" stroke="#a89570"/>';
+        out += svgText(W / 2, dockY / 2 + 4, langText(labels.parts && labels.parts.dock, 'dock'),
+          {size: 10, anchor: 'middle', color: '#5a4a30'});
+      }
+
+      const anchorPoint = d.anchor ? {x: 150, y: dockY + 20} : null;
+
+      // Hull anchor position (world) & local pivot geometry for this frame
+      const pivot = f.pivot || 'center';
+      let anchorX, anchorY;
+      if (openWater) { anchorX = W / 2; anchorY = H / 2; }
+      else if (pivot === 'bow') { anchorX = 210; anchorY = 90; }
+      else if (pivot === 'stern') { anchorX = 90; anchorY = 90; }
+      else { anchorX = 150; anchorY = 100; }
+      if (f.offset) { anchorX += f.offset[0] * 26; anchorY += f.offset[1] * 26; }
+
+      const rotate = (f.rotate || 0) + (openWater ? -90 : 0);
+      let bowLocal, sternLocal;
+      if (pivot === 'bow') { bowLocal = 0; sternLocal = -120; }
+      else if (pivot === 'stern') { bowLocal = 120; sternLocal = 0; }
+      else { bowLocal = 60; sternLocal = -60; }
+
+      const hw = 14;
+      const hullPath = 'M ' + sternLocal + ',-' + hw + ' L ' + (bowLocal - 18) + ',-' + hw +
+        ' L ' + bowLocal + ',0 L ' + (bowLocal - 18) + ',' + hw + ' L ' + sternLocal + ',' + hw + ' Z';
+
+      // Mooring/anchor lines, computed in world space from the hull's
+      // current rotation so they track the boat frame to frame.
+      const rad = rotate * Math.PI / 180;
+      function worldFromLocal(lx, ly) {
+        return {
+          x: anchorX + lx * Math.cos(rad) - ly * Math.sin(rad),
+          y: anchorY + lx * Math.sin(rad) + ly * Math.cos(rad)
+        };
+      }
+      let lineSvg = '';
+      (d.lines || []).forEach((line, li) => {
+        if (effectiveLineState(d, li, frameIdx) === 'cast_off') return;
+        const attachLocal = line.from === 'bow' ? bowLocal : sternLocal;
+        const p1 = worldFromLocal(attachLocal, 0);
+        const p2 = line.to_water
+          ? (anchorPoint || {x: 150, y: dockY + 20})
+          : {x: W / 2 + (line.to_dock_x || 0) * (W / 2 - 20), y: dockY};
+        lineSvg += '<line x1="' + p1.x + '" y1="' + p1.y + '" x2="' + p2.x + '" y2="' + p2.y +
+          '" stroke="#777" stroke-width="1.5" stroke-dasharray="4,3"/>';
+      });
+      out += lineSvg;
+
+      out += '<g transform="translate(' + anchorX + ',' + anchorY + ') rotate(' + rotate + ')">' +
+        '<path d="' + hullPath + '" fill="#f5f0e6" stroke="#333" stroke-width="1.5"/>' +
+        rudderSvg(f, sternLocal) +
+        (f.flow ? propWashSvg(sternLocal) : '') +
+        '</g>';
+
+      if (d.current) {
+        const label = langText(d.current_label) || langText(labels.current_generic, 'current');
+        out += arrowSvg(d.current === 'right' ? 40 : 260, H - 30, d.current === 'right' ? 1 : -1, 0, '#3d7ea6', label);
+      }
+      if (d.wind) {
+        const label = langText(d.wind_label) || langText(labels.wind_generic, 'wind');
+        const dir = d.wind === 'onto_dock' ? -1 : 1;
+        out += arrowSvg(260, dir === -1 ? H - 20 : dockY + 10, 0, dir, '#4a8a4a', label);
+      }
+      if (d.anchor && anchorPoint) {
+        out += '<circle cx="' + anchorPoint.x + '" cy="' + anchorPoint.y + '" r="3" fill="#333"/>';
+        if (d.anchor_label) out += svgText(anchorPoint.x + 8, anchorPoint.y + 4, langText(d.anchor_label), {size: 8});
+      }
+      if (openWater && d.open_water_label) {
+        out += svgText(W / 2, H - 8, langText(d.open_water_label), {size: 8, anchor: 'middle', color: '#888'});
+      }
+
+      out += '</svg>';
+      return out;
+    }
+
+    function renderDiagram(q) {
+      $diagramContainer.innerHTML = '';
+      if (!q.diagram) return;
+      const d = q.diagram;
+      const labels = exam.diagram_labels || {};
+      diagramState = {d, frameIdx: 0};
+
+      const wrap = document.createElement('div');
+      wrap.className = 'diagram-wrap';
+      const title = document.createElement('div');
+      title.className = 'diagram-title';
+      const svgWrap = document.createElement('div');
+      svgWrap.className = 'diagram-svg-wrap';
+      const caption = document.createElement('div');
+      caption.className = 'diagram-caption';
+      const controls = document.createElement('div');
+      controls.className = 'diagram-controls';
+      controls.innerHTML =
+        '<button class="diagram-btn" data-act="prev" type="button">← trước</button>' +
+        '<button class="diagram-btn" data-act="play" type="button">▶ chạy</button>' +
+        '<button class="diagram-btn" data-act="next" type="button">sau →</button>' +
+        '<span class="diagram-step"></span>';
+      wrap.appendChild(title);
+      wrap.appendChild(svgWrap);
+      wrap.appendChild(caption);
+      wrap.appendChild(controls);
+      $diagramContainer.appendChild(wrap);
+
+      function draw() {
+        title.textContent = langText({vi: d.title_vi, en: d.title_en});
+        svgWrap.innerHTML = buildDiagramFrameSVG(d, diagramState.frameIdx, labels);
+        const f = d.frames[diagramState.frameIdx];
+        caption.textContent = langText({vi: f.caption_vi, en: f.caption_en});
+        controls.querySelector('.diagram-step').textContent =
+          (diagramState.frameIdx + 1) + ' / ' + d.frames.length;
+      }
+      function stopPlay() {
+        if (diagramTimer) { clearInterval(diagramTimer); diagramTimer = null; }
+        const btn = controls.querySelector('[data-act="play"]');
+        if (btn) btn.textContent = '▶ chạy';
+      }
+      function startPlay() {
+        controls.querySelector('[data-act="play"]').textContent = '⏸ dừng';
+        diagramTimer = setInterval(() => {
+          diagramState.frameIdx = (diagramState.frameIdx + 1) % d.frames.length;
+          draw();
+        }, 1200);
+      }
+
+      controls.addEventListener('click', e => {
+        const act = e.target.dataset.act;
+        if (!act) return;
+        if (act === 'prev') { stopPlay(); diagramState.frameIdx = Math.max(0, diagramState.frameIdx - 1); draw(); }
+        else if (act === 'next') { stopPlay(); diagramState.frameIdx = Math.min(d.frames.length - 1, diagramState.frameIdx + 1); draw(); }
+        else if (act === 'play') { diagramTimer ? stopPlay() : startPlay(); }
+      });
+
+      diagramState.redraw = draw;
+      draw();
     }
 
     // ══════════════════════════════════════════════════
