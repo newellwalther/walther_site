@@ -440,11 +440,24 @@
     ═══════════════════════════════════════════════════ */
     .diagram-wrap { margin-top: 16px; border: 1px solid #e8e8e8; padding: 14px; background: #fafafa; }
     .diagram-title { font-size: 0.75rem; color: #555; margin-bottom: 10px; }
-    .diagram-svg-wrap { width: 100%; max-width: 420px; margin: 0 auto; }
+    .diagram-svg-wrap { width: 100%; max-width: 640px; margin: 0 auto; }
     .diagram-svg-wrap svg { width: 100%; height: auto; display: block; background: #fff; }
-    .diagram-legend { margin-top: 8px; display: flex; flex-direction: column; gap: 3px; }
-    .legend-row { display: flex; align-items: center; gap: 6px; font-size: 0.68rem; color: #666; line-height: 1.4; }
-    .legend-swatch { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+    .term-band {
+      margin-top: 10px; padding: 10px 12px; background: #eef2e2; border: 1px solid #dbe3c8;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .term-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+    .term-row-label {
+      font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: #7a8a5a;
+      width: 62px; flex-shrink: 0;
+    }
+    .term-chip {
+      display: flex; flex-direction: column; padding: 3px 8px; background: #fff;
+      border: 1px solid #dbe3c8; opacity: 0.4; transition: opacity 0.2s;
+    }
+    .term-chip.lit { opacity: 1; border-color: #7a8a5a; }
+    .term-vi { font-size: 14px; color: #222; font-family: Georgia, serif; }
+    .term-en { font-size: 12px; color: #888; font-style: italic; }
     .diagram-caption { font-size: 0.8rem; color: #333; margin-top: 10px; min-height: 2.4em; line-height: 1.4; }
     .diagram-controls { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
     .diagram-btn {
@@ -471,6 +484,9 @@
       .choice-btn { font-size: 0.84rem; padding: 10px 12px; }
       .end-score { font-size: 2.6rem; }
       .fc-main { font-size: 0.96rem; }
+      .term-row { flex-direction: column; align-items: stretch; }
+      .term-row-label { width: auto; }
+      .term-chip { width: 100%; box-sizing: border-box; }
     }
   </style>
   <script type="application/ld+json">
@@ -1737,17 +1753,36 @@
     }
 
     // ══════════════════════════════════════════════════
-    // DIAGRAMS (one generic renderer for all 15 dock/rudder diagrams)
+    // DIAGRAMS — illustrated dock scene, rebuilt from the same 15 diagram
+    // objects (no data changes). Camera is a fixed oblique tilt: geometry is
+    // authored in plan coordinates (bow at +x, dock side at −y, rotation
+    // applied in plan space) and projected as screen = (px+x, py+y·k).
     // ══════════════════════════════════════════════════
-    // Coordinate convention (from the data spec): dock horizontal at top,
-    // water below, bow pointing right at heading 0, rotation in SVG degrees
-    // clockwise-positive about the named pivot. Open-water (rudder-response)
-    // diagrams have no dock and are drawn bow-up instead.
+    const CAM_TILT_DEG = 39;
+    const K = Math.sin(CAM_TILT_DEG * Math.PI / 180);
+
+    // "bẻ lái ra ngoài" deflects the rudder blade AWAY from the quay.
+    // Local −y is always the dock side (facing mirrors x only, never y), so
+    // +1 here means outward = local +y. This is Q8's hệ thống lái thuận;
+    // Q16/Q17/Q40 read differently only because of current direction, not
+    // a different helm convention. Never hardcode this sign anywhere else —
+    // everything reads it from here via rudderDeflection().
+    const RUDDER_OUT_SIGN = 1;
+    const MAX_RUDDER_DEG = 32;
+
+    // Hull plan geometry: bow tip at BOW_X, stern at STERN_X, half-width
+    // tapering from HW_MAX at midship to a point at the bow.
+    const BOW_X = 64, STERN_X = -60, HW_MAX = 15;
+    const FREEBOARD = 20 * (1 - K); // hull side height; vanishes as k->1 (top-down)
+    const HULL_STATIONS = [-60, -40, -20, 0, 22, 44, 56, 64];
+    const FENDER_STATIONS = [-45, -15, 15, 45], FENDER_R = 4.2;
+
     let diagramTimer = null;
     let diagramState = null;
 
     function stopDiagramAnim() {
       if (diagramTimer) { clearInterval(diagramTimer); diagramTimer = null; }
+      if (diagramState && diagramState.raf) cancelAnimationFrame(diagramState.raf);
       diagramState = null;
     }
 
@@ -1756,43 +1791,6 @@
       return '<text x="' + x + '" y="' + y + '" font-size="' + (opts.size || 9) +
         '" fill="' + (opts.color || '#333') + '" text-anchor="' + (opts.anchor || 'start') +
         '" font-family="Georgia, serif">' + escHtml(text) + '</text>';
-    }
-
-    function rudderSvg(f, sternLocal) {
-      const state = f.rudder_abs || f.rudder || 'amidships';
-      let angle = 0;
-      if (state === 'outward' || state === 'stbd') angle = 35;
-      else if (state === 'inward' || state === 'port') angle = -35;
-      const len = 16;
-      const rad = angle * Math.PI / 180;
-      const ex = sternLocal - len * Math.cos(rad);
-      const ey = len * Math.sin(rad);
-      return '<line x1="' + sternLocal + '" y1="0" x2="' + ex + '" y2="' + ey + '" stroke="#c00" stroke-width="2"/>';
-    }
-
-    function propWashSvg(sternLocal) {
-      let s = '';
-      for (let i = 0; i < 3; i++) {
-        const x = sternLocal - 10 - i * 8;
-        s += '<path d="M ' + x + ',-6 q 4,6 0,12" stroke="#3d7ea6" stroke-width="1.2" fill="none"/>';
-      }
-      return s;
-    }
-
-    function arrowSvg(x, y, dx, dy, color, label) {
-      const len = 34, headSize = 6;
-      const x2 = x + dx * len, y2 = y + dy * len;
-      const angle = Math.atan2(y2 - y, x2 - x);
-      const hx1 = x2 - headSize * Math.cos(angle - Math.PI / 6);
-      const hy1 = y2 - headSize * Math.sin(angle - Math.PI / 6);
-      const hx2 = x2 - headSize * Math.cos(angle + Math.PI / 6);
-      const hy2 = y2 - headSize * Math.sin(angle + Math.PI / 6);
-      return '<g><line x1="' + x + '" y1="' + y + '" x2="' + x2 + '" y2="' + y2 +
-        '" stroke="' + color + '" stroke-width="2"/>' +
-        '<polygon points="' + x2 + ',' + y2 + ' ' + hx1 + ',' + hy1 + ' ' + hx2 + ',' + hy2 +
-        '" fill="' + color + '"/>' +
-        svgText(x + dx * len / 2, y + dy * len / 2 - 6, label, {size: 8, color: color, anchor: 'middle'}) +
-        '</g>';
     }
 
     // A frame's line_state overrides the line's default state for that
@@ -1810,140 +1808,429 @@
       return curShowEn ? (pair.en || pair.vi || '') : (pair.vi || pair.en || '');
     }
 
-    function buildDiagramFrameSVG(d, frameIdx, labels) {
-      const f = d.frames[frameIdx];
-      const W = 300, H = 220, dockY = 36;
-      const openWater = !!d.open_water;
-      let out = '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg">';
-      out += '<rect x="0" y="0" width="' + W + '" height="' + H + '" fill="#eef4f7"/>';
+    // ── Projection ──────────────────────────────────────────────────────
+    // facing (+1/-1) mirrors x only, applied before rotation; rotation is
+    // plan-space (existing data `rotate` values stay valid); k squashes the
+    // depth axis to give the tilted-camera look.
+    function toWorldPlan(lx, ly, rotDeg, facing) {
+      const fx = facing * lx, fy = ly;
+      const rad = rotDeg * Math.PI / 180;
+      return { x: fx * Math.cos(rad) - fy * Math.sin(rad), y: fx * Math.sin(rad) + fy * Math.cos(rad) };
+    }
+    function toScreen(p, px, py) { return { x: px + p.x, y: py + p.y * K }; }
+    function projectLocal(lx, ly, rot, facing, px, py) { return toScreen(toWorldPlan(lx, ly, rot, facing), px, py); }
 
-      if (!openWater) {
-        out += '<rect x="0" y="0" width="' + W + '" height="' + dockY + '" fill="#cbb896" stroke="#a89570"/>';
-        out += svgText(W / 2, dockY / 2 + 4, langText(labels.parts && labels.parts.dock, 'dock'),
-          {size: 10, anchor: 'middle', color: '#5a4a30'});
+    function hullHW(x) {
+      if (x >= 0) { const u = Math.min(1, x / BOW_X); return HW_MAX * (1 - Math.pow(u, 1.7)); }
+      const u = Math.min(1, -x / -STERN_X);
+      return HW_MAX * (1 - 0.3 * u * u);
+    }
+    function hullLocalOutline() {
+      const top = HULL_STATIONS.map(x => ({x, y: -hullHW(x)}));
+      const bottom = HULL_STATIONS.slice().reverse().map(x => ({x, y: hullHW(x)}));
+      return top.concat(bottom);
+    }
+    const HULL_LOCAL = hullLocalOutline();
+
+    // ── Scene geometry (viewBox picked responsively — bumping font sizes
+    // inside a wide viewBox doesn't shrink the scene, so mobile gets a
+    // genuinely narrower canvas) ────────────────────────────────────────
+    function diagramViewW() {
+      return (window.matchMedia && window.matchMedia('(max-width:480px)').matches) ? 420 : 680;
+    }
+    function sceneGeom(VBW, openWater) {
+      const shoreH = 56, quayTop = shoreH, quayH = 30, quayBottom = quayTop + quayH, VBH = 460;
+      return {
+        VBW, VBH, shoreH, quayTop, quayBottom, quayH,
+        waterTop: quayBottom,
+        CX: VBW / 2,
+        // Flush alongside: the dock-side gunwale (local -HW_MAX) lands right
+        // on the quay, with only fenders between — computed, not hardcoded.
+        CY: openWater ? (quayBottom + VBH) / 2 : quayBottom + HW_MAX * K + 6
+      };
+    }
+
+    // ── Facing / sequence classification, derived from the existing data ─
+    function diagramFacing(d) { return d.current === 'left' ? -1 : 1; }
+    // A line's frame-0 state of "cast_off" means the boat is still
+    // approaching (not yet secured) — an arrival. Otherwise, if it starts
+    // "held", that line is already the pivot for a departure swing.
+    function diagramIsArrival(d) {
+      if (!d.lines || d.lines.length === 0) return false;
+      const s0 = d.frames[0].line_state || d.lines[0].state || 'held';
+      return s0 === 'cast_off';
+    }
+
+    function rudderDeflection(f) {
+      const key = f.rudder_abs || f.rudder || 'amidships';
+      if (key === 'outward') return RUDDER_OUT_SIGN;
+      if (key === 'inward') return -RUDDER_OUT_SIGN;
+      if (key === 'stbd') return 1;
+      if (key === 'port') return -1;
+      return 0;
+    }
+    function engineLevel(f) { return f.engine === 'ahead' ? 1 : f.engine === 'astern' ? -1 : 0; }
+
+    // Departure sequences drift away from the quay and off the frame edge
+    // by the last frame; arrival sequences start out in the stream and
+    // close in to flush by the last frame. Q32's explicit per-frame
+    // `offset` (anchor scenario) is honored directly instead.
+    function frameOffset(d, idx, facing, geom) {
+      const f = d.frames[idx];
+      if (f.offset) return { x: f.offset[0] * 26 * facing, y: f.offset[1] * 26 };
+      if (d.open_water || !d.lines || d.lines.length === 0) return { x: 0, y: 0 };
+      const n = d.frames.length, t = n > 1 ? idx / (n - 1) : 0;
+      if (diagramIsArrival(d)) { const k1 = 1 - t; return { x: -facing * 0.4 * geom.VBW * k1, y: 45 * k1 }; }
+      return { x: facing * 0.62 * geom.VBW * t, y: 30 * t };
+    }
+
+    function poseForFrame(d, idx, facing, geom) {
+      const f = d.frames[idx], off = frameOffset(d, idx, facing, geom);
+      return { rotate: f.rotate || 0, rudder: rudderDeflection(f), engine: engineLevel(f),
+        flow: f.flow ? 1 : 0, offX: off.x, offY: off.y, pivot: f.pivot || 'center' };
+    }
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function lerpPose(a, b, t) {
+      return { rotate: lerp(a.rotate, b.rotate, t), rudder: lerp(a.rudder, b.rudder, t),
+        engine: lerp(a.engine, b.engine, t), flow: lerp(a.flow, b.flow, t),
+        offX: lerp(a.offX, b.offX, t), offY: lerp(a.offY, b.offY, t), pivot: b.pivot };
+    }
+    function easeInOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+
+    // Rotation pivots about the frame's named point (bow stays put while
+    // the stern swings, or vice versa) by solving for the translation that
+    // puts that local point at the target screen position.
+    function anchorForPose(pose, facing, geom) {
+      const target = { x: geom.CX + pose.offX, y: geom.CY + pose.offY };
+      if (pose.pivot === 'bow' || pose.pivot === 'stern') {
+        const pl = pose.pivot === 'bow' ? {x: BOW_X, y: 0} : {x: STERN_X, y: 0};
+        const wp = toWorldPlan(pl.x, pl.y, pose.rotate, facing);
+        return { px: target.x - wp.x, py: target.y - wp.y * K };
       }
+      return { px: target.x, py: target.y };
+    }
 
-      const anchorPoint = d.anchor ? {x: 150, y: dockY + 20} : null;
-
-      // Hull anchor position (world) & local pivot geometry for this frame
-      const pivot = f.pivot || 'center';
-      let anchorX, anchorY;
-      if (openWater) { anchorX = W / 2; anchorY = H / 2; }
-      else if (pivot === 'bow') { anchorX = 210; anchorY = 90; }
-      else if (pivot === 'stern') { anchorX = 90; anchorY = 90; }
-      else { anchorX = 150; anchorY = 100; }
-      if (f.offset) { anchorX += f.offset[0] * 26; anchorY += f.offset[1] * 26; }
-
-      const rotate = (f.rotate || 0) + (openWater ? -90 : 0);
-      let bowLocal, sternLocal;
-      if (pivot === 'bow') { bowLocal = 0; sternLocal = -120; }
-      else if (pivot === 'stern') { bowLocal = 120; sternLocal = 0; }
-      else { bowLocal = 60; sternLocal = -60; }
-
-      const hw = 14;
-      const hullPath = 'M ' + sternLocal + ',-' + hw + ' L ' + (bowLocal - 18) + ',-' + hw +
-        ' L ' + bowLocal + ',0 L ' + (bowLocal - 18) + ',' + hw + ' L ' + sternLocal + ',' + hw + ' Z';
-
-      // Mooring/anchor lines, computed in world space from the hull's
-      // current rotation so they track the boat frame to frame.
-      const rad = rotate * Math.PI / 180;
-      function worldFromLocal(lx, ly) {
-        return {
-          x: anchorX + lx * Math.cos(rad) - ly * Math.sin(rad),
-          y: anchorY + lx * Math.sin(rad) + ly * Math.cos(rad)
-        };
+    // ── Hull rendering ──────────────────────────────────────────────────
+    function polyCentroid(pts) {
+      let cx = 0, cy = 0; pts.forEach(p => { cx += p.x; cy += p.y; });
+      return { x: cx / pts.length, y: cy / pts.length };
+    }
+    // Walks each hull edge; for edges whose outward normal faces the
+    // camera (world +y), builds a side panel from the deck edge down to the
+    // waterline. This closes the bow correctly at any rotation, since the
+    // two edges converging on the bow tip each get their own panel.
+    function hullSidePanelsSVG(world, px, py) {
+      const c = polyCentroid(world), n = world.length;
+      let out = '';
+      for (let i = 0; i < n; i++) {
+        const a = world[i], b = world[(i + 1) % n];
+        const ex = b.x - a.x, ey = b.y - a.y, len = Math.hypot(ex, ey);
+        if (len < 0.5) continue;
+        let nx = -ey / len, ny = ex / len;
+        const mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+        if (nx * (mid.x - c.x) + ny * (mid.y - c.y) < 0) { nx = -nx; ny = -ny; }
+        if (ny <= 0.05) continue;
+        const aS = toScreen(a, px, py), bS = toScreen(b, px, py);
+        const aW = { x: aS.x, y: aS.y + FREEBOARD }, bW = { x: bS.x, y: bS.y + FREEBOARD };
+        out += '<polygon points="' + aS.x + ',' + aS.y + ' ' + bS.x + ',' + bS.y + ' ' +
+          bW.x + ',' + bW.y + ' ' + aW.x + ',' + aW.y + '" fill="#3a5a3a" stroke="#243a24" stroke-width="0.6"/>';
       }
-      let lineSvg = '';
-      (d.lines || []).forEach((line, li) => {
-        if (effectiveLineState(d, li, frameIdx) === 'cast_off') return;
-        const attachLocal = line.from === 'bow' ? bowLocal : sternLocal;
-        const p1 = worldFromLocal(attachLocal, 0);
-        const p2 = line.to_water
-          ? (anchorPoint || {x: 150, y: dockY + 20})
-          : {x: W / 2 + (line.to_dock_x || 0) * (W / 2 - 20), y: dockY};
-        lineSvg += '<line x1="' + p1.x + '" y1="' + p1.y + '" x2="' + p2.x + '" y2="' + p2.y +
-          '" stroke="#777" stroke-width="1.5" stroke-dasharray="4,3"/>';
-        // Small gray label at the line's midpoint, nudged perpendicular to
-        // the line so it doesn't sit on top of it.
-        const mx = (p1.x + p2.x) / 2, my = (p1.y + p2.y) / 2;
-        const ldx = p2.x - p1.x, ldy = p2.y - p1.y;
-        const llen = Math.hypot(ldx, ldy) || 1;
-        const perpX = -ldy / llen * 9, perpY = ldx / llen * 9;
-        lineSvg += svgText(mx + perpX, my + perpY, langText({vi: line.label_vi, en: line.label_en}),
-          {size: 7.5, color: '#777', anchor: 'middle'});
-      });
-      out += lineSvg;
-
-      const boat = labels.parts || {};
-      out += '<g transform="translate(' + anchorX + ',' + anchorY + ') rotate(' + rotate + ')">' +
-        '<path d="' + hullPath + '" fill="#f5f0e6" stroke="#333" stroke-width="1.5"/>' +
-        rudderSvg(f, sternLocal) +
-        (f.flow ? propWashSvg(sternLocal) : '') +
-        svgText(bowLocal + (bowLocal >= sternLocal ? 6 : -6), 4, langText(boat.bow, 'bow'),
-          {size: 7.5, color: '#888', anchor: bowLocal >= sternLocal ? 'start' : 'end'}) +
-        svgText(sternLocal + (sternLocal > bowLocal ? 6 : -6), 4, langText(boat.stern, 'stern'),
-          {size: 7.5, color: '#888', anchor: sternLocal > bowLocal ? 'start' : 'end'}) +
-        '</g>';
-
-      // Arrows carry only the short generic term (current/wind) — the full
-      // scenario phrasing lives in the legend below the diagram instead, so
-      // it doesn't have to be squeezed onto a 34px arrow.
-      if (d.current) {
-        const label = langText(labels.current_generic, 'current');
-        out += arrowSvg(d.current === 'right' ? 40 : 260, H - 30, d.current === 'right' ? 1 : -1, 0, '#3d7ea6', label);
-      }
-      if (d.wind) {
-        const label = langText(labels.wind_generic, 'wind');
-        const dir = d.wind === 'onto_dock' ? -1 : 1;
-        out += arrowSvg(260, dir === -1 ? H - 20 : dockY + 10, 0, dir, '#4a8a4a', label);
-      }
-      if (d.anchor && anchorPoint) {
-        out += '<circle cx="' + anchorPoint.x + '" cy="' + anchorPoint.y + '" r="3" fill="#333"/>';
-        if (d.anchor_label) out += svgText(anchorPoint.x + 8, anchorPoint.y + 4, langText(d.anchor_label), {size: 8});
-      }
-      if (openWater && d.open_water_label) {
-        out += svgText(W / 2, H - 8, langText(d.open_water_label), {size: 8, anchor: 'middle', color: '#888'});
-      }
-
-      out += '</svg>';
       return out;
     }
-
-    // Full scenario phrasing (current_label/wind_label/line names/rudder
-    // state/anchor_label) lives here instead of crammed onto the diagram
-    // itself. One row per element actually present in this diagram/frame,
-    // each with a swatch matching its color on the SVG.
-    function frameRudderLabel(f, labels) {
-      const key = f.rudder_abs || f.rudder;
-      if (!key || !labels.rudder || !labels.rudder[key]) return null;
-      return labels.rudder[key];
+    function hullDeckSVG(world, px, py) {
+      const pts = world.map(p => { const s = toScreen(p, px, py); return s.x + ',' + s.y; }).join(' ');
+      return '<polygon points="' + pts + '" fill="#e8dfc4" stroke="#4a3f26" stroke-width="1.2"/>';
     }
-
-    function legendRow(color, text) {
-      if (!text) return '';
-      return '<div class="legend-row"><span class="legend-swatch" style="background:' + color + '"></span>' +
-        '<span>' + escHtml(text) + '</span></div>';
+    function fenderSVG(x, y) {
+      return '<line x1="' + x + '" y1="' + (y - 9) + '" x2="' + x + '" y2="' + (y - 3) +
+        '" stroke="#8a7a5a" stroke-width="1"/>' +
+        '<circle cx="' + x + '" cy="' + y + '" r="' + FENDER_R + '" fill="#1c1c1c"/>' +
+        '<circle cx="' + x + '" cy="' + y + '" r="' + (FENDER_R * 0.42) + '" fill="#666"/>';
     }
-
-    function buildLegendHTML(d, frameIdx, labels) {
-      const f = d.frames[frameIdx];
-      let html = '';
-      if (d.current) html += legendRow('#3d7ea6', langText(d.current_label));
-      if (d.wind) html += legendRow('#4a8a4a', langText(d.wind_label));
-      (d.lines || []).forEach(line => {
-        html += legendRow('#999', langText({vi: line.label_vi, en: line.label_en}));
+    function eyeSVG(x, y, op) {
+      return '<g opacity="' + op + '"><ellipse cx="' + x + '" cy="' + y +
+        '" rx="4" ry="2.4" fill="#fff" stroke="#222" stroke-width="0.6"/>' +
+        '<circle cx="' + x + '" cy="' + y + '" r="1.3" fill="#111"/></g>';
+    }
+    function canopySVG(rot, facing, px, py) {
+      const x1 = STERN_X + 10, x2 = STERN_X + 40, hw = 11, H = 20, OH = 4, midX = (x1 + x2) / 2;
+      const corners = [{x: x1, y: -hw}, {x: x1, y: hw}, {x: x2, y: hw}, {x: x2, y: -hw}];
+      let posts = '', roofPts = [];
+      corners.forEach(c => {
+        const base = toScreen(toWorldPlan(c.x, c.y, rot, facing), px, py);
+        posts += '<line x1="' + base.x + '" y1="' + base.y + '" x2="' + base.x + '" y2="' + (base.y - H) +
+          '" stroke="#7a6a4a" stroke-width="1.4"/>';
+        const ox = c.x + (c.x < midX ? -OH : OH), oy = c.y + (c.y < 0 ? -OH : OH);
+        const oscr = toScreen(toWorldPlan(ox, oy, rot, facing), px, py);
+        roofPts.push(oscr.x + ',' + (oscr.y - H - 2));
       });
-      html += legendRow('#c00', langText(frameRudderLabel(f, labels)));
-      if (d.anchor && d.anchor_label) html += legendRow('#333', langText(d.anchor_label));
-      return html;
+      return posts + '<polygon points="' + roofPts.join(' ') + '" fill="#c65b3a" stroke="#8a3d24" stroke-width="1"/>';
+    }
+    // Own little group: every point goes through the same facing/rotation/
+    // k-squash pipeline as the hull, so it carries all three automatically.
+    function bananaSVG(rot, facing, px, py) {
+      const base = { x: BOW_X - 22, y: 0 };
+      const p1 = toScreen(toWorldPlan(base.x, base.y, rot, facing), px, py);
+      let s = '<g>';
+      for (let i = 0; i < 5; i++) {
+        const rad = (i - 2) * 10 * Math.PI / 180;
+        const tip = { x: base.x + 9 * Math.cos(rad), y: base.y + 9 * Math.sin(rad) };
+        const p2 = toScreen(toWorldPlan(tip.x, tip.y, rot, facing), px, py);
+        const mx = (p1.x + p2.x) / 2, my = (p1.y + p2.y) / 2 - 2.5;
+        s += '<path d="M ' + p1.x + ',' + p1.y + ' Q ' + mx + ',' + my + ' ' + p2.x + ',' + p2.y +
+          '" stroke="#d8b23a" stroke-width="3.2" fill="none" stroke-linecap="round"/>';
+      }
+      return s + '</g>';
+    }
+    function crewFigureSVG(x, y) {
+      return '<g><ellipse cx="' + x + '" cy="' + (y - 14) + '" rx="5.5" ry="2" fill="#e8d9a8" stroke="#a8935a" stroke-width="0.6"/>' +
+        '<line x1="' + x + '" y1="' + (y - 11) + '" x2="' + x + '" y2="' + (y - 1) +
+        '" stroke="#8a5a3a" stroke-width="2.4" stroke-linecap="round"/>' +
+        '<line x1="' + x + '" y1="' + (y - 9) + '" x2="' + (x - 5) + '" y2="' + (y - 4) +
+        '" stroke="#c98a5a" stroke-width="1.6" stroke-linecap="round"/>' +
+        '<line x1="' + x + '" y1="' + (y - 9) + '" x2="' + (x + 5) + '" y2="' + (y - 4) +
+        '" stroke="#c98a5a" stroke-width="1.6" stroke-linecap="round"/></g>';
+    }
+    function crewOnDeckSVG(rot, facing, px, py) {
+      let s = '';
+      [{x: -10, y: -6}, {x: 10, y: 5}, {x: -30, y: 4}].forEach(st => {
+        const p = toScreen(toWorldPlan(st.x, st.y, rot, facing), px, py);
+        s += crewFigureSVG(p.x, p.y);
+      });
+      return s;
+    }
+    function rudderSVG(pose, facing, px, py) {
+      const rad = (pose.rudder * MAX_RUDDER_DEG) * Math.PI / 180;
+      const base = { x: STERN_X - 4, y: 0 };
+      const tip = { x: base.x - 13 * Math.cos(rad), y: 13 * Math.sin(rad) };
+      const bs = toScreen(toWorldPlan(base.x, base.y, pose.rotate, facing), px, py);
+      const ts = toScreen(toWorldPlan(tip.x, tip.y, pose.rotate, facing), px, py);
+      let s = '<line x1="' + bs.x + '" y1="' + bs.y + '" x2="' + ts.x + '" y2="' + ts.y +
+        '" stroke="#c00" stroke-width="2.6" stroke-linecap="round"/>';
+      const op = Math.min(1, Math.abs(pose.rudder));
+      if (op > 0.02) {
+        const sgn = pose.rudder > 0 ? 1 : -1;
+        const a1 = toScreen(toWorldPlan(base.x - 6, sgn * 9, pose.rotate, facing), px, py);
+        const a2 = toScreen(toWorldPlan(base.x - 6, -sgn * 9, pose.rotate, facing), px, py);
+        const mid = toScreen(toWorldPlan(base.x - 15, 0, pose.rotate, facing), px, py);
+        s += '<path d="M ' + a1.x + ',' + a1.y + ' Q ' + mid.x + ',' + mid.y + ' ' + a2.x + ',' + a2.y +
+          '" stroke="#c98a1e" stroke-width="1.6" fill="none" opacity="' + op + '"/>';
+      }
+      return s;
+    }
+    function hullLabelsSVG(rot, facing, px, py, labels) {
+      const boat = labels.parts || {};
+      const bow = toScreen(toWorldPlan(BOW_X + 5, 0, rot, facing), px, py);
+      const stern = toScreen(toWorldPlan(STERN_X - 5, 0, rot, facing), px, py);
+      return svgText(bow.x, bow.y, langText(boat.bow, 'bow'), {size: 8, color: '#777', anchor: 'middle'}) +
+        svgText(stern.x, stern.y, langText(boat.stern, 'stern'), {size: 8, color: '#777', anchor: 'middle'});
+    }
+    function engineWashSVG(pose, facing, px, py) {
+      const op = Math.min(1, Math.abs(pose.engine));
+      if (op < 0.05) return '';
+      const dir = pose.engine > 0 ? -1 : 1;
+      let s = '<g opacity="' + (op * 0.85) + '">';
+      for (let i = 0; i < 3; i++) {
+        const p = toScreen(toWorldPlan(STERN_X + dir * (6 + i * 7), 0, pose.rotate, facing), px, py);
+        s += '<path d="M ' + (p.x - 4) + ',' + p.y + ' q 4,' + (dir * -5) + ' 8,0" stroke="#bfe0ef" stroke-width="1.4" fill="none"/>';
+      }
+      return s + '</g>';
+    }
+
+    function buildBoatSVG(pose, facing, px, py, labels) {
+      const world = HULL_LOCAL.map(p => toWorldPlan(p.x, p.y, pose.rotate, facing));
+      let s = '';
+      // dock-side fenders, nudged inward so only their tops peek out once
+      // the hull draws over them
+      FENDER_STATIONS.forEach(x => {
+        const p = toScreen(toWorldPlan(x, -(hullHW(x) - FENDER_R * 0.55), pose.rotate, facing), px, py);
+        s += fenderSVG(p.x, p.y);
+      });
+      s += hullSidePanelsSVG(world, px, py);
+      s += hullDeckSVG(world, px, py);
+      [-1, 1].forEach(side => {
+        const local = { x: BOW_X - 16, y: side * 7 };
+        const wp = toWorldPlan(local.x, local.y, pose.rotate, facing);
+        s += eyeSVG(toScreen(wp, px, py).x, toScreen(wp, px, py).y, wp.y > 0 ? 1 : 0.28);
+      });
+      s += canopySVG(pose.rotate, facing, px, py);
+      s += bananaSVG(pose.rotate, facing, px, py);
+      s += crewOnDeckSVG(pose.rotate, facing, px, py);
+      FENDER_STATIONS.forEach(x => {
+        const p = toScreen(toWorldPlan(x, hullHW(x) + FENDER_R * 0.9, pose.rotate, facing), px, py);
+        s += fenderSVG(p.x, p.y);
+      });
+      s += rudderSVG(pose, facing, px, py);
+      s += hullLabelsSVG(pose.rotate, facing, px, py, labels);
+      return s;
+    }
+    function mooringLinesSVG(d, frameIdx, pose, facing, px, py, geom) {
+      let s = '';
+      (d.lines || []).forEach((line, li) => {
+        if (effectiveLineState(d, li, frameIdx) === 'cast_off') return;
+        const attach = line.from === 'bow' ? {x: BOW_X, y: 0} : {x: STERN_X, y: 0};
+        const p1 = toScreen(toWorldPlan(attach.x, attach.y, pose.rotate, facing), px, py);
+        const p2 = line.to_water
+          ? { x: geom.CX, y: geom.quayBottom + 30 }
+          : { x: geom.CX + facing * (line.to_dock_x || 0) * (geom.VBW / 2 - 30), y: geom.quayBottom - 2 };
+        s += '<line x1="' + p1.x + '" y1="' + p1.y + '" x2="' + p2.x + '" y2="' + p2.y +
+          '" stroke="#6a5a3a" stroke-width="1.6" stroke-dasharray="5,3"/>';
+        const mx = (p1.x + p2.x) / 2, my = (p1.y + p2.y) / 2;
+        s += svgText(mx, my - 4, langText({vi: line.label_vi, en: line.label_en}), {size: 7.5, color: '#6a5a3a', anchor: 'middle'});
+      });
+      if (d.anchor) {
+        const anchorPt = { x: geom.CX, y: geom.quayBottom + 30 };
+        const state = d.frames[frameIdx].line_state || (d.lines[0] && d.lines[0].state) || 'held';
+        if (state !== 'cast_off') {
+          const bow = toScreen(toWorldPlan(BOW_X, 0, pose.rotate, facing), px, py);
+          s += '<line x1="' + bow.x + '" y1="' + bow.y + '" x2="' + anchorPt.x + '" y2="' + anchorPt.y +
+            '" stroke="#6a5a3a" stroke-width="1.4" stroke-dasharray="4,3"/>';
+        }
+        s += '<circle cx="' + anchorPt.x + '" cy="' + anchorPt.y + '" r="3" fill="#333"/>';
+        if (d.anchor_label) s += svgText(anchorPt.x + 8, anchorPt.y + 4, langText(d.anchor_label), {size: 8});
+      }
+      return s;
+    }
+    function buildDynamicSVG(d, frameIdx, pose, facing, geom, labels) {
+      const anchor = anchorForPose(pose, facing, geom);
+      return buildBoatSVG(pose, facing, anchor.px, anchor.py, labels) +
+        engineWashSVG(pose, facing, anchor.px, anchor.py) +
+        mooringLinesSVG(d, frameIdx, pose, facing, anchor.px, anchor.py, geom);
+    }
+
+    // ── Ambient background (built once per question; SMIL-animated so it
+    // keeps drifting smoothly across frame tweens without being redrawn) ─
+    function arrowPrimitive(x, y, dx, dy, color, label) {
+      const len = 38, hs = 6, x2 = x + dx * len, y2 = y + dy * len;
+      const ang = Math.atan2(y2 - y, x2 - x);
+      const hx1 = x2 - hs * Math.cos(ang - Math.PI / 6), hy1 = y2 - hs * Math.sin(ang - Math.PI / 6);
+      const hx2 = x2 - hs * Math.cos(ang + Math.PI / 6), hy2 = y2 - hs * Math.sin(ang + Math.PI / 6);
+      return '<g><line x1="' + x + '" y1="' + y + '" x2="' + x2 + '" y2="' + y2 + '" stroke="' + color + '" stroke-width="2"/>' +
+        '<polygon points="' + x2 + ',' + y2 + ' ' + hx1 + ',' + hy1 + ' ' + hx2 + ',' + hy2 + '" fill="' + color + '"/>' +
+        svgText(x + dx * len / 2, y + dy * len / 2 - 7, label, {size: 9, color: color, anchor: 'middle'}) + '</g>';
+    }
+    function bollardsSVG(geom) {
+      let s = '';
+      [0.15, 0.5, 0.85].forEach(f => {
+        const x = geom.VBW * f, y = geom.quayBottom - 4;
+        s += '<rect x="' + (x - 3) + '" y="' + (y - 8) + '" width="6" height="8" fill="#555"/><circle cx="' + x + '" cy="' + (y - 8) + '" r="3" fill="#444"/>';
+      });
+      return s;
+    }
+    function walkersSVG(geom) {
+      let s = '';
+      [0.28, 0.68].forEach(f => { s += crewFigureSVG(geom.VBW * f, geom.quayTop + geom.quayH * 0.4); });
+      return s;
+    }
+    function quayClutterSVG(geom) {
+      const y = geom.quayTop + 4;
+      return '<rect x="' + (geom.VBW * 0.05) + '" y="' + y + '" width="14" height="10" fill="#a86a3a" opacity="0.8"/>' +
+        '<rect x="' + (geom.VBW * 0.05 + 16) + '" y="' + (y + 2) + '" width="10" height="8" fill="#946034" opacity="0.8"/>' +
+        '<ellipse cx="' + (geom.VBW * 0.9) + '" cy="' + (y + 6) + '" rx="8" ry="5" fill="#8a7040" opacity="0.7"/>';
+    }
+    function ambientWaterSVG(d, geom) {
+      const dir = d.current === 'left' ? -1 : 1;
+      const wBase = (d.open_water ? 20 : geom.waterTop + 20);
+      let s = '<g opacity="0.5">';
+      for (let i = 0; i < 5; i++) {
+        const y = wBase + i * 28, x0 = (i * 130) % geom.VBW;
+        s += '<path d="M ' + x0 + ',' + y + ' q 10,-5 20,0 q 10,5 20,0" stroke="#9fc3d6" stroke-width="1.4" fill="none">' +
+          '<animateTransform attributeName="transform" type="translate" values="0,0;' + (dir * geom.VBW) + ',0" dur="' + (14 + i * 2) + 's" repeatCount="indefinite"/></path>';
+      }
+      for (let i = 0; i < 3; i++) {
+        const y = wBase + 40 + i * 45, x0 = (i * 210 + 60) % geom.VBW;
+        s += '<g opacity="0.55"><ellipse cx="' + x0 + '" cy="' + y + '" rx="9" ry="4" fill="#7a9c5a"/>' +
+          '<ellipse cx="' + (x0 + 7) + '" cy="' + (y + 2) + '" rx="6" ry="3" fill="#8aac6a"/>' +
+          '<animateTransform attributeName="transform" type="translate" values="0,0;' + (dir * geom.VBW) + ',0" dur="' + (22 + i * 3) + 's" repeatCount="indefinite"/></g>';
+      }
+      for (let i = 0; i < 2; i++) {
+        const y = wBase + 70 + i * 30, x0 = (i * 300 + 30) % geom.VBW;
+        s += '<rect x="' + x0 + '" y="' + y + '" width="5" height="3" fill="#cfd6d0" opacity="0.5">' +
+          '<animateTransform attributeName="transform" type="translate" values="0,0;' + (dir * geom.VBW) + ',0" dur="18s" repeatCount="indefinite"/></rect>';
+      }
+      const fx = geom.VBW * 0.65, fy = wBase + 90;
+      s += '<ellipse cx="' + fx + '" cy="' + fy + '" rx="7" ry="2.4" fill="#7a8a95" opacity="0">' +
+        '<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.85;0.9;0.97;0.99;1" dur="6s" repeatCount="indefinite"/>' +
+        '<animateTransform attributeName="transform" type="translate" values="0,0;0,-14;0,0" keyTimes="0;0.9;1" dur="6s" repeatCount="indefinite"/></ellipse>';
+      s += '<circle cx="' + fx + '" cy="' + fy + '" r="2" fill="none" stroke="#8fa8b5" opacity="0">' +
+        '<animate attributeName="r" values="2;2;14" keyTimes="0;0.9;1" dur="6s" repeatCount="indefinite"/>' +
+        '<animate attributeName="opacity" values="0;0;0.6;0" keyTimes="0;0.9;0.95;1" dur="6s" repeatCount="indefinite"/></circle>';
+      return s + '</g>';
+    }
+    // Watermark drawn first (behind everything), then shore -> quay ->
+    // walkers -> bollards -> water -> waves/debris/fish -> current/wind.
+    // The boat itself lives in a placeholder <g> filled in per-frame by
+    // buildDynamicSVG, so this whole background never re-renders and its
+    // SMIL drift keeps running smoothly across frame tweens.
+    function buildStaticSceneSVG(d, geom, labels) {
+      const VBW = geom.VBW, VBH = geom.VBH;
+      let s = '<svg viewBox="0 0 ' + VBW + ' ' + VBH + '" xmlns="http://www.w3.org/2000/svg">';
+      s += '<text x="' + (VBW - 8) + '" y="' + (VBH - 8) + '" font-size="11" fill="#3d7ea6" opacity="0.14" text-anchor="end" font-family="Georgia, serif">Andrew Walther</text>';
+      s += '<rect x="0" y="0" width="' + VBW + '" height="' + geom.shoreH + '" fill="#c9d9a0"/>';
+      s += '<rect x="0" y="' + (geom.shoreH - 10) + '" width="' + VBW + '" height="10" fill="#a98a5a"/>';
+      s += '<rect x="0" y="' + geom.quayTop + '" width="' + VBW + '" height="' + geom.quayH + '" fill="#b9a077" stroke="#8a7550"/>';
+      for (let x = 6; x < VBW; x += 22) s += '<line x1="' + x + '" y1="' + geom.quayTop + '" x2="' + x + '" y2="' + geom.quayBottom + '" stroke="#a08860" stroke-width="1"/>';
+      s += quayClutterSVG(geom);
+      s += walkersSVG(geom);
+      s += bollardsSVG(geom);
+      const waterY = d.open_water ? 0 : geom.waterTop;
+      s += '<rect x="0" y="' + waterY + '" width="' + VBW + '" height="' + (VBH - waterY) + '" fill="#dceaf0"/>';
+      s += ambientWaterSVG(d, geom);
+      if (d.current) {
+        const dir = d.current === 'right' ? 1 : -1;
+        s += arrowPrimitive(dir === 1 ? VBW * 0.12 : VBW * 0.88, VBH - 40, dir, 0, '#3d7ea6', langText(labels.current_generic, 'current'));
+      }
+      if (d.wind) {
+        const dir = d.wind === 'onto_dock' ? -1 : 1;
+        s += arrowPrimitive(VBW * 0.85, dir === -1 ? VBH - 60 : geom.quayBottom + 16, 0, dir, '#4a8a4a', langText(labels.wind_generic, 'wind'));
+      }
+      if (d.open_water && d.open_water_label) s += svgText(VBW / 2, VBH - 6, langText(d.open_water_label), {size: 9, anchor: 'middle', color: '#888'});
+      if (!d.open_water) s += svgText(VBW / 2, geom.quayTop + geom.quayH / 2 + 4, langText(labels.parts && labels.parts.dock, 'dock'), {size: 11, anchor: 'middle', color: '#5a4a30'});
+      s += '<g id="dyn-group"></g>';
+      return s + '</svg>';
+    }
+
+    // Crew member stepping from the boat onto the quay in an arc — a
+    // one-shot flourish on the last frame of an arrival sequence.
+    function walkerStepSVG(d, facing, geom) {
+      const start = toScreen(toWorldPlan(BOW_X - 20, 6, 0, facing), geom.CX, geom.CY);
+      const end = { x: geom.CX + facing * 10, y: geom.quayBottom - 6 };
+      const mid = { x: (start.x + end.x) / 2, y: Math.min(start.y, end.y) - 22 };
+      return '<g>' + crewFigureSVG(0, 0) +
+        '<animateMotion path="M ' + start.x + ',' + start.y + ' Q ' + mid.x + ',' + mid.y + ' ' + end.x + ',' + end.y +
+        '" dur="0.9s" fill="freeze" begin="0.1s"/></g>';
+    }
+
+    // ── Term band: "điều kiện" (question's key phrases) always lit;
+    // "thao tác" (clauses of the correct answer) lights progressively as
+    // each frame performs it. Generated from data — never hand-authored. ─
+    function clauseSplit(text) { return (text || '').split(/[,;.]+/).map(s => s.trim()).filter(Boolean); }
+    function renderTermBand(container, q, frameIdx) {
+      const cond = (q.phrases || []).filter(p => p.role === 'key');
+      const correct = q.options.find(o => o.correct) || {};
+      const clausesVi = clauseSplit(correct.text_vi), clausesEn = clauseSplit(correct.text_en);
+      const lit = Math.min(frameIdx + 1, clausesVi.length);
+      const beyond = (frameIdx + 1) > clausesVi.length && clausesVi.length > 0;
+      const chip = (vi, en, isLit) => '<span class="term-chip' + (isLit ? ' lit' : '') + '">' +
+        '<span class="term-vi">' + escHtml(vi) + '</span><span class="term-en">' + escHtml(en || '') + '</span></span>';
+      let html = '<div class="term-row"><span class="term-row-label">điều kiện</span>' +
+        cond.map(p => chip(p.vi, p.en, true)).join('') + '</div>';
+      html += '<div class="term-row"><span class="term-row-label">thao tác</span>' +
+        clausesVi.map((c, i) => chip(c, clausesEn[i], i < lit)).join('') + '</div>';
+      container.innerHTML = html;
+      return beyond;
     }
 
     function renderDiagram(q) {
+      stopDiagramAnim();
       $diagramContainer.innerHTML = '';
       if (!q.diagram) return;
       const d = q.diagram;
       const labels = exam.diagram_labels || {};
-      diagramState = {d, frameIdx: 0};
+      const facing = diagramFacing(d);
+      const VBW = diagramViewW();
+      const geom = sceneGeom(VBW, !!d.open_water);
+      diagramState = { d, frameIdx: 0, raf: null, lastPose: null };
 
       const wrap = document.createElement('div');
       wrap.className = 'diagram-wrap';
@@ -1951,8 +2238,10 @@
       title.className = 'diagram-title';
       const svgWrap = document.createElement('div');
       svgWrap.className = 'diagram-svg-wrap';
-      const legend = document.createElement('div');
-      legend.className = 'diagram-legend';
+      svgWrap.innerHTML = buildStaticSceneSVG(d, geom, labels);
+      const dynEl = svgWrap.querySelector('#dyn-group');
+      const termBand = document.createElement('div');
+      termBand.className = 'term-band';
       const caption = document.createElement('div');
       caption.className = 'diagram-caption';
       const controls = document.createElement('div');
@@ -1964,20 +2253,46 @@
         '<span class="diagram-step"></span>';
       wrap.appendChild(title);
       wrap.appendChild(svgWrap);
-      wrap.appendChild(legend);
+      wrap.appendChild(termBand);
       wrap.appendChild(caption);
       wrap.appendChild(controls);
       $diagramContainer.appendChild(wrap);
 
-      function draw() {
+      function drawPose(pose) { dynEl.innerHTML = buildDynamicSVG(d, diagramState.frameIdx, pose, facing, geom, labels); }
+
+      function drawFrame(idx, animate) {
+        diagramState.frameIdx = idx;
+        const toPose = poseForFrame(d, idx, facing, geom);
+        if (animate && diagramState.lastPose) {
+          const from = diagramState.lastPose;
+          const start = performance.now(), DUR = 1000;
+          if (diagramState.raf) cancelAnimationFrame(diagramState.raf);
+          const step = now => {
+            const t = Math.min(1, (now - start) / DUR);
+            drawPose(lerpPose(from, toPose, easeInOutCubic(t)));
+            if (t < 1) diagramState.raf = requestAnimationFrame(step);
+            else if (idx === d.frames.length - 1 && diagramIsArrival(d) && !d.open_water) {
+              dynEl.innerHTML += walkerStepSVG(d, facing, geom);
+            }
+          };
+          diagramState.raf = requestAnimationFrame(step);
+        } else {
+          drawPose(toPose);
+          if (idx === d.frames.length - 1 && diagramIsArrival(d) && !d.open_water) {
+            dynEl.innerHTML += walkerStepSVG(d, facing, geom);
+          }
+        }
+        diagramState.lastPose = toPose;
+
         title.textContent = langText({vi: d.title_vi, en: d.title_en});
-        svgWrap.innerHTML = buildDiagramFrameSVG(d, diagramState.frameIdx, labels);
-        const f = d.frames[diagramState.frameIdx];
-        legend.innerHTML = buildLegendHTML(d, diagramState.frameIdx, labels);
-        caption.textContent = langText({vi: f.caption_vi, en: f.caption_en});
-        controls.querySelector('.diagram-step').textContent =
-          (diagramState.frameIdx + 1) + ' / ' + d.frames.length;
+        const f = d.frames[idx];
+        const beyond = renderTermBand(termBand, q, idx);
+        let capText = langText({vi: f.caption_vi, en: f.caption_en});
+        if (beyond) capText += curShowEn ? ' (beyond the answer key)' : ' (ngoài đáp án)';
+        caption.textContent = capText;
+        controls.querySelector('.diagram-step').textContent = (idx + 1) + ' / ' + d.frames.length;
       }
+
       function stopPlay() {
         if (diagramTimer) { clearInterval(diagramTimer); diagramTimer = null; }
         const btn = controls.querySelector('[data-act="play"]');
@@ -1986,21 +2301,20 @@
       function startPlay() {
         controls.querySelector('[data-act="play"]').textContent = '⏸ dừng';
         diagramTimer = setInterval(() => {
-          diagramState.frameIdx = (diagramState.frameIdx + 1) % d.frames.length;
-          draw();
-        }, 1200);
+          drawFrame((diagramState.frameIdx + 1) % d.frames.length, true);
+        }, 1500);
       }
 
       controls.addEventListener('click', e => {
         const act = e.target.dataset.act;
         if (!act) return;
-        if (act === 'prev') { stopPlay(); diagramState.frameIdx = Math.max(0, diagramState.frameIdx - 1); draw(); }
-        else if (act === 'next') { stopPlay(); diagramState.frameIdx = Math.min(d.frames.length - 1, diagramState.frameIdx + 1); draw(); }
+        if (act === 'prev') { stopPlay(); drawFrame(Math.max(0, diagramState.frameIdx - 1), true); }
+        else if (act === 'next') { stopPlay(); drawFrame(Math.min(d.frames.length - 1, diagramState.frameIdx + 1), true); }
         else if (act === 'play') { diagramTimer ? stopPlay() : startPlay(); }
       });
 
-      diagramState.redraw = draw;
-      draw();
+      diagramState.redraw = () => drawFrame(diagramState.frameIdx, false);
+      drawFrame(0, false);
     }
 
     // ══════════════════════════════════════════════════
