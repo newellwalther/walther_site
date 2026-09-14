@@ -467,6 +467,10 @@
     .diagram-btn:hover { background: #f0f0f0; }
     .diagram-step { font-size: 0.7rem; color: #999; }
 
+    /* Visual aid answer line */
+    .visual-answer { font-size: 0.85rem; color: #2e7d32; margin: 6px 0 4px; line-height: 1.5; }
+    .visual-answer .visual-answer-en { display: block; color: #888; font-style: italic; font-size: 0.78rem; margin-top: 2px; }
+
     /* Flashcard phrase-role badge */
     .fc-role-badge {
       display: inline-block; font-size: 0.62rem; letter-spacing: 0.05em; text-transform: uppercase;
@@ -564,6 +568,7 @@
       <button class="nav-tab" data-mode="flashcard">thẻ học / flashcards</button>
       <button class="nav-tab" data-mode="typing">điền từ / fill in</button>
       <button class="nav-tab" data-mode="study">tài liệu / study sheet</button>
+      <button class="nav-tab" data-mode="visual">hình minh họa / visual aid</button>
     </nav>
 
     <!-- Section selector (by-section mode) -->
@@ -691,6 +696,16 @@
       <div id="study-list" class="study-list"></div>
     </div>
 
+    <!-- ── VISUAL AID SCREEN ── -->
+    <div id="visual-screen" style="display:none">
+      <div id="visual-picker" class="section-selector"></div>
+      <div class="q-meta" id="visual-meta"></div>
+      <div class="q-text" id="visual-q-text"></div>
+      <div class="q-translation visible" id="visual-q-en"></div>
+      <div id="visual-answer" class="visual-answer"></div>
+      <div id="visual-diagram-container"></div>
+    </div>
+
     <!-- ── END SCREEN ── -->
     <div id="end-screen">
       <div id="end-icon"></div>
@@ -770,6 +785,7 @@
     const $tScreen   = document.getElementById('typing-screen');
     const $fcScreen  = document.getElementById('flashcard-screen');
     const $studyScreen = document.getElementById('study-screen');
+    const $visualScreen = document.getElementById('visual-screen');
     const $endScreen = document.getElementById('end-screen');
 
     const $qMeta     = document.getElementById('q-meta');
@@ -795,6 +811,13 @@
     const $bdAnswer   = document.getElementById('bd-answer');
     const $diagramContainer = document.getElementById('diagram-container');
     const $infoSection = document.getElementById('info-section');
+
+    const $visualPicker = document.getElementById('visual-picker');
+    const $visualMeta = document.getElementById('visual-meta');
+    const $visualQText = document.getElementById('visual-q-text');
+    const $visualQEn = document.getElementById('visual-q-en');
+    const $visualAnswer = document.getElementById('visual-answer');
+    const $visualDiagramContainer = document.getElementById('visual-diagram-container');
 
     const $tMeta     = document.getElementById('t-meta');
     const $tImgWrap  = document.getElementById('t-image-wrap');
@@ -928,7 +951,7 @@
     // SCREEN SWITCHING
     // ══════════════════════════════════════════════════
     function showScreen(el) {
-      [$qScreen,$tScreen,$fcScreen,$studyScreen,$endScreen].forEach(s=>{
+      [$qScreen,$tScreen,$fcScreen,$studyScreen,$visualScreen,$endScreen].forEach(s=>{
         s.style.display='none'; s.classList.remove('visible');
       });
       if (el) { el.style.display = 'block'; el.classList.add('visible'); }
@@ -954,7 +977,7 @@
       $endScreen.classList.remove('visible');
       $sectionSelector.style.display = (mode === 'section') ? 'flex' : 'none';
       $fcFilter.style.display = (mode === 'flashcard') ? 'flex' : 'none';
-      $progressWrap.style.display = (mode === 'flashcard' || mode === 'study') ? 'none' : 'block';
+      $progressWrap.style.display = (mode === 'flashcard' || mode === 'study' || mode === 'visual') ? 'none' : 'block';
 
       if (mode === 'flashcard') {
         $progressWrap.style.display = 'none';
@@ -965,6 +988,9 @@
       } else if (mode === 'study') {
         $progressWrap.style.display = 'none';
         showStudySheet();
+      } else if (mode === 'visual') {
+        $progressWrap.style.display = 'none';
+        showVisualAid();
       } else {
         startQuiz();
       }
@@ -1461,6 +1487,47 @@
 
     $studySection.addEventListener('change', renderStudyList);
     $studyShowEn.addEventListener('change', renderStudyList);
+
+    // ══════════════════════════════════════════════════
+    // VISUAL AID — browse every illustrated diagram directly, without
+    // going through the quiz flow first.
+    // ══════════════════════════════════════════════════
+    let visualCurId = null;
+
+    function showVisualAid() {
+      showScreen($visualScreen);
+      const diagQs = allQ.filter(q => q.diagram);
+      if (!diagQs.length) return;
+      if (!$visualPicker.children.length) {
+        diagQs.forEach(q => {
+          const btn = document.createElement('button');
+          btn.className = 'sec-btn';
+          btn.textContent = 'Q' + q.id;
+          btn.title = q.diagram.title_vi;
+          btn.dataset.qid = q.id;
+          btn.addEventListener('click', () => showVisualDiagram(q));
+          $visualPicker.appendChild(btn);
+        });
+      }
+      const q = diagQs.find(x => x.id === visualCurId) || diagQs[0];
+      showVisualDiagram(q);
+    }
+
+    function showVisualDiagram(q) {
+      visualCurId = q.id;
+      $visualPicker.querySelectorAll('.sec-btn').forEach(b => {
+        b.classList.toggle('active', Number(b.dataset.qid) === q.id);
+      });
+      $visualMeta.textContent = secLabel(q.section).toUpperCase() + '  ·  Q' + q.id;
+      $visualQText.innerHTML = tagUnique(q);
+      $visualQEn.textContent = q.question_en || '';
+      const correct = q.options.find(o => o.correct);
+      $visualAnswer.innerHTML = correct
+        ? escHtml(correct.text_vi) + (correct.text_en ? '<span class="visual-answer-en">' + escHtml(correct.text_en) + '</span>' : '')
+        : '';
+      renderDiagram(q, $visualDiagramContainer);
+      setupMobileTips($visualScreen);
+    }
 
     // ══════════════════════════════════════════════════
     // FLASHCARDS
@@ -2221,9 +2288,10 @@
       return beyond;
     }
 
-    function renderDiagram(q) {
+    function renderDiagram(q, container) {
+      container = container || $diagramContainer;
       stopDiagramAnim();
-      $diagramContainer.innerHTML = '';
+      container.innerHTML = '';
       if (!q.diagram) return;
       const d = q.diagram;
       const labels = exam.diagram_labels || {};
@@ -2256,7 +2324,7 @@
       wrap.appendChild(termBand);
       wrap.appendChild(caption);
       wrap.appendChild(controls);
-      $diagramContainer.appendChild(wrap);
+      container.appendChild(wrap);
 
       function drawPose(pose) { dynEl.innerHTML = buildDynamicSVG(d, diagramState.frameIdx, pose, facing, geom, labels); }
 
