@@ -3570,11 +3570,35 @@
         "wind": null,
         "lines": [
           {
+            "id": "head_line",
+            "label_vi": "dây dọc mũi",
+            "label_en": "head line",
+            "from": "bow",
+            "to_dock_x": -0.15,
+            "state": "held"
+          },
+          {
             "id": "bow_spring",
             "label_vi": "dây chéo mũi",
             "label_en": "bow spring",
             "from": "bow",
             "to_dock_x": -0.35,
+            "state": "held"
+          },
+          {
+            "id": "stern_spring",
+            "label_vi": "dây chéo lái",
+            "label_en": "stern spring",
+            "from": "stern",
+            "to_dock_x": 0.35,
+            "state": "held"
+          },
+          {
+            "id": "stern_line",
+            "label_vi": "dây dọc lái",
+            "label_en": "stern line",
+            "from": "stern",
+            "to_dock_x": 0.15,
             "state": "held"
           }
         ],
@@ -3582,34 +3606,94 @@
           {
             "pivot": "bow",
             "rotate": 0,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "amidships",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 0,
+            "caption_vi": "Tàu đang buộc đủ bốn dây: dây dọc mũi, dây chéo mũi, dây chéo lái, dây dọc lái.",
+            "caption_en": "The boat is moored on all four lines: head line, bow spring, stern spring, and stern line."
+          },
+          {
+            "pivot": "bow",
+            "rotate": 0,
+            "engine": 0,
+            "rudder": "amidships",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 1,
+            "line_state": {
+              "head_line": "cast_off",
+              "stern_spring": "cast_off",
+              "stern_line": "cast_off"
+            },
             "caption_vi": "Tháo hết các dây khác, chỉ để lại dây chéo mũi.",
             "caption_en": "Cast off all other lines, leaving only the bow spring made fast."
           },
           {
             "pivot": "bow",
             "rotate": 0,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "outward",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 2,
+            "line_state": {
+              "head_line": "cast_off",
+              "stern_spring": "cast_off",
+              "stern_line": "cast_off"
+            },
             "caption_vi": "Bẻ lái ra ngoài (hướng ra khỏi bến).",
             "caption_en": "Put the helm outward, away from the dock."
           },
           {
             "pivot": "bow",
             "rotate": -10,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "outward",
+            "ox": 0.15,
+            "oy": 0.15,
+            "answer_step": 2,
+            "line_state": {
+              "head_line": "cast_off",
+              "stern_spring": "cast_off",
+              "stern_line": "cast_off"
+            },
             "caption_vi": "Dòng nước đẩy vào phần lái, lấy mũi làm điểm tựa.",
             "caption_en": "The current pushes on the stern, pivoting the boat about the bow."
           },
           {
             "pivot": "bow",
             "rotate": -30,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "outward",
+            "ox": 0.5,
+            "oy": 0.6,
+            "answer_step": 2,
+            "line_state": {
+              "head_line": "cast_off",
+              "stern_spring": "cast_off",
+              "stern_line": "cast_off"
+            },
             "caption_vi": "Lái tách bến trước, mũi vẫn được dây chéo giữ lại.",
             "caption_en": "The stern swings clear first while the spring line still holds the bow."
+          },
+          {
+            "pivot": "bow",
+            "rotate": -45,
+            "engine": 0.5,
+            "rudder": "outward",
+            "ox": 1.8,
+            "oy": 1.6,
+            "answer_step": 2,
+            "line_state": {
+              "head_line": "cast_off",
+              "stern_spring": "cast_off",
+              "stern_line": "cast_off",
+              "bow_spring": "cast_off"
+            },
+            "caption_vi": "Mở dây chéo mũi, cho máy tới, rời bến hẳn.",
+            "caption_en": "Cast off the bow spring and go ahead to clear the berth completely."
           }
         ],
         "current_label": {
@@ -3932,34 +4016,63 @@
         "frames": [
           {
             "pivot": "bow",
-            "rotate": -30,
-            "engine": "stopped",
+            "rotate": -34,
+            "engine": 0.5,
             "rudder": "amidships",
-            "line_state": "cast_off",
+            "ox": -0.7,
+            "oy": 1.0,
+            "answer_step": 0,
+            "line_state": {
+              "head_line": "cast_off"
+            },
+            "caption_vi": "Tiếp cận bến ngược nước, mũi hướng chếch vào bờ.",
+            "caption_en": "Approaching the berth against the current, bow angled toward the dock."
+          },
+          {
+            "pivot": "bow",
+            "rotate": -30,
+            "engine": 0,
+            "rudder": "amidships",
+            "ox": -0.25,
+            "oy": 0.3,
+            "answer_step": 0,
+            "line_state": {
+              "head_line": "cast_off"
+            },
             "caption_vi": "Mũi tàu vào sát bến, lái còn ngả ra ngoài.",
             "caption_en": "The bow is close against the dock, the stern still angled out."
           },
           {
             "pivot": "bow",
             "rotate": -30,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "amidships",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 1,
             "caption_vi": "Bắt dây dọc mũi để giữ mũi khỏi trôi.",
             "caption_en": "Make fast the head line to stop the bow drifting."
           },
           {
             "pivot": "bow",
             "rotate": -18,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "outward",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 2,
             "caption_vi": "Bẻ lái ra ngoài; nước ngược đẩy vào thân tàu.",
             "caption_en": "Helm outward; the counter-current presses against the hull."
           },
           {
             "pivot": "bow",
             "rotate": 0,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "outward",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 2,
+            "hop": true,
             "caption_vi": "Dòng nước đưa lái áp vào bến, hoàn tất cập bến.",
             "caption_en": "The current brings the stern in alongside, completing the berthing."
           }
@@ -5113,37 +5226,41 @@
           {
             "pivot": "center",
             "rotate": 0,
-            "engine": "ahead",
+            "engine": 0.8,
             "rudder_abs": "stbd",
             "caption_vi": "Tàu chạy tới, lái thẳng.",
-            "caption_en": "The boat is going ahead with the rudder amidships."
+            "caption_en": "The boat is going ahead with the rudder amidships.",
+            "answer_step": 0
           },
           {
             "pivot": "center",
             "rotate": 0,
-            "engine": "ahead",
+            "engine": 0.8,
             "rudder_abs": "stbd",
             "flow": true,
             "caption_vi": "Chân vịt đẩy nước về phía lái.",
-            "caption_en": "The propeller pushes water aft past the rudder."
+            "caption_en": "The propeller pushes water aft past the rudder.",
+            "answer_step": 0
           },
           {
             "pivot": "center",
             "rotate": 8,
-            "engine": "ahead",
+            "engine": 0.8,
             "rudder_abs": "stbd",
             "flow": true,
             "caption_vi": "Mũi bắt đầu ngả sang phải.",
-            "caption_en": "The bow begins to swing to starboard."
+            "caption_en": "The bow begins to swing to starboard.",
+            "answer_step": 1
           },
           {
             "pivot": "center",
             "rotate": 25,
-            "engine": "ahead",
+            "engine": 0.8,
             "rudder_abs": "stbd",
             "flow": true,
             "caption_vi": "Mũi ngả sang phải.",
-            "caption_en": "The bow swings to starboard."
+            "caption_en": "The bow swings to starboard.",
+            "answer_step": 1
           }
         ],
         "open_water_label": {
@@ -5398,37 +5515,41 @@
           {
             "pivot": "center",
             "rotate": 0,
-            "engine": "ahead",
+            "engine": 0.8,
             "rudder_abs": "port",
             "caption_vi": "Tàu chạy tới, lái thẳng.",
-            "caption_en": "The boat is going ahead with the rudder amidships."
+            "caption_en": "The boat is going ahead with the rudder amidships.",
+            "answer_step": 0
           },
           {
             "pivot": "center",
             "rotate": 0,
-            "engine": "ahead",
+            "engine": 0.8,
             "rudder_abs": "port",
             "flow": true,
             "caption_vi": "Chân vịt đẩy nước về phía lái.",
-            "caption_en": "The propeller pushes water aft past the rudder."
+            "caption_en": "The propeller pushes water aft past the rudder.",
+            "answer_step": 0
           },
           {
             "pivot": "center",
             "rotate": -8,
-            "engine": "ahead",
+            "engine": 0.8,
             "rudder_abs": "port",
             "flow": true,
             "caption_vi": "Mũi bắt đầu ngả sang trái.",
-            "caption_en": "The bow begins to swing to port."
+            "caption_en": "The bow begins to swing to port.",
+            "answer_step": 1
           },
           {
             "pivot": "center",
             "rotate": -25,
-            "engine": "ahead",
+            "engine": 0.8,
             "rudder_abs": "port",
             "flow": true,
             "caption_vi": "Mũi ngả sang trái.",
-            "caption_en": "The bow swings to port."
+            "caption_en": "The bow swings to port.",
+            "answer_step": 1
           }
         ],
         "open_water_label": {
@@ -5683,37 +5804,41 @@
           {
             "pivot": "center",
             "rotate": 0,
-            "engine": "astern",
+            "engine": -0.8,
             "rudder_abs": "port",
             "caption_vi": "Tàu chạy lùi, lái thẳng.",
-            "caption_en": "The boat is going astern with the rudder amidships."
+            "caption_en": "The boat is going astern with the rudder amidships.",
+            "answer_step": 0
           },
           {
             "pivot": "center",
             "rotate": 0,
-            "engine": "astern",
+            "engine": -0.8,
             "rudder_abs": "port",
             "flow": true,
             "caption_vi": "Chạy lùi: dòng nước qua bánh lái đảo chiều.",
-            "caption_en": "Going astern, the flow over the rudder is reversed."
+            "caption_en": "Going astern, the flow over the rudder is reversed.",
+            "answer_step": 0
           },
           {
             "pivot": "center",
             "rotate": 8,
-            "engine": "astern",
+            "engine": -0.8,
             "rudder_abs": "port",
             "flow": true,
             "caption_vi": "Mũi bắt đầu ngả sang phải.",
-            "caption_en": "The bow begins to swing to starboard."
+            "caption_en": "The bow begins to swing to starboard.",
+            "answer_step": 1
           },
           {
             "pivot": "center",
             "rotate": 25,
-            "engine": "astern",
+            "engine": -0.8,
             "rudder_abs": "port",
             "flow": true,
             "caption_vi": "Mũi ngả sang phải.",
-            "caption_en": "The bow swings to starboard."
+            "caption_en": "The bow swings to starboard.",
+            "answer_step": 1
           }
         ],
         "open_water_label": {
@@ -5954,37 +6079,41 @@
           {
             "pivot": "center",
             "rotate": 0,
-            "engine": "astern",
+            "engine": -0.8,
             "rudder_abs": "stbd",
             "caption_vi": "Tàu chạy lùi, lái thẳng.",
-            "caption_en": "The boat is going astern with the rudder amidships."
+            "caption_en": "The boat is going astern with the rudder amidships.",
+            "answer_step": 0
           },
           {
             "pivot": "center",
             "rotate": 0,
-            "engine": "astern",
+            "engine": -0.8,
             "rudder_abs": "stbd",
             "flow": true,
             "caption_vi": "Chạy lùi: dòng nước qua bánh lái đảo chiều.",
-            "caption_en": "Going astern, the flow over the rudder is reversed."
+            "caption_en": "Going astern, the flow over the rudder is reversed.",
+            "answer_step": 0
           },
           {
             "pivot": "center",
             "rotate": -8,
-            "engine": "astern",
+            "engine": -0.8,
             "rudder_abs": "stbd",
             "flow": true,
             "caption_vi": "Mũi bắt đầu ngả sang trái.",
-            "caption_en": "The bow begins to swing to port."
+            "caption_en": "The bow begins to swing to port.",
+            "answer_step": 1
           },
           {
             "pivot": "center",
             "rotate": -25,
-            "engine": "astern",
+            "engine": -0.8,
             "rudder_abs": "stbd",
             "flow": true,
             "caption_vi": "Mũi ngả sang trái.",
-            "caption_en": "The bow swings to port."
+            "caption_en": "The bow swings to port.",
+            "answer_step": 1
           }
         ],
         "open_water_label": {
@@ -6387,34 +6516,46 @@
           {
             "pivot": "bow",
             "rotate": 0,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "amidships",
             "caption_vi": "Tháo hết các dây khác, chỉ để lại dây chéo mũi.",
-            "caption_en": "Cast off all other lines, leaving only the bow spring made fast."
+            "caption_en": "Cast off all other lines, leaving only the bow spring made fast.",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 1
           },
           {
             "pivot": "bow",
             "rotate": 0,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "outward",
             "caption_vi": "Bẻ lái ra ngoài (hướng ra khỏi bến).",
-            "caption_en": "Put the helm outward, away from the dock."
+            "caption_en": "Put the helm outward, away from the dock.",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 2
           },
           {
             "pivot": "bow",
             "rotate": -10,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "outward",
             "caption_vi": "Dòng nước đẩy vào phần lái, lấy mũi làm điểm tựa.",
-            "caption_en": "The current pushes on the stern, pivoting the boat about the bow."
+            "caption_en": "The current pushes on the stern, pivoting the boat about the bow.",
+            "ox": 0.15,
+            "oy": 0.15,
+            "answer_step": 2
           },
           {
             "pivot": "bow",
             "rotate": -30,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "outward",
             "caption_vi": "Lái tách bến trước, mũi vẫn được dây chéo giữ lại.",
-            "caption_en": "The stern swings clear first while the spring line still holds the bow."
+            "caption_en": "The stern swings clear first while the spring line still holds the bow.",
+            "ox": 0.5,
+            "oy": 0.6,
+            "answer_step": 2
           }
         ],
         "current_label": {
@@ -6868,35 +7009,47 @@
           {
             "pivot": "bow",
             "rotate": -30,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "outward",
             "caption_vi": "Lái đã ngả được góc khoảng 30°. Dây chéo đang căng.",
-            "caption_en": "The stern has swung out to about 30°. The spring line is under tension."
+            "caption_en": "The stern has swung out to about 30°. The spring line is under tension.",
+            "ox": 0.5,
+            "oy": 0.55,
+            "answer_step": 0
           },
           {
             "pivot": "bow",
             "rotate": -30,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "inward",
             "caption_vi": "Đảo lái vào trong bến.",
-            "caption_en": "Reverse the helm, inward toward the dock."
+            "caption_en": "Reverse the helm, inward toward the dock.",
+            "ox": 0.5,
+            "oy": 0.55,
+            "answer_step": 1
           },
           {
             "pivot": "bow",
             "rotate": -24,
-            "engine": "astern",
+            "engine": -0.4,
             "rudder": "inward",
             "caption_vi": "Lùi nhẹ máy, tàu có trớn lùi, dây chùng lại.",
-            "caption_en": "Slow astern; the boat gathers sternway and the line goes slack."
+            "caption_en": "Slow astern; the boat gathers sternway and the line goes slack.",
+            "ox": 0.3,
+            "oy": 0.35,
+            "answer_step": 4
           },
           {
             "pivot": "bow",
             "rotate": -24,
-            "engine": "astern",
+            "engine": -0.4,
             "rudder": "inward",
             "line_state": "cast_off",
             "caption_vi": "Dây đã chùng nên mở dây an toàn.",
-            "caption_en": "With the line slack it is safe to cast off."
+            "caption_en": "With the line slack it is safe to cast off.",
+            "ox": 0.2,
+            "oy": 0.25,
+            "answer_step": 5
           }
         ],
         "current_label": {
@@ -7305,34 +7458,46 @@
           {
             "pivot": "bow",
             "rotate": 0,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "amidships",
             "caption_vi": "Gió đang ép tàu vào bến. Để lại dây chéo mũi.",
-            "caption_en": "The wind is pinning the boat onto the dock. Leave the bow spring made fast."
+            "caption_en": "The wind is pinning the boat onto the dock. Leave the bow spring made fast.",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 1
           },
           {
             "pivot": "bow",
             "rotate": 0,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "inward",
             "caption_vi": "Bẻ lái vào trong (khác với trường hợp nước).",
-            "caption_en": "Put the helm inward — the opposite of the current-driven case."
+            "caption_en": "Put the helm inward — the opposite of the current-driven case.",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 2
           },
           {
             "pivot": "bow",
             "rotate": -12,
-            "engine": "ahead",
+            "engine": 0.5,
             "rudder": "inward",
             "caption_vi": "Cho máy tới, đẩy vào dây chéo để thắng lực gió.",
-            "caption_en": "Engine ahead, working against the spring line to overcome the wind."
+            "caption_en": "Engine ahead, working against the spring line to overcome the wind.",
+            "ox": 0.1,
+            "oy": 0.1,
+            "answer_step": 3
           },
           {
             "pivot": "bow",
             "rotate": -30,
-            "engine": "ahead",
+            "engine": 0.5,
             "rudder": "inward",
             "caption_vi": "Lái ngả ra ngoài dù gió đang ép vào.",
-            "caption_en": "The stern swings out despite the wind pressing the boat on."
+            "caption_en": "The stern swings out despite the wind pressing the boat on.",
+            "ox": 0.2,
+            "oy": 0.25,
+            "answer_step": 3
           }
         ],
         "wind_label": {
@@ -7812,34 +7977,47 @@
           {
             "pivot": "bow",
             "rotate": -30,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "amidships",
             "caption_vi": "Nước đứng, không gió sóng. Mũi đã vào sát bến.",
-            "caption_en": "Slack water, no wind or waves. The bow is already alongside."
+            "caption_en": "Slack water, no wind or waves. The bow is already alongside.",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 0
           },
           {
             "pivot": "bow",
             "rotate": -30,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "amidships",
             "caption_vi": "Đã bắt được dây chéo mũi làm điểm tựa.",
-            "caption_en": "The bow spring is made fast, giving a fixed pivot."
+            "caption_en": "The bow spring is made fast, giving a fixed pivot.",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 0
           },
           {
             "pivot": "bow",
             "rotate": -18,
-            "engine": "ahead",
+            "engine": 0.5,
             "rudder": "outward",
             "caption_vi": "Bẻ lái ra ngoài, cho máy tới, đẩy vào dây chéo.",
-            "caption_en": "Helm outward, engine ahead, working against the spring line."
+            "caption_en": "Helm outward, engine ahead, working against the spring line.",
+            "ox": 0.15,
+            "oy": 0.1,
+            "answer_step": 2
           },
           {
             "pivot": "bow",
             "rotate": 0,
-            "engine": "ahead",
+            "engine": 0.5,
             "rudder": "outward",
             "caption_vi": "Mũi là điểm tựa nên lái là đầu tự do, ngả vào bến.",
-            "caption_en": "The bow being fixed, the stern is the free end and swings in alongside."
+            "caption_en": "The bow being fixed, the stern is the free end and swings in alongside.",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 2,
+            "hop": true
           }
         ]
       }
@@ -8156,35 +8334,47 @@
           {
             "pivot": "bow",
             "rotate": -30,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "amidships",
             "line_state": "cast_off",
             "caption_vi": "Mũi tàu vào sát bến, lái còn ngả ra ngoài.",
-            "caption_en": "The bow is close against the dock, the stern still angled out."
+            "caption_en": "The bow is close against the dock, the stern still angled out.",
+            "ox": 0,
+            "oy": 0.2,
+            "answer_step": 0
           },
           {
             "pivot": "bow",
             "rotate": -30,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "amidships",
             "caption_vi": "Bắt dây dọc mũi để giữ mũi khỏi trôi.",
-            "caption_en": "Make fast the head line to stop the bow drifting."
+            "caption_en": "Make fast the head line to stop the bow drifting.",
+            "ox": 0,
+            "oy": 0.1,
+            "answer_step": 1
           },
           {
             "pivot": "bow",
             "rotate": -18,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "outward",
             "caption_vi": "Bẻ lái ra ngoài; nước ngược đẩy vào thân tàu.",
-            "caption_en": "Helm outward; the counter-current presses against the hull."
+            "caption_en": "Helm outward; the counter-current presses against the hull.",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 2
           },
           {
             "pivot": "bow",
             "rotate": 0,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "outward",
             "caption_vi": "Dòng nước đưa lái áp vào bến, hoàn tất cập bến.",
-            "caption_en": "The current brings the stern in alongside, completing the berthing."
+            "caption_en": "The current brings the stern in alongside, completing the berthing.",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 2
           }
         ],
         "current_label": {
@@ -8494,35 +8684,47 @@
           {
             "pivot": "stern",
             "rotate": 30,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "amidships",
             "line_state": "cast_off",
             "caption_vi": "Đảo ngược của câu 17: lái vào sát bến trước.",
-            "caption_en": "The mirror of Q17: here the stern arrives alongside first."
+            "caption_en": "The mirror of Q17: here the stern arrives alongside first.",
+            "ox": 0,
+            "oy": 0.2,
+            "answer_step": 0
           },
           {
             "pivot": "stern",
             "rotate": 30,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "amidships",
             "caption_vi": "Bắt dây dọc lái để giữ phần lái.",
-            "caption_en": "Make fast the stern line to hold the stern."
+            "caption_en": "Make fast the stern line to hold the stern.",
+            "ox": 0,
+            "oy": 0.1,
+            "answer_step": 1
           },
           {
             "pivot": "stern",
             "rotate": 18,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "outward",
             "caption_vi": "Bẻ lái ra ngoài; nước xuôi đẩy mũi vào.",
-            "caption_en": "Helm outward; the following current pushes the bow in."
+            "caption_en": "Helm outward; the following current pushes the bow in.",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 2
           },
           {
             "pivot": "stern",
             "rotate": 0,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "outward",
             "caption_vi": "Mũi áp vào bến, hoàn tất cập bến.",
-            "caption_en": "The bow comes alongside, completing the berthing."
+            "caption_en": "The bow comes alongside, completing the berthing.",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 2
           }
         ],
         "current_label": {
@@ -8869,34 +9071,47 @@
           {
             "pivot": "bow",
             "rotate": -30,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "amidships",
             "caption_vi": "Gió thổi từ bến ra, đang đẩy tàu rời xa bến.",
-            "caption_en": "The wind blows off the dock, pushing the boat away from it."
+            "caption_en": "The wind blows off the dock, pushing the boat away from it.",
+            "ox": 0,
+            "oy": 0.3,
+            "answer_step": 0
           },
           {
             "pivot": "bow",
             "rotate": -30,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "amidships",
             "caption_vi": "Đã bắt được dây chéo mũi làm điểm tựa.",
-            "caption_en": "The bow spring is made fast as the pivot."
+            "caption_en": "The bow spring is made fast as the pivot.",
+            "ox": 0,
+            "oy": 0.3,
+            "answer_step": 0
           },
           {
             "pivot": "bow",
             "rotate": -18,
-            "engine": "ahead",
+            "engine": 0.5,
             "rudder": "outward",
             "caption_vi": "Bẻ lái ra ngoài, máy tới, thắng lực gió đẩy ra.",
-            "caption_en": "Helm outward, engine ahead, overcoming the wind pushing the boat off."
+            "caption_en": "Helm outward, engine ahead, overcoming the wind pushing the boat off.",
+            "ox": 0,
+            "oy": 0.15,
+            "answer_step": 2
           },
           {
             "pivot": "bow",
             "rotate": 0,
-            "engine": "ahead",
+            "engine": 0.5,
             "rudder": "outward",
             "caption_vi": "Lái được đưa vào sát bến dù gió cản.",
-            "caption_en": "The stern is brought alongside despite the wind."
+            "caption_en": "The stern is brought alongside despite the wind.",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 2,
+            "hop": true
           }
         ],
         "wind_label": {
@@ -9179,7 +9394,7 @@
           {
             "pivot": "center",
             "rotate": -35,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "amidships",
             "offset": [
               0,
@@ -9187,43 +9402,48 @@
             ],
             "line_state": "cast_off",
             "caption_vi": "Gió lớn thổi thẳng vào bến, sẽ đẩy tàu va mạnh.",
-            "caption_en": "Strong wind blows straight onto the dock and would slam the boat in."
+            "caption_en": "Strong wind blows straight onto the dock and would slam the boat in.",
+            "answer_step": 0
           },
           {
             "pivot": "center",
             "rotate": -35,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "amidships",
             "offset": [
               0,
               2.0
             ],
             "caption_vi": "Thả neo ở ngoài, cách bến một khoảng.",
-            "caption_en": "Let go the anchor out from the dock, at a distance."
+            "caption_en": "Let go the anchor out from the dock, at a distance.",
+            "answer_step": 1
           },
           {
             "pivot": "center",
             "rotate": -30,
-            "engine": "astern",
+            "engine": -0.6,
             "rudder": "amidships",
             "offset": [
               0,
               1.2
             ],
             "caption_vi": "Lùi máy chống lại dây neo để hãm trớn.",
-            "caption_en": "Engine astern against the rode to check the boat's way."
+            "caption_en": "Engine astern against the rode to check the boat's way.",
+            "answer_step": 1
           },
           {
             "pivot": "center",
             "rotate": -15,
-            "engine": "astern",
+            "engine": -0.2,
             "rudder": "amidships",
             "offset": [
               0,
               0.3
             ],
             "caption_vi": "Neo giữ tốc độ tiếp cận chậm, vào bến có kiểm soát.",
-            "caption_en": "The anchor holds the approach slow, so the boat lands under control."
+            "caption_en": "The anchor holds the approach slow, so the boat lands under control.",
+            "answer_step": 1,
+            "hop": false
           }
         ],
         "wind_label": {
@@ -11038,34 +11258,46 @@
           {
             "pivot": "stern",
             "rotate": 0,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "amidships",
             "caption_vi": "Đảo ngược của câu 16: để lại dây chéo lái.",
-            "caption_en": "The mirror image of Q16: leave the stern spring made fast."
+            "caption_en": "The mirror image of Q16: leave the stern spring made fast.",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 1
           },
           {
             "pivot": "stern",
             "rotate": 0,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "outward",
             "caption_vi": "Bẻ lái ra ngoài.",
-            "caption_en": "Put the helm outward."
+            "caption_en": "Put the helm outward.",
+            "ox": 0,
+            "oy": 0,
+            "answer_step": 2
           },
           {
             "pivot": "stern",
             "rotate": 10,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "outward",
             "caption_vi": "Nước chảy từ mũi về lái đẩy mũi ra, lấy lái làm điểm tựa.",
-            "caption_en": "The bow-to-stern current pushes the bow out, pivoting about the stern."
+            "caption_en": "The bow-to-stern current pushes the bow out, pivoting about the stern.",
+            "ox": 0.15,
+            "oy": 0.15,
+            "answer_step": 2
           },
           {
             "pivot": "stern",
             "rotate": 30,
-            "engine": "stopped",
+            "engine": 0,
             "rudder": "outward",
             "caption_vi": "Mũi tách bến trước.",
-            "caption_en": "The bow swings clear first."
+            "caption_en": "The bow swings clear first.",
+            "ox": 0.5,
+            "oy": 0.6,
+            "answer_step": 2
           }
         ],
         "current_label": {
