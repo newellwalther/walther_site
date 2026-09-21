@@ -89,6 +89,21 @@ trigger automatically, rather than assuming a quiet commit is low-stakes.
   as easter eggs in a comment — if you find an odd inline script at the
   bottom of a page that flips/rotates a heading on click, it's one of
   these. Leave it alone.
+  **`easter-egg.js` specifically took real, iterative work to get right —
+  10 separate commits over time ("Comprehensive easter egg physics
+  overhaul", "Fix physics: double bounce, 45° freefall, better spacing,
+  word splitting", "Fix mobile home page layout and animation landing
+  zone", etc.). Every detail of the current physics/timing/spacing is the
+  result of deliberate tuning, not an accident or a rough draft. Do not
+  refactor, "clean up", or rewrite any part of it — including things that
+  might look like dead code, redundant logic, or an odd magic number — for
+  any reason other than a bug Andrew has explicitly asked to be fixed. If
+  you think something in here looks wrong, ask before touching it; don't
+  assume and "improve" it.** The full design/tuning history is in
+  `EASTER-EGG-COMPLETE-HISTORY.md` (untracked — exists locally but isn't
+  pushed to GitHub, unlike the code itself in `easter-egg.js`, which is
+  fully git-tracked with all 10 tuning commits preserved). Read that file
+  before touching anything here, even for an "obviously safe" change.
 - **`drawings.html`'s different R2 bucket** — deliberate, see above. Don't
   "fix" it to match `paintings.html`.
 - **The in-progress Vietnamese language-test feature** — `lpt.html`,
