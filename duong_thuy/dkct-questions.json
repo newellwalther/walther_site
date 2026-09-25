@@ -3574,7 +3574,7 @@
             "label_vi": "dây dọc mũi",
             "label_en": "head line",
             "from": "bow",
-            "to_dock_x": -0.15,
+            "to_dock_x": 0.25,
             "state": "held"
           },
           {
@@ -3582,7 +3582,7 @@
             "label_vi": "dây chéo mũi",
             "label_en": "bow spring",
             "from": "bow",
-            "to_dock_x": -0.35,
+            "to_dock_x": -0.4,
             "state": "held"
           },
           {
@@ -3590,7 +3590,7 @@
             "label_vi": "dây chéo lái",
             "label_en": "stern spring",
             "from": "stern",
-            "to_dock_x": 0.35,
+            "to_dock_x": 0.4,
             "state": "held"
           },
           {
@@ -3598,7 +3598,7 @@
             "label_vi": "dây dọc lái",
             "label_en": "stern line",
             "from": "stern",
-            "to_dock_x": 0.15,
+            "to_dock_x": -0.25,
             "state": "held"
           }
         ],
@@ -3651,8 +3651,8 @@
             "rotate": -10,
             "engine": 0,
             "rudder": "outward",
-            "ox": 0.15,
-            "oy": 0.15,
+            "ox": 0,
+            "oy": 0.02,
             "answer_step": 2,
             "line_state": {
               "head_line": "cast_off",
@@ -3667,8 +3667,8 @@
             "rotate": -30,
             "engine": 0,
             "rudder": "outward",
-            "ox": 0.5,
-            "oy": 0.6,
+            "ox": 0,
+            "oy": 0.04,
             "answer_step": 2,
             "line_state": {
               "head_line": "cast_off",
@@ -4001,7 +4001,7 @@
       "diagram": {
         "title_vi": "Cập bến ngược nước, mũi đã vào sát bến",
         "title_en": "Berthing against the current, bow already alongside",
-        "current": "right",
+        "current": "left",
         "wind": null,
         "lines": [
           {
@@ -4009,7 +4009,7 @@
             "label_vi": "dây dọc mũi",
             "label_en": "head line",
             "from": "bow",
-            "to_dock_x": -0.15,
+            "to_dock_x": 0.25,
             "state": "held"
           }
         ],
@@ -5227,7 +5227,7 @@
             "pivot": "center",
             "rotate": 0,
             "engine": 0.8,
-            "rudder_abs": "stbd",
+            "rudder_abs": "amidships",
             "caption_vi": "Tàu chạy tới, lái thẳng.",
             "caption_en": "The boat is going ahead with the rudder amidships.",
             "answer_step": 0
@@ -5516,7 +5516,7 @@
             "pivot": "center",
             "rotate": 0,
             "engine": 0.8,
-            "rudder_abs": "port",
+            "rudder_abs": "amidships",
             "caption_vi": "Tàu chạy tới, lái thẳng.",
             "caption_en": "The boat is going ahead with the rudder amidships.",
             "answer_step": 0
@@ -5805,7 +5805,7 @@
             "pivot": "center",
             "rotate": 0,
             "engine": -0.8,
-            "rudder_abs": "port",
+            "rudder_abs": "amidships",
             "caption_vi": "Tàu chạy lùi, lái thẳng.",
             "caption_en": "The boat is going astern with the rudder amidships.",
             "answer_step": 0
@@ -6080,7 +6080,7 @@
             "pivot": "center",
             "rotate": 0,
             "engine": -0.8,
-            "rudder_abs": "stbd",
+            "rudder_abs": "amidships",
             "caption_vi": "Tàu chạy lùi, lái thẳng.",
             "caption_en": "The boat is going astern with the rudder amidships.",
             "answer_step": 0
@@ -6508,7 +6508,7 @@
             "label_vi": "dây chéo mũi",
             "label_en": "bow spring",
             "from": "bow",
-            "to_dock_x": -0.35,
+            "to_dock_x": -0.4,
             "state": "held"
           }
         ],
@@ -6542,8 +6542,8 @@
             "rudder": "outward",
             "caption_vi": "Dòng nước đẩy vào phần lái, lấy mũi làm điểm tựa.",
             "caption_en": "The current pushes on the stern, pivoting the boat about the bow.",
-            "ox": 0.15,
-            "oy": 0.15,
+            "ox": 0,
+            "oy": 0.02,
             "answer_step": 2
           },
           {
@@ -6553,8 +6553,8 @@
             "rudder": "outward",
             "caption_vi": "Lái tách bến trước, mũi vẫn được dây chéo giữ lại.",
             "caption_en": "The stern swings clear first while the spring line still holds the bow.",
-            "ox": 0.5,
-            "oy": 0.6,
+            "ox": 0,
+            "oy": 0.04,
             "answer_step": 2
           }
         ],
@@ -7001,7 +7001,7 @@
             "label_vi": "dây chéo mũi",
             "label_en": "bow spring",
             "from": "bow",
-            "to_dock_x": -0.35,
+            "to_dock_x": -0.4,
             "state": "held"
           }
         ],
@@ -7013,8 +7013,8 @@
             "rudder": "outward",
             "caption_vi": "Lái đã ngả được góc khoảng 30°. Dây chéo đang căng.",
             "caption_en": "The stern has swung out to about 30°. The spring line is under tension.",
-            "ox": 0.5,
-            "oy": 0.55,
+            "ox": 0,
+            "oy": 0.04,
             "answer_step": 0
           },
           {
@@ -7024,8 +7024,8 @@
             "rudder": "inward",
             "caption_vi": "Đảo lái vào trong bến.",
             "caption_en": "Reverse the helm, inward toward the dock.",
-            "ox": 0.5,
-            "oy": 0.55,
+            "ox": 0,
+            "oy": 0.04,
             "answer_step": 1
           },
           {
@@ -7035,8 +7035,8 @@
             "rudder": "inward",
             "caption_vi": "Lùi nhẹ máy, tàu có trớn lùi, dây chùng lại.",
             "caption_en": "Slow astern; the boat gathers sternway and the line goes slack.",
-            "ox": 0.3,
-            "oy": 0.35,
+            "ox": -0.08,
+            "oy": 0.05,
             "answer_step": 4
           },
           {
@@ -7047,8 +7047,8 @@
             "line_state": "cast_off",
             "caption_vi": "Dây đã chùng nên mở dây an toàn.",
             "caption_en": "With the line slack it is safe to cast off.",
-            "ox": 0.2,
-            "oy": 0.25,
+            "ox": -0.14,
+            "oy": 0.1,
             "answer_step": 5
           }
         ],
@@ -7450,7 +7450,7 @@
             "label_vi": "dây chéo mũi",
             "label_en": "bow spring",
             "from": "bow",
-            "to_dock_x": -0.35,
+            "to_dock_x": -0.4,
             "state": "held"
           }
         ],
@@ -7484,8 +7484,8 @@
             "rudder": "inward",
             "caption_vi": "Cho máy tới, đẩy vào dây chéo để thắng lực gió.",
             "caption_en": "Engine ahead, working against the spring line to overcome the wind.",
-            "ox": 0.1,
-            "oy": 0.1,
+            "ox": 0,
+            "oy": 0.02,
             "answer_step": 3
           },
           {
@@ -7495,8 +7495,8 @@
             "rudder": "inward",
             "caption_vi": "Lái ngả ra ngoài dù gió đang ép vào.",
             "caption_en": "The stern swings out despite the wind pressing the boat on.",
-            "ox": 0.2,
-            "oy": 0.25,
+            "ox": 0,
+            "oy": 0.04,
             "answer_step": 3
           }
         ],
@@ -7969,7 +7969,7 @@
             "label_vi": "dây chéo mũi",
             "label_en": "bow spring",
             "from": "bow",
-            "to_dock_x": -0.35,
+            "to_dock_x": -0.4,
             "state": "held"
           }
         ],
@@ -8019,7 +8019,11 @@
             "answer_step": 2,
             "hop": true
           }
-        ]
+        ],
+        "current_label": {
+          "vi": "nước đứng",
+          "en": "slack water"
+        }
       }
     },
     {
@@ -8318,7 +8322,7 @@
       "diagram": {
         "title_vi": "Cập bến ngược nước, mũi đã vào sát bến",
         "title_en": "Berthing against the current, bow already alongside",
-        "current": "right",
+        "current": "left",
         "wind": null,
         "lines": [
           {
@@ -8326,7 +8330,7 @@
             "label_vi": "dây dọc mũi",
             "label_en": "head line",
             "from": "bow",
-            "to_dock_x": -0.15,
+            "to_dock_x": 0.25,
             "state": "held"
           }
         ],
@@ -8676,7 +8680,7 @@
             "label_vi": "dây dọc lái",
             "label_en": "stern line",
             "from": "stern",
-            "to_dock_x": 0.15,
+            "to_dock_x": -0.25,
             "state": "held"
           }
         ],
@@ -9063,7 +9067,7 @@
             "label_vi": "dây chéo mũi",
             "label_en": "bow spring",
             "from": "bow",
-            "to_dock_x": -0.35,
+            "to_dock_x": -0.4,
             "state": "held"
           }
         ],
@@ -9076,7 +9080,7 @@
             "caption_vi": "Gió thổi từ bến ra, đang đẩy tàu rời xa bến.",
             "caption_en": "The wind blows off the dock, pushing the boat away from it.",
             "ox": 0,
-            "oy": 0.3,
+            "oy": 0.1,
             "answer_step": 0
           },
           {
@@ -9087,7 +9091,7 @@
             "caption_vi": "Đã bắt được dây chéo mũi làm điểm tựa.",
             "caption_en": "The bow spring is made fast as the pivot.",
             "ox": 0,
-            "oy": 0.3,
+            "oy": 0.1,
             "answer_step": 0
           },
           {
@@ -9098,7 +9102,7 @@
             "caption_vi": "Bẻ lái ra ngoài, máy tới, thắng lực gió đẩy ra.",
             "caption_en": "Helm outward, engine ahead, overcoming the wind pushing the boat off.",
             "ox": 0,
-            "oy": 0.15,
+            "oy": 0.05,
             "answer_step": 2
           },
           {
@@ -11250,7 +11254,7 @@
             "label_vi": "dây chéo lái",
             "label_en": "stern spring",
             "from": "stern",
-            "to_dock_x": 0.35,
+            "to_dock_x": 0.4,
             "state": "held"
           }
         ],
@@ -11284,8 +11288,8 @@
             "rudder": "outward",
             "caption_vi": "Nước chảy từ mũi về lái đẩy mũi ra, lấy lái làm điểm tựa.",
             "caption_en": "The bow-to-stern current pushes the bow out, pivoting about the stern.",
-            "ox": 0.15,
-            "oy": 0.15,
+            "ox": 0,
+            "oy": 0.02,
             "answer_step": 2
           },
           {
@@ -11295,8 +11299,8 @@
             "rudder": "outward",
             "caption_vi": "Mũi tách bến trước.",
             "caption_en": "The bow swings clear first.",
-            "ox": 0.5,
-            "oy": 0.6,
+            "ox": 0,
+            "oy": 0.04,
             "answer_step": 2
           }
         ],

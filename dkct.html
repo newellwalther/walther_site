@@ -428,6 +428,7 @@
        WORD-BY-WORD BREAKDOWN
     ═══════════════════════════════════════════════════ */
     .bd-section { margin-top: 14px; }
+    .nav-row + .bd-section { margin-top: 26px; }
     .bd-title { font-size: 0.65rem; color: #bbb; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
     .bd-row { display: flex; flex-wrap: wrap; gap: 8px 18px; }
     .bd-item { font-size: 0.8rem; line-height: 1.5; max-width: 220px; }
@@ -613,14 +614,16 @@
 
       <div class="feedback" id="feedback"></div>
 
-      <div class="bd-section" id="bd-question" style="display:none"></div>
-      <div class="bd-section" id="bd-answer" style="display:none"></div>
-      <div id="diagram-container"></div>
-
+      <!-- Continue sits right under the feedback; the breakdowns and the
+           diagram below are optional reading you scroll to. -->
       <div class="nav-row">
         <button class="go-btn" id="next-btn" disabled>tiếp theo →</button>
         <button class="skip-link" id="skip-btn" style="display:none">bỏ qua / skip</button>
       </div>
+
+      <div class="bd-section" id="bd-question" style="display:none"></div>
+      <div class="bd-section" id="bd-answer" style="display:none"></div>
+      <div id="diagram-container"></div>
     </div>
 
     <!-- ── TYPING SCREEN ── -->
@@ -1929,7 +1932,12 @@
     }
 
     // ── Facing / sequence classification, derived from the existing data ─
-    function diagramFacing(d) { return d.current === 'left' ? -1 : 1; }
+    // The boat always lies bow-right. `current` is then a real direction
+    // relative to the boat: "right" runs stern→bow (nước xuôi / từ lái về
+    // mũi), "left" runs bow→stern (nước ngược / từ mũi về lái). Deriving
+    // facing from the current (as this once did) silently forced every
+    // scene into Q16's stern-to-bow setup.
+    function diagramFacing(d) { return 1; }
     // A line's frame-0 state of "cast_off" means the boat is still
     // approaching (not yet secured) — an arrival. Otherwise, if it starts
     // "held", that line is already the pivot for a departure swing.
@@ -2000,8 +2008,26 @@
     // Rotation pivots about the frame's named point (bow stays put while
     // the stern swings, or vice versa) by solving for the translation that
     // puts that local point at the target screen position.
+    function pivotRestX(pivot) {
+      const mid = (BOW_X + STERN_X) / 2;
+      return pivot === 'bow' ? BOW_X - mid : pivot === 'stern' ? STERN_X - mid : 0;
+    }
+    // Where each line meets the quay: measured from its own attachment
+    // point at rest, in hull-lengths (+ = toward the bow). Head line leads
+    // forward, bow spring aft, stern spring forward, stern line aft.
+    function lineDockX(d, line, facing, geom) {
+      const pivot = (d.frames[0] && d.frames[0].pivot) || 'center';
+      const rest = anchorForPose({ rotate: 0, offX: 0, offY: 0, pivot }, facing, geom);
+      const ax = line.from === 'bow' ? BOW_X : STERN_X;
+      return rest.px + facing * (ax + (line.to_dock_x || 0) * (BOW_X - STERN_X));
+    }
+    // Anchor let go out in the stream, well off the berth and ahead of the
+    // bow — never between the boat and the quay.
+    function anchorPoint(geom, facing) {
+      return { x: geom.CX + facing * geom.VBW * 0.2, y: geom.VBH - 120 };
+    }
     function anchorForPose(pose, facing, geom) {
-      const target = { x: geom.CX + pose.offX, y: geom.CY + pose.offY };
+      const target = { x: geom.CX + pose.offX + facing * pivotRestX(pose.pivot), y: geom.CY + pose.offY };
       if (pose.pivot === 'bow' || pose.pivot === 'stern') {
         const pl = pose.pivot === 'bow' ? {x: BOW_X, y: 0} : {x: STERN_X, y: 0};
         const wp = toWorldPlan(pl.x, pl.y, pose.rotate, facing);
@@ -2048,8 +2074,8 @@
         '<circle cx="' + x + '" cy="' + y + '" r="' + (FENDER_R * 0.42) + '" fill="#666"/>';
     }
     function eyeSVG(x, y, op) {
-      return '<g opacity="' + op + '"><ellipse cx="' + x + '" cy="' + y +
-        '" rx="7" ry="4.2" fill="#fff" stroke="#222" stroke-width="0.8"/>' +
+      return '<g opacity="' + op + '"><path d="M ' + (x - 7) + ',' + y + ' Q ' + x + ',' + (y - 5.5) + ' ' + (x + 7) + ',' + y +
+        ' Q ' + x + ',' + (y + 5.5) + ' ' + (x - 7) + ',' + y + ' Z" fill="#fff" stroke="#b3261e" stroke-width="1"/>' +
         '<circle cx="' + x + '" cy="' + y + '" r="2.3" fill="#111"/></g>';
     }
     function canopySVG(rot, facing, px, py) {
@@ -2082,14 +2108,44 @@
       }
       return s + '</g>';
     }
+    // Feet at (x, y). Conical nón lá, sleeveless top, bare arms with a
+    // shaped upper arm/forearm and a bicep bump rather than stick lines.
+    const SKIN = '#b87a4e', SKIN_DK = '#8f5a36';
+    function nonLaSVG(x, y) {
+      return '<polygon points="' + (x - 9.5) + ',' + y + ' ' + (x + 9.5) + ',' + y + ' ' + x + ',' + (y - 8.5) +
+        '" fill="#e8d9a8" stroke="#a8935a" stroke-width="0.8" stroke-linejoin="round"/>' +
+        '<line x1="' + (x - 5) + '" y1="' + (y - 3) + '" x2="' + (x + 5) + '" y2="' + (y - 3) + '" stroke="#cbb986" stroke-width="0.6"/>';
+    }
     function crewFigureSVG(x, y) {
-      return '<g><ellipse cx="' + x + '" cy="' + (y - 24) + '" rx="9.5" ry="3.5" fill="#e8d9a8" stroke="#a8935a" stroke-width="0.9"/>' +
-        '<line x1="' + x + '" y1="' + (y - 19) + '" x2="' + x + '" y2="' + (y - 2) +
-        '" stroke="#8a5a3a" stroke-width="3.4" stroke-linecap="round"/>' +
-        '<line x1="' + x + '" y1="' + (y - 16) + '" x2="' + (x - 9) + '" y2="' + (y - 7) +
-        '" stroke="#c98a5a" stroke-width="2.3" stroke-linecap="round"/>' +
-        '<line x1="' + x + '" y1="' + (y - 16) + '" x2="' + (x + 9) + '" y2="' + (y - 7) +
-        '" stroke="#c98a5a" stroke-width="2.3" stroke-linecap="round"/></g>';
+      let s = '<g stroke-linecap="round">';
+      s += '<line x1="' + (x - 2) + '" y1="' + (y - 10) + '" x2="' + (x - 3) + '" y2="' + y + '" stroke="#3a3a4a" stroke-width="2.8"/>' +
+        '<line x1="' + (x + 2) + '" y1="' + (y - 10) + '" x2="' + (x + 3) + '" y2="' + y + '" stroke="#3a3a4a" stroke-width="2.8"/>';
+      [-1, 1].forEach(sd => {
+        const sh = { x: x + sd * 5, y: y - 20.5 }, el = { x: x + sd * 8.5, y: y - 14.5 }, hd = { x: x + sd * 7, y: y - 8.5 };
+        s += '<line x1="' + sh.x + '" y1="' + sh.y + '" x2="' + el.x + '" y2="' + el.y + '" stroke="' + SKIN + '" stroke-width="3.6"/>' +
+          '<ellipse cx="' + ((sh.x + el.x) / 2 + sd * 0.8) + '" cy="' + ((sh.y + el.y) / 2) + '" rx="2.3" ry="1.7" fill="' + SKIN + '" stroke="' + SKIN_DK + '" stroke-width="0.4"/>' +
+          '<line x1="' + el.x + '" y1="' + el.y + '" x2="' + hd.x + '" y2="' + hd.y + '" stroke="' + SKIN + '" stroke-width="2.7"/>' +
+          '<circle cx="' + hd.x + '" cy="' + hd.y + '" r="1.5" fill="' + SKIN_DK + '"/>';
+      });
+      s += '<polygon points="' + (x - 5) + ',' + (y - 21.5) + ' ' + (x + 5) + ',' + (y - 21.5) + ' ' + (x + 3.6) + ',' + (y - 10) + ' ' + (x - 3.6) + ',' + (y - 10) +
+        '" fill="#4a6a8a" stroke="#34506c" stroke-width="0.5"/>';
+      s += '<circle cx="' + x + '" cy="' + (y - 24.5) + '" r="3.2" fill="' + SKIN + '"/>';
+      return s + nonLaSVG(x, y - 26) + '</g>';
+    }
+    // Quay walker in áo dài: long tunic split at the waist over white
+    // trousers, fitted sleeves, nón lá.
+    function aoDaiSVG(x, y, color) {
+      let s = '<g stroke-linecap="round">';
+      s += '<line x1="' + (x - 1.6) + '" y1="' + (y - 12) + '" x2="' + (x - 2.4) + '" y2="' + y + '" stroke="#f4f1ea" stroke-width="2.6"/>' +
+        '<line x1="' + (x + 1.6) + '" y1="' + (y - 12) + '" x2="' + (x + 2.4) + '" y2="' + y + '" stroke="#f4f1ea" stroke-width="2.6"/>';
+      s += '<polygon points="' + [[-4.6, -27], [4.6, -27], [4, -16], [4.8, -3], [0.6, -3.5], [0, -15], [-0.6, -3.5], [-4.8, -3], [-4, -16]]
+        .map(p => (x + p[0]) + ',' + (y + p[1])).join(' ') + '" fill="' + color + '" stroke="rgba(0,0,0,0.25)" stroke-width="0.5"/>';
+      [-1, 1].forEach(sd => {
+        s += '<line x1="' + (x + sd * 4.6) + '" y1="' + (y - 26) + '" x2="' + (x + sd * 6) + '" y2="' + (y - 15.5) + '" stroke="' + color + '" stroke-width="2.4"/>' +
+          '<circle cx="' + (x + sd * 6.1) + '" cy="' + (y - 14.5) + '" r="1.2" fill="' + SKIN + '"/>';
+      });
+      s += '<circle cx="' + x + '" cy="' + (y - 30) + '" r="3" fill="#d8a57c"/>';
+      return s + nonLaSVG(x, y - 31.5) + '</g>';
     }
     function crewOnDeckSVG(rot, facing, px, py) {
       let s = '';
@@ -2147,22 +2203,39 @@
         s += fenderSVG(p.x, p.y);
       });
       s += hullSidePanelsSVG(world, px, py);
-      s += hullDeckSVG(world, px, py);
-      [-1, 1].forEach(side => {
-        const local = { x: BOW_X - 28, y: side * 12 };
-        const wp = toWorldPlan(local.x, local.y, pose.rotate, facing);
-        s += eyeSVG(toScreen(wp, px, py).x, toScreen(wp, px, py).y, wp.y > 0 ? 1 : 0.28);
+      // mắt thuyền: one per bow cheek, on the hull edge itself. The near
+      // cheek's eye sits on its side panel; the far one on the gunwale,
+      // faded and half-hidden by the deck drawn over it.
+      const eyes = [-1, 1].map(side => {
+        const lx = BOW_X - 26, wp = toWorldPlan(lx, side * hullHW(lx), pose.rotate, facing);
+        const ny = toWorldPlan(0, side, pose.rotate, facing).y; // cheek normal's camera-facing part
+        const sc = toScreen(wp, px, py);
+        return { near: ny > 0, sv: eyeSVG(sc.x, sc.y + (ny > 0 ? FREEBOARD * 0.42 : 0), ny > 0 ? 0.35 + 0.65 * ny : 0.25) };
       });
+      eyes.filter(e => !e.near).forEach(e => { s += e.sv; });
+      s += hullDeckSVG(world, px, py);
+      eyes.filter(e => e.near).forEach(e => { s += e.sv; });
       s += canopySVG(pose.rotate, facing, px, py);
       s += bananaSVG(pose.rotate, facing, px, py);
       s += crewOnDeckSVG(pose.rotate, facing, px, py);
       FENDER_STATIONS.forEach(x => {
-        const p = toScreen(toWorldPlan(x, hullHW(x) + FENDER_R * 0.9, pose.rotate, facing), px, py);
-        s += fenderSVG(p.x, p.y);
+        const g = toScreen(toWorldPlan(x, hullHW(x), pose.rotate, facing), px, py);
+        const cy = g.y + FREEBOARD * 0.55;
+        s += '<line x1="' + g.x + '" y1="' + g.y + '" x2="' + g.x + '" y2="' + (cy - FENDER_R) + '" stroke="#8a7a5a" stroke-width="1.2"/>' +
+          '<circle cx="' + g.x + '" cy="' + cy + '" r="' + FENDER_R + '" fill="#1c1c1c"/>' +
+          '<circle cx="' + g.x + '" cy="' + cy + '" r="' + (FENDER_R * 0.42) + '" fill="#666"/>';
       });
       s += rudderSVG(pose, facing, px, py);
       s += hullLabelsSVG(pose.rotate, facing, px, py, labels);
       return s;
+    }
+    function anchorIconSVG(x, y) {
+      return '<g stroke="#333" stroke-width="1.6" fill="none" stroke-linecap="round">' +
+        '<circle cx="' + x + '" cy="' + (y - 9) + '" r="2.2"/>' +
+        '<line x1="' + x + '" y1="' + (y - 7) + '" x2="' + x + '" y2="' + (y + 6) + '"/>' +
+        '<line x1="' + (x - 4) + '" y1="' + (y - 3) + '" x2="' + (x + 4) + '" y2="' + (y - 3) + '"/>' +
+        '<path d="M ' + (x - 7) + ',' + (y + 1) + ' Q ' + (x - 6) + ',' + (y + 7) + ' ' + x + ',' + (y + 6) +
+        ' Q ' + (x + 6) + ',' + (y + 7) + ' ' + (x + 7) + ',' + (y + 1) + '"/></g>';
     }
     function mooringLinesSVG(d, frameIdx, pose, facing, px, py, geom) {
       let s = '';
@@ -2170,123 +2243,214 @@
         if (effectiveLineState(d, li, frameIdx) === 'cast_off') return;
         const attach = line.from === 'bow' ? {x: BOW_X, y: 0} : {x: STERN_X, y: 0};
         const p1 = toScreen(toWorldPlan(attach.x, attach.y, pose.rotate, facing), px, py);
-        const p2 = line.to_water
-          ? { x: geom.CX, y: geom.quayBottom + 30 }
-          : { x: geom.CX + facing * (line.to_dock_x || 0) * (geom.VBW / 2 - 30), y: geom.quayBottom - 2 };
+        const p2 = line.to_water ? anchorPoint(geom, facing)
+          : { x: lineDockX(d, line, facing, geom), y: geom.quayBottom - 6 };
         s += '<line x1="' + p1.x + '" y1="' + p1.y + '" x2="' + p2.x + '" y2="' + p2.y +
           '" stroke="#6a5a3a" stroke-width="1.6" stroke-dasharray="5,3"/>';
+        if (line.to_water) s += anchorIconSVG(p2.x, p2.y);
         const mx = (p1.x + p2.x) / 2, my = (p1.y + p2.y) / 2;
         s += svgText(mx, my - 4, langText({vi: line.label_vi, en: line.label_en}), {size: 9.5, color: '#6a5a3a', anchor: 'middle'});
       });
-      if (d.anchor) {
-        const anchorPt = { x: geom.CX, y: geom.quayBottom + 30 };
-        const state = d.frames[frameIdx].line_state || (d.lines[0] && d.lines[0].state) || 'held';
-        if (state !== 'cast_off') {
-          const bow = toScreen(toWorldPlan(BOW_X, 0, pose.rotate, facing), px, py);
-          s += '<line x1="' + bow.x + '" y1="' + bow.y + '" x2="' + anchorPt.x + '" y2="' + anchorPt.y +
-            '" stroke="#6a5a3a" stroke-width="1.4" stroke-dasharray="4,3"/>';
-        }
-        s += '<circle cx="' + anchorPt.x + '" cy="' + anchorPt.y + '" r="3" fill="#333"/>';
-        if (d.anchor_label) s += svgText(anchorPt.x + 8, anchorPt.y + 4, langText(d.anchor_label), {size: 8});
+      if (d.anchor && d.anchor_label) {
+        const ap = anchorPoint(geom, facing);
+        s += svgText(ap.x - 12, ap.y + 4, langText(d.anchor_label), {size: 9, anchor: 'end', color: '#555'});
       }
       return s;
+    }
+    // "flow": true frames — the propeller's stream past the rudder blade,
+    // bent off by the rudder. Ahead pushes it aft; astern draws it forward.
+    function flowSVG(pose, facing, px, py, labels) {
+      const op = Math.min(1, pose.flow) * Math.min(1, Math.abs(pose.engine) * 1.5);
+      if (op < 0.05) return '';
+      const ahead = pose.engine >= 0, bend = pose.rudder * 22;
+      let s = '<g opacity="' + op + '" stroke="#2f7fb0" stroke-width="1.6" fill="none">';
+      [-9, 0, 9].forEach(dy => {
+        const pts = ahead
+          ? [{x: STERN_X + 4, y: dy}, {x: STERN_X - 22, y: dy}, {x: STERN_X - 50, y: dy - bend}]
+          : [{x: STERN_X - 50, y: dy - bend * 0.3}, {x: STERN_X - 22, y: dy}, {x: STERN_X + 2, y: dy}];
+        const sc = pts.map(p => toScreen(toWorldPlan(p.x, p.y, pose.rotate, facing), px, py));
+        s += '<path d="M ' + sc[0].x + ',' + sc[0].y + ' Q ' + sc[1].x + ',' + sc[1].y + ' ' + sc[2].x + ',' + sc[2].y + '"/>';
+        const ang = Math.atan2(sc[2].y - sc[1].y, sc[2].x - sc[1].x), hs = 5;
+        s += '<polygon fill="#2f7fb0" stroke="none" points="' + sc[2].x + ',' + sc[2].y + ' ' +
+          (sc[2].x - hs * Math.cos(ang - 0.5)) + ',' + (sc[2].y - hs * Math.sin(ang - 0.5)) + ' ' +
+          (sc[2].x - hs * Math.cos(ang + 0.5)) + ',' + (sc[2].y - hs * Math.sin(ang + 0.5)) + '"/>';
+      });
+      s += '</g>';
+      const lp = toScreen(toWorldPlan(STERN_X - 40, 34, pose.rotate, facing), px, py);
+      return s + '<g opacity="' + op + '">' + svgText(lp.x, lp.y, langText(labels.flow, 'flow past the rudder'), {size: 9, anchor: 'middle', color: '#2f7fb0'}) + '</g>';
     }
     function buildDynamicSVG(d, frameIdx, pose, facing, geom, labels) {
       const anchor = anchorForPose(pose, facing, geom);
       return buildBoatSVG(pose, facing, anchor.px, anchor.py, labels) +
         engineWashSVG(pose, facing, anchor.px, anchor.py) +
+        flowSVG(pose, facing, anchor.px, anchor.py, labels) +
         mooringLinesSVG(d, frameIdx, pose, facing, anchor.px, anchor.py, geom);
     }
 
     // ── Ambient background (built once per question; SMIL-animated so it
     // keeps drifting smoothly across frame tweens without being redrawn) ─
-    function arrowPrimitive(x, y, dx, dy, color, label) {
+    function arrowPrimitive(x, y, dx, dy, color, label, labelAnchor) {
       const len = 38, hs = 6, x2 = x + dx * len, y2 = y + dy * len;
       const ang = Math.atan2(y2 - y, x2 - x);
       const hx1 = x2 - hs * Math.cos(ang - Math.PI / 6), hy1 = y2 - hs * Math.sin(ang - Math.PI / 6);
       const hx2 = x2 - hs * Math.cos(ang + Math.PI / 6), hy2 = y2 - hs * Math.sin(ang + Math.PI / 6);
+      const lx = dy ? x - 6 : (labelAnchor === 'end' ? Math.max(x, x2) : Math.min(x, x2));
+      const ly = dy ? (y + y2) / 2 + 3 : y - 7;
       return '<g><line x1="' + x + '" y1="' + y + '" x2="' + x2 + '" y2="' + y2 + '" stroke="' + color + '" stroke-width="2"/>' +
         '<polygon points="' + x2 + ',' + y2 + ' ' + hx1 + ',' + hy1 + ' ' + hx2 + ',' + hy2 + '" fill="' + color + '"/>' +
-        svgText(x + dx * len / 2, y + dy * len / 2 - 7, label, {size: 9, color: color, anchor: 'middle'}) + '</g>';
+        svgText(lx, ly, label, {size: 9.5, color: color, anchor: dy ? 'end' : (labelAnchor || 'start')}) + '</g>';
     }
-    function bollardsSVG(geom) {
-      let s = '';
-      [0.15, 0.5, 0.85].forEach(f => {
-        const x = geom.VBW * f, y = geom.quayBottom - 4;
-        s += '<rect x="' + (x - 3) + '" y="' + (y - 8) + '" width="6" height="8" fill="#555"/><circle cx="' + x + '" cy="' + (y - 8) + '" r="3" fill="#444"/>';
-      });
-      return s;
+    // Deterministic scatter so a question's scene looks the same every visit.
+    function seededRand(seed) {
+      let v = seed % 2147483647; if (v <= 0) v += 2147483646;
+      return () => (v = v * 16807 % 2147483647) / 2147483647;
     }
+    function bollardSVG(x, y) {
+      return '<rect x="' + (x - 3.5) + '" y="' + (y - 9) + '" width="7" height="9" fill="#555"/>' +
+        '<ellipse cx="' + x + '" cy="' + (y - 9) + '" rx="4.5" ry="2.4" fill="#3d3d3d"/>';
+    }
+    // One bollard where each quay line is made fast, plus a few spares.
+    function bollardsSVG(d, geom) {
+      const y = geom.quayBottom - 3, xs = [];
+      if (!d.open_water) (d.lines || []).forEach(l => { if (!l.to_water) xs.push(lineDockX(d, l, diagramFacing(d), geom)); });
+      [0.15, 0.5, 0.85].forEach(f => { const x = geom.VBW * f; if (xs.every(o => Math.abs(o - x) > 24)) xs.push(x); });
+      return xs.map(x => bollardSVG(x, y)).join('');
+    }
+    // Three áo dài walkers crossing the quay on long loops. Drawn before
+    // the bollards, so they pass behind them.
     function walkersSVG(geom) {
-      let s = '';
-      [0.28, 0.68].forEach(f => { s += crewFigureSVG(geom.VBW * f, geom.quayTop + geom.quayH * 0.4); });
-      return s;
+      const y = geom.quayTop + geom.quayH * 0.62, W = geom.VBW;
+      return [
+        { color: '#b8322a', dir: 1, dur: 46, start: 0.1 },
+        { color: '#2e6da4', dir: -1, dur: 58, start: 0.55 },
+        { color: '#e3b448', dir: 1, dur: 70, start: 0.8 }
+      ].map(w => {
+        const from = w.dir > 0 ? -20 : W + 20, to = w.dir > 0 ? W + 20 : -20;
+        return '<g>' + aoDaiSVG(0, y, w.color) +
+          '<animateTransform attributeName="transform" type="translate" values="' + from + ',0;' + to + ',0" dur="' + w.dur +
+          's" begin="-' + (w.dur * w.start).toFixed(1) + 's" repeatCount="indefinite"/></g>';
+      }).join('');
     }
+    // Cargo crates, a woven basket and a rubbish pile, together at the
+    // upstream end of the quay, on its landward half (clear of the bollards).
     function quayClutterSVG(geom) {
-      const y = geom.quayTop + 4;
-      return '<rect x="' + (geom.VBW * 0.05) + '" y="' + y + '" width="14" height="10" fill="#a86a3a" opacity="0.8"/>' +
-        '<rect x="' + (geom.VBW * 0.05 + 16) + '" y="' + (y + 2) + '" width="10" height="8" fill="#946034" opacity="0.8"/>' +
-        '<ellipse cx="' + (geom.VBW * 0.9) + '" cy="' + (y + 6) + '" rx="8" ry="5" fill="#8a7040" opacity="0.7"/>';
-    }
-    function ambientWaterSVG(d, geom) {
-      const dir = d.current === 'left' ? -1 : 1;
-      const wBase = (d.open_water ? 20 : geom.waterTop + 20);
-      let s = '<g opacity="0.5">';
-      for (let i = 0; i < 5; i++) {
-        const y = wBase + i * 28, x0 = (i * 130) % geom.VBW;
-        s += '<path d="M ' + x0 + ',' + y + ' q 10,-5 20,0 q 10,5 20,0" stroke="#9fc3d6" stroke-width="1.4" fill="none">' +
-          '<animateTransform attributeName="transform" type="translate" values="0,0;' + (dir * geom.VBW) + ',0" dur="' + (14 + i * 2) + 's" repeatCount="indefinite"/></path>';
-      }
-      for (let i = 0; i < 3; i++) {
-        const y = wBase + 40 + i * 45, x0 = (i * 210 + 60) % geom.VBW;
-        s += '<g opacity="0.55"><ellipse cx="' + x0 + '" cy="' + y + '" rx="9" ry="4" fill="#7a9c5a"/>' +
-          '<ellipse cx="' + (x0 + 7) + '" cy="' + (y + 2) + '" rx="6" ry="3" fill="#8aac6a"/>' +
-          '<animateTransform attributeName="transform" type="translate" values="0,0;' + (dir * geom.VBW) + ',0" dur="' + (22 + i * 3) + 's" repeatCount="indefinite"/></g>';
-      }
-      for (let i = 0; i < 2; i++) {
-        const y = wBase + 70 + i * 30, x0 = (i * 300 + 30) % geom.VBW;
-        s += '<rect x="' + x0 + '" y="' + y + '" width="5" height="3" fill="#cfd6d0" opacity="0.5">' +
-          '<animateTransform attributeName="transform" type="translate" values="0,0;' + (dir * geom.VBW) + ',0" dur="18s" repeatCount="indefinite"/></rect>';
-      }
-      const fx = geom.VBW * 0.65, fy = wBase + 90;
-      s += '<ellipse cx="' + fx + '" cy="' + fy + '" rx="7" ry="2.4" fill="#7a8a95" opacity="0">' +
-        '<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.85;0.9;0.97;0.99;1" dur="6s" repeatCount="indefinite"/>' +
-        '<animateTransform attributeName="transform" type="translate" values="0,0;0,-14;0,0" keyTimes="0;0.9;1" dur="6s" repeatCount="indefinite"/></ellipse>';
-      s += '<circle cx="' + fx + '" cy="' + fy + '" r="2" fill="none" stroke="#8fa8b5" opacity="0">' +
-        '<animate attributeName="r" values="2;2;14" keyTimes="0;0.9;1" dur="6s" repeatCount="indefinite"/>' +
-        '<animate attributeName="opacity" values="0;0;0.6;0" keyTimes="0;0.9;0.95;1" dur="6s" repeatCount="indefinite"/></circle>';
+      const x = geom.VBW * 0.025, y = geom.quayTop + 15;
+      let s = '<g>';
+      [[0, 0, 15, 11], [16, 1, 12, 10], [3, -10, 12, 10]].forEach(c => {
+        const cx = x + c[0], cy = y + c[1] - c[3];
+        s += '<rect x="' + cx + '" y="' + cy + '" width="' + c[2] + '" height="' + c[3] + '" fill="#a86a3a" stroke="#6e4222" stroke-width="0.7"/>' +
+          '<line x1="' + cx + '" y1="' + (cy + c[3] / 2) + '" x2="' + (cx + c[2]) + '" y2="' + (cy + c[3] / 2) + '" stroke="#6e4222" stroke-width="0.5"/>';
+      });
+      const bx = x + 38;
+      s += '<path d="M ' + (bx - 7) + ',' + (y - 9) + ' L ' + (bx - 5) + ',' + y + ' L ' + (bx + 5) + ',' + y + ' L ' + (bx + 7) + ',' + (y - 9) + ' Z" fill="#c9a45c" stroke="#8a6d34" stroke-width="0.6"/>' +
+        '<ellipse cx="' + bx + '" cy="' + (y - 9) + '" rx="7" ry="2" fill="#b08a44"/>' +
+        '<path d="M ' + (bx - 6) + ',' + (y - 6) + ' L ' + (bx + 6) + ',' + (y - 6) + ' M ' + (bx - 5.5) + ',' + (y - 3) + ' L ' + (bx + 5.5) + ',' + (y - 3) + '" stroke="#8a6d34" stroke-width="0.5"/>' +
+        '<ellipse cx="' + (bx - 2) + '" cy="' + (y - 10.5) + '" rx="3" ry="1.8" fill="#5f8a3a"/><ellipse cx="' + (bx + 2.5) + '" cy="' + (y - 10.8) + '" rx="2.6" ry="1.6" fill="#e0b040"/>';
+      const rx = x + 58;
+      s += '<path d="M ' + (rx - 11) + ',' + y + ' Q ' + (rx - 8) + ',' + (y - 8) + ' ' + (rx - 2) + ',' + (y - 7) + ' Q ' + (rx + 3) + ',' + (y - 11) + ' ' + (rx + 8) + ',' + (y - 5) + ' Q ' + (rx + 12) + ',' + (y - 3) + ' ' + (rx + 12) + ',' + y + ' Z" fill="#6b5d48"/>' +
+        '<rect x="' + (rx - 5) + '" y="' + (y - 8) + '" width="4" height="2.4" fill="#d9e4ea" transform="rotate(-20 ' + (rx - 3) + ' ' + (y - 7) + ')"/>' +
+        '<circle cx="' + (rx + 4) + '" cy="' + (y - 6) + '" r="1.8" fill="#4f8fc4"/><circle cx="' + (rx - 7) + '" cy="' + (y - 3) + '" r="1.5" fill="#c44"/>' +
+        '<path d="M ' + (rx + 6) + ',' + (y - 2) + ' q 2,-3 4,0" stroke="#e8e8e8" stroke-width="1" fill="none"/>';
       return s + '</g>';
     }
-    // Watermark drawn first (behind everything), then shore -> quay ->
-    // walkers -> bollards -> water -> waves/debris/fish -> current/wind.
-    // The boat itself lives in a placeholder <g> filled in per-frame by
-    // buildDynamicSVG, so this whole background never re-renders and its
-    // SMIL drift keeps running smoothly across frame tweens.
+    // Small crested wave: a short swell that curls over at its downstream
+    // end, with a white fleck on the crest. Mirrored by flow direction.
+    function crestWaveSVG(x, y, dir) {
+      const m = dir < 0 ? -1 : 1;
+      const P = (dx, dy) => (x + m * dx) + ',' + (y + dy);
+      return '<path d="M ' + P(-8, 1.5) + ' Q ' + P(-3, 1.2) + ' ' + P(0, -2.5) + ' Q ' + P(2.5, -4.5) + ' ' + P(4.5, -2.2) +
+        ' Q ' + P(3, -2.4) + ' ' + P(2.8, -0.8) + ' Q ' + P(4.5, 1.5) + ' ' + P(9, 1.5) + '" stroke="#7fb0c8" stroke-width="1.2" fill="none" stroke-linecap="round"/>' +
+        '<path d="M ' + P(0.5, -2.8) + ' Q ' + P(2.2, -4) + ' ' + P(3.6, -2.8) + '" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/>';
+    }
+    function hyacinthSVG(x, y) {
+      let s = '';
+      [[-5, 1, 5, 3], [0, -1, 5.5, 3.4], [5, 1.5, 4.5, 2.8], [1, 3, 4, 2.4]].forEach(l => {
+        s += '<ellipse cx="' + (x + l[0]) + '" cy="' + (y + l[1]) + '" rx="' + l[2] + '" ry="' + l[3] + '" fill="#6f9a4a" stroke="#4f7a33" stroke-width="0.5"/>';
+      });
+      s += '<line x1="' + (x + 0.5) + '" y1="' + (y - 1) + '" x2="' + (x + 1) + '" y2="' + (y - 8) + '" stroke="#4f7a33" stroke-width="0.9"/>';
+      [[1, -8], [0, -6.5], [2, -6.8], [1.2, -5.2]].forEach(f => { s += '<circle cx="' + (x + f[0]) + '" cy="' + (y + f[1]) + '" r="1.3" fill="#b9a3d9"/>'; });
+      return s;
+    }
+    function plasticSVG(x, y, kind) {
+      return kind === 0
+        ? '<rect x="' + (x - 5) + '" y="' + (y - 1.8) + '" width="10" height="3.6" rx="1.6" fill="#e6eef2" stroke="#9fb3bd" stroke-width="0.5"/><rect x="' + (x + 5) + '" y="' + (y - 1) + '" width="2" height="2" fill="#3b7fc4"/>'
+        : '<path d="M ' + (x - 4) + ',' + y + ' q 2,-4 5,-2 q 4,0 3,3 q -3,3 -8,-1 Z" fill="#6fa8d6" opacity="0.8"/>';
+    }
+    // A layer that drifts with the current and wraps seamlessly: the same
+    // content is laid down twice, one screen-width apart, and the pair
+    // slides exactly one width per cycle. In still water it only bobs.
+    function driftLayer(inner, dir, W, dur) {
+      if (!dir) return '<g>' + inner + '<animateTransform attributeName="transform" type="translate" values="0,0;0,-1.4;0,0" dur="5s" repeatCount="indefinite"/></g>';
+      return '<g><g>' + inner + '</g><g transform="translate(' + (-dir * W) + ',0)">' + inner + '</g>' +
+        '<animateTransform attributeName="transform" type="translate" values="0,0;' + (dir * W) + ',0" dur="' + dur + 's" repeatCount="indefinite"/></g>';
+    }
+    function ambientWaterSVG(d, geom) {
+      const dir = d.current === 'left' ? -1 : d.current === 'right' ? 1 : 0;
+      const W = geom.VBW, top = (d.open_water ? 12 : geom.waterTop + 10), bot = geom.VBH - 8;
+      const rnd = seededRand(1000 + (d.title_en || '').length * 7919 + W);
+      let waves = '';
+      for (let i = 0; i < Math.round(W / 24); i++) waves += crestWaveSVG(rnd() * W, top + rnd() * (bot - top), dir || 1);
+      let debris = '';
+      for (let i = 0; i < 4; i++) debris += hyacinthSVG(((i + rnd() * 0.6) / 4) * W, top + 30 + rnd() * (bot - top - 40));
+      for (let i = 0; i < 3; i++) debris += plasticSVG(((i + 0.5 + rnd() * 0.4) / 3) * W, top + 20 + rnd() * (bot - top - 30), i % 2);
+      let s = '<g opacity="0.75">' + driftLayer(waves, dir, W, 34) + '</g>';
+      s += '<g opacity="0.85">' + driftLayer(debris, dir, W, 60) + '</g>';
+      s += fishSVG(geom.VBW * 0.22, geom.VBH - 100, dir || 1);
+      return s;
+    }
+    // Fish jumps every 6 s: splash ring where it leaves the water, an arc,
+    // and a second ring where it re-enters. Rings are squashed by the tilt.
+    function fishSVG(fx, fy, dir) {
+      const span = 38 * dir, ex = fx + span, T = '6s';
+      const ring = (x, t0) => '<ellipse cx="' + x + '" cy="' + fy + '" rx="2" ry="' + (2 * K) + '" fill="none" stroke="#6f9fb8" stroke-width="1.2" opacity="0">' +
+        '<animate attributeName="rx" values="2;2;16;16" keyTimes="0;' + t0 + ';' + (t0 + 0.1) + ';1" dur="' + T + '" repeatCount="indefinite"/>' +
+        '<animate attributeName="ry" values="' + [2 * K, 2 * K, 16 * K, 16 * K].join(';') + '" keyTimes="0;' + t0 + ';' + (t0 + 0.1) + ';1" dur="' + T + '" repeatCount="indefinite"/>' +
+        '<animate attributeName="opacity" values="0;0;0.8;0;0" keyTimes="0;' + t0 + ';' + (t0 + 0.01) + ';' + (t0 + 0.1) + ';1" dur="' + T + '" repeatCount="indefinite"/></ellipse>';
+      const fish = '<g opacity="0"><ellipse cx="0" cy="0" rx="7" ry="2.6" fill="#6f7f8a"/>' +
+        '<polygon points="-6,0 -11,-3.2 -11,3.2" fill="#5d6c76"/><circle cx="4" cy="-0.6" r="0.7" fill="#111"/>' +
+        '<animateMotion path="M ' + fx + ',' + fy + ' Q ' + (fx + span / 2) + ',' + (fy - 44) + ' ' + ex + ',' + fy + '" rotate="auto" keyPoints="0;0;1;1" keyTimes="0;0.8;0.9;1" calcMode="linear" dur="' + T + '" repeatCount="indefinite"/>' +
+        '<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.8;0.805;0.895;0.9;1" dur="' + T + '" repeatCount="indefinite"/></g>';
+      return ring(fx, 0.8) + ring(ex, 0.9) + fish;
+    }
+    // Shore (grass, bank) -> quay -> clutter -> walkers -> bollards ->
+    // river -> waves/debris/fish -> current/wind -> boat (#dyn-group,
+    // filled per frame) -> watermark last, so nothing covers it. The
+    // background never re-renders, so its SMIL drift runs smoothly across
+    // frame tweens.
     function buildStaticSceneSVG(d, geom, labels) {
       const VBW = geom.VBW, VBH = geom.VBH;
       let s = '<svg viewBox="0 0 ' + VBW + ' ' + VBH + '" xmlns="http://www.w3.org/2000/svg">';
-      s += '<text x="' + (VBW - 8) + '" y="' + (VBH - 8) + '" font-size="11" fill="#3d7ea6" opacity="0.14" text-anchor="end" font-family="Georgia, serif">Andrew Walther</text>';
       s += '<rect x="0" y="0" width="' + VBW + '" height="' + geom.shoreH + '" fill="#c9d9a0"/>';
+      const grnd = seededRand(77 + VBW);
+      for (let x = 4; x < VBW; x += 9) {
+        const gy = 6 + grnd() * (geom.shoreH - 22), h = 3 + grnd() * 3;
+        s += '<path d="M ' + x + ',' + gy + ' l -1.5,-' + h + ' M ' + x + ',' + gy + ' l 1.5,-' + (h * 0.8) + '" stroke="#9ab46a" stroke-width="0.9"/>';
+      }
       s += '<rect x="0" y="' + (geom.shoreH - 10) + '" width="' + VBW + '" height="10" fill="#a98a5a"/>';
       s += '<rect x="0" y="' + geom.quayTop + '" width="' + VBW + '" height="' + geom.quayH + '" fill="#b9a077" stroke="#8a7550"/>';
       for (let x = 6; x < VBW; x += 22) s += '<line x1="' + x + '" y1="' + geom.quayTop + '" x2="' + x + '" y2="' + geom.quayBottom + '" stroke="#a08860" stroke-width="1"/>';
+      if (!d.open_water) s += svgText(VBW / 2, geom.quayTop + 11, langText(labels.parts && labels.parts.dock, 'dock'), {size: 10, anchor: 'middle', color: '#5a4a30'});
       s += quayClutterSVG(geom);
       s += walkersSVG(geom);
-      s += bollardsSVG(geom);
+      s += bollardsSVG(d, geom);
       const waterY = d.open_water ? 0 : geom.waterTop;
       s += '<rect x="0" y="' + waterY + '" width="' + VBW + '" height="' + (VBH - waterY) + '" fill="#dceaf0"/>';
       s += ambientWaterSVG(d, geom);
       if (d.current) {
         const dir = d.current === 'right' ? 1 : -1;
-        s += arrowPrimitive(dir === 1 ? VBW * 0.12 : VBW * 0.88, VBH - 40, dir, 0, '#3d7ea6', langText(labels.current_generic, 'current'));
+        s += arrowPrimitive(dir === 1 ? 16 : VBW - 16, VBH - 30, dir, 0, '#3d7ea6',
+          langText(d.current_label, langText(labels.current_generic, 'current')), dir === 1 ? 'start' : 'end');
+      } else if (d.current_label) {
+        s += svgText(16, VBH - 26, langText(d.current_label), {size: 9.5, color: '#3d7ea6'});
       }
       if (d.wind) {
         const dir = d.wind === 'onto_dock' ? -1 : 1;
-        s += arrowPrimitive(VBW * 0.85, dir === -1 ? VBH - 60 : geom.quayBottom + 16, 0, dir, '#4a8a4a', langText(labels.wind_generic, 'wind'));
+        s += arrowPrimitive(VBW - 20, dir === -1 ? VBH - 50 : geom.quayBottom + 14, 0, dir, '#4a8a4a',
+          langText(d.wind_label, langText(labels.wind_generic, 'wind')));
       }
       if (d.open_water && d.open_water_label) s += svgText(VBW / 2, VBH - 6, langText(d.open_water_label), {size: 9, anchor: 'middle', color: '#888'});
-      if (!d.open_water) s += svgText(VBW / 2, geom.quayTop + geom.quayH / 2 + 4, langText(labels.parts && labels.parts.dock, 'dock'), {size: 11, anchor: 'middle', color: '#5a4a30'});
       s += '<g id="dyn-group"></g>';
+      s += '<text x="' + (VBW - 8) + '" y="' + (VBH - 7) + '" font-size="10" fill="#4f86a6" opacity="0.4" text-anchor="end" font-family="Georgia, serif">Andrew Walther</text>';
       return s + '</svg>';
     }
 
