@@ -64,6 +64,77 @@
         { "filename": "sunrise-2.jpg", "title": "Sunrise 2", "year": "2026", "medium": "Drawing on paper, A3" },
         { "filename": "wordless.jpg", "title": "Wordless", "year": "2026", "medium": "Drawing on paper, A3" }
       ]
+    },
+    {
+      "title": "Abstracts (A1)",
+      "subtitle": "Willow charcoal on Canson paper, A1, 2026",
+      "images": [
+        { "filename": "abstracts-a1-01.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on Canson paper, A1", "dimensions": "841 x 594 mm" },
+        { "filename": "abstracts-a1-02.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on Canson paper, A1", "dimensions": "594 x 841 mm" },
+        { "filename": "abstracts-a1-03.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on Canson paper, A1", "dimensions": "841 x 594 mm" },
+        { "filename": "abstracts-a1-04.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on Canson paper, A1", "dimensions": "594 x 841 mm" },
+        { "filename": "abstracts-a1-05.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on Canson paper, A1", "dimensions": "841 x 594 mm" },
+        { "filename": "abstracts-a1-06.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on Canson paper, A1", "dimensions": "841 x 594 mm" },
+        { "filename": "abstracts-a1-07.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on Canson paper, A1", "dimensions": "841 x 594 mm" },
+        { "filename": "abstracts-a1-08.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on Canson paper, A1", "dimensions": "841 x 594 mm" }
+      ]
+    },
+    {
+      "title": "Abstracts (A2)",
+      "subtitle": "Willow charcoal on natural paper, A2, 2026",
+      "images": [
+        { "filename": "abstracts-a2-01.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-02.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-03.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-04.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-05.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-06.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-07.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-08.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-09.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-10.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-11.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-12.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-13.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-14.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-15.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-16.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-17.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-18.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-19.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-20.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-21.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-22.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-23.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-24.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "420 x 594 mm" },
+        { "filename": "abstracts-a2-25.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "420 x 594 mm" },
+        { "filename": "abstracts-a2-26.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "420 x 594 mm" },
+        { "filename": "abstracts-a2-27.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "420 x 594 mm" },
+        { "filename": "abstracts-a2-28.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "420 x 594 mm" },
+        { "filename": "abstracts-a2-29.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "420 x 594 mm" },
+        { "filename": "abstracts-a2-30.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "420 x 594 mm" },
+        { "filename": "abstracts-a2-31.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "420 x 594 mm" },
+        { "filename": "abstracts-a2-32.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "420 x 594 mm" },
+        { "filename": "abstracts-a2-33.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "594 x 420 mm" },
+        { "filename": "abstracts-a2-34.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "420 x 594 mm" },
+        { "filename": "abstracts-a2-35.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on natural paper, A2", "dimensions": "420 x 594 mm" }
+      ]
+    },
+    {
+      "title": "Abstracts (A3)",
+      "subtitle": "Willow charcoal on Canson paper, A3, 2026",
+      "images": [
+        { "filename": "abstracts-a3-01.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on Canson paper, A3", "dimensions": "420 x 297 mm" },
+        { "filename": "abstracts-a3-02.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on Canson paper, A3", "dimensions": "420 x 297 mm" },
+        { "filename": "abstracts-a3-03.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on Canson paper, A3", "dimensions": "420 x 297 mm" },
+        { "filename": "abstracts-a3-04.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on Canson paper, A3", "dimensions": "420 x 297 mm" },
+        { "filename": "abstracts-a3-05.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on Canson paper, A3", "dimensions": "420 x 297 mm" },
+        { "filename": "abstracts-a3-06.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on Canson paper, A3", "dimensions": "420 x 297 mm" },
+        { "filename": "abstracts-a3-07.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on Canson paper, A3", "dimensions": "420 x 297 mm" },
+        { "filename": "abstracts-a3-08.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on Canson paper, A3", "dimensions": "420 x 297 mm" },
+        { "filename": "abstracts-a3-09.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on Canson paper, A3", "dimensions": "420 x 297 mm" },
+        { "filename": "abstracts-a3-10.jpg", "title": "Untitled", "year": "2026", "medium": "Willow charcoal on Canson paper, A3", "dimensions": "297 x 420 mm" }
+      ]
     }
   ]
 }
