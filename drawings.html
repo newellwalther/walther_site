@@ -378,7 +378,8 @@
     fetch('drawings-data.json')
       .then(response => response.json())
       .then(data => {
-        var images = data.series[0].images;
+        var works = data.series.find(function(s) { return s.title === 'Works on Paper'; });
+        var images = works.images;
         var PINNED = ['nacre.jpg', 'cake.jpg'];
         var pinnedImgs = images.filter(function(img) { return PINNED.includes(img.filename); });
         var rest = images.filter(function(img) { return !PINNED.includes(img.filename); });
@@ -400,7 +401,7 @@
           rest.splice(pos, 0, img);
         });
 
-        data.series[0].images = [first].concat(rest);
+        works.images = [first].concat(rest);
         initGallery(data.series);
       })
       .catch(function() {
