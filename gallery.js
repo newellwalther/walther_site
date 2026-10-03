@@ -467,11 +467,12 @@
   }
 
   function openInquiry() {
-    const image = allSeries[currentSeriesIndex].images[currentImageIndex];
+    const series = allSeries[currentSeriesIndex];
+    const image = series.images[currentImageIndex];
     if (image.available === false) return;
-    const subject = encodeURIComponent(`Inquiry: ${image.title || 'Artwork'}`);
+    const subject = encodeURIComponent(`Inquiry: ${image.title || 'Artwork'} [${image.filename}]`);
     const body = encodeURIComponent(
-      `I am interested in the following work:\n\nTitle: ${image.title || 'Untitled'}\nYear: ${image.year || 'N/A'}\nMedium: ${image.medium || 'N/A'}\n` +
+      `I am interested in the following work:\n\nTitle: ${image.title || 'Untitled'}\nSeries: ${series.title || 'N/A'}\nFile: ${image.filename}\nYear: ${image.year || 'N/A'}\nMedium: ${image.medium || 'N/A'}\n` +
       (image.dimensions ? `Dimensions: ${image.dimensions}\n` : '') +
       `\n\nMessage:\n\n`
     );

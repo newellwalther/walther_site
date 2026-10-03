@@ -5,7 +5,7 @@ Static artist website for Andrew Newell Walther. Built with vanilla HTML, CSS, a
 
 ## Tech Stack
 - **Frontend**: HTML5, CSS3, vanilla JavaScript
-- **Hosting**: Cloudflare Pages
+- **Hosting**: GitHub Pages (custom domain via `CNAME`)
 - **Images**: Cloudflare R2 (external storage)
 - **Version Control**: Git + GitHub
 - **Editor**: VS Code (or any text editor)
@@ -65,7 +65,7 @@ walther_site/
 }
 ```
 
-3. Save and upload to Cloudflare Pages
+3. Save and push to main (GitHub Pages)
 4. Site updates automatically
 
 ### Adding New Drawings
@@ -122,7 +122,7 @@ When you add new work, update `feed.xml`:
 ## Deployment
 
 ### Initial Setup (Already Done)
-1. GitHub repository connected to Cloudflare Pages
+1. GitHub repository served by GitHub Pages
 2. Auto-deploys on push to main branch
 3. Custom domain: walther.website
 
@@ -134,7 +134,7 @@ git add .
 git commit -m "Update paintings gallery"
 git push
 
-# Cloudflare Pages auto-deploys in ~1 minute
+# GitHub Pages auto-deploys in ~1-2 minutes
 ```
 
 ## Key Features

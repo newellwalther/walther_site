@@ -96,7 +96,7 @@ git commit -m "Major site update - new gallery system"
 git push
 ```
 
-Cloudflare Pages will auto-deploy in ~1 minute.
+GitHub Pages will auto-deploy in ~1-2 minutes.
 
 ## IMPORTANT NOTES
 
